@@ -1,0 +1,10 @@
+Pillow
+django==3.2.7
+djangorestframework
+django-role-permissions
+django-rest-auth
+django-dbbackup
+django-cors-headers
+django-allauth
+pymysql
+mysqlclient

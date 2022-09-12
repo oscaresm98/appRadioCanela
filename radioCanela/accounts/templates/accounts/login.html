@@ -1,0 +1,63 @@
+{% extends 'webAdminRadio/base.html' %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/login.css' %}">{% endblock %}
+{% block cdn_styles %}<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">{% endblock %}
+{% block login %}
+<div class="container">
+    <div class="main-div">
+        <div class="panel">
+            <form name="loginForm" method="post">
+                {% csrf_token %}
+                <div class="img-container">
+                    <img style="width:50%;height:50%;" class="rounded-circle" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+                </div>
+                {% for message in messages %}
+                <small><i class="fas fa-exclamation-triangle"></i>{{ message }}</small>
+                {% endfor %}
+                <!-- Tiene que mostrarse solo si el login falla -->
+                <div class="login-header">
+                    <h4 class="login-title">Administración de AppRadio</h4>
+                </div>
+                <div class="login-container">
+                    <div class="form-group">
+                        <input type="text" class="form-control bg-transparent" id="username" name="username" placeholder="Ingrese Usuario">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="password" class="form-control bg-transparent" id="password" name="password" placeholder="Ingrese Contrase&ntilde;a">
+                        <i class="fas fa-eye my-auto" id="togglePassword" 
+   style="cursor: pointer; margin-left: -30px; z-index: 100;"></i>
+                        </div>
+                        <div class="text-end">
+                            <a class="fs-6" href="{%url 'password_reset' %}">Has olvidado tu contrase&ntilde;a</a href="password_reset">
+                        </div>
+                        
+                    </div>
+                    <div class="btn-login">
+                        <button type="submit" class="btn btn-primary login">Iniciar Sesi&oacute;n</button>
+                    </div>
+                    {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>{% endblock %}
+{% block page_script %}
+{% comment %}Funcion para mostrar y ocular contrasenia{% endcomment %}
+<script type="text/javascript">
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+    togglePassword.addEventListener("click", function () {
+      // Cambiando el tipo del campo
+      const type = password.getAttribute("type") === "password" ? "text" : "password";
+      password.setAttribute("type", type);
+      // cambiando el icono
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+});
+</script>
+{% endblock %}

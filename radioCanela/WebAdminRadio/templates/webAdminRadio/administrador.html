@@ -1,0 +1,17 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 mb-2">
+			<h4 class="text-center">Bienvenido {{usuario}}</h4>
+		</div>
+		<div class="col-12">
+			<div class="d-flex mb-4 justify-content-center">
+                    <img style="width:25%;height:25%;" class="rounded-circle" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+            </div>
+
+		</div>
+	</div>
+
+{% endblock %}
