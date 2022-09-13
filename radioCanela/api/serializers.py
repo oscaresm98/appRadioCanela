@@ -10,7 +10,7 @@ class TimeSerializer(serializers.Serializer):
     fecha = serializers.DateField()
     hora = serializers.TimeField(format='%H:%M:%S')
 
-
+# Programas
 class ProgramaSerializer(serializers.ModelSerializer):
     # horarios = serializers.ReadOnlyField(source="get_horarios")
     class Meta:
@@ -24,13 +24,13 @@ class ProgramaSerializer(serializers.ModelSerializer):
         )
         model = models.Programa
 
-
+# Auditoria
 class AuditoriaSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Auditoria
 
-
+# Concursos
 class ConcursosSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
@@ -46,10 +46,19 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Usuario
+
+
 class TorneosSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Torneo
+        
+# Equipos
+class EquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Equipo
+
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
 

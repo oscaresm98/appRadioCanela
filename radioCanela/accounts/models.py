@@ -20,7 +20,7 @@ class Usuario(AbstractUser):
     foto = models.CharField(max_length=2080, blank=True, null=True)
 
     def __str__(self):
-        return self.nombre + ' ' + self.apellido
+        return self.first_name + ' ' + self.last_name
 
 
 class Rol(models.Model):

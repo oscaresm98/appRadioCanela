@@ -7,7 +7,7 @@ from rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from rest_auth.social_serializers import TwitterLoginSerializer
 
-from api.serializers import EmisoraSerializer
+from api.serializers import EmisoraSerializer, EquipoSerializer
 from django.http import HttpResponse, JsonResponse
 from WebAdminRadio import models
 from accounts.models import Usuario
@@ -39,6 +39,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 
+
+#from WebAdminRadio.models import *
 # Create your views here.
 
 DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
@@ -58,13 +60,13 @@ class ListTime(APIView):
 
 # GET: Vista que obtiene los programas
 class ListPrograma(generics.ListAPIView):
-    queryset = models.Programa.objects.filter(estado=True)
+    queryset = Programa.objects.filter(estado=True)
     serializer_class = serializers.ProgramaSerializer
 
 
 # GET: Vista que obtiene Auditorias
 class ListAuditoria(generics.ListCreateAPIView):
-    queryset = models.Auditoria.objects.filter(estado=True)
+    queryset = Auditoria.objects.filter(estado=True)
     serializer_class = serializers.AuditoriaSerializer
 
 
@@ -187,6 +189,31 @@ def torneosList(request):
     elif request.method == 'DELETE':
         torneo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST','DELETE'])
+def equipoList(request):
+    
+    if request.method == 'GET':
+        try:
+            equipo = Equipo.objects.filter(estado=True)
+            serializer = EquipoSerializer(equipo, many=True)
+            return Response(serializer.data)
+        except Equipo.DoesNotExist:
+            return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
+        
+    elif request.method == 'POST':
+        serializer = EquipoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        equipo.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer

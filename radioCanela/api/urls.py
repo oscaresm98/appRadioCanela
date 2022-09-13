@@ -10,8 +10,9 @@ urlpatterns = [
     path('concurso/', views.ListConcursos),
     path('emisoras/', views.emisoraList),
     path('emisoras/<int:pk>', views.emisora_detalle),
-    path('usuarios/',views.usuarioList,name='usuarios-list'),
-    path('torneos/',views.torneosList,name='torneos-list')
+    path('usuarios/', views.usuarioList,name='usuarios-list'),
+    path('torneos/', views.torneosList,name='torneos-list'),
+    path('equipos/', views.equipoList ,name='equipos-list')
     #path('radio/', views.ListEmisora.as_view()),
 
     # path('emisoras/', views.ListEmisora.as_view()),
