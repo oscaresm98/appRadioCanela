@@ -41,7 +41,15 @@ class EmisoraSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Emisora
-
+        
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Usuario
+class TorneosSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Torneo
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
 
