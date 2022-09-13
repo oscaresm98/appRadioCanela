@@ -35,6 +35,12 @@ class ConcursosSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Concursos
+        
+#EMISORAS
+class EmisoraSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Emisora
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")

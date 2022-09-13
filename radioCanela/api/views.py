@@ -7,6 +7,7 @@ from rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from rest_auth.social_serializers import TwitterLoginSerializer
 
+from api.serializers import EmisoraSerializer
 from django.http import HttpResponse, JsonResponse
 from WebAdminRadio import models
 from accounts.models import Usuario
@@ -19,7 +20,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.shortcuts import render
-from WebAdminRadio.models import Encuesta
+from WebAdminRadio.models import Encuesta,Emisora
 
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
@@ -73,6 +74,59 @@ def ListConcursos(request):
     concursos = models.Concursos.objects.filter(estado=True)
     serializer = serializers.ConcursosSerializer(concursos, many=True)
     return Response(serializer.data)
+
+
+
+@api_view(['GET', 'POST','DELETE'])
+def emisoraList(request):
+    
+    if request.method == 'GET':
+        try:
+            emisora = Emisora.objects.all()
+            serializer = EmisoraSerializer(emisora, many=True)
+            return Response(serializer.data)
+        except Emisora.DoesNotExist:
+            return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
+        
+    elif request.method == 'POST':
+        serializer = EmisoraSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+    elif request.method == 'DELETE':
+        emisora.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['GET', 'PUT','DELETE'])
+def emisora_detalle(request,pk):
+    try: 
+        emisora = Emisora.objects.get(id=pk)
+        print('El estado es:', emisora) 
+    except Emisora.DoesNotExist: 
+        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND) 
+ 
+    
+    if request.method == 'GET':
+        try:
+            print('\nGET\n') 
+            emisora = Emisora.objects.get(id=pk)
+            print('El estado es:', emisora) 
+            serializers = EmisoraSerializer(emisora) 
+            return EmisoraSerializer(serializers.data) 
+        except Emisora.DoesNotExist: 
+            return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND)
+        
+    elif request.method == 'PUT':
+        try:
+            serializer = EmisoraSerializer(emisora, data=request.data)    
+            serializer.save()
+            return Response(serializer.data)
+        except Emisora.DoesNotExist:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
 
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):

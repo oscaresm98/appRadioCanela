@@ -7,7 +7,9 @@ urlpatterns = [
     path('hora_actual/', views.ListTime.as_view()),
     path('programa/', views.ListPrograma.as_view()),
     path('auditoria/', views.ListAuditoria.as_view()),
-    path('concurso/', views.ListConcursos)
+    path('concurso/', views.ListConcursos),
+    path('emisoras/', views.emisoraList),
+    path('emisoras/<int:pk>', views.emisora_detalle),
     #path('radio/', views.ListEmisora.as_view()),
 
     # path('emisoras/', views.ListEmisora.as_view()),
