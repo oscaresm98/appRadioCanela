@@ -20,7 +20,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.shortcuts import render
-from WebAdminRadio.models import Encuesta,Emisora
+from WebAdminRadio.models import *
 
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
@@ -128,7 +128,65 @@ def emisora_detalle(request,pk):
         except Emisora.DoesNotExist:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
+# Usuarios
+@api_view(['GET', 'POST','DELETE','PUT'])
+def usuarioList(request):
+    
+    if request.method == 'GET':
+        try:
+            usuario = Usuario.objects.all()
+            serializer = UsuarioSerializer(usuario, many=True)
+            return Response(serializer.data)
+        except Usuario.DoesNotExist:
+            return Response({'Error': 'El usuario no existe'}, status=status.HTTP_400_NOT_FOUND)
+        
+    elif request.method == 'POST':
+        serializer = UsuarioSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'PUT':
+        serializer = UsuarioSerializer(usuario, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        usuario.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
+# Torneos
+@api_view(['GET', 'POST','DELETE','PUT'])
+def torneosList(request):
+    
+    if request.method == 'GET':
+        try:
+            torneo = Torneo.objects.all()
+            serializer = TorneosSerializer(torneo, many=True)
+            return Response(serializer.data)
+        except Torneo.DoesNotExist:
+            return Response({'Error': 'El usuario no existe'}, status=status.HTTP_400_NOT_FOUND)
+        
+    elif request.method == 'POST':
+        serializer = TorneosSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'PUT':
+        serializer = UsuarioSerializer(torneo, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        torneo.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer
