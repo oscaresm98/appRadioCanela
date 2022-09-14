@@ -110,6 +110,7 @@ class Compra(models.Model):
 
 
 class Emisora(models.Model):
+    id = models.IntegerField(primary_key=True, null=False)
     id_radio = models.ForeignKey(Radio, on_delete=models.CASCADE, db_column='id_radio')
     frecuencia_dial = models.CharField(max_length=30, blank=True, null=True)
     tipo_frecuencia = models.CharField(max_length=30, blank=True, null=True)

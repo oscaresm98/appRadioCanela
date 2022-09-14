@@ -7,7 +7,7 @@ from rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from rest_auth.social_serializers import TwitterLoginSerializer
 
-from api.serializers import EmisoraSerializer, EquipoSerializer
+from api.serializers import EmisoraSerializer, EquipoSerializer, UsuarioSerializer, TorneosSerializer
 from django.http import HttpResponse, JsonResponse
 from WebAdminRadio import models
 from accounts.models import Usuario
@@ -78,10 +78,11 @@ def ListConcursos(request):
     return Response(serializer.data)
 
 
-
+# En emisoraList se refiere al conjunto completo de la tabla de emisora 
 @api_view(['GET', 'POST','DELETE'])
 def emisoraList(request):
     
+    #GET: Vista que obtiene todas las emisoras 
     if request.method == 'GET':
         try:
             emisora = Emisora.objects.all()
@@ -89,7 +90,8 @@ def emisoraList(request):
             return Response(serializer.data)
         except Emisora.DoesNotExist:
             return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
-        
+    
+    #POST: Inserta una emisora en la tabla     
     elif request.method == 'POST':
         serializer = EmisoraSerializer(data=request.data)
         if serializer.is_valid():
@@ -98,7 +100,7 @@ def emisoraList(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
-    
+    #DELETE: Borra todas las emisoras de la tabla
     elif request.method == 'DELETE':
         emisora.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -111,17 +113,19 @@ def emisora_detalle(request,pk):
     except Emisora.DoesNotExist: 
         return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND) 
  
-    
+    #GET: Vista en la que se obtiene una emisora por id 
     if request.method == 'GET':
         try:
             print('\nGET\n') 
             emisora = Emisora.objects.get(id=pk)
-            print('El estado es:', emisora) 
+            print('El estado de emisora es:', emisora) 
             serializers = EmisoraSerializer(emisora) 
+            print('El estado de serializers es:', serializers.data) 
             return EmisoraSerializer(serializers.data) 
         except Emisora.DoesNotExist: 
             return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND)
-        
+    
+    #PUT: Edita la informacion de una emisora por id     
     elif request.method == 'PUT':
         try:
             serializer = EmisoraSerializer(emisora, data=request.data)    
