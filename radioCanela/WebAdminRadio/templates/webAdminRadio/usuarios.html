@@ -1,0 +1,98 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% comment %}
+{% load webadmin_tags %}
+{% endcomment %}
+
+{% block cdn_stlyes %}
+<link rel="stylesheet" type="text/css"href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block page_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/datatables.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% endblock %}
+
+
+{% block agregar_button %}
+{% endblock %}
+
+
+{% block content %}
+{% comment %}
+{% if messages %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="">
+        <h3 slot="header" class="action"><i class="fas fa-info-circle"></i>Información</h3>
+        <div slot="body">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    </modal-info>
+</div>
+{% endif %}
+<div id="componente_borrar">
+    <modal-borrar v-if="showModal">
+        <h3 slot="header" class="action"><i class="fas fa-exclamation-triangle "></i>¡Aviso!</h3>
+        <div slot="body">
+            <p>¿Está seguro de que desea eliminar este usuario?</p>
+        </div>
+    </modal-borrar>
+</div>
+{% endcomment %}
+
+<div class="d-flex flex-row justify-content-between mx-3 my-2">
+    <span class="h2">Usuarios</span>
+    <div>
+        <a href="{% url 'api:agregar_usuario' %}" class="btn btn-primary btn-md ml-auto action" role="button"><i
+                class="fas fa-plus-circle">
+            </i>Agregar Usuario</i>
+        </a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table id="data_table" class="table table-striped table-bordered dt-body-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Imagen</th>
+                <th>Nombre y Apellido</th>
+                <th>Fecha de Nacimiento</th>
+                <th>E-mail</th>
+                <th>ROL</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.foto}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.fechaNacimiento}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.rol}}</td>
+                <td>{{user.activo}}</td>
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <a class="action" href="{% url 'api:editar_usuario' %}">
+                            <i class="fas fa-pen-to-square"></i>
+                        </a>
+                        <a class="action" href="{% url 'api:editar_usuario' %}">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block page_script %}
+
+{% endblock %}

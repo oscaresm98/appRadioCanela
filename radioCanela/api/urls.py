@@ -2,6 +2,7 @@
 from django.urls import include, path
 # rom .views import FacebookLogin, TwitterLogin, CreateUser
 from . import views
+app_name = 'api'
 
 urlpatterns = [
     path('hora_actual/', views.ListTime.as_view()),
@@ -11,6 +12,9 @@ urlpatterns = [
     path('emisoras/', views.emisoraList,name='emisoras-list'),
     path('emisoras/<int:pk>', views.emisora_detalle,name='emisoras-detalle'),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
+    path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
+    path('usuarios/editar', views.editar_usuario, name='editar_usuario'),
+
     path('torneos/', views.torneosList,name='torneos-list'),
     path('equipos/', views.equipoList ,name='equipos-list'),
     path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
