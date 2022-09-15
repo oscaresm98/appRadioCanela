@@ -1,3 +1,4 @@
+from msilib.schema import RadioButton
 from rest_framework import generics
 # Social media imports
 # FACEBOOK
@@ -7,7 +8,7 @@ from rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from rest_auth.social_serializers import TwitterLoginSerializer
 
-from api.serializers import EmisoraSerializer, EquipoSerializer, UsuarioSerializer, TorneosSerializer
+from api.serializers import EmisoraSerializer, EquipoSerializer, RadioSerializer, UsuarioSerializer, TorneosSerializer
 from django.http import HttpResponse, JsonResponse
 from WebAdminRadio import models
 from accounts.models import Usuario
@@ -104,7 +105,8 @@ def emisoraList(request):
     elif request.method == 'DELETE':
         emisora.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+# En emisora_detalle se refiere a 1 emisora segun su id    
 @api_view(['GET', 'PUT','DELETE'])
 def emisora_detalle(request,pk):
     try: 
@@ -133,6 +135,35 @@ def emisora_detalle(request,pk):
             return Response(serializer.data)
         except Emisora.DoesNotExist:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        
+    #DELETE: Eliminar la emisora por id 
+    
+# En radio_List se refiere al conjunto completo de la tabla de emisora 
+@api_view(['GET', 'POST','DELETE'])
+def radio_List(request):
+    
+    #GET: Vista que obtiene todas las radios 
+    if request.method == 'GET':
+        try:
+            radio = Radio.objects.all()
+            serializer = RadioSerializer(radio, many=True)
+            return Response(serializer.data)
+        except Radio.DoesNotExist:
+            return Response({'Error': 'La radio no existe'}, status=status.HTTP_400_NOT_FOUND)
+    
+    #POST: Inserta una radio en la tabla     
+    elif request.method == 'POST':
+        serializer = RadioSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    #DELETE: Borra todas las radios de la tabla
+    elif request.method == 'DELETE':
+        radio.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)    
 
 # Usuarios
 @api_view(['GET', 'POST','DELETE','PUT'])
@@ -163,6 +194,8 @@ def usuarioList(request):
     elif request.method == 'DELETE':
         usuario.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
 
 # Torneos
 @api_view(['GET', 'POST','DELETE','PUT'])

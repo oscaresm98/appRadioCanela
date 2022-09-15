@@ -8,12 +8,13 @@ urlpatterns = [
     path('programa/', views.ListPrograma.as_view()),
     path('auditoria/', views.ListAuditoria.as_view()),
     path('concurso/', views.ListConcursos),
-    path('emisoras/', views.emisoraList),
-    path('emisoras/<int:pk>', views.emisora_detalle),
+    path('emisoras/', views.emisoraList,name='emisoras-list'),
+    path('emisoras/<int:pk>', views.emisora_detalle,name='emisoras-detalle'),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
     path('torneos/', views.torneosList,name='torneos-list'),
     path('equipos/', views.equipoList ,name='equipos-list'),
     path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
+    path('radios/',views.radio_List,name='radio-list'),
     
     #path('radio/', views.ListEmisora.as_view()),
 

@@ -1,4 +1,5 @@
 # api/serializers.py
+from dataclasses import fields
 from rest_framework import serializers
 from WebAdminRadio import models
 from accounts.models import Usuario
@@ -36,11 +37,16 @@ class ConcursosSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.Concursos
         
-#EMISORAS
+#Emisora
 class EmisoraSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Emisora
+
+class RadioSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Radio
         
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,6 +64,7 @@ class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Equipo
+        
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
