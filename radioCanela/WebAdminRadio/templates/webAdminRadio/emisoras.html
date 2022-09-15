@@ -5,9 +5,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/emisoras.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
 {% endblock %}
-{% comment %} {% block agregar_button %}
-    <a href="{% url 'webadminradio:agregar_emisora' %}" class="btn btn-primary btn-md ml-auto action" role="button"><i class="fas fa-plus-circle"></i>Agregar Emisora</a>
-{% endblock %} {% endcomment %}
+{% block agregar_button %}
+    <a href="{% url 'agregar_emisora' %}" class="btn btn-primary btn-md ms-auto action" role="button"><i class="fas fa-plus-circle"></i>Agregar Emisora</a>
+{% endblock %}
 
 {% block content %}
     {% if messages %}
@@ -52,16 +52,16 @@
                     </p> {% endcomment %}
                 <p><i class="fas fa-globe icon"></i><a href="{{ emisora.id_radio.sitio_web }}"> {{ emisora.id_radio.sitio_web }}</a></p>
             </div>
-            {% comment %} <div class="btn-wrapper">
+            <div class="btn-wrapper">
                 <div class="act-buttons">
-                    <a href="{% url 'webadminradio:editar_emisora' emisora.id %}" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
+                    <a href="{% url 'editar_emisora' %}" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
                     <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
                 </div>
-                <div class="info">
+                {% comment %} <div class="info">
                     <p><b>Segmentos registrados:</b> {% get_cant_segmentos emisora %}</p>
                     <p><b>Locutores registrados:</b> {% get_cant_locutores emisora %}</p>
-                </div>
-            </div> {% endcomment %}
+                </div> {% endcomment %}
+            </div>
         </div>
         <hr>
         {% endfor %}
