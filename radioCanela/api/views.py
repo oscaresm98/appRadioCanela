@@ -121,7 +121,7 @@ def emisora_detalle(request,pk):
             print('El estado de emisora es:', emisora) 
             serializers = EmisoraSerializer(emisora) 
             print('El estado de serializers es:', serializers.data) 
-            return EmisoraSerializer(serializers.data) 
+            return Response(serializers.data) 
         except Emisora.DoesNotExist: 
             return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND)
     
@@ -221,6 +221,14 @@ def equipoList(request):
     elif request.method == 'DELETE':
         equipo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ListEquiposPorId(generics.ListAPIView):
+    serializer_class = serializers.EquipoSerializer
+
+    def get_queryset(self):
+        idteam = self.kwargs['id_equipo']
+        queryset = Equipo.objects.filter(id=idteam, estado=True)
+        return queryset
 
 
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
