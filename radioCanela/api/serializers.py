@@ -15,14 +15,7 @@ class TimeSerializer(serializers.Serializer):
 class ProgramaSerializer(serializers.ModelSerializer):
     # horarios = serializers.ReadOnlyField(source="get_horarios")
     class Meta:
-        fields = (
-            'id',
-            'nombre',
-            'descripcion',
-            'slug',
-            'imagen',
-            'estado'
-        )
+        fields = '__all__'
         model = models.Programa
 
 # Auditoria
@@ -52,7 +45,6 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Usuario
-
 
 class TorneosSerializer(serializers.ModelSerializer):
     class Meta:

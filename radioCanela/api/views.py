@@ -8,7 +8,7 @@ from rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from rest_auth.social_serializers import TwitterLoginSerializer
 
-from api.serializers import EmisoraSerializer, EquipoSerializer, RadioSerializer, UsuarioSerializer, TorneosSerializer
+from api.serializers import *
 from django.http import HttpResponse, JsonResponse
 from WebAdminRadio import models
 from accounts.models import Usuario
@@ -59,12 +59,6 @@ class ListTime(APIView):
         return Response(serializer.data)
 
 
-# GET: Vista que obtiene los programas
-class ListPrograma(generics.ListAPIView):
-    queryset = Programa.objects.filter(estado=True)
-    serializer_class = serializers.ProgramaSerializer
-
-
 # GET: Vista que obtiene Auditorias
 class ListAuditoria(generics.ListCreateAPIView):
     queryset = Auditoria.objects.filter(estado=True)
@@ -78,20 +72,77 @@ def ListConcursos(request):
     serializer = serializers.ConcursosSerializer(concursos, many=True)
     return Response(serializer.data)
 
+#Programa
+# Se maneja todos los programas
+@api_view(['GET', 'POST','DELETE'])
+def programaList(request):
+    try:
+        programa = Programa.objects.all()
+    except Programa.DoesNotExist:
+        return Response({'Error': 'El programa no existe'}, status=status.HTTP_400_NOT_FOUND)
+    
+    #GET: Vista que obtiene todos los programas 
+    if request.method == 'GET':
+        serializer = ProgramaSerializer(programa, many=True)
+        return Response(serializer.data)
+        
+    #POST: Inserta un programa en la tabla     
+    elif request.method == 'POST':
+        serializer = ProgramaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    #DELETE: Borra todos los programas de la tabla
+    elif request.method == 'DELETE':
+        programa.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+ 
+#Se maneja los programas por id  
+@api_view(['GET', 'PUT','DELETE'])
+def programa_detalle(request,pk):
+    try:
+        programa = Programa.objects.get(id=pk)
+    except Programa.DoesNotExist: 
+        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND)
+        
+    #GET: Vista en la que se obtiene una emisora por id 
+    if request.method == 'GET':
+        serializers = ProgramaSerializer(programa) 
+        return Response(serializers.data) 
+        
+    
+    #PUT: Edita la informacion de una emisora por id     
+    elif request.method == 'PUT':
+        serializer = ProgramaSerializer(programa, data=request.data)
+        if serializer.is_valid():   
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        
+    #DELETE: Eliminar la emisora por id
+    elif request.method == 'DELETE':
+        programa.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 
 
-# En emisoraList se refiere al conjunto completo de la tabla de emisora 
+
+#Emisora 
+# Se maneja todas las emisoras 
 @api_view(['GET', 'POST','DELETE'])
 def emisoraList(request):
     
+    try:
+        emisora = Emisora.objects.all()
+    except Emisora.DoesNotExist:
+        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
+    
     #GET: Vista que obtiene todas las emisoras 
     if request.method == 'GET':
-        try:
-            emisora = Emisora.objects.all()
-            serializer = EmisoraSerializer(emisora, many=True)
-            return Response(serializer.data)
-        except Emisora.DoesNotExist:
-            return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
-    
+        serializer = EmisoraSerializer(emisora, many=True)
+        return Response(serializer.data)
+        
     #POST: Inserta una emisora en la tabla     
     elif request.method == 'POST':
         serializer = EmisoraSerializer(data=request.data)
@@ -105,51 +156,48 @@ def emisoraList(request):
     elif request.method == 'DELETE':
         emisora.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-# En emisora_detalle se refiere a 1 emisora segun su id    
+ 
+#Se maneja emisora por id  
 @api_view(['GET', 'PUT','DELETE'])
 def emisora_detalle(request,pk):
-    try: 
+    try:
         emisora = Emisora.objects.get(id=pk)
-        print('El estado es:', emisora) 
     except Emisora.DoesNotExist: 
-        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND) 
- 
+        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND)
+        
     #GET: Vista en la que se obtiene una emisora por id 
     if request.method == 'GET':
-        try:
-            print('\nGET\n') 
-            emisora = Emisora.objects.get(id=pk)
-            print('El estado de emisora es:', emisora) 
-            serializers = EmisoraSerializer(emisora) 
-            print('El estado de serializers es:', serializers.data) 
-            return Response(serializers.data) 
-        except Emisora.DoesNotExist: 
-            return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND)
+        serializers = EmisoraSerializer(emisora) 
+        return Response(serializers.data) 
+        
     
     #PUT: Edita la informacion de una emisora por id     
     elif request.method == 'PUT':
-        try:
-            serializer = EmisoraSerializer(emisora, data=request.data)    
+        serializer = EmisoraSerializer(emisora, data=request.data)
+        if serializer.is_valid():   
             serializer.save()
             return Response(serializer.data)
-        except Emisora.DoesNotExist:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
         
-    #DELETE: Eliminar la emisora por id 
+    #DELETE: Eliminar la emisora por id
+    elif request.method == 'DELETE':
+        emisora.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 
     
-# En radio_List se refiere al conjunto completo de la tabla de emisora 
+# Radio
+# Se manejan todas las radios 
 @api_view(['GET', 'POST','DELETE'])
 def radio_List(request):
+    try:
+        radio = Radio.objects.all()
+    except Radio.DoesNotExist:
+        return Response({'Error': 'La radio no existe'}, status=status.HTTP_400_NOT_FOUND)
     
     #GET: Vista que obtiene todas las radios 
     if request.method == 'GET':
-        try:
-            radio = Radio.objects.all()
-            serializer = RadioSerializer(radio, many=True)
-            return Response(serializer.data)
-        except Radio.DoesNotExist:
-            return Response({'Error': 'La radio no existe'}, status=status.HTTP_400_NOT_FOUND)
+        serializer = RadioSerializer(radio, many=True)
+        return Response(serializer.data)
+        
     
     #POST: Inserta una radio en la tabla     
     elif request.method == 'POST':
@@ -163,7 +211,35 @@ def radio_List(request):
     #DELETE: Borra todas las radios de la tabla
     elif request.method == 'DELETE':
         radio.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)    
+        return Response(status=status.HTTP_204_NO_CONTENT)  
+      
+# Se maneja la radios por id     
+@api_view(['GET', 'PUT','DELETE'])
+def radio_detalle(request,pk): 
+    try: 
+        radio = Radio.objects.get(id=pk)
+    except Radio.DoesNotExist:
+        return Response({'Error': 'La radio no existe'}, status=status.HTTP_404_NOT_FOUND)
+ 
+    #GET: Vista en la que se obtiene una radio por id 
+    if request.method == 'GET':
+        serializers = RadioSerializer(radio) 
+        return Response(serializers.data) 
+       
+    
+    #PUT: Edita la informacion de una radio por id     
+    elif request.method == 'PUT':       
+        serializer = RadioSerializer(radio, data=request.data)    
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    #PUT: Elimina una radio por id  
+    elif request.method == 'DELETE':
+        radio.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 
+        
 
 # Usuarios
 @api_view(['GET', 'POST','DELETE','PUT'])

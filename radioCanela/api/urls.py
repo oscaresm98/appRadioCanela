@@ -6,7 +6,8 @@ app_name = 'api'
 
 urlpatterns = [
     path('hora_actual/', views.ListTime.as_view()),
-    path('programa/', views.ListPrograma.as_view()),
+    path('programas/', views.programaList,name='programas-list'),
+    path('programas/<int:pk>', views.programa_detalle,name='programas-detalle'),
     path('auditoria/', views.ListAuditoria.as_view()),
     path('concurso/', views.ListConcursos),
     path('emisoras/', views.emisoraList,name='emisoras-list'),
@@ -14,11 +15,12 @@ urlpatterns = [
     path('usuarios/', views.usuarioList,name='usuarios-list'),
     path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
     path('usuarios/editar', views.editar_usuario, name='editar_usuario'),
-
     path('torneos/', views.torneosList,name='torneos-list'),
     path('equipos/', views.equipoList ,name='equipos-list'),
     path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
     path('radios/',views.radio_List,name='radio-list'),
+    path('radios/<int:pk>',views.radio_detalle,name='radio-detalle'),
+    
     
     #path('radio/', views.ListEmisora.as_view()),
 
