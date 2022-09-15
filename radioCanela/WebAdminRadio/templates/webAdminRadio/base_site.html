@@ -33,11 +33,11 @@
             </li>
             <li>
                 <a class="action" href="{% url 'webadminradio:torneos' %}"><i class="fas fa-trophy"></i>Torneos</a>
-            </li>
+            </li> {% endcomment %}
             <li>
-                <a class="action" href="{% url 'webadminradio:equipos' %}"><i class="fas fa-futbol"></i>Equipos</a>
+                <a class="action" href="{% url 'equipos' %}"><i class="fas fa-futbol"></i>Equipos</a>
             </li>
-            <li>
+            {% comment %} <li>
                 <a class="action" href="{% url 'webadminradio:transmisiones' %}"><i class="fas fa-rss"></i>Transmisiones</a>
             </li>
             <li>
@@ -59,7 +59,7 @@
     </nav>
     <!-- Barra de navegación -->
     <div id="content" class="">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom">
             <div class="container-fluid">
                 <button type="button" id="sidebarCollapse" class="btn btn-info btn-navbar">
                     <i class="fas fa-bars"></i>
@@ -79,7 +79,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="navbar navbar-expand-lg navbar-light bg-light navbar-title">
+        <div class="navbar navbar-expand-lg navbar-light bg-light navbar-title px-2">
             <h2><b>{{ title }}</b></h2>
             <!-- Bloque para el botón de agregar -->
             {% block agregar_button %}

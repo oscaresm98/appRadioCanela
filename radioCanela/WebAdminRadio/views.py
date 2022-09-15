@@ -64,3 +64,28 @@ def agregar_emisora(request):
         context['success'] = '¡La emisora ha sido registrada con éxito!'
         return render(request, 'webAdminRadio/agregar_emisora.html', context)
     return render(request, 'webAdminRadio/agregar_emisora.html', context)
+
+
+@login_required
+def equipos(request):
+    context = {'title': 'Equipos'}
+    return render(request, 'webAdminRadio/equipos.html', context)
+
+
+@login_required
+def agregar_equipo(request):
+    context = {'title': 'Agregar Equipo'}
+    if request.POST:
+        equipo = request.POST['equipo']
+        ciudad = request.POST['ciudad']
+        user_form = EquipoForm({
+            'equipo': equipo,
+            'ciudad': ciudad,
+        }, request.FILES)
+
+        if user_form.is_valid():
+            user_form.save()
+            context['success'] = '¡El equipo ha sido registrado!'
+        else:
+            context['error'] = user_form.errors
+    return render(request, 'webAdminRadio/agregar_equipo.html', context)

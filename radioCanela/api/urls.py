@@ -12,7 +12,9 @@ urlpatterns = [
     path('emisoras/<int:pk>', views.emisora_detalle),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
     path('torneos/', views.torneosList,name='torneos-list'),
-    path('equipos/', views.equipoList ,name='equipos-list')
+    path('equipos/', views.equipoList ,name='equipos-list'),
+    path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
+    
     #path('radio/', views.ListEmisora.as_view()),
 
     # path('emisoras/', views.ListEmisora.as_view()),
@@ -50,7 +52,6 @@ urlpatterns = [
     # path('favoritos_delete/<int:id_segmento>/<str:username>', views.DeleteFavoritoView, name='delete_favorito'),
     # path('usuarios/<int:id_usuario>', views.ListUsuariosPorId.as_view()),
     # path('equipos', views.ListEquipos.as_view(), name="list_equipos"),
-    # path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
     # path('torneos', views.ListTorneos.as_view(), name="list_torneos"),
 
     # path('transmisiones', views.ListTransmisiones.as_view(), name="list_transmisiones"),
