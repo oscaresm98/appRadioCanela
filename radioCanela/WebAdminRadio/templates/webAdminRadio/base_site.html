@@ -1,6 +1,8 @@
 {% extends 'webAdminRadio/base.html' %}
 {% load static %}
-{% block styles %}<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/base_site.css' %}">{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/base_site.css' %}">
+{% endblock %}
 {% block navigation %}
 <div class="wrapper">
     <!-- Sidebar -->
@@ -11,6 +13,7 @@
         <ul class="list-unstyled components">
             <p>Menú</p>
             <li class="active">
+                
                 <a class="action" href="{% url 'administrador' %}"><i class="fas fa-home fa-fw"></i><span></span>Principal</a>
             </li>
             <li >

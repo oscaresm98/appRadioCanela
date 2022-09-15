@@ -1,12 +1,12 @@
 {% extends 'webAdminRadio/base_site.html' %}
 {% load static %}
 
-{% block page_style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% block cdn_stlyes %}
+
 {% endblock %}
 
 {% block content %}
+{% comment %}
     {% if error %}
     <div id="componente_modal_info">
         <modal-info v-if="showModal" url_redirect="">
@@ -29,8 +29,11 @@
         </modal-info>
         </div>
     {% endif %}
+    {% endcomment %}
     <h4><b>Información del Usuario </b></h4>
-    <form id="addLocutor" onsubmit="alert(action);return validate()" action="{% url 'webadminradio:editar_usuario' usuario.id %}" method="POST" enctype="multipart/form-data">
+    <form id="addLocutor" onsubmit="alert(action);return validate()" 
+    
+    method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <!-- Nombre del usuario -->
     <div class="form-group row">
@@ -67,20 +70,27 @@
         <input id="telefono" name="telefono" type="tel" pattern="[0-9]{9,10}" class="form-control" value="{{ usuario.telefono }}" oninvalid="this.setCustomValidity('Ingrese un telefono válido')" oninput="this.setCustomValidity('')" required>
     </div>
     <!-- Rol -->
-    <div class="form-group">
-        <label for="tipo_usuario">Rol del usuario</label>
-        <select name="tipo_select" id="tipo" class="custom-select">
-            <option value="Locutor">Locutor</option>
-            <option value="Gerente">Gerente</option>
-            <option value="Director">Director</option>
-            <option value="Community Manager">Community Manager</option>
-        </select>
+    <div class="row">
+        <div class="col-2" >
+            <label for="tipo_usuario">Rol del usuario</label>
+        </div>
+        <div class="col-10">
+            <select class=" form-select" aria-label="Default select example">
+                <option value="Locutor">Locutor</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Director">Director</option>
+                <option value="Community Manager">Community Manager</option>
+              </select>
+        </div>
+        
     </div>
     <!-- Imange del usuario -->
     <div class="form-group">
         <div class="custom-file">
-            <label for="imgUsuario" class="custom-file-label">Imagen del Usuario</label>
-            <input type="file" name="imagen" src="{{ usuario.imagen.url }}" class="custom-file-input" id="imgUsuario" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')" oninput="this.setCustomValidity('')">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Imagen del Usuario</label>
+                <input class="form-control" type="file" id="formFile" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')" oninput="this.setCustomValidity('')">
+              </div>
             <div class="img-holder">
                 {% if usuario.imagen %}
                     <img id="preview" src="{{ usuario.imagen.url }}">
@@ -119,6 +129,5 @@
     <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar y continuar</button>
     </form>
     {% endblock %}
-{% block page_script %}
-    
+{% block script %}
 {% endblock %}

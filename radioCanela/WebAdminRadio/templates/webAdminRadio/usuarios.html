@@ -5,8 +5,7 @@
 {% endcomment %}
 
 {% block cdn_stlyes %}
-<link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endblock %}
 
@@ -78,8 +77,14 @@
                 <td>{{user.rol}}</td>
                 <td>{{user.activo}}</td>
                 <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
+                    <div class="d-flex justify-content-center">
+                        <a class="action" href="{% url 'api:editar_usuario' %}">
+                            <i class="fas fa-pen-to-square"></i>
+                        </a>
+                        <a class="action" href="{% url 'api:editar_usuario' %}">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
             {% endfor %}
