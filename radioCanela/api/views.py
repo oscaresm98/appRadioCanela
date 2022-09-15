@@ -38,7 +38,7 @@ from rolepermissions.mixins import HasRoleMixin
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
-
+from django.contrib.auth.decorators import login_required
 
 #from WebAdminRadio.models import *
 # Create your views here.
@@ -140,9 +140,10 @@ def usuarioList(request):
     
     if request.method == 'GET':
         try:
-            usuario = Usuario.objects.all()
-            serializer = UsuarioSerializer(usuario, many=True)
-            return Response(serializer.data)
+            usuarios = Usuario.objects.all()
+            serializer = UsuarioSerializer(usuarios, many=True)
+            return render(request,"webAdminRadio/usuarios.html",{"users":usuarios})
+            #return Response(serializer.data)
         except Usuario.DoesNotExist:
             return Response({'Error': 'El usuario no existe'}, status=status.HTTP_400_NOT_FOUND)
         
@@ -154,15 +155,19 @@ def usuarioList(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'PUT':
-        serializer = UsuarioSerializer(usuario, data=request.data)
+        serializer = UsuarioSerializer(usuarios, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        usuario.delete()
+        usuarios.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+@login_required
+def agregar_usuario(request):
+    # Termianar este request
+    return render(request,"webAdminRadio/agregar_usuario.html")
 
 # Torneos
 @api_view(['GET', 'POST','DELETE','PUT'])
