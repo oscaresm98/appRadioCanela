@@ -1,0 +1,73 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% endblock %}
+{% block content %}
+    {% if error %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="">
+                <h3 slot="header">Error</h3>
+                <div slot="body">
+                    <p>Existen algunos errores en los siguientes campos:</p>
+                    {% for campo,e in error.items %}
+                        <h5>{{campo}}</h5>
+                        {{e}}
+                    {% endfor %}
+                </div>
+            </modal-info>
+        </div>
+    {% endif %}
+    {% if success %}
+    <div id="componente_modal_info">
+        <modal-info v-if="showModal" url_redirect="{% url 'equipos' %}">
+            <h3 slot="header">Información</h3>
+            <p slot="body">{{success}}</p>
+        </modal-info>
+    </div>
+    {% endif %}
+    <h4><b>Información del Equipo</b></h4>
+    <form id="addLocutor" onsubmit="return validate()" action="{% url 'agregar_equipo' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Imange del usuario -->
+        <div class="form-group d-flex flex-column align-items-center mb-2">
+            <div class="img-holder">
+                <img class="rounded-4" id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+            </div>
+            <div class="form-file input-group w-50">
+                <input type="file" name="imagen" class="custom-file-input form-control" id="imgSegmento" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese un escudo valido)" oninput="this.setCustomValidity('')" required>
+                
+            </div>
+        </div>
+
+        <!-- Nombre del equipo -->
+        <div class="form-group">
+            <label for="equipo">Nombre del equipo</label>
+            <input id="equipo" name="equipo" type="text" class="form-control" oninvalid="this.setCustomValidity('Ingrese un nombre válido)" oninput="this.setCustomValidity('')" required>
+        </div>
+
+        <!-- Ciudad -->
+        <div class="form-group">
+            <label for="ciudad">Ciudad del equipo</label>
+            <input id="ciudad" name="ciudad" type="text" class="form-control" oninvalid="this.setCustomValidity('Ingrese un lugar válido)" oninput="this.setCustomValidity('')" required>
+        </div>
+
+        <!-- Descripcion -->
+        <div class="form-group">
+            <label for="descripcion">Descripcion del equipo</label>
+            <textarea required class="form-control" name="descripcion" id="descInput" rows="3" placeholder="Ingrese una breve descripción de la emisora" maxlength=300></textarea>
+        </div>
+
+        
+
+        <button type="submit" class="btn btn-primary btn-lg submit mt-2"><i class="fas fa-plus-circle"></i>Agregar Equipo</button>
+    </form>
+{% endblock %}
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+    {% comment %} <script src="{% static 'webAdminRadio/js/componentes/EquipoComponent.js' %}"></script> {% endcomment %}
+
+{% endblock %}

@@ -131,9 +131,11 @@ def agregar_equipo(request):
     if request.POST:
         equipo = request.POST['equipo']
         ciudad = request.POST['ciudad']
+        descripcion = request.POST['descripcion']
         user_form = EquipoForm({
             'equipo': equipo,
             'ciudad': ciudad,
+            'descripcion': descripcion,
         }, request.FILES)
 
         if user_form.is_valid():

@@ -8,8 +8,15 @@ th {
     margin: 2rem 0;
 }
 
-.custom-select {
-    width: 25%;
+.form-select {
+    width: 10%;
+}
+#data_table_length label {
+    display: flex;
+    column-gap: .3rem;
+}
+label {
+    margin-bottom: 0.5rem;
 }
 
 .table_lbl {
