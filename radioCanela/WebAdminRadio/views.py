@@ -27,10 +27,10 @@ def emisoras(request):
 def agregar_emisora(request):
     context = {'title': 'Agregar Emisora'}
     if request.POST:
-        # emisora_form = EmisoraForm(request.POST, request.FILES)
-        # if not emisora_form.is_valid():
-        #     context['error'] = emisora_form.errors
-        #     return render(request, 'webAdminRadio/agregar_emisora.html', context)
+        emisora_form = EmisoraForm(request.POST, request.FILES)
+        if not emisora_form.is_valid():
+            context['error'] = emisora_form.errors
+            return render(request, 'webAdminRadio/agregar_emisora.html', context)
 
         # for i in range(len(request.POST.getlist('telefono'))):
         #     telefono_form = TelefonoForm({
@@ -61,14 +61,14 @@ def agregar_emisora(request):
         #         nombre=request.POST.getlist('red_social_nombre')[i],
         #         link=request.POST.getlist('red_social_url')[i]
         #     )
-        context['success'] = '¡La emisora ha sido registrada con éxito!'
-        return render(request, 'webAdminRadio/agregar_emisora.html', context)
+            context['success'] = '¡La emisora ha sido registrada con éxito!'
+            return render(request, 'webAdminRadio/agregar_emisora.html', context)
     return render(request, 'webAdminRadio/agregar_emisora.html', context)
 
 
 @login_required
-def editar_emisora(request):
-    edit_emisora = Emisora.objects.get(id=id, activo=True)
+def editar_emisora(request,pk):
+    edit_emisora = Emisora.objects.get(id=pk, estado=True)
     # red_social = RedSocial_emisora.objects.filter(idEmisora=id_emisora)
     # telefono_emisora = Telefono_emisora.objects.filter(idEmisora=id_emisora)
     context = {
@@ -77,11 +77,11 @@ def editar_emisora(request):
         # 'telefono': json.dumps(list(telefono_emisora.values('nro_telefono')), cls=DjangoJSONEncoder),
         # 'redsocial': json.dumps(list(red_social.values('nombre', 'link')), cls=DjangoJSONEncoder)
     }
-    # if request.POST:
-    #     emisora_form = EmisoraForm(request.POST, request.FILES, instance=edit_emisora)
-    #     if not emisora_form.is_valid():
-    #         context['error'] = emisora_form.errors
-    #         return render(request, 'webAdminRadio/modificar_emisora.html', context)
+    if request.POST:
+        emisora_form = EmisoraForm(request.POST, request.FILES, instance=edit_emisora)
+        if not emisora_form.is_valid():
+            context['error'] = emisora_form.errors
+            return render(request, 'webAdminRadio/editar_emisora.html', context)
 
     #     for i in range(len(request.POST.getlist('telefono'))):
     #         telefono_form = TelefonoForm({
@@ -115,9 +115,9 @@ def editar_emisora(request):
     #             link=request.POST.getlist('red_social_url')[i]
     #         )
 
-    context['success'] = "¡La emisora ha sido modificada con éxito!"
-    return render(request, 'webAdminRadio/editar_emisora.html', context)
-        #return render(request, 'webAdminRadio/modificar_emisora.html', context)
+            context['success'] = "¡La emisora ha sido modificada con éxito!"
+            return render(request, 'webAdminRadio/editar_emisora.html', context)
+        return render(request, 'webAdminRadio/editar_emisora.html', context)
 
 @login_required
 def equipos(request):

@@ -54,7 +54,7 @@
             </div>
             <div class="btn-wrapper">
                 <div class="act-buttons">
-                    <a href="{% url 'editar_emisora' %}" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
+                    <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
                     <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
                 </div>
                 {% comment %} <div class="info">

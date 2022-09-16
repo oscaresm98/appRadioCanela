@@ -5,30 +5,27 @@ from django.contrib.auth.forms import UserChangeForm
 
 # field_name_mapping es el diccionario con los names que estarán en los forms,
 # que no deben ser iguales a los campos de los modelos
-# class EmisoraForm(forms.ModelForm):
-#     class Meta:
-#         model= Emisora
-#         fields = [
-#             'nombre',
-#             'frecuencia_dial',
-#             'tipo',
-#             'url_streaming',
-#             'sitio_web',
-#             'direccion',
-#             'descripcion',
-#             'ciudad',
-#             'provincia',
-#             'logotipo'
-#         ]
+class EmisoraForm(forms.ModelForm):
+    class Meta:
+        model= Emisora
+        fields = [
+            'frecuencia_dial',
+            'tipo_frecuencia',
+            'url_streaming',
+            'direccion',
+            'ciudad',
+            'provincia'
+            
+        ]
 
-#     def add_prefix(self, field_name):
-#         field_name_mapping = {
-#             'url_streaming': 'streaming',
-#             'frecuencia_dial': 'frecuencia',
-#             'sitio_web': 'sitioweb'
-#         }
-#         field_name = field_name_mapping.get(field_name, field_name)
-#         return super(EmisoraForm, self).add_prefix(field_name)
+    # def add_prefix(self, field_name):
+    #     field_name_mapping = {
+    #         'url_streaming': 'streaming',
+    #         'frecuencia_dial': 'frecuencia',
+    #         'sitio_web': 'sitioweb'
+    #     }
+    #     field_name = field_name_mapping.get(field_name, field_name)
+    #     return super(EmisoraForm, self).add_prefix(field_name)
 
 # class TelefonoForm(forms.Form):
 #     telefono = forms.RegexField(regex=r"(\+)?[0-9]+", max_length=10)

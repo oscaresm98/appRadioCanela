@@ -21,14 +21,14 @@
     {% endif %}
     {% if success %}
     <div id="componente_modal_info">
-            <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:emisoras' %}">
+            <modal-info v-if="showModal" url_redirect="{% url 'emisoras' %}">
                 <h3 slot="header">Información</h3>
                 <p slot="body">{{success}}</p>
             </modal-info>
     </div>
     {% endif %}
     <h4><b>Información de la emisora</b></h4>
-    <form id="addSegmento" method="POST" action="{% url 'webadminradio:agregar_emisora' %}" enctype="multipart/form-data">
+    <form id="addSegmento" method="POST" action="{% url 'agregar_emisora' %}" enctype="multipart/form-data">
         {% csrf_token %}
 
         <!-- Div de Nombre -->
@@ -36,6 +36,7 @@
             <label for="nombreInput">Nombre</label>
             <input required name="nombre" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el nombre de la emisora" maxlength=150>
         </div>
+        
 
         <!-- Div de frecuencia -->
         <div class="form-group">
@@ -47,7 +48,6 @@
                 <div class="form-group col-md-2">
                 <select required name="tipo" id="frecTipoInput" class="custom-select form-control">
                     <option disabled selected value="">Tipo de frecuencia</option>
-                    <option value="NO">Sin tipo</option>
                     <option value="FM">FM</option>
                     <option value="AM">AM</option>
                 </select>
@@ -58,22 +58,22 @@
         <!-- Div de descripcion -->
         <div class="form-group">
             <label for="descInput">Descripción</label>
-            <textarea required class="form-control" name="descripcion" id="descInput" rows="3" placeholder="Ingrese una breve descripción de la emisora" maxlength=300></textarea>
+            <textarea required class="form-control" name="descripcion" id="descInput" rows="3" placeholder="Ingrese una breve descripción de la emisora" maxlength=1000></textarea>
         </div>
 
         <!-- Div de Streaming -->
         <div class="form-group">
-            <label required for="streamingInput">URL de streaming</label>
+            <label required for="streamingInput">URL de streaming </label>
             <input required name="streaming" id="streamingInput" type="url" class="form-control" placeholder="Ingrese el url de transmision de la radio">
         </div>
 
         <!-- Div de telefono -->
-        <div class="form-group">
+        {% comment %} <div class="form-group">
             <label for="">Teléfono</label>
             <div id="componente_telefono">
                 <telf></telf>
             </div>
-        </div>
+        </div> {% endcomment %}
 
         <!-- Div de Sitio Web -->
         <div class="form-group">
@@ -143,12 +143,12 @@
                 <redsocial></redsocial>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Agregar Emisora</button>
+        <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Agregar Emisora</button> 
     </form>
 {% endblock %}
 {% block page_script %}
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
-<script src="{% static 'webAdminRadio/js/componentes/TelefonoComponent.js' %}"></script>
-<script src="{% static 'webAdminRadio/js/componentes/Red_SocialComponente.js' %}"></script>
+{% comment %} <script src="{% static 'webAdminRadio/js/componentes/TelefonoComponent.js' %}"></script>
+<script src="{% static 'webAdminRadio/js/componentes/Red_SocialComponente.js' %}"></script> {% endcomment %}
 <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
 {% endblock %}
