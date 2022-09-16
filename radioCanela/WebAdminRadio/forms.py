@@ -161,14 +161,15 @@ class EmisoraForm(forms.ModelForm):
 #             'lugar'
 #         ]
 
-# class EquipoForm(forms.ModelForm):
-#     class Meta:
-#         model = Equipo
-#         fields = [
-#             'equipo',
-#             'lugar',
-#             'imagen'
-#         ]
+class EquipoForm(forms.ModelForm):
+    class Meta:
+        model = Equipo
+        fields = [
+            'equipo',
+            'ciudad',
+            'descripcion',
+            'imagen'
+        ]
 
 # class GaleriaForm(forms.ModelForm):
 
