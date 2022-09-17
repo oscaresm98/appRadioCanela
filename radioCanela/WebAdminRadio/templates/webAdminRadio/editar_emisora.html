@@ -33,17 +33,17 @@
         {% csrf_token %}
 
         <!-- Div de Nombre -->
-        <div class="form-group">
+        {% comment %} <div class="form-group">
             <label for="nombreInput">Nombre</label>
             <input required name="nombre" id="nombreInput" type="text" class="form-control" value = "{{api:emisoras/id_radio.nombre}}" maxlength=150>
-        </div>
+        </div> {% endcomment %}
 
-        {% comment %} <!-- Div de frecuencia -->
+         <!-- Div de frecuencia -->
         <div class="form-group">
             <label for="frecuenciaInput">Frecuencia o Dial</label>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <input required name="frecuencia" id="frecuenciaInput" type="text" class="form-control" value = "{{ emisora.frecuencia_dial}}" pattern="[((0-9]{2,3})|(0-9]{2,3}\.[0-9])">
+                    <input required name="frecuencia_dial" id="frecuenciaInput" type="text" class="form-control" value = "{{ emisora.frecuencia_dial}}" pattern="[((0-9]{2,3})|(0-9]{2,3}\.[0-9])">
                 </div>
                 <div class="form-group col-md-2">
                 <select name="tipo" class="custom-select form-control" id="tipo" required>
@@ -55,6 +55,7 @@
             </div>
         </div>
 
+        {% comment %}
         <!-- Div de descripcion -->
         <div class="form-group">
             <label for="descInput">Descripción</label>
