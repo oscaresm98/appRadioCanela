@@ -1,31 +1,60 @@
 {% extends 'webAdminRadio/base_site.html' %}
 {% load static %}
 {% comment %} {% load webadmin_tags %} {% endcomment %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_equipo.css' %}">
+{% endblock %}
 {% block content %}
     <h2><b>{{ equipo.equipo }}</b></h2>
-    <div class="d-flex flex-column align-items-center">
 
-        <div class="img-holder mb-5 w-75 d-flex justify-content-center">
-            <img class="rounded-4 w-25 h-25" id="preview" src="{{ equipo.imagen }}">
-        </div>
-        <table class="w-50">
 
-            <tr height="50">
-                <th class="w-50">Imagen:</th>
-                <td>{{ equipo.imagen }}</td>
-            </tr>
-            <tr height="50">
-                <th class="w-50">Ciudad:</th>
-                <td>{{ equipo.ciudad }}</td>
-            </tr>
-            <tr height="50">
-                <th class="w-50">Descripcion:</th>
-                <td>{{ equipo.descripcion }}</td>
-            </tr>
-
-            
-        </table>
-        
+    <div class="img-container">
+        <img class="shield" id="preview" src="{{ equipo.imagen }}">
     </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">URL de imagen:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ equipo.imagen }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Ciudad:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ equipo.ciudad }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Descripcion:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ equipo.descripcion }}</label>
+        </div>
+    </div>
+
+    {% comment %} <table class="w-50">
+
+        <tr height="50">
+            <th class="w-50">Imagen:</th>
+            <td>{{ equipo.imagen }}</td>
+        </tr>
+        <tr height="50">
+            <th class="w-50">Ciudad:</th>
+            <td>{{ equipo.ciudad }}</td>
+        </tr>
+        <tr height="50">
+            <th class="w-50">Descripcion:</th>
+            <td>{{ equipo.descripcion }}</td>
+        </tr>
+
+        
+    </table> {% endcomment %}
 
 {% endblock %}

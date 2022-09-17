@@ -207,3 +207,29 @@ def borrar_equipo(request, id_equipo):
     delete_equipo.delete()
     messages.success(request, 'El equipo ha sido eliminado')
     return redirect('equipos')
+
+@login_required
+def modificar_equipo(request, id_equipo):
+    edit_equipo = Equipo.objects.get(id=id_equipo)
+    context = {
+        'title': 'Editar Equipo',
+        'equipo': edit_equipo,
+    }
+    if request.POST:
+        equipo = request.POST['equipo']
+        ciudad = request.POST['ciudad']
+        descripcion = request.POST['descripcion']
+        imagen =  request.POST['imagen']
+        user_form = EquipoForm({
+            'equipo': equipo,
+            'ciudad': ciudad,
+            'descripcion': descripcion,
+            'imagen': imagen,
+        }, instance=edit_equipo)
+        if user_form.is_valid():
+            error=user_form.save()
+            print(error)
+            context['success'] = '¡El equipo ha sido modificado exitosamente!'
+        else:
+            context['error'] = user_form.errors
+    return render(request, 'webAdminRadio/editar_equipo.html', context)
