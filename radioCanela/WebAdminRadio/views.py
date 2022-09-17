@@ -11,6 +11,50 @@ from django.contrib import messages
 def administrador(request):
     return render(request, 'webAdminRadio/administrador.html', {'title': 'Administrador'})
 
+@login_required
+def agregar_usuario(request):
+    # Termianar este request
+    return render(request,"webAdminRadio/agregar_usuario.html")
+
+@login_required
+def editar_usuario(request,id_usuario):
+    # Termianar este request
+    edit_usuario = Usuario.objects.get(id=id_usuario)
+    context = {
+        'title': 'Editar Usuario',
+        'usuario': edit_usuario,
+    }
+    print("USUARIOOOO")
+    print(context['usuario'])
+    if request.POST:
+        username = request.POST['username']
+        first = request.POST['nombre']
+        last = request.POST['apellido']
+        #sexo = request.POST['sexo']
+        email = request.POST['email']
+        #cedula = request.POST['cedula']
+        nacimiento = request.POST['fechaNac']
+        telefono = request.POST['telefono']
+        #rol = request.POST['rol']
+        #foto = request.POST['foto']
+        user_form = UsuarioForm({
+            'username':username,
+            'first_name':first,
+            'last_name':last,
+            #'sexo':sexo,
+            'email':email,
+            #'cedula':cedula,
+            'fechaNacimiento':nacimiento,
+            'telefono':telefono,
+            #'rol':rol,
+            #'foto':foto,
+        }, request.FILES, instance=edit_usuario)
+        if user_form.is_valid():
+            user_form.save()
+            context['success'] = '¡El usuario ha sido modificado exitosamente!'
+        else:
+            context['error'] = user_form.errors
+    return render(request,"webAdminRadio/editar_usuario.html",context)
 
 
 

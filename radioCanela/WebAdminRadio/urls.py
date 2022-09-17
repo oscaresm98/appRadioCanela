@@ -12,6 +12,9 @@ urlpatterns = [
     path('equipos/agregar', views.agregar_equipo, name='agregar_equipo'), # Muestra la pantalla para agregar equipo
     path('equipos/<int:id_equipo>', views.ver_equipo, name='ver_equipo'), # URL para ver la informacion del equipo
     path('equipos/<int:id_equipo>/eliminar', views.borrar_equipo, name='borrar_equipo'), # URL para eliminar un equipo
+    path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
+    path('usuarios/editar/<int:id_usuario>', views.editar_usuario, name='editar_usuario'),
+
     # path('programas', views.segmentos, name='segmentos'), # Página principal donde se muestran los segmentos
     # path('programas/agregar', views.agregar_segmento, name="agregar_segmento"), # Muestra la pantalla para agregar segmento
     # path('programas/<int:id_segmento>', views.ver_segmento, name="ver_segmento"), # Muestra la información un segmento

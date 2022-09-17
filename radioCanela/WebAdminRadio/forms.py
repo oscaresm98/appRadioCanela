@@ -17,6 +17,29 @@ class EmisoraForm(forms.ModelForm):
             'provincia'
             
         ]
+class UsuarioForm(forms.ModelForm):
+    class Meta:
+        model=Usuario
+        fields=[
+                'first_name',
+                'last_name',
+                'username',
+                'sexo',
+                'email',
+                'cedula',
+                'fechaNacimiento',
+                'telefono',
+                'rol',
+                'foto',
+                'activo'
+        ]
+        def add_prefix(self, field_name):
+            field_name_mapping = {
+                'fechaNacimiento': 'nacimiento',
+            }
+            field_name = field_name_mapping.get(field_name, field_name)
+            return super(UsuarioForm, self).add_prefix(field_name)
+
 
     # def add_prefix(self, field_name):
     #     field_name_mapping = {
