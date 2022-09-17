@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from WebAdminRadio.models import *
 from WebAdminRadio.forms import *
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -145,3 +145,21 @@ def agregar_equipo(request):
         else:
             context['error'] = user_form.errors
     return render(request, 'webAdminRadio/agregar_equipo.html', context)
+
+
+@login_required
+def ver_equipo(request, id_equipo):
+    equipo = Equipo.objects.get(id=id_equipo)
+    context = {
+        'title': 'Información del Equipo',
+        'equipo': equipo,
+    }
+    return render(request, 'webAdminRadio/ver_equipo.html', context)
+
+@login_required
+def borrar_equipo(request, id_equipo):
+    delete_equipo = Equipo.objects.get(id=id_equipo)
+    delete_equipo.estado = False
+    delete_equipo.delete()
+    messages.success(request, 'El equipo ha sido eliminado')
+    return redirect('equipos')
