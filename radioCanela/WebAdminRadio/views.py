@@ -132,12 +132,13 @@ def agregar_equipo(request):
         equipo = request.POST['equipo']
         ciudad = request.POST['ciudad']
         descripcion = request.POST['descripcion']
+        imagen =  request.POST['imagen']
         user_form = EquipoForm({
             'equipo': equipo,
             'ciudad': ciudad,
             'descripcion': descripcion,
-        }, request.FILES)
-
+            'imagen': imagen,
+        })
         if user_form.is_valid():
             user_form.save()
             context['success'] = '¡El equipo ha sido registrado!'
