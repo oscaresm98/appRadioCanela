@@ -27,8 +27,7 @@ def emisoras(request):
 def agregar_emisora(request):
     context = {'title': 'Agregar Emisora'}
     if request.POST:
-        id_emisora = request.POST['id_emisora']
-        nombre = request.POST['nombre']
+        nombre = request.POST['id_radio.nombre']
         frecuencia_dial = request.POST['frecuencia_dial']
         tipo_frecuencia = request.POST['tipo_frecuencia']
         url_streaming = request.POST['url_streaming']
@@ -37,7 +36,7 @@ def agregar_emisora(request):
         provincia = request.POST['provincia']
         url_streaming = request.POST['url_streaming']
         emisora_form = EmisoraForm({
-            nombre: id_emisora.nombre,
+            'nombre': nombre,
             'frecuencia_dial': frecuencia_dial,
             'tipo_frecuencia': tipo_frecuencia,
             'direccion': direccion,
