@@ -1,0 +1,118 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_equipo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+
+{% endblock %}
+{% block content %}
+    {% if error %}
+    <div id="componente_modal_info">
+        <modal-info v-if="showModal" url_redirect="">
+            <h3 slot="header">Error</h3>
+            <div slot="body">
+                <p>Existen algunos errores en los siguientes campos:</p>
+                {% for campo,e in error.items %}
+                    <h5>{{campo}}</h5>
+                    {{e}}
+                {% endfor %}
+            </div>
+        </modal-info>
+    </div>
+    {% endif %}
+    {% if success %}
+        <div id="componente_modal_info">
+        <modal-info v-if="showModal" url_redirect="{% url 'equipos' %}">
+            <h3 slot="header">Información</h3>
+            <p slot="body">{{success}}</p>
+        </modal-info>
+        </div>
+    {% endif %}
+    
+    <form id="addEquipo" onsubmit="return validate()" action="{% url 'editar_equipo' equipo.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Imagen del usuario -->
+    <div class="img-container">
+        {% if equipo.imagen %}
+            <img class="shield" id="preview" src="{{ equipo.imagen }}">
+        {% else %}
+            <img class="shield" id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+        {% endif %}
+        <div class="form-file input-group w-50 mx-auto">
+            <input type="file" name="archivo" class="custom-file-input form-control"  id="imgSegmento" accept=".png, .jpg, .jpeg">
+            <input type="hidden" name="imagen" value="{{ equipo.imagen }}" id="imagen">
+            <button type="button" id="btnImagen" class="btn btn-primary rounded-2"><i class="fas fa-upload"></i></button>
+            <div class="error"></div>
+        </div>
+    </div>
+    
+    <!-- Nombre del equipo -->
+    <div class="form-group row mb-3">
+        <div class="col-4">
+            <label class="ms-5 label" for="equipo">Nombre del equipo</label>
+        </div>
+        <div class="col-8">
+            <input id="equipo" placeholder="Nombre" name="equipo" type="text" class="form-control" value="{{ equipo.equipo }}"oninvalid="this.setCustomValidity('Ingrese un equipo')" oninput="this.setCustomValidity('')" required>
+        </div>
+    </div>
+
+    <!-- Ciudad del equipo -->
+    <div class="form-group row mb-3">
+        <div class="col-4">
+        <label class="label ms-5" for="ciudad">Ciudad del equipo</label>
+        </div>
+        <div class="col-8">
+            <input id="ciudad" placeholder="Ciudad" name="ciudad" type="text" class="form-control" value="{{ equipo.ciudad }}" oninvalid="this.setCustomValidity('Ingrese un lugar válido')" oninput="this.setCustomValidity('')" required>
+        </div>
+    </div>
+
+    <!-- Url pagina web del equipo -->
+    {% comment %} <div class="form-group row">
+        <div class="col-4">
+        <label class="label ms-5" for="lugar">Url de la pagina web</label>
+
+        </div>
+        <div class="col-8">
+            <input id="lugar" placeholder="Ejm: http://facebook.com/nombreequipo" name="lugar" type="text" class="form-control" value="{{ equipo.urlWebsite }}" oninvalid="this.setCustomValidity('Ingrese una URL válida')" oninput="this.setCustomValidity('')" required>
+        </div>
+    </div> {% endcomment %}
+
+    <!--Descripcion del equipo -->
+    <div class="form-group row mb-3">
+        <div class="col-4">
+            <label class="label ms-5" for="descripcion">Descripcion</label>
+        </div>
+        <div class="col-8">
+            <textarea class="form-control" placeholder="Leave a comment here" oninvalid="this.setCustomValidity('Ingrese una descripcion válida')" oninput="this.setCustomValidity('')" required
+                id="descInput" name="descripcion" style="height: 100px">{{ equipo.descripcion }}</textarea>
+        </div>
+    </div>
+    <!-- Div de Redes Sociales-->
+    {% comment %} <div class="form-group row">
+        <div class="col-4">
+        <label class="label ms-5" for="">Redes Sociales</label>
+
+        </div>
+        <div class="col-8">
+            <div id="componente_redsocial">
+                <redsocial ></redsocial>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar cambios</button>
+        <a class="btn btn-primary btn-lg submit ms-5" href="{% url 'equipos' %}"><i class="fas fa-times-circle"></i><span></span>Cancelar</a>
+    </div>
+    
+
+    </form>
+    {% endblock %}
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/componentes/RedSocialCompo.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+    <script type="module"  src="{% static 'webAdminRadio/js/updateImage.js' %}"></script>
+    
+{% endblock %}

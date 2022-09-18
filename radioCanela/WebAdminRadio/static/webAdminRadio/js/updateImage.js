@@ -25,14 +25,14 @@ let cargardatos = () =>{
         let nombre = file.name
         while (a) { //seccion de codigo para renombrar archivo si ya se encuentra en firebase storage
             try {
-                await getDownloadURL(ref(storage, nombre))
+                await getDownloadURL(ref(storage, "imagenes/"+nombre))
                 nombre = file.name + `(${i})`;
                 i++;
             } catch (error) {
                 a = false;
             } 
         }
-        let storageref = ref(storage, nombre); // Creando una referencia con el nombre de archivo
+        let storageref = ref(storage, "imagenes/" + nombre); // Creando una referencia con el nombre de archivo
         uploadBytes(storageref, file).then((snapshot) => {// se sube el archivo
             $(function() {
                 $(".error").notify("Carga exitosa!", "success"); // enviando un mensaje de confirmacion al usuario

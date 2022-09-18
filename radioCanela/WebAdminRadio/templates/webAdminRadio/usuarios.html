@@ -46,7 +46,7 @@
 <div class="d-flex flex-row justify-content-between mx-3 my-2">
     <span class="h2">Usuarios</span>
     <div>
-        <a href="{% url 'api:agregar_usuario' %}" class="btn btn-primary btn-md ml-auto action" role="button"><i
+        <a href="{% url 'agregar_usuario' %}" class="btn btn-primary btn-md ml-auto action" role="button"><i
                 class="fas fa-plus-circle">
             </i>Agregar Usuario</i>
         </a>
@@ -71,17 +71,17 @@
             <tr>
                 <td>{{user.id}}</td>
                 <td>{{user.foto}}</td>
-                <td>{{user.name}}</td>
+                <td>{{user.first_name}} {{user.last_name}}</td>
                 <td>{{user.fechaNacimiento}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.rol}}</td>
                 <td>{{user.activo}}</td>
                 <td>
                     <div class="d-flex justify-content-center">
-                        <a class="action" href="{% url 'api:editar_usuario' %}">
+                        <a class="action" href="/usuarios/editar/{{user.id}}">
                             <i class="fas fa-pen-to-square"></i>
                         </a>
-                        <a class="action" href="{% url 'api:editar_usuario' %}">
+                        <a class="action" href="/usuarios/editar/{{user.id}}">
                             <i class="fa-regular fa-trash-can"></i>
                         </a>
                     </div>

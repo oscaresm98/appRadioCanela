@@ -32,7 +32,7 @@
     {% endcomment %}
     <h4><b>Información del Usuario </b></h4>
     <form id="addLocutor" onsubmit="alert(action);return validate()" 
-    
+    action="{% url 'editar_usuario' usuario.id %}" 
     method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <!-- Nombre del usuario -->

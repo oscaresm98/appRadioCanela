@@ -272,16 +272,6 @@ def usuarioList(request):
         usuarios.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-@login_required
-def agregar_usuario(request):
-    # Termianar este request
-    return render(request,"webAdminRadio/agregar_usuario.html")
-
-@login_required
-def editar_usuario(request):
-    # Termianar este request
-    return render(request,"webAdminRadio/editar_usuario.html")
-
 # Torneos
 @api_view(['GET', 'POST','DELETE','PUT'])
 def torneosList(request):
