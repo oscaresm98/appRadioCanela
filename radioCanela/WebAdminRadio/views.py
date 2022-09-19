@@ -65,6 +65,30 @@ def emisoras(request):
     context = {'title': 'Emisoras', 'emisoras': listaEmisoras}
     return render(request, 'webAdminRadio/emisoras.html', context)
 
+@login_required
+def agregar_radio(request):
+    context = {'title': 'Agregar Radio'}
+    if request.POST:
+        nombre = request.POST['nombre']
+        logotipo = request.POST['logotipo']
+        sitio_web = request.POST['sitio_web']
+        descripcion = request.POST['descripcion']
+        # imagen =  request.POST['imagen']
+        user_form = EquipoForm({
+            'nombre': nombre,
+            # 'imagen': imagen,
+            'logotipo': logotipo,
+            'sitio_web': sitio_web,
+            'descripcion': descripcion
+        })
+        
+        if user_form.is_valid():
+            user_form.save()
+            context['success'] = '¡La radio se ha registrado!'
+        else:
+            context['error'] = user_form.errors
+    return render(request, 'webAdminRadio/agregar_radio.html', context)
+
 
 @login_required
 # @has_permission_decorator('add_emisora')

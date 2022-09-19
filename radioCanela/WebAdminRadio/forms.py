@@ -15,8 +15,18 @@ class EmisoraForm(forms.ModelForm):
             'direccion',
             'ciudad',
             'provincia'
-            
         ]
+        
+class RadioForm(forms.ModelForm):
+    class Meta:
+        model = Radio
+        fields = [
+            'nombre', 
+            'logotipo',
+            'sitio_web',
+            'descripcion'
+        ]
+        
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario

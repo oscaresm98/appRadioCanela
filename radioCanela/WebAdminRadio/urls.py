@@ -6,7 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.administrador, name='administrador'),  # Muestra la pantalla principal /webadmin/
     path('emisoras/', views.emisoras, name='emisoras'),
-    path('emisoras/agregar/', views.agregar_emisora, name="agregar_emisora"), # Muestra la pantalla para agregar emisora
+    path('emisoras/agregarEmisora/', views.agregar_emisora, name="agregar_emisora"), # Muestra la pantalla para agregar emisora
+    path('emisoras/agregarRadio/', views.agregar_radio, name="agregar_radio"), # Muestra la pantalla para agregar radio
     path('emisoras/<int:pk>/editar/', views.editar_emisora, name="editar_emisora"), # Muestra la pantalla para agregar emisora
     path('equipos', views.equipos, name='equipos'), # URL para ver los equipos del sistema,
     path('equipos/agregar', views.agregar_equipo, name='agregar_equipo'), # Muestra la pantalla para agregar equipo
