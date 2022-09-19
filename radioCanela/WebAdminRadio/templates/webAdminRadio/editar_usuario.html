@@ -7,127 +7,221 @@
 
 {% block content %}
 {% comment %}
-    {% if error %}
-    <div id="componente_modal_info">
-        <modal-info v-if="showModal" url_redirect="">
-            <h3 slot="header">Error</h3>
-            <div slot="body">
-                <p>Existen algunos errores en los siguientes campos:</p>
-                {% for campo,e in error.items %}
-                    <h5>{{campo}}</h5>
-                    {{e}}
-                {% endfor %}
-            </div>
-        </modal-info>
-    </div>
-    {% endif %}
-    {% if success %}
-        <div id="componente_modal_info">
-        <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:asignar_permisos' id_usuario %}">
-            <h3 slot="header">Información</h3>
-            <p slot="body">{{success}}</p>
-        </modal-info>
+{% if error %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="">
+        <h3 slot="header">Error</h3>
+        <div slot="body">
+            <p>Existen algunos errores en los siguientes campos:</p>
+            {% for campo,e in error.items %}
+            <h5>{{campo}}</h5>
+            {{e}}
+            {% endfor %}
         </div>
-    {% endif %}
-    {% endcomment %}
-    <h4><b>Información del Usuario </b></h4>
-    <form id="addLocutor" onsubmit="alert(action);return validate()" 
-    action="{% url 'editar_usuario' usuario.id %}" 
+    </modal-info>
+</div>
+{% endif %}
+{% if success %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:asignar_permisos' id_usuario %}">
+        <h3 slot="header">Información</h3>
+        <p slot="body">{{success}}</p>
+    </modal-info>
+</div>
+{% endif %}
+{% endcomment %}
+<h4><b>Información del Usuario </b></h4>
+<form id="addLocutor" onsubmit="alert(action);return validate()" action="{% url 'editar_usuario' usuario.id %}"
     method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <!-- Nombre del usuario -->
-    <div class="form-group row">
-        <label for="nombre" class="col-sm-1 col-form-label">Nombres</label>
-        <div class="col-sm-11">
-            <input id="nombre" name="nombre" type="text" class="form-control" value="{{ usuario.first_name }}" oninvalid="this.setCustomValidity('Ingrese un nombre válido')" oninput="this.setCustomValidity('')" required>
+    <div class="my-3 row align-items-center ">
+        <div class="col-2">
+            <label for="nombre" class="col-sm-1 col-form-label">Nombres</label>
+        </div>
+
+        <div class="col-10">
+            <input id="nombre" name="nombre" type="text" class="form-control" value="{{ usuario.first_name }}"
+                oninvalid="this.setCustomValidity('Ingrese un nombre válido')" oninput="this.setCustomValidity('')"
+                required>
         </div>
     </div>
-    <div class="form-group row">
-        <label for="apellido" class="col-sm-1 col-form-label">Apellidos</label>
-        <div class="col-sm-11">
-            <input id="apellido" name="apellido" type="text" class="form-control" value="{{ usuario.last_name }}" oninvalid="this.setCustomValidity('Ingrese un apellido válido')" oninput="this.setCustomValidity('')" required>
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="apellido" class="col-sm-1 col-form-label">Apellidos</label>
+        </div>
+        <div class="col-10">
+            <input id="apellido" name="apellido" type="text" class="form-control" value="{{ usuario.last_name }}"
+                oninvalid="this.setCustomValidity('Ingrese un apellido válido')" oninput="this.setCustomValidity('')"
+                required>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="cedula" class="col-sm-1 col-form-label">Cedula</label>
+        </div>
+        <div class="col-10">
+            <input id="cedula" name="cedula" type="text" class="form-control" value="{{ usuario.cedula }}"
+                oninvalid="this.setCustomValidity('Ingrese un apellido válido')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
+    </div>
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
             <label for="user" class="col-sm-1 col-form-label">Username</label>
-            <div class="col-sm-11">
-                <input id="user" name="username" type="text" class="form-control" value="{{ usuario.username }}" oninvalid="this.setCustomValidity('Ingrese un username válido')" oninput="this.setCustomValidity('')" required>
-            </div>
         </div>
+        <div class="col-10">
+            <input id="user" name="username" type="text" class="form-control" value="{{ usuario.username }}"
+                oninvalid="this.setCustomValidity('Ingrese un username válido')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
+    </div>
     <!-- Fecha de Nacimiento -->
-    <div class="form-group">
-        <label for="fechaNac">Fecha de Nacimiento</label>
-        <input id="fechaNac" name="fechaNac" type="date" class="form-control" value="{{ usuario.fecha_nac|date:'Y-m-d' }}"oninvalid="this.setCustomValidity('Ingrese una fecha')" oninput="this.setCustomValidity('')" required>
+    <div class="my-3 row align-items-center">
+        <div class="col-3">
+            <label for="fechaNac">Fecha de Nacimiento</label>
+        </div>
+        <div class="col-9">
+            <input id="fechaNac" name="fechaNac" type="date" class="form-control"
+                value="{{ usuario.fechaNacimiento|date:'Y-m-d' }}" oninvalid="this.setCustomValidity('Ingrese una fecha')"
+                oninput="this.setCustomValidity('')" required>
+        </div>
     </div>
     <!-- E-mail -->
-    <div class="form-group">
-        <label for="email">Direccion de correo electrónico</label>
-        <input id="email" name="email" type="email" class="form-control" value="{{ usuario.email }}" oninvalid="this.setCustomValidity('Ingrese una direccion válida')" oninput="this.setCustomValidity('')" required>
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="email">Correo electrónico</label>
+        </div>
+        <div class="col-10">
+            <input id="email" name="email" type="email" class="form-control" value="{{ usuario.email }}"
+                oninvalid="this.setCustomValidity('Ingrese una direccion válida')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
     </div>
     <!-- Teléfono -->
-    <div class="form-group">
-        <label for="telefono">Teléfono</label>
-        <input id="telefono" name="telefono" type="tel" pattern="[0-9]{9,10}" class="form-control" value="{{ usuario.telefono }}" oninvalid="this.setCustomValidity('Ingrese un telefono válido')" oninput="this.setCustomValidity('')" required>
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="telefono">Teléfono</label>
+        </div>
+        <div class="col-10">
+            <input id="telefono" name="telefono" type="tel" pattern="[0-9]{9,10}" class="form-control"
+                value="{{ usuario.telefono }}" oninvalid="this.setCustomValidity('Ingrese un telefono válido')"
+                oninput="this.setCustomValidity('')" required>
+        </div>
+    </div>
+    <!-- Sexo -->
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label >Sexo</label>
+        </div>
+        <div class="col-10"> 
+            <select  name="sexo" value="noBinario" class="form-select" aria-label="Default select example">
+                {% if usuario.sexo == "hombre"%}
+                    <option value="hombre" selected>Hombre</option>
+                {% else %}
+                    <option value="hombre">Hombre</option>
+                {%endif %}
+                {% if usuario.sexo == "mujer"%}
+                    <option value="mujer" selected>Mujer</option>
+                {% else %}
+                    <option value="mujer">Mujer</option>
+                {% endif %}
+                {% if usuario.sexo == "noBinario"%}
+                    <option value="noBinario" selected>No binario</option>
+                {% else %}
+                    <option value="noBinario">No binario</option>
+                {% endif%}
+                </select>
+        </div>
+
     </div>
     <!-- Rol -->
-    <div class="row">
-        <div class="col-2" >
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
             <label for="tipo_usuario">Rol del usuario</label>
         </div>
         <div class="col-10">
-            <select class=" form-select" aria-label="Default select example">
+            <select name="rol" class=" form-select" aria-label="Default select example">
+                {% if usuario.rol == "Locutor"%}
+                <option value="Locutor" selected>Locutor</option>
+                {% else %}
                 <option value="Locutor">Locutor</option>
+                {% endif %}
+                {% if usuario.rol == "Gerente"%}
+                <option value="Gerente" selected>Gerente</option>
+                {% else %}
                 <option value="Gerente">Gerente</option>
+                {% endif %}
+                {% if usuario.rol == "Director"%}
+                <option value="Director" selected>Director</option>
+                {% else %}
                 <option value="Director">Director</option>
+                {% endif %}
+                {% if usuario.rol == "Community Manager"%}
+                <option value="Community Manager" selected>Community Manager</option>
+                {% else %}
                 <option value="Community Manager">Community Manager</option>
-              </select>
+                {% endif %}
+            </select>
         </div>
-        
+
     </div>
+    <!--Estado Activo-->
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+        </div>
+        <div class="col-10 fs-3 form-check form-switch">
+            {% if usuario.activo %}
+            <input name="activo" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+            {% else %}
+            <input name="activo" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+            {% endif %}
+        </div>
+    </div>
+
     <!-- Imange del usuario -->
     <div class="form-group">
         <div class="custom-file">
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Imagen del Usuario</label>
-                <input class="form-control" type="file" id="formFile" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')" oninput="this.setCustomValidity('')">
-              </div>
-            <div class="img-holder">
+            <div class="my-3 row align-items-center">
+                <div class="col-2">
+                    <label for="formFile" class="form-label">Foto de perfil</label>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="file" id="formFile" accept=".png, .jpg, .jpeg"
+                        oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')"
+                        oninput="alert('Imagen ingresada con exito')">
+                </div>
+            </div>
+            <div class="img-holder text-center">
                 {% if usuario.imagen %}
-                    <img id="preview" src="{{ usuario.imagen.url }}">
+                <img id="preview" style="width:8rem; height:8rem" src="{{ usuario.imagen.url }}">
                 {% else %}
-                    <img id="preview" src="{% static 'webAdminRadio/images/placeholder.png' %}">
+                <img id="preview" style="width:8rem; height:8rem"
+                    src="{% static 'webAdminRadio/images/placeholder.png' %}">
                 {% endif %}
             </div>
         </div>
     </div>
-    <hr>
-    <!-- Información que se llenará si se quiere ingresar un locutor -->
-    <h4><b>Información adicional</b> (Opcional)</h4>
-    <!-- Apodo -->
-    <div class="form-group">
-        <label for="apodo">Apodo</label>
-        <input id="apodo" class="form-control" name="apodo" type="text" value="{% if usuario.apodo != 'None' %}{{ usuario.apodo }}{% endif %}"oninvalid="this.setCustomValidity('Ingrese un apodo válido')" oninput="this.setCustomValidity('')">
+    <!--Descripcion-->
+    <div class=" form-floating">
+        <textarea name="descripcion"  class="form-control" style="height: 7rem;" placeholder="Leave a comment here" id="floatingTextarea">
+        {{usuario.descripcion}}
+        </textarea>
+        <label for="floatingTextarea">Descripcion</label>
     </div>
-    <!-- Biografia -->
-    <div class="form-group">
-        <label for="biografia">Biografia</label>
-        <textarea id="biografia" class="form-control" name="biografia" rows="3" placeholder="Ingrese la biografia del usuario" oninvalid="this.setCustomValidity('Ingrese la biografia del usuario')" oninput="this.setCustomValidity('')" maxlength="250">{% if usuario.biografia != 'None' %}{{ usuario.biografia }}{% endif %}</textarea>
-    </div>
-    <!-- Hobbies -->
-    <div class="form-group">
-        <label for="hobbies">Hobbies (separado por comas)</label>
-        <input id="hobbies" class="form-control" name="hobbies" type="text" value="{% if usuario.hobbies != 'None' %}{{ usuario.hobbies }}{% endif %}">
-    </div>
+
     <!-- Div de Redes Sociales-->
     <div class="form-group">
         <label for="">Redes Sociales</label>
         <div id="componente_redsocial">
-                
-            
+
+
         </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar y continuar</button>
-    </form>
-    {% endblock %}
-{% block script %}
+    <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar y
+        continuar</button>
+</form>
+{% endblock %}
+{% block page_script %}
 {% endblock %}
