@@ -40,6 +40,7 @@ class UsuarioForm(forms.ModelForm):
                 'fechaNacimiento',
                 'telefono',
                 'rol',
+                'descripcion',
                 'foto',
                 'activo'
         ]

@@ -30,23 +30,34 @@ def editar_usuario(request,id_usuario):
         username = request.POST['username']
         first = request.POST['nombre']
         last = request.POST['apellido']
-        #sexo = request.POST['sexo']
+        sexo = request.POST['sexo']
         email = request.POST['email']
-        #cedula = request.POST['cedula']
+        cedula = request.POST['cedula']
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
-        #rol = request.POST['rol']
+        rol = request.POST['rol']
         #foto = request.POST['foto']
+        descripcion=request.POST['descripcion']
+        activo=True
+        try:
+            activo=request.POST['activo']=='on'
+        except:
+            activo=False
+        
+        print("SEXO: ",sexo)
+        print("ACTIVO: ",activo)
         user_form = UsuarioForm({
             'username':username,
             'first_name':first,
             'last_name':last,
-            #'sexo':sexo,
+            'sexo':sexo,
             'email':email,
-            #'cedula':cedula,
+            'cedula':cedula,
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
-            #'rol':rol,
+            'rol':rol,
+            'descripcion':descripcion,
+            'activo':activo,
             #'foto':foto,
         }, request.FILES, instance=edit_usuario)
         if user_form.is_valid():
