@@ -12,7 +12,7 @@
         </div>
         <ul class="list-unstyled components">
             <p>Menú</p>
-            <li class="active">
+            <li class="">
                 <a class="action" href="{% url 'administrador' %}"><i class="fas fa-home fa-fw"></i><span></span>Principal</a>
             </li>
             <li >
@@ -100,4 +100,10 @@
 {% block script %}
 <script src="{% static 'webAdminRadio/js/navbar.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('li.active').removeClass('active');
+        $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+      });
+</script>
 {% endblock %}
