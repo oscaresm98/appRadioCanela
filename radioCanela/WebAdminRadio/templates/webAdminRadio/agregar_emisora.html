@@ -33,20 +33,20 @@
 
         <!-- Div de Nombre -->
         <div class="form-group">
-            <label for="nombreInput">Nombre</label>
-            <input required name="nombre" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el nombre de la emisora" maxlength=150>
+            <label for="nombre">Nombre</label>
+            <input required name="id_radio.nombre" id="nombre" type="text" class="form-control" placeholder="Ingrese el nombre de la emisora" maxlength=150>
         </div>
         
 
         <!-- Div de frecuencia -->
         <div class="form-group">
-            <label for="frecuenciaInput">Frecuencia o Dial</label>
+            <label for="frecuenciaDial">Frecuencia o Dial</label>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <input required name="frecuencia" id="frecuenciaInput" type="text" class="form-control" placeholder="Ejemplo: 105.4" pattern="[((0-9]{2,3})|(0-9]{2,3}\.[0-9]">
+                    <input required name="frecuencia_dial" id="frecuenciaDial" type="text" class="form-control" placeholder="Ejemplo: 105.4" pattern="[((0-9]{2,3})|(0-9]{2,3}\.[0-9]">
                 </div>
                 <div class="form-group col-md-2">
-                <select required name="tipo" id="frecTipoInput" class="custom-select form-control">
+                <select required name="tipo_frecuencia" id="frecTipoInput" class="custom-select form-control">
                     <option disabled selected value="">Tipo de frecuencia</option>
                     <option value="FM">FM</option>
                     <option value="AM">AM</option>
@@ -58,13 +58,13 @@
         <!-- Div de descripcion -->
         <div class="form-group">
             <label for="descInput">Descripción</label>
-            <textarea required class="form-control" name="descripcion" id="descInput" rows="3" placeholder="Ingrese una breve descripción de la emisora" maxlength=1000></textarea>
+            <textarea required class="form-control" name="id_radio.descripcion" id="descInput" rows="3" placeholder="Ingrese una breve descripción de la emisora" maxlength=1000></textarea>
         </div>
 
         <!-- Div de Streaming -->
         <div class="form-group">
             <label required for="streamingInput">URL de streaming </label>
-            <input required name="streaming" id="streamingInput" type="url" class="form-control" placeholder="Ingrese el url de transmision de la radio">
+            <input required name="url_streaming" id="streamingInput" type="url" class="form-control" placeholder="Ingrese el url de transmision de la radio">
         </div>
 
         <!-- Div de telefono -->
@@ -78,14 +78,14 @@
         <!-- Div de Sitio Web -->
         <div class="form-group">
             <label for="webInput">Sitio Web (Opcional)</label>
-            <input name="sitioweb" id="webInput" type="url" class="form-control" placeholder="Ingrese el url del sitio web de la radio">
+            <input name="id_radio.sitio_web" id="webInput" type="url" class="form-control" placeholder="Ingrese el url del sitio web de la radio">
         </div>
 
         <!-- Div de imagen -->
         <div class="form-group">
             <div class="custom-file">
                 <label for="imgSegmento" class="custom-file-label">Logotipo</label>
-                <input name="logotipo" type="file" class="custom-file-input" id="imgSegmento" accept=".png, .jpg, .jpeg">
+                <input name="id_radio.logotipo" type="file" class="custom-file-input" id="imgSegmento" accept=".png, .jpg, .jpeg">
                 <div class="img-holder">
                     <img id="preview" src="{% static 'webAdminRadio/images/placeholder.png' %}">
                 </div>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="form-group col-md-2">
                  <label>Provincia</label>
-                 <select required name="provincia" class="custom-select form-control">
+                 <select for="provincia" required name="provincia" class="custom-select form-control">
                      <option disabled selected value="">Provincia</option>
                      <option value="Azuay">Azuay</option>
                      <option value="Cañar">Cañar</option>
@@ -137,12 +137,12 @@
         </div>
 
         <!-- Div de Redes Sociales-->
-        <div class="form-group">
+        {% comment %} <div class="form-group">
             <label for="">Redes Sociales</label>
             <div id="componente_redsocial">
                 <redsocial></redsocial>
             </div>
-        </div>
+        </div> {% endcomment %}
         <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Agregar Emisora</button> 
     </form>
 {% endblock %}

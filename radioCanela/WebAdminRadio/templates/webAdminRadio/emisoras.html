@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
 {% endblock %}
 {% block agregar_button %}
+    <a href="{% url 'agregar_radio' %}" class="btn btn-primary btn-md ms-auto action" role="button"><i class="fas fa-plus-circle"></i>Agregar Radio</a>
     <a href="{% url 'agregar_emisora' %}" class="btn btn-primary btn-md ms-auto action" role="button"><i class="fas fa-plus-circle"></i>Agregar Emisora</a>
 {% endblock %}
 
@@ -34,7 +35,7 @@
         {% for emisora in emisoras %}
         <div class="wrapper">
             <div class="img-container">
-                <img class="image" src="{{emisora.id_radio.logotipo}}" alt="Radio La Redonda">
+                <img class="image" src="{{emisora.id_radio}}" alt="Radio La Redonda">
             </div>
             <div class="info-container">
                 <h3><b>{{ emisora.id_radio.nombre }}</b></h3>
@@ -54,8 +55,8 @@
             </div>
             <div class="btn-wrapper">
                 <div class="act-buttons">
-                    <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
-                    <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-primary btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
+                    <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
+                    <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
                 </div>
                 {% comment %} <div class="info">
                     <p><b>Segmentos registrados:</b> {% get_cant_segmentos emisora %}</p>

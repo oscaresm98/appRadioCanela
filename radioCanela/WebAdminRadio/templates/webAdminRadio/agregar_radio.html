@@ -1,0 +1,77 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% endblock %}
+{% block content %}
+    {% if error %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="">
+                <h3 slot="header">Error</h3>
+                <div slot="body">
+                    <p>Existen algunos errores en los siguientes campos:</p>
+                    {% for campo,e in error.items %}
+                        <h5>{{campo}}</h5>
+                        {{e}}
+                    {% endfor %}
+                </div>
+            </modal-info>
+        </div>
+    {% endif %}
+    {% if success %}
+    <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="{% url 'emisoras' %}">
+                <h3 slot="header">Información</h3>
+                <p slot="body">{{success}}</p>
+            </modal-info>
+    </div>
+    {% endif %}
+    <h4><b>Información de la radio</b></h4>
+    <form id="agregarRadio" onsubmit="return validate()" action="{% url 'agregar_radio' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Div de imagen -->
+        <div class="form-group d-flex flex-column align-items-center mb-2">
+            <div class="img-holder">
+                <img class="rounded-4" id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+            </div>
+            <div class="form-file input-group w-50">
+                <input type="file" name="logotipo" class="custom-file-input form-control" id="logotipo" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese un logo valido)" oninput="this.setCustomValidity('')" required>
+                <input type="hidden" name="logotipo" id="logotipo">
+                <button type="button" id="btnImagen" class="btn btn-primary rounded-2"><i class="fas fa-upload"></i></button>
+                <div class="error"></div>
+            </div>
+        </div>
+
+        <!-- Div de Nombre -->
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input required name="nombre" id="nombre" type="text" class="form-control" placeholder="Ingrese el nombre de la emisora" maxlength=150>
+        </div>
+        
+
+        
+        <!-- Div de descripcion -->
+        <div class="form-group">
+            <label for="descInput">Descripción</label>
+            <textarea required class="form-control" name="descripcion" id="descInput" rows="3" placeholder="Ingrese una breve descripción de la emisora" maxlength=1000></textarea>
+        </div>
+
+
+        <!-- Div del sitio web  -->
+        <div class="form-group">
+            <label for="webInput">Sitio Web (opcional)</label>
+            <input name="sitio_web" id="sitio_web" type="url" class="form-control" placeholder="Ingrese el url del sitio web de la radio">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Agregar Radio</button> 
+
+    </form>
+{% endblock %}
+{% block page_script %}
+<script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+<script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+<script type="module"  src="{% static 'webAdminRadio/js/updateImage.js' %}"></script>
+{% endblock %}
