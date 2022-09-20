@@ -43,9 +43,6 @@ def editar_usuario(request,id_usuario):
             activo=request.POST['activo']=='on'
         except:
             activo=False
-        
-        print("SEXO: ",sexo)
-        print("ACTIVO: ",activo)
         user_form = UsuarioForm({
             'username':username,
             'first_name':first,

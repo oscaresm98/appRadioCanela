@@ -1,8 +1,8 @@
 {% extends 'webAdminRadio/base_site.html' %}
 {% load static %}
 
-{% block cdn_stlyes %}
-
+{% block page_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_usuario.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -188,16 +188,16 @@
                     <label for="formFile" class="form-label">Foto de perfil</label>
                 </div>
                 <div class="col-10">
-                    <input class="form-control" type="file" id="formFile" accept=".png, .jpg, .jpeg"
+                    <input class="form-control" type="file" id="imgSegmento" accept=".png, .jpg, .jpeg"
                         oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')"
                         oninput="alert('Imagen ingresada con exito')">
                 </div>
             </div>
-            <div class="img-holder text-center">
+            <div class="img-container">
                 {% if usuario.imagen %}
-                <img id="preview" style="width:8rem; height:8rem" src="{{ usuario.imagen.url }}">
+                <img id="preview" class="image"  src="{{ usuario.imagen.url }}">
                 {% else %}
-                <img id="preview" style="width:8rem; height:8rem"
+                <img id="preview" class="image"
                     src="{% static 'webAdminRadio/images/placeholder.png' %}">
                 {% endif %}
             </div>
@@ -224,4 +224,6 @@
 </form>
 {% endblock %}
 {% block page_script %}
+<script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+
 {% endblock %}
