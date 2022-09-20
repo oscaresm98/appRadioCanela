@@ -21,14 +21,14 @@
     {% endif %}
     {% if success %}
     <div id="componente_modal_info">
-        <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:segmentos' %}">
+        <modal-info v-if="showModal" url_redirect="{% url 'programas' %}">
             <h3 slot="header">Información</h3>
             <p slot="body">{{success}}</p>
         </modal-info>
     </div>
     {% endif %}
     <h4><b>Información del Programa</b></h4>
-    <form id="addSegmento" onsubmit="return validate()" action="{% url 'webadminradio:agregar_segmento' %}" method="POST" enctype="multipart/form-data">
+    <form id="addSegmento" onsubmit="return validate()" action="{% url 'agregar_programa' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- Selección de Emisora -->
         <div class="form-group">
@@ -89,7 +89,7 @@
                 <label for="imgSegmento" class="custom-file-label">Imagen del Programa</label>
                 <input type="file" name="imagen" class="custom-file-input" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')" oninput="this.setCustomValidity('')" required>
                 <div class="img-holder">
-                    <img id="preview" src="{% static 'webAdminRadio/images/placeholder.png' %}">
+                    <img id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
                 </div>
             </div>
         </div>
