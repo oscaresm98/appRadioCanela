@@ -115,11 +115,11 @@ def agregar_radio(request):
     context = {'title': 'Agregar Radio'}
     if request.POST:
         nombre = request.POST['nombre']
-        logotipo = request.POST['logotipo']
+        logotipo = request.POST['imagen']
         sitio_web = request.POST['sitio_web']
         descripcion = request.POST['descripcion']
         # imagen =  request.POST['imagen']
-        user_form = EquipoForm({
+        user_form = RadioForm({
             'nombre': nombre,
             # 'imagen': imagen,
             'logotipo': logotipo,
@@ -188,6 +188,8 @@ def editar_emisora(request,pk):
             context['success'] = "¡La emisora ha sido modificada con éxito!"
             return render(request, 'webAdminRadio/editar_emisora.html', context)
         return render(request, 'webAdminRadio/editar_emisora.html', context)
+
+# Equipos
 
 @login_required
 def equipos(request):
@@ -259,3 +261,112 @@ def modificar_equipo(request, id_equipo):
         else:
             context['error'] = user_form.errors
     return render(request, 'webAdminRadio/editar_equipo.html', context)
+
+
+# Programas
+
+@login_required
+def programas(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {'title': 'Programas', 'emisoras': list_emisoras}
+    return render(request, 'webAdminRadio/programas.html', context)
+
+
+@login_required
+def agregar_programa(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {'title': 'Agregar Programa', 'emisoras': list_emisoras}
+    # if request.POST:
+    #     segmento_form = SegmentoForm(request.POST, request.FILES)
+    #     if segmento_form.is_valid():
+    #         segmento_form.save()
+
+    #         if request.POST['dias']=='L':
+    #             lista = ['Lunes','Martes','Miércoles','Jueves','Viernes']
+    #         # Iterar por todos los horarios
+    #             for i in lista:
+    #             # Creación del horario
+    #                 horario_form = HorarioForm({
+    #                     'dia': i,
+    #                     'inicio': request.POST['horainicio'],
+    #                     'fin': request.POST['horafin'],
+    #                 })
+    #                 if horario_form.is_valid():
+    #                     horario_form.save()
+    #                 # Enlazar segmento con horario
+    #                     segmento_horario.objects.create(
+    #                         idSegmento=Segmento.objects.order_by('-id')[0],
+    #                         idHorario=Horario.objects.order_by('-id')[0]
+    #                     )
+    #                 else:
+    #                     context['error'] = horario_form.errors
+    #                     break
+    #             if 'error' not in context:
+    #                 context['success'] = '¡El programa ha sido creado con éxito!'
+    #             else:
+    #                 context['error'] = segmento_form.errors
+
+    #         elif request.POST['dias']=='SD':
+    #             fds = ['Sábado','Domingo']
+    #             for i in fds:
+    #                 horario_form = HorarioForm({
+    #                     'dia': i,
+    #                     'inicio': request.POST['horainicio'],
+    #                     'fin': request.POST['horafin'],
+    #                 })
+    #                 if horario_form.is_valid():
+    #                     horario_form.save()
+    #                     # Enlazar segmento con horario
+    #                     segmento_horario.objects.create(
+    #                         idSegmento=Segmento.objects.order_by('-id')[0],
+    #                         idHorario=Horario.objects.order_by('-id')[0]
+    #                         )
+    #                 else:
+    #                     context['error'] = horario_form.errors
+    #             if 'error' not in context:
+    #                 context['success'] = '¡El programa ha sido creado con éxito!'
+    #             else:
+    #                 context['error'] = segmento_form.errors
+
+    #         elif request.POST['dias']=='S':
+    #             horario_form = HorarioForm({
+    #                 'dia': 'Sábado',
+    #                 'inicio': request.POST['horainicio'],
+    #                 'fin': request.POST['horafin'],
+    #             })
+    #             if horario_form.is_valid():
+    #                 horario_form.save()
+    #                 # Enlazar segmento con horario
+    #                 segmento_horario.objects.create(
+    #                     idSegmento=edit_segmento,
+    #                     idHorario=Horario.objects.order_by('-id')[0]
+    #                     )
+    #             else:
+    #                 context['error'] = horario_form.errors
+    #             if 'error' not in context:
+    #                 context['success'] = '¡El programa ha sido creado con éxito!'
+    #             else:
+    #                 context['error'] = segmento_form.errors
+
+    #         elif request.POST['dias']=='D':
+    #             horario_form = HorarioForm({
+    #                 'dia': 'Domingo',
+    #                 'inicio': request.POST['horainicio'],
+    #                 'fin': request.POST['horafin'],
+    #             })
+    #             if horario_form.is_valid():
+    #                 horario_form.save()
+    #                 # Enlazar segmento con horario
+    #                 segmento_horario.objects.create(
+    #                     idSegmento=Segmento.objects.order_by('-id')[0],
+    #                     idHorario=Horario.objects.order_by('-id')[0]
+    #                     )
+    #             else:
+    #                 context['error'] = horario_form.errors
+    #             if 'error' not in context:
+    #                 context['success'] = '¡El programa ha sido creado con éxito!'
+    #             else:
+    #                 context['error'] = segmento_form.errors
+
+    #     return render(request, 'webAdminRadio/agregar_segmento.html', context)
+    return render(request, 'webAdminRadio/agregar_programa.html', context)
