@@ -78,11 +78,11 @@ def agregar_radio(request):
     context = {'title': 'Agregar Radio'}
     if request.POST:
         nombre = request.POST['nombre']
-        logotipo = request.POST['logotipo']
+        logotipo = request.POST['imagen']
         sitio_web = request.POST['sitio_web']
         descripcion = request.POST['descripcion']
         # imagen =  request.POST['imagen']
-        user_form = EquipoForm({
+        user_form = RadioForm({
             'nombre': nombre,
             # 'imagen': imagen,
             'logotipo': logotipo,
