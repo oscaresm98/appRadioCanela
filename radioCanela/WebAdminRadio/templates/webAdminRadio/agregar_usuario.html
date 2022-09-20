@@ -1,1 +1,196 @@
-hola
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+
+{% block page_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_usuario.css' %}">
+{% endblock %}
+
+{% block content %}
+{% comment %}
+{% if error %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="">
+        <h3 slot="header">Error</h3>
+        <div slot="body">
+            <p>Existen algunos errores en los siguientes campos:</p>
+            {% for campo,e in error.items %}
+            <h5>{{campo}}</h5>
+            {{e}}
+            {% endfor %}
+        </div>
+    </modal-info>
+</div>
+{% endif %}
+{% if success %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:asignar_permisos' id_usuario %}">
+        <h3 slot="header">Información</h3>
+        <p slot="body">{{success}}</p>
+    </modal-info>
+</div>
+{% endif %}
+{% endcomment %}
+<h4><b>Información del Usuario </b></h4>
+<form id="addLocutor" onsubmit="alert(action);return validate()" action="{% url 'agregar_usuario' %}"
+    method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Nombre del usuario -->
+    <div class="my-3 row align-items-center ">
+        <div class="col-2">
+            <label for="nombre" class="col-sm-1 col-form-label">Nombres</label>
+        </div>
+
+        <div class="col-10">
+            <input id="nombre" name="nombre" type="text" class="form-control" 
+                oninvalid="this.setCustomValidity('Ingrese un nombre válido')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
+    </div>
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="apellido" class="col-sm-1 col-form-label">Apellidos</label>
+        </div>
+        <div class="col-10">
+            <input id="apellido" name="apellido" type="text" class="form-control"
+                oninvalid="this.setCustomValidity('Ingrese un apellido válido')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
+    </div>
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="cedula" class="col-sm-1 col-form-label">Cedula</label>
+        </div>
+        <div class="col-10">
+            <input id="cedula" name="cedula" type="text" class="form-control"
+                oninvalid="this.setCustomValidity('Ingrese un apellido válido')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
+    </div>
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="user" class="col-sm-1 col-form-label">Username</label>
+        </div>
+        <div class="col-10">
+            <input id="user" name="username" type="text" class="form-control"
+                oninvalid="this.setCustomValidity('Ingrese un username válido')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
+    </div>
+    <!-- Fecha de Nacimiento -->
+    <div class="my-3 row align-items-center">
+        <div class="col-3">
+            <label for="fechaNac">Fecha de Nacimiento</label>
+        </div>
+        <div class="col-9">
+            <input id="fechaNac" name="fechaNac" type="date" class="form-control"
+                oninvalid="this.setCustomValidity('Ingrese una fecha')"
+                oninput="this.setCustomValidity('')" required>
+        </div>
+    </div>
+    <!-- E-mail -->
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="email">Correo electrónico</label>
+        </div>
+        <div class="col-10">
+            <input id="email" name="email" type="email" class="form-control"
+                oninvalid="this.setCustomValidity('Ingrese una direccion válida')" oninput="this.setCustomValidity('')"
+                required>
+        </div>
+    </div>
+    <!-- Teléfono -->
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="telefono">Teléfono</label>
+        </div>
+        <div class="col-10">
+            <input id="telefono" name="telefono" type="tel" pattern="[0-9]{9,10}" class="form-control"
+                oninvalid="this.setCustomValidity('Ingrese un telefono válido')"
+                oninput="this.setCustomValidity('')" required>
+        </div>
+    </div>
+    <!-- Sexo -->
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label >Sexo</label>
+        </div>
+        <div class="col-10"> 
+            <select  name="sexo" value="noBinario" class="form-select" aria-label="Default select example">
+                    <option value="hombre">Hombre</option>
+                    <option value="mujer">Mujer</option>
+                    <option value="noBinario">No binario</option>
+                </select>
+        </div>
+
+    </div>
+    <!-- Rol -->
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label for="tipo_usuario">Rol del usuario</label>
+        </div>
+        <div class="col-10">
+            <select name="rol" class=" form-select" aria-label="Default select example">
+                <option value="Locutor">Locutor</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Director">Director</option>
+                <option value="Community Manager">Community Manager</option>
+            </select>
+        </div>
+
+    </div>
+    <!--Estado Activo-->
+    <div class="my-3 row align-items-center">
+        <div class="col-2">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+        </div>
+        <div class="col-10 fs-3 form-check form-switch">
+
+            <input name="activo" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+
+        </div>
+    </div>
+
+    <!-- Imange del usuario -->
+    <div class="form-group">
+        <div class="custom-file">
+            <div class="my-3 row align-items-center">
+                <div class="col-2">
+                    <label for="formFile" class="form-label">Foto de perfil</label>
+                </div>
+                <div class="col-10">
+                    <input class="form-control" type="file" id="imgSegmento" accept=".png, .jpg, .jpeg"
+                        oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')"
+                        oninput="alert('Imagen ingresada con exito')">
+                </div>
+            </div>
+            <div class="img-container">
+
+                <img id="preview" class="image"
+                    src="{% static 'webAdminRadio/images/placeholder.png' %}">
+
+            </div>
+        </div>
+    </div>
+    <!--Descripcion-->
+    <div class=" form-floating">
+        <textarea name="descripcion"  class="form-control" style="height: 7rem;" placeholder="Leave a comment here" id="floatingTextarea">
+        </textarea>
+        <label for="floatingTextarea">Descripcion</label>
+    </div>
+
+    <!-- Div de Redes Sociales-->
+    <div class="form-group">
+        <label for="">Redes Sociales</label>
+        <div id="componente_redsocial">
+
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar y
+        continuar</button>
+</form>
+{% endblock %}
+{% block page_script %}
+<script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+
+{% endblock %}

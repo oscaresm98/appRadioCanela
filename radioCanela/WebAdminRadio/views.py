@@ -13,6 +13,44 @@ def administrador(request):
 
 @login_required
 def agregar_usuario(request):
+    context = {'title': 'Agregar Usuario'}
+    if request.POST:
+        username = request.POST['username']
+        first = request.POST['nombre']
+        last = request.POST['apellido']
+        sexo = request.POST['sexo']
+        email = request.POST['email']
+        cedula = request.POST['cedula']
+        nacimiento = request.POST['fechaNac']
+        telefono = request.POST['telefono']
+        rol = request.POST['rol']
+        #foto = request.POST['foto']
+        descripcion=request.POST['descripcion']
+        activo=True
+        try:
+            activo=request.POST['activo']=='on'
+        except:
+            activo=False
+        user_form = UsuarioForm({
+            'username':username,
+            'first_name':first,
+            'last_name':last,
+            'sexo':sexo,
+            'email':email,
+            'cedula':cedula,
+            'fechaNacimiento':nacimiento,
+            'telefono':telefono,
+            'rol':rol,
+            'descripcion':descripcion,
+            'activo':activo,
+            #'foto':foto,
+        })
+        
+        if user_form.is_valid():
+            user_form.save()
+            context['success'] = '¡El usuario se ha registrado!'
+        else:
+            context['error'] = user_form.errors
     # Termianar este request
     return render(request,"webAdminRadio/agregar_usuario.html")
 
@@ -24,8 +62,7 @@ def editar_usuario(request,id_usuario):
         'title': 'Editar Usuario',
         'usuario': edit_usuario,
     }
-    print("USUARIOOOO")
-    print(context['usuario'])
+    
     if request.POST:
         username = request.POST['username']
         first = request.POST['nombre']
