@@ -305,7 +305,7 @@ def modificar_equipo(request, id_equipo):
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
             RedSocialEquipo.objects.create(
-                id_equipo=Equipo.objects.order_by('-id')[0],
+                id_equipo=edit_equipo,
                 id_red_social=id,
                 link=request.POST.getlist('red_social_url')[i]
             )
