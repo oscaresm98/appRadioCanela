@@ -116,13 +116,14 @@
     <script src="{% static 'webAdminRadio/js/componentes/Red_SocialComponente.js' %}"></script>
     <script>
         var redes = {{ redsocial|safe }}
-        var selectbox;
-        var opts;
-        contenedorRedesSociales.$children[0].$data.redes_sociales.pop();
-        for (red of redes) {
-            red['esOtra'] = false;
-            contenedorRedesSociales.$children[0].$data.redes_sociales.push(red);
+        if (redes.length>0) {
+            contenedorRedesSociales.$children[0].$data.redes_sociales.pop();
+            for (red of redes) {
+                red['esOtra'] = false;
+                contenedorRedesSociales.$children[0].$data.redes_sociales.push(red);
+            }
         }
+        
     </script>
     
 {% endblock %}

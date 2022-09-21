@@ -110,7 +110,7 @@ class Compra(models.Model):
 
 
 class Emisora(models.Model):
-    id = models.IntegerField(primary_key=True, null=False)
+    # id = models.IntegerField(primary_key=True, null=False)
     id_radio = models.ForeignKey(Radio, on_delete=models.CASCADE, db_column='id_radio')
     frecuencia_dial = models.CharField(max_length=30, blank=True, null=True)
     tipo_frecuencia = models.CharField(max_length=30, blank=True, null=True)
@@ -238,7 +238,7 @@ class RedSocialEmisora(models.Model):
 
 
 class RedSocialEquipo(models.Model):
-    id_equipo = models.OneToOneField(Equipo, on_delete=models.CASCADE, db_column='id_equipo', primary_key=True)
+    id_equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE, db_column='id_equipo')
     id_red_social = models.ForeignKey(RedSocial, on_delete=models.CASCADE, db_column='id_red_social')
     link = models.CharField(max_length=2080, blank=True, null=True)
     estado = models.BooleanField(default=True)
