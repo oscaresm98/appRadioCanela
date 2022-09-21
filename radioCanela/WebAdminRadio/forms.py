@@ -64,9 +64,9 @@ class UsuarioForm(forms.ModelForm):
 # class TelefonoForm(forms.Form):
 #     telefono = forms.RegexField(regex=r"(\+)?[0-9]+", max_length=10)
 
-# class RedSocialForm(forms.Form):
-#     nombre = forms.CharField(max_length=25, required=False)
-#     link = forms.URLField(max_length=250, required=False)
+class RedSocialForm(forms.Form):
+    nombre = forms.CharField(max_length=25, required=False)
+    logo_red_social = forms.URLField(max_length=2080, required=False)
 
 # class PublicidadForm(forms.ModelForm):
 #     class Meta:

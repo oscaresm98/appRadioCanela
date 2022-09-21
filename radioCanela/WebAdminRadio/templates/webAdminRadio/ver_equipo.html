@@ -39,22 +39,41 @@
         </div>
     </div>
 
-    {% comment %} <table class="w-50">
-
-        <tr height="50">
-            <th class="w-50">Imagen:</th>
-            <td>{{ equipo.imagen }}</td>
-        </tr>
-        <tr height="50">
-            <th class="w-50">Ciudad:</th>
-            <td>{{ equipo.ciudad }}</td>
-        </tr>
-        <tr height="50">
-            <th class="w-50">Descripcion:</th>
-            <td>{{ equipo.descripcion }}</td>
-        </tr>
-
-        
-    </table> {% endcomment %}
+    <div class="row mb-3">
+        <div class="col-4" id="redSocial">
+            <label class="fw-bold ms-5 label">Redes Sociales:</label>
+        </div>
+        {% for red in redSociaEquipo %}
+        <div class="col-8">
+            <i class="{{ red.id_red_social.logo_red_social }}"></i>
+            <label class="ms-3">{{ red.link  }}</label>
+        </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}
+
+{% comment %} {% block page_script %}
+<script>
+$.ajax({
+    url: "/api/redsocial",
+    "dataSrc": "",
+    "error": function(xhr, status, error) {
+        console.log("readyState: " + xhr.readyState);
+        console.log("responseText: "+ xhr.responseText);
+        console.log("status: " + xhr.status);
+        console.log("text status: " + status);
+        console.log("error: " + error);
+    },
+  success: function( result ) {
+    console.log(result)
+    $.each(result, function(i, item) {
+        $( "#redSocial" ).append( `<i class="${item.logo_red_social}"></i>
+        ` );
+    });
+    
+  }
+});
+</script>
+
+{% endblock %} {% endcomment %}

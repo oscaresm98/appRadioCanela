@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from WebAdminRadio.models import *
 from WebAdminRadio.forms import *
 from django.contrib import messages
-
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 # Create your views here.
 
 
@@ -205,26 +206,56 @@ def agregar_equipo(request):
         ciudad = request.POST['ciudad']
         descripcion = request.POST['descripcion']
         imagen =  request.POST['imagen']
-        user_form = EquipoForm({
+        equipo_form = EquipoForm({
             'equipo': equipo,
             'ciudad': ciudad,
             'descripcion': descripcion,
             'imagen': imagen,
         })
-        if user_form.is_valid():
-            user_form.save()
-            context['success'] = '¡El equipo ha sido registrado!'
-        else:
-            context['error'] = user_form.errors
+        if not equipo_form.is_valid():
+            context['error'] = equipo_form.errors
+            return render(request, 'webAdminRadio/agregar_equipo.html', context)
+        
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            red_form = RedSocialForm({
+                'nombre': request.POST.getlist('red_social_nombre')[i],
+                'logo_red_social': request.POST.getlist('red_social_url')[i]
+            })
+            if not red_form.is_valid():
+                context['error'] = red_form.errors
+                return render(request, 'webAdminRadio/agregar_emisora.html', context)
+        
+        equipo_form.save()
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
+            RedSocialEquipo.objects.create(
+                id_equipo=Equipo.objects.order_by('-id')[0],
+                id_red_social=id,
+                link=request.POST.getlist('red_social_url')[i]
+            )
+        context['success'] = '¡La emisora ha sido registrada con éxito!'
     return render(request, 'webAdminRadio/agregar_equipo.html', context)
 
+
+def comprobarRedSocial (nom):
+    if len(RedSocial.objects.filter(nombre=nom))>0:
+        return RedSocial.objects.get(nombre=nom)
+    else:
+        lowerNom=nom.lower()
+        RedSocial.objects.create(
+            nombre = nom,
+            logo_red_social = 'fab fa-' + lowerNom
+        )
+        return RedSocial.objects.get(nombre=nom)
 
 @login_required
 def ver_equipo(request, id_equipo):
     equipo = Equipo.objects.get(id=id_equipo)
+    redSociaEquipo = RedSocialEquipo.objects.filter(id_equipo=id_equipo)        
     context = {
         'title': 'Información del Equipo',
         'equipo': equipo,
+        'redSociaEquipo': redSociaEquipo,
     }
     return render(request, 'webAdminRadio/ver_equipo.html', context)
 
@@ -239,27 +270,46 @@ def borrar_equipo(request, id_equipo):
 @login_required
 def modificar_equipo(request, id_equipo):
     edit_equipo = Equipo.objects.get(id=id_equipo)
+    red_social = RedSocialEquipo.objects.filter(id_equipo=id_equipo)
     context = {
         'title': 'Editar Equipo',
         'equipo': edit_equipo,
+        'redsocial': json.dumps(list(red_social.values('id_red_social', 'link')), cls=DjangoJSONEncoder)
     }
     if request.POST:
         equipo = request.POST['equipo']
         ciudad = request.POST['ciudad']
         descripcion = request.POST['descripcion']
         imagen =  request.POST['imagen']
-        user_form = EquipoForm({
+        equipo_form = EquipoForm({
             'equipo': equipo,
             'ciudad': ciudad,
             'descripcion': descripcion,
             'imagen': imagen,
         }, instance=edit_equipo)
-        if user_form.is_valid():
-            error=user_form.save()
-            print(error)
-            context['success'] = '¡El equipo ha sido modificado exitosamente!'
-        else:
-            context['error'] = user_form.errors
+        if not equipo_form.is_valid():
+            context['error'] = equipo_form.errors
+            return render(request, 'webAdminRadio/agregar_equipo.html', context)
+        
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            red_form = RedSocialForm({
+                'nombre': request.POST.getlist('red_social_nombre')[i],
+                'logo_red_social': request.POST.getlist('red_social_url')[i]
+            })
+            if not red_form.is_valid():
+                context['error'] = red_form.errors
+                return render(request, 'webAdminRadio/agregar_emisora.html', context)
+        
+        equipo_form.save()
+        red_social.delete()
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
+            RedSocialEquipo.objects.create(
+                id_equipo=Equipo.objects.order_by('-id')[0],
+                id_red_social=id,
+                link=request.POST.getlist('red_social_url')[i]
+            )
+        context['success'] = '¡La emisora ha sido registrada con éxito!'
     return render(request, 'webAdminRadio/editar_equipo.html', context)
 
 

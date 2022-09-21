@@ -19,6 +19,9 @@ urlpatterns = [
     path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
     path('radios/',views.radio_List,name='radio-list'),
     path('radios/<int:pk>',views.radio_detalle,name='radio-detalle'),
+    path('redsocial/',views.redsocial.as_view(),name='redsocial-list'),
+    path('redsocial/<int:pk>',views.redsocial_detalle,name='redsocial-detalle-list'),
+    path('redsocialequipo/',views.redsocialequipo.as_view(),name='redsocial-equipo-list'),
     
     
     #path('radio/', views.ListEmisora.as_view()),

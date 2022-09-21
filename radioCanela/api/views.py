@@ -65,6 +65,30 @@ class ListAuditoria(generics.ListCreateAPIView):
     serializer_class = serializers.AuditoriaSerializer
 
 
+# GET: Vista que obtiene red social
+class redsocial(generics.ListCreateAPIView):
+    queryset = RedSocial.objects.filter(estado=True)
+    serializer_class = serializers.RedSocialSerializer
+
+
+# GET: Vista que obtiene red social
+class redsocialequipo(generics.ListCreateAPIView):
+    queryset = RedSocialEquipo.objects.filter(estado=True)
+    serializer_class = serializers.RedSocialEquipoSerializer
+
+# GET: Vista que obtiene red social por id
+@api_view()
+def redsocial_detalle(request,pk):
+    try:
+        redSocial = RedSocial.objects.get(id=pk)
+    except RedSocial.DoesNotExist: 
+        return Response({'Error': 'La red social no existe'}, status=status.HTTP_404_NOT_FOUND)
+        
+    #GET: Vista en la que se obtiene una red social por id 
+    if request.method == 'GET':
+        serializers = RedSocialSerializer(redSocial) 
+        return Response(serializers.data)
+
 # GET: Vista que obtiene los Concursos
 @api_view(['GET'])
 def ListConcursos(request):

@@ -57,6 +57,17 @@ class EquipoSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.Equipo
         
+#RedSocial
+class RedSocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.RedSocial
+#RedSocial
+class RedSocialEquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.RedSocialEquipo
+        
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
