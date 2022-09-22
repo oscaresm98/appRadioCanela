@@ -107,8 +107,9 @@ def editar_usuario(request,id_usuario):
 @login_required
 #@has_permission_decorator('emisoras')
 def emisoras(request):
+    listaRadios= Radio.objects.filter(estado=True)
     listaEmisoras = Emisora.objects.filter(estado=True)
-    context = {'title': 'Emisoras', 'emisoras': listaEmisoras}
+    context = {'title': 'Emisoras', 'emisoras': listaEmisoras, 'radios': listaRadios}
     return render(request, 'webAdminRadio/emisoras.html', context)
 
 @login_required
@@ -139,9 +140,10 @@ def agregar_radio(request):
 @login_required
 # @has_permission_decorator('add_emisora')
 def agregar_emisora(request):
-    context = {'title': 'Agregar Emisora'}
+    listaRadios= Radio.objects.filter(estado=True)
+    context = {'title': 'Agregar Emisora','radios': listaRadios}
     if request.POST:
-        nombre = request.POST['id_radio.nombre']
+        id_radio = request.POST['id_radio']
         frecuencia_dial = request.POST['frecuencia_dial']
         tipo_frecuencia = request.POST['tipo_frecuencia']
         url_streaming = request.POST['url_streaming']
@@ -150,14 +152,14 @@ def agregar_emisora(request):
         provincia = request.POST['provincia']
         url_streaming = request.POST['url_streaming']
         emisora_form = EmisoraForm({
-            'nombre': nombre,
+            'id_radio': id_radio,
             'frecuencia_dial': frecuencia_dial,
             'tipo_frecuencia': tipo_frecuencia,
             'direccion': direccion,
             'url_streaming': url_streaming,
             'ciudad': ciudad,
             'provincia': provincia,
-            'estado': True
+            'estado': True,
         })
         
         if not emisora_form.is_valid():

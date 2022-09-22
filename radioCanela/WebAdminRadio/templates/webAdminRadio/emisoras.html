@@ -31,34 +31,53 @@
             </div>
         </modal-borrar>
     </div> {% endcomment %}
+    <div class="Radio">
+        {% for radio in radios %}
+        <div class="wrapper">
+            <div class="img-container">
+                <img class="image" src="{{radio.logotipo}}" alt="{{radio.nombre}}">
+            </div>
+            <div class="info-container">
+                <h3><b>{{ radio.nombre }}</b></h3>
+                
+                <p><i>{{ radio.descripcion }}</i></p>
+                
+                <p><i class="fas fa-globe icon"></i><a href="{{ radio.sitio_web }}"> {{ radio.sitio_web }}</a></p>
+            </div>
+            <div class="btn-wrapper">
+                {% comment %} <div class="act-buttons">
+                    <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
+                    <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
+                </div> {% endcomment %}
+                {% comment %} <div class="info">
+                    <p><b>Segmentos registrados:</b> {% get_cant_segmentos emisora %}</p>
+                    <p><b>Locutores registrados:</b> {% get_cant_locutores emisora %}</p>
+                </div> {% endcomment %}
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+
     <div class="emisoras">
         {% for emisora in emisoras %}
         <div class="wrapper">
             <div class="img-container">
-                <img class="image" src="{{emisora.id_radio}}" alt="Radio La Redonda">
+                <img class="image" src="{{emisora.id_radio.logotipo}}" alt="{{emisora.id_radio.nombre}}">
             </div>
             <div class="info-container">
-                <h3><b>{{ emisora.id_radio.nombre }}</b></h3>
-                {% if emisora.tipo != "Null" %}
+                <h3><b>Emisora de: {{ emisora.id_radio.nombre }}</b></h3>
                 <p><i>{{ emisora.frecuencia_dial }} {{ emisora.tipo_frecuencia }}</i></p>
-                {% else %}
-                <p><i></i>
-                {% endif %}
                 <p><i class="fas fa-map-marker-alt icon"></i>{{emisora.direccion}}, {{emisora.ciudad}}, {{emisora.provincia}}</p>
-                {% comment %} {% get_telf_emisora emisora as telefonos %}
-                    <p><i class="fas fa-phone icon"></i>
-                        {% for tel in telefonos %}
-                            {{ tel.nro_telefono }}
-                        {% endfor %}
-                    </p> {% endcomment %}
-                <p><i class="fas fa-globe icon"></i><a href="{{ emisora.id_radio.sitio_web }}"> {{ emisora.id_radio.sitio_web }}</a></p>
+                
             </div>
             <div class="btn-wrapper">
+                {% comment %} 
                 <div class="act-buttons">
-                    <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>
-                    <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
+                    <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar emisora</a>
+                    <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar emisora</a>
                 </div>
-                {% comment %} <div class="info">
+                <div class="info">
                     <p><b>Segmentos registrados:</b> {% get_cant_segmentos emisora %}</p>
                     <p><b>Locutores registrados:</b> {% get_cant_locutores emisora %}</p>
                 </div> {% endcomment %}
@@ -69,7 +88,7 @@
     </div>
 {% endblock %}
 
-{% comment %} 
+
 {% block page_script %}
     <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
     <script src="{% static 'webAdminRadio/js/componentes/BorrarComponent.js' %}"></script>
@@ -79,4 +98,4 @@
             contenedorBorrar.$data.id = id;
             contenedorBorrar.$data.showModal = true;        }
     </script>
-{% endblock %} {% endcomment %}
+{% endblock %} 

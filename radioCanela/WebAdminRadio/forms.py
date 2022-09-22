@@ -9,6 +9,7 @@ class EmisoraForm(forms.ModelForm):
     class Meta:
         model= Emisora
         fields = [
+            'id_radio',
             'frecuencia_dial',
             'tipo_frecuencia',
             'url_streaming',
