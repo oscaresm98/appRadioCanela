@@ -8,7 +8,7 @@ function getSegmentos(emisora) {
         "destroy": true,
         "ajax": {
             "method": "GET",
-            "url": "/api/emisora/"+ emisora +"/segmentos",
+            "url": "/api/emisora/"+ emisora +"/programas",
             "dataSrc": "",
             "error": function(xhr, status, error) {
                 console.log("readyState: " + xhr.readyState);
@@ -34,14 +34,14 @@ function getSegmentos(emisora) {
             { width: 250, targets: 3, render: function(data) {
                 html = ``;
                 for (var key in data){
-                    html += data[key].dia + " : " + data[key].fecha_inicio.slice(0,5) + " - " + data[key].fecha_fin.slice(0,5) + "<br>";
+                    html += data[key].hora_inicio.slice(0,5) + " - " + data[key].hora_fin.slice(0,5) + "<br>";
                 }
                 return html;
             }},
             { width: 150, className: "text-center", targets: 4, render: function(data){
-                return `<a href="/segmentos/` + data + `" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye"></i></a>
-                        <a href="/segmentos/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen"></i></a>
-                        <a href="#" onclick="showWarning(` + data + `)" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times"></i></a>
+                return `<a href="/segmentos/` + data + `" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye mx-auto"></i></a>
+                        <a href="/segmentos/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
+                        <a href="#" onclick="showWarning(` + data + `)" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>
                         `
             }},
         ],

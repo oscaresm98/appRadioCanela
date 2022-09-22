@@ -65,13 +65,14 @@ class ListAuditoria(generics.ListCreateAPIView):
     serializer_class = serializers.AuditoriaSerializer
 
 
+#Redes Sociales
 # GET: Vista que obtiene red social
 class redsocial(generics.ListCreateAPIView):
     queryset = RedSocial.objects.filter(estado=True)
     serializer_class = serializers.RedSocialSerializer
 
 
-# GET: Vista que obtiene red social
+# GET: Vista que obtiene red social del equipo
 class redsocialequipo(generics.ListCreateAPIView):
     queryset = RedSocialEquipo.objects.filter(estado=True)
     serializer_class = serializers.RedSocialEquipoSerializer
@@ -89,6 +90,7 @@ def redsocial_detalle(request,pk):
         serializers = RedSocialSerializer(redSocial) 
         return Response(serializers.data)
 
+# Concursos
 # GET: Vista que obtiene los Concursos
 @api_view(['GET'])
 def ListConcursos(request):
@@ -207,7 +209,27 @@ def emisora_detalle(request,pk):
     elif request.method == 'DELETE':
         emisora.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
+
+#Obtiene las programas segun la emisora
+class ListEmisoraProgramas(generics.ListAPIView):
+    serializer_class = serializers.ProgramaSerializerFull
+
+    def get_queryset(self):
+        emisora = self.kwargs['id_emisora']
+        return Programa.objects.filter(segmentoemisora=emisora, estado=True)
+
+
+# GET: Vista que obtiene Segmentos emisoras
+class SegmentoEmisoraList(generics.ListCreateAPIView):
+    queryset = SegmentoEmisora.objects.all()
+    serializer_class = serializers.SegementoEmisoraSerializer
     
+# GET: Vista que obtiene Horarios
+class HorariosList(generics.ListCreateAPIView):
+    queryset = Horario.objects.filter(estado=True)
+    serializer_class = serializers.HorarioSerializer
+
+
 # Radio
 # Se manejan todas las radios 
 @api_view(['GET', 'POST','DELETE'])

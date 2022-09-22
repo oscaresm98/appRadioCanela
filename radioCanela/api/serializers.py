@@ -36,16 +36,18 @@ class EmisoraSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.Emisora
 
+#Radio
 class RadioSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Radio
-        
+# Usuario  
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Usuario
 
+# Torneo
 class TorneosSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
@@ -57,17 +59,38 @@ class EquipoSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.Equipo
         
-#RedSocial
+# RedSocial
 class RedSocialSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.RedSocial
-#RedSocial
+
+# RedSocial de equipo
 class RedSocialEquipoSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.RedSocialEquipo
-        
+
+# Segmento emisora
+class SegementoEmisoraSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.SegmentoEmisora
+
+# Horario
+class HorarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Horario
+
+# Programas CON HORARIOS y emisora
+class ProgramaSerializerFull(serializers.ModelSerializer):
+    horarios = serializers.ReadOnlyField(source="get_horarios")
+    idEmisora = serializers.ReadOnlyField(source="get_emisora")
+
+    class Meta:
+        model = models.Programa
+        fields = ('id', 'nombre', 'imagen','idEmisora', 'descripcion', 'horarios')
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
@@ -76,13 +99,7 @@ class RedSocialEquipoSerializer(serializers.ModelSerializer):
 #         fields = '__all__'
 #         model = models.Emisora
 
-# #SEGMENTOS CON HORARIOS
-# class SegmentoSerializerFull(serializers.ModelSerializer):
-#     horarios = serializers.ReadOnlyField(source="get_horarios")
 
-#     class Meta:
-#         model = models.SegmentoEmisora
-#         fields = ('id', 'nombre', 'imagen','idEmisora', 'slogan','descripcion', 'horarios')
 
 # #SEGMENTOS DEL DIA ACTUAL
 # class SegmentoSerializerToday(serializers.ModelSerializer):

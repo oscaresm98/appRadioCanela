@@ -61,6 +61,14 @@ class Programa(models.Model):
     slug = models.SlugField(unique=True, null=True)
     imagen = models.CharField(max_length=2080, blank=True, null=True)
     estado = models.BooleanField(default=True)
+    
+    # Esta función retorna todos los horarios del segmento
+    def get_horarios(self):
+        return Horario.objects.filter(id_programa=self.pk).values('hora_inicio', 'hora_fin')
+    
+    # Esta función retorna todo 
+    def get_emisora(self):
+        return SegmentoEmisora.objects.filter(segmento=self.pk).values('emisora')
 
 
 class Radio(models.Model):
