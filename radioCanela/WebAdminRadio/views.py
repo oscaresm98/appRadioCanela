@@ -170,16 +170,31 @@ def agregar_emisora(request):
         context['success'] = '¡La emisora ha sido registrada con éxito!'
     return render(request, 'webAdminRadio/agregar_emisora.html', context)
 
+@login_required
+def borrar_emisora(request, id_emisora):
+    delete_emisora = Emisora.objects.get(id=id_emisora)
+    delete_emisora.estado = False
+    delete_emisora.delete()
+    messages.success(request, 'La emisora ha sido eliminado')
+    return redirect('emisora')
 
 @login_required
-def editar_emisora(request,pk):
-    edit_emisora = Emisora.objects.get(id=pk, estado=True)
+def borrar_radio(request, id_radio):
+    delete_radio = Radio.objects.get(id=id_radio)
+    delete_radio.estado = False
+    delete_radio.delete()
+    messages.success(request, 'La radio ha sido eliminado')
+    return redirect('emisora')
+
+
+@login_required
+def editar_emisora(request,id_emisora):
+    edit_emisora = Emisora.objects.get(id=id_emisora, estado=True)
+    edit_radio = Radio.objects.get(id=id_emisora,stado=True)
     # red_social = RedSocial_emisora.objects.filter(idEmisora=id_emisora)
-    # telefono_emisora = Telefono_emisora.objects.filter(idEmisora=id_emisora)
     context = {
         'title': 'Editar Emisora',
         'emisora': edit_emisora,
-        # 'telefono': json.dumps(list(telefono_emisora.values('nro_telefono')), cls=DjangoJSONEncoder),
         # 'redsocial': json.dumps(list(red_social.values('nombre', 'link')), cls=DjangoJSONEncoder)
     }
     if request.POST:
@@ -187,9 +202,10 @@ def editar_emisora(request,pk):
         if not emisora_form.is_valid():
             context['error'] = emisora_form.errors
             return render(request, 'webAdminRadio/editar_emisora.html', context)
-
+        elif emisora_form.is_valid():
             context['success'] = "¡La emisora ha sido modificada con éxito!"
             return render(request, 'webAdminRadio/editar_emisora.html', context)
+        
         return render(request, 'webAdminRadio/editar_emisora.html', context)
 
 # Equipos

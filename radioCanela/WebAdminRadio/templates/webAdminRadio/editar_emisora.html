@@ -19,7 +19,7 @@
             </modal-info>
         </div>
     {% endif %}
-    {% if success %}
+    {% comment %} {% if success %}
     <div id="componente_modal_info">
         
             <modal-info v-if="showModal" url_redirect="{% url 'emisoras' %}">
@@ -32,11 +32,7 @@
     <form id="addEmisora" onsubmit="return validate()" method="POST" action="{% url 'editar_emisora' emisora.id %}" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <!-- Div de Nombre -->
-        {% comment %} <div class="form-group">
-            <label for="nombreInput">Nombre</label>
-            <input required name="nombre" id="nombreInput" type="text" class="form-control" value = "{{api:emisoras/id_radio.nombre}}" maxlength=150>
-        </div> {% endcomment %}
+        
 
          <!-- Div de frecuencia -->
         <div class="form-group">
@@ -55,42 +51,10 @@
             </div>
         </div>
 
-        {% comment %}
-        <!-- Div de descripcion -->
-        <div class="form-group">
-            <label for="descInput">Descripción</label>
-            <textarea required class="form-control" name="descripcion" id="descInput" rows="3" value = "{{emisora.id_radio.descripcion}}" maxlength=300>{{ emisora.id_radio.descripcion }}</textarea>
-        </div>
-
         <!-- Div de Streaming -->
         <div class="form-group">
             <label required for="streamingInput">URL de streaming</label>
             <input required name="streaming" id="streamingInput" type="url" class="form-control" value = "{{emisora.url_streaming}}">
-        </div>
-
-        {% comment %} <!-- Div de telefono -->
-        <div class="form-group">
-            <label for="">Teléfono</label>
-            <div id="componente_telefono">
-                <telf></telf>
-            </div>
-        </div> 
-
-        <!-- Div de Sitio Web -->
-        <div class="form-group">
-                <label for="webInput">Sitio Web (Opcional)</label>
-                <input name="sitioweb" id="webInput" type="url" class="form-control" value = "{{emisora.id_radio.sitio_web}}">
-        </div>
-
-        <!-- Div de imagen -->
-        <div class="form-group">
-            <div class="custom-file">
-                <label for="imgSegmento" class="custom-file-label"></label>
-                <input name="logotipo" type="file" class="custom-file-input" id="imgSegmento" src="{{ emisora.logotipo.url }}" accept=".png, .jpg, .jpeg">
-                <div class="img-holder">
-                    <img id="preview" src="{{ emisora.id_radio.logotipo }}">
-                </div>
-            </div>
         </div>
 
         <!-- Div de direccion -->
@@ -137,7 +101,9 @@
                 </div>
             </div>
         </div>
+       
 
+        
         <!-- Div de Redes Sociales-->
         <div class="form-group">
             <label for="">Redes Sociales (Opcional)</label>
@@ -145,8 +111,9 @@
                 <redsocial></redsocial>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar cambios</button> {% endcomment %}
-    </form>
+        <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar cambios</button> 
+        
+    </form> {% endcomment %}
 {% endblock %}
 {% block page_script %}
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
