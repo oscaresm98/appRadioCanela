@@ -215,8 +215,8 @@ class ListEmisoraProgramas(generics.ListAPIView):
     serializer_class = serializers.ProgramaSerializerFull
 
     def get_queryset(self):
-        emisora = self.kwargs['id_emisora']
-        return Programa.objects.filter(segmentoemisora=emisora, estado=True)
+        em = self.kwargs['id_emisora']
+        return Programa.objects.filter(pk__in=SegmentoEmisora.objects.filter(emisora=em).values('segmento'), estado=True)
 
 
 # GET: Vista que obtiene Segmentos emisoras

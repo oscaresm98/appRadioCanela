@@ -344,97 +344,52 @@ def programas(request):
 def agregar_programa(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {'title': 'Agregar Programa', 'emisoras': list_emisoras}
-    # if request.POST:
-    #     segmento_form = SegmentoForm(request.POST, request.FILES)
-    #     if segmento_form.is_valid():
-    #         segmento_form.save()
+    if request.POST:
+        programa_form = ProgramaForm(request.POST)
+        if programa_form.is_valid():
+            programa_form.save()
+            emisoraid = request.POST['emisora']
+            # Enlazar programa con emisora
+            SegmentoEmisora.objects.create(
+                emisora=Emisora.objects.get(id=emisoraid),
+                segmento=Programa.objects.order_by('-id')[0]
+            )
+            if request.POST['dias']=='L':
+                lista = ['Lunes','Martes','Miércoles','Jueves','Viernes']
+                agregarHorario(lista, context, request)
 
-    #         if request.POST['dias']=='L':
-    #             lista = ['Lunes','Martes','Miércoles','Jueves','Viernes']
-    #         # Iterar por todos los horarios
-    #             for i in lista:
-    #             # Creación del horario
-    #                 horario_form = HorarioForm({
-    #                     'dia': i,
-    #                     'inicio': request.POST['horainicio'],
-    #                     'fin': request.POST['horafin'],
-    #                 })
-    #                 if horario_form.is_valid():
-    #                     horario_form.save()
-    #                 # Enlazar segmento con horario
-    #                     segmento_horario.objects.create(
-    #                         idSegmento=Segmento.objects.order_by('-id')[0],
-    #                         idHorario=Horario.objects.order_by('-id')[0]
-    #                     )
-    #                 else:
-    #                     context['error'] = horario_form.errors
-    #                     break
-    #             if 'error' not in context:
-    #                 context['success'] = '¡El programa ha sido creado con éxito!'
-    #             else:
-    #                 context['error'] = segmento_form.errors
+            elif request.POST['dias']=='SD':
+                fds = ['Sábado','Domingo']
+                agregarHorario(fds, context, request)
 
-    #         elif request.POST['dias']=='SD':
-    #             fds = ['Sábado','Domingo']
-    #             for i in fds:
-    #                 horario_form = HorarioForm({
-    #                     'dia': i,
-    #                     'inicio': request.POST['horainicio'],
-    #                     'fin': request.POST['horafin'],
-    #                 })
-    #                 if horario_form.is_valid():
-    #                     horario_form.save()
-    #                     # Enlazar segmento con horario
-    #                     segmento_horario.objects.create(
-    #                         idSegmento=Segmento.objects.order_by('-id')[0],
-    #                         idHorario=Horario.objects.order_by('-id')[0]
-    #                         )
-    #                 else:
-    #                     context['error'] = horario_form.errors
-    #             if 'error' not in context:
-    #                 context['success'] = '¡El programa ha sido creado con éxito!'
-    #             else:
-    #                 context['error'] = segmento_form.errors
+            elif request.POST['dias']=='S':
+                agregarHorario(['Sabado'], context, request)
 
-    #         elif request.POST['dias']=='S':
-    #             horario_form = HorarioForm({
-    #                 'dia': 'Sábado',
-    #                 'inicio': request.POST['horainicio'],
-    #                 'fin': request.POST['horafin'],
-    #             })
-    #             if horario_form.is_valid():
-    #                 horario_form.save()
-    #                 # Enlazar segmento con horario
-    #                 segmento_horario.objects.create(
-    #                     idSegmento=edit_segmento,
-    #                     idHorario=Horario.objects.order_by('-id')[0]
-    #                     )
-    #             else:
-    #                 context['error'] = horario_form.errors
-    #             if 'error' not in context:
-    #                 context['success'] = '¡El programa ha sido creado con éxito!'
-    #             else:
-    #                 context['error'] = segmento_form.errors
+            elif request.POST['dias']=='D':
+                agregarHorario(['Domingo'], context, request)
 
-    #         elif request.POST['dias']=='D':
-    #             horario_form = HorarioForm({
-    #                 'dia': 'Domingo',
-    #                 'inicio': request.POST['horainicio'],
-    #                 'fin': request.POST['horafin'],
-    #             })
-    #             if horario_form.is_valid():
-    #                 horario_form.save()
-    #                 # Enlazar segmento con horario
-    #                 segmento_horario.objects.create(
-    #                     idSegmento=Segmento.objects.order_by('-id')[0],
-    #                     idHorario=Horario.objects.order_by('-id')[0]
-    #                     )
-    #             else:
-    #                 context['error'] = horario_form.errors
-    #             if 'error' not in context:
-    #                 context['success'] = '¡El programa ha sido creado con éxito!'
-    #             else:
-    #                 context['error'] = segmento_form.errors
-
-    #     return render(request, 'webAdminRadio/agregar_segmento.html', context)
+            if 'error' not in context:
+                context['success'] = '¡El programa ha sido creado con éxito!'
+            else:
+                context['error'] = programa_form.errors
+        return render(request, 'webAdminRadio/agregar_programa.html', context)
     return render(request, 'webAdminRadio/agregar_programa.html', context)
+
+
+def agregarHorario(lista, context, request):
+    ini= request.POST['horainicio']
+    fin= request.POST['horafin']
+    progra = Programa.objects.order_by('-id')[0]
+    for i in lista:
+        # Creación del horario
+        horario_form = HorarioForm({
+            'programa': progra,
+            'dia': i,
+            'hora_inicio': ini,
+            'hora_fin': fin,
+        })
+        if horario_form.is_valid():
+            horario_form.save()
+        else:
+            context['error'] = horario_form.errors
+            break

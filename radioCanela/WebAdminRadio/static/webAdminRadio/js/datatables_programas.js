@@ -34,7 +34,7 @@ function getSegmentos(emisora) {
             { width: 250, targets: 3, render: function(data) {
                 html = ``;
                 for (var key in data){
-                    html += data[key].hora_inicio.slice(0,5) + " - " + data[key].hora_fin.slice(0,5) + "<br>";
+                    html += data[key].dia + " : " + data[key].hora_inicio.slice(0,5) + " - " + data[key].hora_fin.slice(0,5) + "<br>";
                 }
                 return html;
             }},

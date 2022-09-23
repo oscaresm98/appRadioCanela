@@ -65,6 +65,35 @@ class UsuarioForm(forms.ModelForm):
 # class TelefonoForm(forms.Form):
 #     telefono = forms.RegexField(regex=r"(\+)?[0-9]+", max_length=10)
 
+
+class ProgramaForm(forms.ModelForm):
+    class Meta:
+        model = Programa
+        fields = [
+            'nombre',
+            'descripcion',
+            'imagen'
+        ]
+
+class HorarioForm(forms.ModelForm):
+    class Meta:
+        model = Horario
+        fields = [
+            'id_programa',
+            'dia',
+            'hora_inicio',
+            'hora_fin'
+        ]
+        
+    # Esta función define el atributo 'name' con el valor del diccionario
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'id_programa': 'programa'
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(HorarioForm, self).add_prefix(field_name)
+
+
 class RedSocialForm(forms.Form):
     nombre = forms.CharField(max_length=25, required=False)
     logo_red_social = forms.URLField(max_length=2080, required=False)
@@ -99,40 +128,6 @@ class RedSocialForm(forms.Form):
 #         field_name = field_name_mapping.get(field_name, field_name)
 #         return super(FrecuenciaForm, self).add_prefix(field_name)
 
-# class SegmentoForm(forms.ModelForm):
-#     class Meta:
-#         model = Segmento
-#         fields = [
-#             'nombre',
-#             'slogan',
-#             'descripcion',
-#             'idEmisora',
-#             'imagen'
-#         ]
-#     # Esta función define el atributo 'name' con el valor del diccionario
-#     def add_prefix(self, field_name):
-#         field_name_mapping = {
-#             'idEmisora': 'emisora'
-#         }
-#         field_name = field_name_mapping.get(field_name, field_name)
-#         return super(SegmentoForm, self).add_prefix(field_name)
-
-# class HorarioForm(forms.ModelForm):
-#     class Meta:
-#         model = Horario
-#         fields = [
-#             'dia',
-#             'fecha_inicio',
-#             'fecha_fin'
-#         ]
-
-#     def add_prefix(self, field_name):
-#         field_name_mapping = {
-#             'fecha_inicio': 'inicio',
-#             'fecha_fin': 'fin'
-#         }
-#         field_name = field_name_mapping.get(field_name, field_name)
-#         return super(HorarioForm, self).add_prefix(field_name)
 
 # class UsuarioForm(UserCreationForm):
 #     class Meta:

@@ -64,7 +64,7 @@ class Programa(models.Model):
     
     # Esta función retorna todos los horarios del segmento
     def get_horarios(self):
-        return Horario.objects.filter(id_programa=self.pk).values('hora_inicio', 'hora_fin')
+        return Horario.objects.filter(id_programa=self.pk).values('dia','hora_inicio', 'hora_fin')
     
     # Esta función retorna todo 
     def get_emisora(self):
@@ -167,6 +167,7 @@ class Hilochat(models.Model):
 
 class Horario(models.Model):
     id_programa = models.ForeignKey(Programa, on_delete=models.CASCADE, db_column='id_programa')
+    dia = models.CharField(max_length=9)
     hora_inicio = models.TimeField(blank=True, null=True)
     hora_fin = models.TimeField(blank=True, null=True)
     estado = models.BooleanField(default=True)
