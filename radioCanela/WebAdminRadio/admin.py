@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Emisora)
 admin.site.register(Equipo)
 admin.site.register(Radio)
+admin.site.register(Torneo)

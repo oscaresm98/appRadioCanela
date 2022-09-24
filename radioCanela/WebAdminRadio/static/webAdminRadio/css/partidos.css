@@ -1,0 +1,17 @@
+#data_table {
+    width: 100% !important;
+}
+
+#data_table_wrapper {
+    width: 90% !important;
+}
+
+#data_table_filter {
+    display: flex;
+    justify-content: center;
+}
+
+#data_table_filter > label {
+    display: inline-flex;
+    column-gap: 1rem;
+}

@@ -200,7 +200,7 @@ class OpcionPregunta(models.Model):
 
 
 class PartidoTransmision(models.Model):
-    id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora')
+    # id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora')
     id_torneo = models.ForeignKey(Torneo, on_delete=models.CASCADE, db_column='id_torneo')
     id_equipo_local = models.ForeignKey(Equipo, on_delete=models.CASCADE, db_column='id_equipo_local', related_name='equipolocal')
     id_equipo_visitante = models.ForeignKey(Equipo, on_delete=models.CASCADE, db_column='id_equipo_visitante', related_name='equipovisitante')
@@ -215,6 +215,19 @@ class PartidoTransmision(models.Model):
     plataforma = models.CharField(max_length=30, blank=True, null=True)
     estado = models.BooleanField(default=True)
 
+    def get_emisoras(self):
+        id_emisoras = PartidoTransmisionEmisora.objects.filter(id_partido=self.pk).values('id_emisora')
+        return Emisora.objects.filter(pk__in=id_emisoras)
+
+    def get_equipo_local(self):
+        return Equipo.objects.filter(id=self.id_equipo_local)
+    
+    def get_equipo_visitante(self):
+        return Equipo.objects.filter(id=self.id_equipo_visitante)
+
+class PartidoTransmisionEmisora(models.Model):
+    id_partido = models.ForeignKey(PartidoTransmision, on_delete=models.CASCADE, db_column='id_partido')
+    id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora')
 
 class Podcast(models.Model):
     id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora')

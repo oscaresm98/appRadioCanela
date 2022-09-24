@@ -58,7 +58,50 @@ class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Equipo
-        
+
+
+#
+# Serializadores para la api de partidos 
+#  
+
+#Emisora
+# Serializador que devuelve pocos datos
+class EmisoraMinInfoSerializer(serializers.ModelSerializer):
+    radio = serializers.CharField(source='id_radio.nombre')
+
+    class Meta:
+        fields = [ 'id', 'frecuencia_dial', 'tipo_frecuencia', 'radio' ]
+        model = models.Emisora
+
+# Equipos
+# Serializador que devuelve pocos datos
+class EquipoMinInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = [
+            'id', 'equipo', 'imagen'
+        ]
+        model = models.Equipo
+
+# Partidos
+class PartidoTransmisionSerializer(serializers.ModelSerializer):
+    emisoras = EmisoraMinInfoSerializer(source="get_emisoras", many=True)
+    id_torneo = TorneosSerializer()
+    id_equipo_local = EquipoMinInfoSerializer()
+    id_equipo_visitante = EquipoMinInfoSerializer()
+
+    class Meta:
+        fields = [
+            'id', 'id_torneo', 'id_equipo_local', 'id_equipo_visitante', 
+            'ptos_equipo_local', 'ptos_equipo_visitante', 'fecha_evento', 'hora_inicio', 
+            'emisoras' 
+        ] 
+        model = models.PartidoTransmision
+
+#
+# 
+#
+
+
 # RedSocial
 class RedSocialSerializer(serializers.ModelSerializer):
     class Meta:
@@ -91,6 +134,7 @@ class ProgramaSerializerFull(serializers.ModelSerializer):
     class Meta:
         model = models.Programa
         fields = ('id', 'nombre', 'imagen','idEmisora', 'descripcion', 'horarios')
+
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
@@ -259,24 +303,6 @@ class ProgramaSerializerFull(serializers.ModelSerializer):
 #             'activo',
 #         )
 #         model = models.Equipo
-
-# class TransmisionSerializer(serializers.ModelSerializer):
-#     emisoras = serializers.ReadOnlyField(source='get_emisoras')
-    
-#     class Meta:
-#         fields = (
-#             'id',
-#             'hora_inicio',
-#             'fecha_evento',
-#             'lugar',
-#             'evento',
-#             'descripcion',
-#             'equipo1',
-#             'equipo2',
-#             'emisoras',
-#             'activo',
-#         )
-#         model = models.Transmision
 
 # class TransmisionEmisoraSerializer(serializers.ModelSerializer):
     

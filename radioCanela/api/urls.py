@@ -18,8 +18,12 @@ urlpatterns = [
     path('usuarios/', views.usuarioList,name='usuarios-list'),
 
     path('torneos/', views.torneosList,name='torneos-list'),
+    
     path('equipos/', views.equipoList ,name='equipos-list'),
     path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
+    
+    path('partidos', views.ListPartidoTransmisiones.as_view(), name="partidos-list"),
+    
     path('radios/',views.radio_List,name='radio-list'),
     path('radios/<int:pk>',views.radio_detalle,name='radio-detalle'),
     path('redsocial/',views.redsocial.as_view(),name='redsocial-list'),

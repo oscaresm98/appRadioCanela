@@ -183,13 +183,14 @@ class RedSocialForm(forms.Form):
 #         field_name = field_name_mapping.get(field_name, field_name)
 #         return super(EditarUsuarioForm, self).add_prefix(field_name)
 
-# class TorneoForm(forms.ModelForm):
-#     class Meta:
-#         model = Torneo
-#         fields = [
-#             'nombre',
-#             'lugar'
-#         ]
+class TorneoForm(forms.ModelForm):
+    class Meta:
+        model = Torneo
+        fields = [
+            'nombre',
+            'lugar',
+            'estado'
+        ]
 
 class EquipoForm(forms.ModelForm):
     class Meta:
@@ -200,6 +201,51 @@ class EquipoForm(forms.ModelForm):
             'descripcion',
             'imagen'
         ]
+
+class PartidoTransmisionForm(forms.ModelForm):
+    id_equipo_local = forms.ModelChoiceField(queryset=Equipo.objects.all())
+    id_equipo_visitante = forms.ModelChoiceField(queryset=Equipo.objects.all())
+    id_torneo = forms.ModelChoiceField(queryset=Torneo.objects.all())
+
+    class Meta:
+        model = PartidoTransmision
+        fields = [
+            'hora_inicio',
+            'fecha_evento',
+            'lugar',
+            'id_torneo',
+            'descripcion',
+            'id_equipo_local',
+            'id_equipo_visitante',
+            'ptos_equipo_local',
+            'ptos_equipo_visitante',
+        ]
+
+    # Se usa este metodo para sobrescribir los campos del formulario
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            # Para la fecha y hora
+            'hora_inicio': 'hora',
+            'fecha_evento': 'fecha',
+            # Para los equipos
+            'id_equipo_local': 'equipo1',
+            'id_equipo_visitante': 'equipo2',
+            # Para los goles
+            'ptos_equipo_local': 'goles_equipo_local',
+            'ptos_equipo_visitante': 'goles_equipo_visitante',
+            # Para el torneo
+            'id_torneo':'torneo',
+            'descripcion': 'descripcion',
+            'lugar': 'lugar',
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(PartidoTransmisionForm, self).add_prefix(field_name)  
+
+class PartidoTransmisionEmisoraForm(forms.ModelForm):
+    
+    class Meta:
+        model = PartidoTransmisionEmisora
+        fields = [ 'id_emisora' ]
 
 # class GaleriaForm(forms.ModelForm):
 
@@ -240,38 +286,6 @@ class EquipoForm(forms.ModelForm):
 #             'emisora'
 #         ]
 
-# class TransmisionEmisoraForm(forms.ModelForm):
-    
-#     class Meta:
-#         model = TransmisionEmisora
-#         fields = [
-#             'emisora'
-#         ]
-
-# class TransmisionForm(forms.ModelForm):
-#     equipo1 = forms.ModelChoiceField(queryset=Equipo.objects.all())
-#     equipo2 = forms.ModelChoiceField(queryset=Equipo.objects.all())
-#     evento = forms.ModelChoiceField(queryset=Torneo.objects.all())
-
-#     class Meta:
-#         model = Transmision
-#         fields = [
-#             'hora_inicio',
-#             'fecha_evento',
-#             'lugar',
-#             'evento',
-#             'descripcion',
-#             'equipo1',
-#             'equipo2'
-#         ]
-
-#     def add_prefix(self, field_name):
-#         field_name_mapping = {
-#             'hora_inicio': 'hora',
-#             'fecha_evento': 'fecha',
-#         }
-#         field_name = field_name_mapping.get(field_name, field_name)
-#         return super(TransmisionForm, self).add_prefix(field_name)  
 
 # class ConcursoForm(forms.ModelForm):
 #     class Meta:

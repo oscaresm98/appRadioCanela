@@ -1,0 +1,123 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% comment %} {% load webadmin_tags %} {% endcomment %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_equipo.css' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="row px-5">
+        <div class="col-5">
+            <div class="img-container">
+                <img class="shield" id="preview" src="{{ partido.id_equipo_local.imagen }}">
+            </div>
+        </div>
+        <div class="col-2 d-flex justify-content-center align-items-center">
+            <h3>VS</h3>
+        </div>
+        <div class="col-5">
+            <div class="img-container">
+                <img class="shield" id="preview" src="{{ partido.id_equipo_visitante.imagen }}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="row">
+            <label class="fw-bold ms-5 label">Emisoras:</label>
+        </div>
+        <div class="row ms-5">
+            <ul class="ms-2">
+                {% for emisora in partido.get_emisoras %}
+                    <li>{{ emisora.id_radio.nombre }} - {{ emisora.frecuencia_dial }} {{ emisora.tipo_frecuencia }}</li>
+                {% endfor %}    
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Equipo Local: </label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ partido.id_equipo_local.equipo }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Equipo Visitante: </label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ partido.id_equipo_visitante.equipo }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Goles equipo Local: </label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">
+                {% if  partido.ptos_equipo_local %}
+                    {{ partido.ptos_equipo_local }}
+                {% else %}
+                    0
+                {% endif %}
+            </label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Goles equipo Visitante: </label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">
+                {% if partido.ptos_equipo_visitante %}
+                    {{ partido.ptos_equipo_visitante }}
+                {% else %}
+                    0
+                {% endif %}
+            </label>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Torneo:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ partido.id_torneo.nombre }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Lugar:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ partido.lugar }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Descripcion:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ partido.descripcion }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Fecha y Hora encuentro:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ partido.fecha_evento }} - {{ partido.hora_inicio }}</label>
+        </div>
+    </div>
+
+{% endblock %}

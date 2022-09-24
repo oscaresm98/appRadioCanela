@@ -331,6 +331,100 @@ def modificar_equipo(request, id_equipo):
     return render(request, 'webAdminRadio/editar_equipo.html', context)
 
 
+#Torneos
+
+@login_required
+def torneos(request):
+    list_torneos = Torneo.objects.all()
+    context = { "title": "Torneos", "torneos": list_torneos }
+    return render(request, 'webAdminRadio/torneos.html', context)
+
+@login_required
+def agregar_torneo(request):
+    context = { "title": "Agregar Torneo" }
+
+    if request.POST:
+        torneo_form = TorneoForm(request.POST)
+        if torneo_form.is_valid():
+            error = torneo_form.save()
+            context['success'] = '¡El torneo ha sido registrado!'
+        else:
+            context['error'] = torneo_form.errors
+
+    return render(request, 'webAdminRadio/agregar_torneos.html', context)
+
+@login_required
+def modificar_torneo(request, id_torneo):
+    torneo_modificacion = Torneo.objects.get(pk=id_torneo)
+    context = { "title": "Editar Torneo", "torneo": torneo_modificacion }
+
+    if request.POST:
+        torneo_form = TorneoForm(request.POST, instance=torneo_modificacion)
+        if torneo_form.is_valid():
+            error = torneo_form.save()
+            context['success'] = '¡Se ha guardado los cambios!'
+        else:
+            context['error'] = torneo_form.errors
+
+    return render(request, 'webAdminRadio/editar_torneos.html', context)
+
+@login_required
+def eliminar_torneo(request, id_torneo):
+    torneo_borrar = Torneo.objects.get(id=id_torneo)
+    torneo_borrar.estado = False
+    torneo_borrar.delete()
+    messages.success(request, 'El torneo ha sido eliminado')
+    return redirect('torneos')
+
+# Partidos
+
+@login_required
+def partidos(request):
+    context = {'title': 'Partidos'}
+    return render(request, 'webAdminRadio/partidos.html', context)
+
+def ver_partido(request, id_partido):
+    partido = PartidoTransmision.objects.get(pk=id_partido)
+    context = {'title': 'Informacion del partido', 'partido': partido}
+    return render(request, 'webAdminRadio/ver_partido.html', context)
+
+
+@login_required
+def agregar_partido(request):
+    lista_equipos = Equipo.objects.filter(estado=True)
+    lista_torneos = Torneo.objects.filter(estado=True)
+    lista_emisoras = Emisora.objects.filter(estado=True)
+    context = { 'title': 'Agregar Partido', 'equipos': lista_equipos, 'torneos': lista_torneos, 'emisoras': lista_emisoras }
+
+    if request.POST:
+        user_form = PartidoTransmisionForm(request.POST)
+
+        if not user_form.is_valid():
+            context['error'] = user_form.errors
+            return render(request, 'webAdminRadio/agregar_partidos.html', context)
+
+        for i in range(len(request.POST.getlist('emisora'))):
+            red_form = PartidoTransmisionEmisoraForm({
+                'id_emisora': request.POST.getlist('emisora')[i]
+            })
+            if not red_form.is_valid():
+                context['error'] = red_form.errors
+                return render(request, 'webAdminRadio/agregar_partidos.html', context)
+
+        user_form.save()
+
+        for i in range(len(request.POST.getlist('emisora'))):
+            PartidoTransmisionEmisora.objects.create(
+                id_partido=PartidoTransmision.objects.order_by('-id')[0],
+                id_emisora=Emisora(request.POST.getlist('emisora')[i])
+            )
+        context['success'] = '¡El partido ha sido registrado!'
+        return render(request, 'webAdminRadio/agregar_partidos.html', context)
+
+    return render(request, 'webAdminRadio/agregar_partidos.html', context)
+
+
+
 # Programas
 
 @login_required

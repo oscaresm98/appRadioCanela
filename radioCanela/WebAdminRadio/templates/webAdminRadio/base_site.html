@@ -35,9 +35,16 @@
             </li>
             <li>
                 <a class="action" href="{% url 'webadminradio:torneos' %}"><i class="fas fa-trophy"></i>Torneos</a>
-            </li> {% endcomment %}
+            </li>
+            {% endcomment %}
+            <li>
+                <a class="action" href="{% url 'torneos' %}"><i class="fas fa-trophy"></i>Torneos</a>
+            </li>
             <li>
                 <a class="action" href="{% url 'equipos' %}"><i class="fas fa-futbol"></i>Equipos</a>
+            </li>
+            <li>
+                <a class="action" href="{% url 'partidos' %}"><i class="fas fa-futbol"></i>Partidos</a>
             </li>
             {% comment %} <li>
                 <a class="action" href="{% url 'webadminradio:transmisiones' %}"><i class="fas fa-rss"></i>Transmisiones</a>

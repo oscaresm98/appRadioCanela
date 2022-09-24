@@ -379,6 +379,10 @@ class ListEquiposPorId(generics.ListAPIView):
         queryset = Equipo.objects.filter(id=idteam, estado=True)
         return queryset
 
+class ListPartidoTransmisiones(generics.ListAPIView):
+    serializer_class = serializers.PartidoTransmisionSerializer
+    queryset = PartidoTransmision.objects.filter(estado=True).order_by('-fecha_evento')
+
 
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
@@ -543,11 +547,6 @@ class ListEquiposPorId(generics.ListAPIView):
 # class ListEquipos(generics.ListAPIView):
 #     serializer_class = serializers.EquipoSerializer
 #     queryset = models.Equipo.objects.filter(activo=True)
-
-
-# class ListTransmisiones(generics.ListAPIView):
-#     serializer_class = serializers.TransmisionSerializer
-#     queryset = models.Transmision.objects.filter(activo=True).order_by('-fecha_evento')
 
 
 # class ListTransmisionEmisora(generics.ListAPIView):

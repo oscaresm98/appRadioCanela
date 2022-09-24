@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
 import {getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-storage.js";
 import * as name from "./componentes/notify.min.js"
+
 let cargardatos = () =>{
     // credenciales para conectarse con firebase
     const firebaseConfig = {
@@ -39,6 +40,7 @@ let cargardatos = () =>{
             })
             getDownloadURL(storageref).then((url) => { // recurepando la direccion URL del archivo para asignarlo a una variable
                 document.getElementById("imagen").value=url
+                console.log(url);
             });
           });
     });
