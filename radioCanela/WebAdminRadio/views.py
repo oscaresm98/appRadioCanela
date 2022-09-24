@@ -383,11 +383,11 @@ def partidos(request):
     context = {'title': 'Partidos'}
     return render(request, 'webAdminRadio/partidos.html', context)
 
+@login_required
 def ver_partido(request, id_partido):
     partido = PartidoTransmision.objects.get(pk=id_partido)
     context = {'title': 'Informacion del partido', 'partido': partido}
     return render(request, 'webAdminRadio/ver_partido.html', context)
-
 
 @login_required
 def agregar_partido(request):
@@ -423,6 +423,58 @@ def agregar_partido(request):
 
     return render(request, 'webAdminRadio/agregar_partidos.html', context)
 
+@login_required
+def editar_partido(request, id_partido):
+    lista_equipos = Equipo.objects.filter(estado=True)
+    lista_torneos = Torneo.objects.filter(estado=True)
+    lista_emisoras = Emisora.objects.filter(estado=True)
+    partido_edicion = PartidoTransmision.objects.get(id=id_partido)
+    partido_emisora_edicion = PartidoTransmisionEmisora.objects.filter(id_partido=id_partido)
+
+    context = { 
+        'title': 'Agregar Partido', 
+        'equipos': lista_equipos, 
+        'torneos': lista_torneos, 
+        'emisoras': lista_emisoras,
+        'partido_editar': partido_edicion,
+    }
+
+    if request.POST:
+        user_form = PartidoTransmisionForm(request.POST, instance=partido_edicion)
+
+        if not user_form.is_valid():
+            context['error'] = user_form.errors
+            return render(request, 'webAdminRadio/editar_partidos.html', context)
+
+        for i in range(len(request.POST.getlist('emisora'))):
+            red_form = PartidoTransmisionEmisoraForm({
+                'id_emisora': request.POST.getlist('emisora')[i]
+            })
+            if not red_form.is_valid():
+                context['error'] = red_form.errors
+                return render(request, 'webAdminRadio/editar_partidos.html', context)
+
+        user_form.save()
+        partido_emisora_edicion.delete()
+
+        for i in range(len(request.POST.getlist('emisora'))):
+            PartidoTransmisionEmisora.objects.create(
+                id_partido=PartidoTransmision.objects.order_by('-id')[0],
+                id_emisora=Emisora(request.POST.getlist('emisora')[i])
+            )
+        context['success'] = '¡El partido ha sido modificado exitosamente!'
+
+        return render(request, 'webAdminRadio/editar_partidos.html', context)
+
+    return render(request, 'webAdminRadio/editar_partidos.html', context)
+
+@login_required
+def eliminar_partido(request, id_partido):
+    partido_borrar = PartidoTransmision.objects.get(id=id_partido)
+    partido_borrar.estado = False
+    partido_borrar.delete()
+    messages.success(request, 'El partido ha sido eliminado')
+    return redirect('partidos')
 
 
 # Programas

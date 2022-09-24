@@ -24,8 +24,8 @@ urlpatterns = [
     path('partidos', views.partidos, name='partidos'), # URL para ver los partidos 
     path('partidos/agregar', views.agregar_partido, name='agregar_partido'), # URL para agregar un partido
     path('partidos/<int:id_partido>', views.ver_partido, name='partidos'), # URL para ver informacion del partido
-    path('partidos/<int:id_partido>/editar', views.agregar_partido, name='agregar_partido'), # URL para agregar un partido
-    path('partidos/<int:id_partido>/eliminar', views.agregar_partido, name='agregar_partido'), # URL para agregar un partido
+    path('partidos/<int:id_partido>/editar', views.editar_partido, name='editar_partido'), # URL para editar un partido
+    path('partidos/<int:id_partido>/eliminar', views.eliminar_partido, name='eliminar_partido'), # URL para agregar un partido
 
     path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
     path('usuarios/editar/<int:id_usuario>', views.editar_usuario, name='editar_usuario'),

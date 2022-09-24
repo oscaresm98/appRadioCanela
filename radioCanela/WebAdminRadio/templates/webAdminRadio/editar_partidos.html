@@ -1,0 +1,177 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_partido.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% endblock %}
+{% block content %}
+    
+    {% if error %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="">
+                <h3 slot="header">Error</h3>
+                <div slot="body">
+                    <p>Existen algunos errores en los siguientes campos:</p>
+                    {% for campo,e in error.items %}
+                        <h5>{{campo}}</h5>
+                        {{e}}
+                    {% endfor %}
+                </div>
+            </modal-info>
+        </div>
+    {% endif %}
+
+    {% if success %}
+    <div id="componente_modal_info">
+        <modal-info v-if="showModal" url_redirect="{% url 'partidos' %}">
+            <h3 slot="header">Información</h3>
+            <p slot="body">{{success}}</p>
+        </modal-info>
+    </div>
+    {% endif %}
+
+    <h4><b>Información del partido</b></h4>
+
+    <div class="row p-5">
+        <div class="col-5">
+            <div class="img-container d-flex justify-content-center">
+                <img class="shield" id="preview-local" src="{{ partido_editar.id_equipo_local.imagen }}">
+            </div>
+        </div>
+        <div class="col-2 d-flex justify-content-center align-items-center">
+            <h3>VS</h3>
+        </div>
+        <div class="col-5">
+            <div class="img-container d-flex justify-content-center">
+                <img class="shield" id="preview-visitante" src="{{ partido_editar.id_equipo_visitante.imagen }}">
+            </div>
+        </div>
+    </div>
+
+    <form action="{% url 'editar_partido' partido_editar.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <!-- Seleccion de las emisoras -->
+            <label>Seleccione la o las emisoras</label>
+            <div>
+                {% for emisora in emisoras %}
+                    <input id="emisora" type="checkbox" name="emisora" 
+                        value="{{ emisora.id }}" 
+                        {% if emisora in partido_editar.get_emisoras %}
+                            checked
+                        {% endif %}> 
+                    {{ emisora.frecuencia_dial }} - {{emisora.id_radio.nombre}}<br>
+                {% endfor %}
+            </div>
+            <br>
+
+            <!-- Seleccion de los equipos -->
+            <label>Seleccione el equipo local</label>
+            <select id="equipo1" class="custom-select form-control" name="equipo1" oninvalid="this.setCustomValidity('Escoja un equipo de la lista')" required oninput="this.setCustomValidity('')" onchange="cargarImagenEscudoLocal(this.options[this.selectedIndex])">
+                <option value="" disabled>Local</option>
+                {% for equipo in equipos %}
+                    <option value="{{ equipo.id }}" 
+                        data-img-escudo="{{ equipo.imagen }}"
+                        {% if equipo.id == partido_editar.id_equipo_local.pk %}
+                            selected
+                        {% endif %}>
+                        {{ equipo.equipo }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+            <label>Seleccione el equipo visitante</label>
+            <select id="equipo2" class="custom-select form-control" name="equipo2" oninvalid="this.setCustomValidity('Escoja un equipo de la lista')" required oninput="this.setCustomValidity('')" onchange="cargarImagenEscudoVisitante(this.options[this.selectedIndex])">
+                <option value="" disabled>Visitante</option>
+                {% for equipo in equipos %}
+                    <option value="{{ equipo.id }}" 
+                        data-img-escudo="{{ equipo.imagen }}"
+                        {% if equipo.id == partido_editar.id_equipo_visitante.pk %}
+                            selected
+                        {% endif %}>
+                        {{ equipo.equipo }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Indicacion de los goles -->
+            <div class="form-group">
+                <label for="descripcion">Goles Equipo Local</label>
+                <input id="descripcion" name="goles_equipo_local" type="number" 
+                    class="form-control" oninvalid="this.setCustomValidity('Ingrese una descripcion)" 
+                    oninput="this.setCustomValidity('')" 
+                    value="{{ partido_editar.ptos_equipo_local }}"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Goles Equipo Visitante</label>
+                <input id="descripcion" name="goles_equipo_visitante" type="number" 
+                    class="form-control" oninvalid="this.setCustomValidity('Ingrese una descripcion)" 
+                    oninput="this.setCustomValidity('')" 
+                    value="{{ partido_editar.ptos_equipo_visitante }}"
+                    required>
+            </div>
+            <br>
+
+            <label>Seleccione el torneo</label>
+            <select id="evento" class="custom-select form-control" name="torneo" oninvalid="this.setCustomValidity('Escoja un torneo de la lista')" required oninput="this.setCustomValidity('')">
+                <option value="" disabled>Torneo</option>
+                {% for torneo in torneos %}
+                    <option value="{{ torneo.id }}"
+                        {% if torneo is partido_editar.id_torneo %}
+                            selected
+                        {% endif %}
+                    >{{ torneo.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Evento -->
+
+        <!-- Descripcion del evento -->
+        <div class="form-group">
+            <label for="descripcion">Descripcion</label>
+            <input id="descripcion" name="descripcion" type="text" 
+                class="form-control" oninvalid="this.setCustomValidity('Ingrese una descripcion)" 
+                oninput="this.setCustomValidity('')" 
+                value="{{ partido_editar.descripcion }}" required>
+        </div>
+        <!-- Fecha del evento -->
+        <div class="form-group">
+            <label for="fecha">Fecha de partido</label>
+            <input id="fecha" name="fecha" type="date"
+                value="{{ partido_editar.fecha_evento.date | date:'Y-m-d' }}"
+                class="form-control" oninvalid="this.setCustomValidity('Ingrese una fecha')" 
+                oninput="this.setCustomValidity('')" 
+                required>
+        </div>
+        <!-- Hora del evento -->
+        <div class="form-group">
+            <label for="hora">Hora de partido </label>
+            <input id="hora" name="hora" type="time"
+                value="{{ partido_editar.hora_inicio | time:'H:i' }}"
+                class="form-control" oninvalid="this.setCustomValidity('Ingrese una hora')" 
+                oninput="this.setCustomValidity('')" 
+                required>
+        </div>
+        <!-- Lugar del evento -->
+        <div class="form-group">
+            <label for="lugar">Lugar del partido</label>
+            <input id="lugar" name="lugar" type="text" 
+                class="form-control" oninvalid="this.setCustomValidity('Ingrese un lugar válido)" 
+                oninput="this.setCustomValidity('')" 
+                value="{{ partido_editar.lugar }}" required>
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar Cambios</button>
+        <a href="{% url 'partidos' %}" class="btn btn-danger btn-lg submit"><i class="fa-solid fa-circle-xmark"></i>Cancelar</a>
+    </form>
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/img_preview_partido.js' %}"></script>
+{% endblock %}
