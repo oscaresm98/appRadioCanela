@@ -11,6 +11,12 @@ import json
 @login_required
 def administrador(request):
     return render(request, 'webAdminRadio/administrador.html', {'title': 'Administrador'})
+@login_required
+#@has_permission_decorator('emisoras')
+def usuarios(request):
+    listaUsuarios= Usuario.objects.filter(activo=True)
+    context = {'title': 'Usuarios', 'usuarios':listaUsuarios}
+    return render(request, 'webAdminRadio/usuarios.html', context)
 
 @login_required
 def agregar_usuario(request):
@@ -101,7 +107,13 @@ def editar_usuario(request,id_usuario):
         else:
             context['error'] = user_form.errors
     return render(request,"webAdminRadio/editar_usuario.html",context)
-
+@login_required
+def borrar_usuario(request, id_usuario):
+    delete_usuario = Usuario.objects.get(id=id_usuario)
+    delete_usuario.estado = False
+    delete_usuario.delete()
+    messages.success(request, 'El usuario ha sido eliminado')
+    return redirect('lista_usuarios')
 
 
 @login_required

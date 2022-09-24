@@ -67,7 +67,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for user in users %}
+            {% for user in usuarios %}
             <tr>
                 <td>{{user.id}}</td>
                 <td>{{user.foto}}</td>
@@ -81,7 +81,7 @@
                         <a class="action" href="/usuarios/editar/{{user.id}}">
                             <i class="fas fa-pen-to-square"></i>
                         </a>
-                        <a class="action" href="/usuarios/editar/{{user.id}}">
+                        <a class="action" href="/usuarios/eliminar/{{user.id}}">
                             <i class="fa-regular fa-trash-can"></i>
                         </a>
                     </div>

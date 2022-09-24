@@ -27,8 +27,10 @@ urlpatterns = [
     path('partidos/<int:id_partido>/editar', views.editar_partido, name='editar_partido'), # URL para editar un partido
     path('partidos/<int:id_partido>/eliminar', views.eliminar_partido, name='eliminar_partido'), # URL para agregar un partido
 
+    path('usuarios',views.usuarios,name="lista_usuarios"),
     path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
     path('usuarios/editar/<int:id_usuario>', views.editar_usuario, name='editar_usuario'),
+    path('usuarios/eliminar/<int:id_usuario>',views.borrar_usuario,name='eliminar_usuario'),
     path('programas', views.programas, name='programas'), # Página principal donde se muestran los programas
     path('programas/agregar', views.agregar_programa, name="agregar_programa"), # Muestra la pantalla para agregar programa
     

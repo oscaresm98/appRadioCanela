@@ -295,8 +295,7 @@ def usuarioList(request):
         try:
             usuarios = Usuario.objects.all()
             serializer = UsuarioSerializer(usuarios, many=True)
-            return render(request,"webAdminRadio/usuarios.html",{"users":usuarios})
-            #return Response(serializer.data)
+            return Response(serializer.data)
         except Usuario.DoesNotExist:
             return Response({'Error': 'El usuario no existe'}, status=status.HTTP_400_NOT_FOUND)
         
