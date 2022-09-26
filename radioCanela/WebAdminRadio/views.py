@@ -551,3 +551,14 @@ def agregarHorario(lista, context, request):
         else:
             context['error'] = horario_form.errors
             break
+
+@login_required
+def ver_programa(request, id_programa):
+    programa = Programa.objects.get(id=id_programa)
+    segmentoEmisora = SegmentoEmisora.objects.get(segmento=id_programa)
+    context = {
+        'title': 'Información del programa',
+        'programa': programa,
+        'segemntoEmisora': segmentoEmisora
+    }
+    return render(request, 'webAdminRadio/ver_programa.html', context)
