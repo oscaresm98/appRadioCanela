@@ -247,6 +247,16 @@ class PartidoTransmisionEmisoraForm(forms.ModelForm):
         model = PartidoTransmisionEmisora
         fields = [ 'id_emisora' ]
 
+class LocutorForm(forms.ModelForm):
+    class Meta:
+        model = Locutor
+        fields = [
+            'nombre',
+            'imagen',
+            'descripcion',
+            'fecha_nacimiento'
+        ]
+
 # class GaleriaForm(forms.ModelForm):
 
 #     class Meta:

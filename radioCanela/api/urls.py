@@ -30,6 +30,9 @@ urlpatterns = [
     path('redsocial/<int:pk>',views.redsocial_detalle,name='redsocial-detalle-list'),
     path('redsocialequipo/',views.redsocialequipo.as_view(),name='redsocial-equipo-list'),
     
+    path('locutores/',views.LocutorList,name='locutores-list'),
+    path('locutores/<int:pk>', views.Locutor_detalle, name='locutor-detalle'),
+    
     
     #path('radio/', views.ListEmisora.as_view()),
 

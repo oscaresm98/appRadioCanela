@@ -1,5 +1,6 @@
 # api/serializers.py
 from dataclasses import fields
+from pyexpat import model
 from rest_framework import serializers
 from WebAdminRadio import models
 from accounts.models import Usuario
@@ -134,6 +135,16 @@ class ProgramaSerializerFull(serializers.ModelSerializer):
     class Meta:
         model = models.Programa
         fields = ('id', 'nombre', 'imagen','idEmisora', 'descripcion', 'horarios')
+
+class LocutoresSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Locutor
+        fields= ('id', "nombre", 'imagen', "descripcion", "fecha_nacimiento", "estado")
+
+class RedSocialLocutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.RedSocialLocutor
 
 
 # class EmisoraSerializer(serializers.ModelSerializer):

@@ -32,4 +32,9 @@ urlpatterns = [
     path('programas', views.programas, name='programas'), # Página principal donde se muestran los programas
     path('programas/agregar', views.agregar_programa, name="agregar_programa"), # Muestra la pantalla para agregar programa
     
+    path('locutores', views.locutores, name='locutores'), # Muestra todos los locutores de la radio
+    path('locutores/agregar', views.agregar_Locutor, name='agregar_locutor'), # Form para agregar un locutor nuevo
+    path('locutores/<int:id_locutor>', views.ver_locutor, name='locutor'), # URL para ver informacion del partido
+    path('locutores/<int:id_locutor>/eliminar', views.eliminar_locutor, name='eliminar_locutor'), # URL para eliminar un locutor
+    path('locutores/<int:id_locutor>/editar', views.editar_locutor, name='editar_locutor'), # URL para editar un locutor
 ]
