@@ -1,0 +1,140 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% endblock %}
+{% block content %}
+    {% if error %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="">
+                <h3 slot="header">Error</h3>
+                <div slot="body">
+                    <p>Existen algunos errores en los siguientes campos:</p>
+                    {% for campo,e in error.items %}
+                        <h5>{{campo}}</h5>
+                        {{e}}
+                    {% endfor %}
+                </div>
+            </modal-info>
+        </div>
+    {% endif %}
+    {% if success %}
+    <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="{% url 'publicidad' %}">
+                <h3 slot="header">Información</h3>
+                <p slot="body">{{success}}</p>
+            </modal-info>
+    </div>
+    {% endif %}
+    <h4><b>Información de Publicidad</b></h4>
+    <form id="addSegmento" method="POST" action="{% url 'agregar_publicidad' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+        <!-- Div de imagen -->
+        <div class="d-flex flex-column align-items-center mb-3">
+            <div class="img-holder d-flex align-items-center">
+                <img id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+            </div>
+            <div class="form-file input-group mb-3 w-50">
+                <input type="file" name="archivo" class="form-control" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen')" oninput="this.setCustomValidity('')" required>
+                <input type="hidden" name="imagen" id="imagen">
+                <button type="button" id="btnImagen" class="btn btn-primary rounded-2"><i class="fas fa-upload"></i></button>
+                <div class="error"></div>
+            </div>
+        </div>
+
+        {% comment %} <div class="row mb-3">
+            <div class="col-3">
+                
+            </div>
+            <div class="col-9">
+                
+            </div>
+        </div> {% endcomment %}
+
+        <!-- Div de Título -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="nombreInput">Título</label>
+            </div>
+            <div class="col-9">
+                <input required name="titulo" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título de la publicidad" maxlength=150>
+            </div>
+        </div>
+
+        <!-- Div de url -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="urlInput">URL de la publicidad</label>
+            </div>
+            <div class="col-9">
+                <input required name="url" id="urlInput" type="text" class="form-control" placeholder="Ingrese el url de la publicidad">
+            </div>
+        </div>
+
+        <!-- Div de persona/empresa cliente -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="clienteInput">Persona/Empresa Cliente</label>
+            </div>
+            <div class="col-9">
+                <input required name="cliente" id="clienteInput" type="text" class="form-control" placeholder="Ingrese el nombre de la persona o empresa cliente de la publicidad" maxlength=300></input>
+            </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="descInput">Descripción</label>
+            </div>
+            <div class="col-9">
+                <textarea class="form-control" id="descInput" name="descripcion" rows="3" placeholder="Ingrese una breve descripción de la publicidad" oninvalid="this.setCustomValidity('Ingrese una descripcion del segmento')" oninput="this.setCustomValidity('')" maxlength="250" required></textarea>
+            </div>
+        </div>
+
+
+        <!-- Selección de Radio -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="radioSelect">Radio</label>
+            </div>
+            <div class="col-9">  
+                <select id="radioSelect" class="form-select form-control" name="radio" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" required oninput="this.setCustomValidity('')">
+                    <option selected disabled>Seleccione la radio</option>
+                    {% for radio in radios %}
+                        <option value="{{ radio.id }}">{{ radio.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <!-- Fin inicio -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="fechainicio">fecha de inicio</label>
+            </div>
+            <div class="col-9">
+                <input id="fechainicio" name="fechainicio" type="date" class="form-control" oninvalid="this.setCustomValidity('Ingrese una fecha')" oninput="this.setCustomValidity('')" required>
+            </div>
+        </div>
+        <!-- Fin fin -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="fechafin">fecha de finalizacion</label>
+            </div>
+            <div class="col-9">
+                <input id="fechafin" name="fechafin" type="date" class="form-control" oninvalid="this.setCustomValidity('Ingrese una fecha')" oninput="this.setCustomValidity('')" required>
+            </div>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary btn-lg mt-5 submit"><i class="fas fa-plus-circle"></i>Agregar Publicidad</button>
+    </form>
+{% endblock %}
+{% block page_script %}
+<script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+<script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+<script src="{% static 'webAdminRadio/js/updateImage.js' %}" type="module"></script>
+{% endblock %}

@@ -727,3 +727,32 @@ def editar_locutor(request, id_locutor):
         return render(request, 'webAdminRadio/editar_locutor.html', context)
 
     return render(request, 'webAdminRadio/editar_locutor.html', context)
+
+
+# Publicidad
+@login_required
+def publicidad(request):
+    list_radios = Radio.objects.filter(estado=True)
+    list_programas = Programa.objects.filter(estado=True)
+    context = {
+        'title': 'Publicidad',
+        'programas': list_programas,
+        'radios': list_radios,
+    }
+    return render(request, 'webAdminRadio/publicidad.html', context)
+
+@login_required
+def agregar_publicidad(request):
+    list_radios = Radio.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Publicidad',
+        'radios': list_radios
+        }
+    if request.POST:
+        publicidad_form = PublicidadForm(request.POST)
+        if publicidad_form.is_valid():
+            publicidad_form.save()
+            context['success'] = '¡El registro de la publicidad se ha sido creado con éxito!'
+        else:
+            context['error'] = publicidad_form.errors
+    return render(request, 'webAdminRadio/agregar_publicidad.html', context)

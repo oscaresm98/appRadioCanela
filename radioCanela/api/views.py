@@ -428,6 +428,16 @@ def Locutor_detalle(request,pk):
         locutor.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
 
+# Publicidad
+# GET: que obtiene las publicidades por radio
+class ListPublicidad(generics.ListAPIView):
+    serializer_class = serializers.PublicidadSerializer
+    
+    def get_queryset(self):
+        radio = self.kwargs['id_radio']
+        return Publicidad.objects.filter(id_radio=radio)
+
+
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer

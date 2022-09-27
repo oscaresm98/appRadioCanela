@@ -249,6 +249,8 @@ class Publicidad(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     imagen = models.CharField(max_length=2080, blank=True, null=True)
     url = models.CharField(max_length=2080, blank=True, null=True)
+    fecha_inicio = models.DateTimeField(blank=True, null=True)
+    fecha_fin = models.DateTimeField(blank=True, null=True)
     estado = models.BooleanField(default=True)
 
 

@@ -33,6 +33,8 @@ urlpatterns = [
     path('locutores/',views.LocutorList,name='locutores-list'),
     path('locutores/<int:pk>', views.Locutor_detalle, name='locutor-detalle'),
     
+    path('radio/<int:id_radio>/publicidad',views.ListPublicidad.as_view(), name="list_radio_publicidad"),
+    
     
     #path('radio/', views.ListEmisora.as_view()),
 

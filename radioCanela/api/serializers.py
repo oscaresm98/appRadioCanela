@@ -146,6 +146,11 @@ class RedSocialLocutorSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.RedSocialLocutor
 
+# Publicidad
+class PublicidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Publicidad
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
@@ -375,23 +380,6 @@ class RedSocialLocutorSerializer(serializers.ModelSerializer):
 #         )
 #         model = models.PodcastEmisora
 
-# class PublicidadSerializer(serializers.ModelSerializer):
-#     emisora = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = models.Publicidad
-#         fields = (
-#             'id',
-#             'imagen',
-#             'titulo',
-#             'cliente',
-#             'emisora',
-#         )
-
-#     def get_emisora(self, obj):
-#         segmento_id = self.context.get('segmento')
-#         segmento_obj = models.segmento_publicidad.objects.get(idSegmento=segmento_id, idPublicidad=obj.id)
-#         return segmento_obj.idSegmento.idEmisora.nombre
 
 # class FrecuenciaSerializer(serializers.ModelSerializer):
 #     class Meta:

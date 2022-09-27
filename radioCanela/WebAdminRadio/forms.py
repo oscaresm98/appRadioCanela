@@ -98,16 +98,30 @@ class RedSocialForm(forms.Form):
     nombre = forms.CharField(max_length=25, required=False)
     logo_red_social = forms.URLField(max_length=2080, required=False)
 
-# class PublicidadForm(forms.ModelForm):
-#     class Meta:
-#         model = Publicidad
-#         fields = [
-#             'titulo',
-#             'cliente',
-#             'descripcion',
-#             'url',
-#             'imagen'
-#             ]
+# Publicidad
+class PublicidadForm(forms.ModelForm):
+    class Meta:
+        model = Publicidad
+        fields = [
+            'id_radio',
+            'titulo',
+            'cliente',
+            'descripcion',
+            'url',
+            'imagen',
+            'fecha_inicio',
+            'fecha_fin',
+        ]
+    # Esta función define el atributo 'name' con el valor del diccionario
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'id_radio': 'radio',
+            'fecha_inicio': 'fechainicio',
+            'fecha_fin': 'fechafin',
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(PublicidadForm, self).add_prefix(field_name)
+
 
 # class FrecuenciaForm(forms.ModelForm):
 #     class Meta:
