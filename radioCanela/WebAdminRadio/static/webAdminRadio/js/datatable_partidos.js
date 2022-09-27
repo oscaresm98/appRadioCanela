@@ -49,23 +49,25 @@ var table = $('#data_table').DataTable({
             return data.id_torneo.nombre;
         }},
         { data: "fecha_evento"},
-        { data: function(data){
-            let emisoras = '';
-            for (const emisora of data.emisoras) {
-                emisoras += `${emisora.radio}, `;
-            }
-            return emisoras.slice(0, -2);
-        }},
+        { data: "emisoras"},
         { data: "id"}
     ],
     columnDefs: [
         { width: 10, targets: 0},
-        { width: 200, targets: 1},
-        { width: 200, targets: 2},
+        { width: 250, targets: 1},
+        { width: 125, targets: 2},
         { width: 100, targets: 3, render: function(data) {
             return data ? new Date(data).toLocaleDateString() : 'Fecha Nula'
         }},
-        { width: 200, targets: 4},                
+        { width: 250, targets: 4, render: function(data) {
+            let plantillaEmisoras = ``;
+            Array.from(data).forEach(emisora => {
+                plantillaEmisoras += `<li>${emisora.radio} - ${emisora.frecuencia_dial} ${emisora.tipo_frecuencia}</li>`
+            });
+            return `<ul>
+                        ${plantillaEmisoras}
+                    </ul>`;
+        }},                
         { width: 150, targets: 5, render: function(data){
             return `<a href="/partidos/` + data + `" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye mx-auto"></i></a>
                     <a href="/partidos/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
