@@ -43,4 +43,5 @@ urlpatterns = [
     path('locutores/<int:id_locutor>/editar', views.editar_locutor, name='editar_locutor'), # URL para editar un locutor
     path('publicidad', views.publicidad, name='publicidad'), #Pagina principal donde se muestra la publicidad.
     path('publicidad/agregar', views.agregar_publicidad, name = 'agregar_publicidad'), #Muestra la pantalla para agregar publicidad.
+    path('publicidad/<int:id_publicidad>', views.ver_publicidad, name = 'ver_publicidad'),
 ]

@@ -1,0 +1,89 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/ver_segmentos.css' %}">
+{% endblock %}
+{% block content %}
+    <h2><b>{{ publicidad.titulo }}</b></h2>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="img-container">
+                <img class="image" src="{{ publicidad.imagen }}">
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">ruta imagen:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.imagen }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Cliente:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.cliente }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Titulo:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.titulo }} </label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">URL:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.url }} </label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Descripción:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.descripcion }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Fecha de inicio:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.fecha_inicio }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Fecha de fin:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.fecha_fin }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Radio:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ publicidad.id_radio.nombre }}</label>
+            </div>
+        </div>
+        
+            
+    </div>
+{% endblock %}

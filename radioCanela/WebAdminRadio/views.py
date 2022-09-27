@@ -756,3 +756,12 @@ def agregar_publicidad(request):
         else:
             context['error'] = publicidad_form.errors
     return render(request, 'webAdminRadio/agregar_publicidad.html', context)
+
+@login_required
+def ver_publicidad(request, id_publicidad):
+    publicidad = Publicidad.objects.get(id=id_publicidad)
+    context = {
+        'title': "Informacion de la publicidad",
+        'publicidad':publicidad,
+    }
+    return render(request, 'webAdminRadio/ver_publicidad.html', context)
