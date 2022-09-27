@@ -31,49 +31,47 @@
 {% endif %}
 {% endcomment %}
 <h4><b>Información del Usuario </b></h4>
-<form id="addLocutor" onsubmit="alert(action);return validate()" action="{% url 'agregar_usuario' %}"
+<form id="addLocutor" onsubmit="alert(action); submitData()" action="{% url 'agregar_usuario' %}"
     method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <!-- Nombre del usuario -->
-    <div class="my-3 row align-items-center ">
-        <div class="col-2">
-            <label for="nombre" class="col-sm-1 col-form-label">Nombres</label>
-        </div>
+    <div class="my-3 align-items-center ">
 
-        <div class="col-10">
-            <input id="nombre" name="nombre" type="text" class="form-control" 
-                oninvalid="this.setCustomValidity('Ingrese un nombre válido')" oninput="this.setCustomValidity('')"
-                required>
+        <div class="input-container">
+            <label for="nombre" class="me-3">Nombres</label>
+                <input class="form-control" id="nombre" name="nombre" type="text"  
+            onkeyup="validateName()"required>
+                <span class="" id="name-error"></span>
         </div>
     </div>
-    <div class="my-3 row align-items-center">
-        <div class="col-2">
-            <label for="apellido" class="col-sm-1 col-form-label">Apellidos</label>
-        </div>
-        <div class="col-10">
+    <!--Apellido-->
+    <div class="my-3 align-items-center">
+        
+        <div class="input-container">
+            <label for="apellido" class="me-3">Apellidos</label>
             <input id="apellido" name="apellido" type="text" class="form-control"
-                oninvalid="this.setCustomValidity('Ingrese un apellido válido')" oninput="this.setCustomValidity('')"
-                required>
+            onkeyup="validateLastName()"required>
+                <span id="last-name-error"></span>
         </div>
     </div>
-    <div class="my-3 row align-items-center">
-        <div class="col-2">
-            <label for="cedula" class="col-sm-1 col-form-label">Cedula</label>
-        </div>
-        <div class="col-10">
+    <!--Cedula-->
+    <div class="my-3 align-items-center">
+        <div class="input-container">
+            <label for="cedula" class="me-3">Cedula</label>
             <input id="cedula" name="cedula" type="text" class="form-control"
-                oninvalid="this.setCustomValidity('Ingrese un apellido válido')" oninput="this.setCustomValidity('')"
+            onkeyup="validateID()"
                 required>
+                <span id="id-error"></span>
         </div>
     </div>
+    <!--Username-->
     <div class="my-3 row align-items-center">
-        <div class="col-2">
-            <label for="user" class="col-sm-1 col-form-label">Username</label>
-        </div>
-        <div class="col-10">
-            <input id="user" name="username" type="text" class="form-control"
-                oninvalid="this.setCustomValidity('Ingrese un username válido')" oninput="this.setCustomValidity('')"
+        <div class="input-container">
+            <label for="user" class="me-3">Username</label>
+            <input id="username" name="username" type="text" class="form-control"
+            onkeyup="validateUsername()"
                 required>
+                <span id="username-error"></span>
         </div>
     </div>
     <!-- Fecha de Nacimiento -->
@@ -83,31 +81,28 @@
         </div>
         <div class="col-9">
             <input id="fechaNac" name="fechaNac" type="date" class="form-control"
-                oninvalid="this.setCustomValidity('Ingrese una fecha')"
-                oninput="this.setCustomValidity('')" required>
-        </div>
+            required>
+                <span id="birth-date-error"></span>
+            </div>
     </div>
     <!-- E-mail -->
-    <div class="my-3 row align-items-center">
-        <div class="col-2">
-            <label for="email">Correo electrónico</label>
-        </div>
-        <div class="col-10">
+    <div class="my-3 align-items-center">
+        <div class="input-container">
+            <label for="email" class="me-3">Correo electrónico</label>
             <input id="email" name="email" type="email" class="form-control"
-                oninvalid="this.setCustomValidity('Ingrese una direccion válida')" oninput="this.setCustomValidity('')"
+            onkeyup="validateEmail()"
                 required>
+                <span id="email-error"></span>
         </div>
     </div>
     <!-- Teléfono -->
-    <div class="my-3 row align-items-center">
-        <div class="col-2">
-            <label for="telefono">Teléfono</label>
-        </div>
-        <div class="col-10">
+    <div class="my-3 align-items-center">
+        <div class="input-container">
+            <label for="telefono" class="me-3">Teléfono</label>
             <input id="telefono" name="telefono" type="tel" pattern="[0-9]{9,10}" class="form-control"
-                oninvalid="this.setCustomValidity('Ingrese un telefono válido')"
-                oninput="this.setCustomValidity('')" required>
-        </div>
+            onkeyup="validateTelefono()" required>
+                <span id="cellphone-error"></span>
+            </div>
     </div>
     <!-- Sexo -->
     <div class="my-3 row align-items-center">
@@ -167,7 +162,7 @@
 
                 <img id="preview" class="image"
                     src="{% static 'webAdminRadio/images/placeholder.png' %}">
-
+                    <span id="image-error"></span>
             </div>
         </div>
     </div>
@@ -192,5 +187,6 @@
 {% endblock %}
 {% block page_script %}
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+<script src="{% static 'webAdminRadio/js/user_form.js' %}"></script>
 
 {% endblock %}
