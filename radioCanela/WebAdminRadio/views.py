@@ -293,7 +293,7 @@ def ver_equipo(request, id_equipo):
 def borrar_equipo(request, id_equipo):
     delete_equipo = Equipo.objects.get(id=id_equipo)
     delete_equipo.estado = False
-    delete_equipo.delete()
+    delete_equipo.save()
     messages.success(request, 'El equipo ha sido eliminado')
     return redirect('equipos')
 
@@ -551,3 +551,179 @@ def agregarHorario(lista, context, request):
         else:
             context['error'] = horario_form.errors
             break
+
+@login_required
+def ver_programa(request, id_programa):
+    programa = Programa.objects.get(id=id_programa)
+    segmentoEmisora = SegmentoEmisora.objects.get(segmento=id_programa)
+    context = {
+        'title': 'Información del programa',
+        'programa': programa,
+        'segemntoEmisora': segmentoEmisora
+    }
+    return render(request, 'webAdminRadio/ver_programa.html', context)
+
+@login_required
+def modificar_programa(request, id_programa):
+    edit_segmento = Programa.objects.get(id=id_programa, estado=True)
+    horarios = Horario.objects.filter(id_programa=id_programa)
+    list_emisoras = Emisora.objects.filter(estado=True)
+    segmentoEmisora = SegmentoEmisora.objects.get(segmento=id_programa)
+    context = {
+        'title': 'Editar Programa',
+        'segmento': edit_segmento,
+        'emisoras': list_emisoras,
+        'segmentoEmisora': segmentoEmisora,
+        'horarios': json.dumps(list(horarios.values('dia', 'hora_inicio', 'hora_fin')), cls=DjangoJSONEncoder)
+    }
+    if request.POST:
+        programa_form = ProgramaForm(request.POST, instance=edit_segmento)
+        if programa_form.is_valid():
+            programa_form.save()
+            horarios.delete()
+            # Enlazar programa con emisora
+            segmentoEmisora.emisora = Emisora.objects.get(id=request.POST['emisora'])
+            segmentoEmisora.segmento = edit_segmento
+            segmentoEmisora.save()
+            
+            if request.POST['dias']=='L':
+                lista = ['Lunes','Martes','Miércoles','Jueves','Viernes']
+                modificarHorario(lista, context, request)
+
+            elif request.POST['dias']=='SD':
+                fds = ['Sábado','Domingo']
+                modificarHorario(fds, context, request)
+
+            elif request.POST['dias']=='S':
+                modificarHorario(['Sabado'], context, request)
+
+            elif request.POST['dias']=='D':
+                modificarHorario(['Domingo'], context, request)
+
+            if 'error' not in context:
+                context['success'] = '¡El programa ha sido creado con éxito!'
+            else:
+                context['error'] = programa_form.errors
+        return render(request, 'webAdminRadio/editar_programa.html', context)
+    return render(request, 'webAdminRadio/editar_programa.html', context)
+
+
+def modificarHorario(lista, context, request):
+    ini= request.POST['horainicio']
+    fin= request.POST['horafin']
+    progra = context['segmento']
+    for i in lista:
+        # Creación del horario
+        horario_form = HorarioForm({
+            'programa': progra,
+            'dia': i,
+            'hora_inicio': ini,
+            'hora_fin': fin,
+        })
+        if horario_form.is_valid():
+            horario_form.save()
+        else:
+            context['error'] = horario_form.errors
+            break
+
+@login_required
+def borrar_programa(request, id_programa):
+    delete_segmento = Programa.objects.get(id=id_programa)
+    delete_segmento.estado = False
+    delete_segmento.delete()
+    messages.success(request, 'El segmento ha sido eliminado')
+    return redirect('programas')
+
+
+# Locutores
+@login_required
+def locutores(request):
+    context = {'title': 'Locutores'}
+    return render(request, 'webAdminRadio/locutores.html', context)
+
+@login_required
+def ver_locutor(request, id_locutor):
+    locutor = Locutor.objects.get(pk=id_locutor)
+    redSocialLocutor = RedSocialLocutor.objects.filter(id_locutor=id_locutor)
+    context = {'title': 'Informacion del Locutor', 'locutor': locutor, 'redSocialLocutor': redSocialLocutor}
+    return render(request, 'webAdminRadio/ver_locutor.html', context)
+
+@login_required
+def eliminar_locutor(request, id_locutor):
+    delete_locutor = Locutor.objects.get(id=id_locutor)
+    delete_locutor.estado = False
+    delete_locutor.delete()
+    messages.success(request, 'El Locutor ha sido eliminado.')
+    return redirect('locutores')
+
+@login_required
+def agregar_Locutor(request):
+    context = {'title': 'Agregar Locutor'}
+    if request.POST:
+        locutor_form = LocutorForm(request.POST)
+        print(locutor_form)
+        if not locutor_form.is_valid():
+            context['error'] = locutor_form.errors
+            return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+        
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            red_form = RedSocialForm({
+                'nombre': request.POST.getlist('red_social_nombre')[i],
+                'logo_red_social': request.POST.getlist('red_social_url')[i]
+            })
+            if not red_form.is_valid():
+                context['error'] = red_form.errors
+                return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+        
+        locutor_form.save()
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
+            RedSocialLocutor.objects.create(
+                id_locutor=Locutor.objects.order_by('-id')[0],
+                id_red_social=id,
+                username = request.POST.getlist('red_social_username')[i],
+                link = request.POST.getlist('red_social_url')[i]
+            )
+        context['success'] = '¡El/La locutor/a ha sido agregado/a con éxito!'
+    return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+
+@login_required
+def editar_locutor(request, id_locutor):
+    edit_locutor = Locutor.objects.get(id=id_locutor)
+    red_social = RedSocialLocutor.objects.filter(id_locutor=id_locutor)
+    context = {
+        'title': 'Editar Locutor',
+        'locutor': edit_locutor,
+        'redsocial': json.dumps(list(red_social.values('id_red_social', 'link', 'username')), cls=DjangoJSONEncoder)
+    }
+    if request.POST:
+        locutor_form = LocutorForm(request.POST, instance=edit_locutor)
+        if not locutor_form.is_valid():
+            context['error'] = locutor_form.errors
+            return render(request, 'webAdminRadio/editar_locutor.html', context)
+        
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            red_form = RedSocialForm({
+                'nombre': request.POST.getlist('red_social_nombre')[i],
+                'logo_red_social': request.POST.getlist('red_social_url')[i]
+            })
+            if not red_form.is_valid():
+                context['error'] = red_form.errors
+                return render(request, 'webAdminRadio/editar_locutor.html', context)
+        
+        locutor_form.save()
+        red_social.delete()
+        for i in range(len(request.POST.getlist('red_social_nombre'))):
+            id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
+            RedSocialLocutor.objects.create(
+                id_locutor = edit_locutor,
+                id_red_social = id,
+                username = request.POST.getlist('red_social_username')[i],
+                link = request.POST.getlist('red_social_url')[i]
+            )
+
+        context['success'] = '¡El/La locutor/a ha sido modificado/a con éxito!'
+
+        return render(request, 'webAdminRadio/editar_locutor.html', context)
+
+    return render(request, 'webAdminRadio/editar_locutor.html', context)

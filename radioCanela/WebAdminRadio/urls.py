@@ -33,5 +33,12 @@ urlpatterns = [
     path('usuarios/eliminar/<int:id_usuario>',views.borrar_usuario,name='eliminar_usuario'),
     path('programas', views.programas, name='programas'), # Página principal donde se muestran los programas
     path('programas/agregar', views.agregar_programa, name="agregar_programa"), # Muestra la pantalla para agregar programa
-    
+    path('programas/<int:id_programa>', views.ver_programa, name="ver_programa"), # Muestra la información un programa
+    path('programas/<int:id_programa>/editar', views.modificar_programa, name="editar_programa"), # Muestra la pantalla para modificar un segmento
+    path('programas/<int:id_programa>/eliminar', views.borrar_programa, name="borrar_programa"), # URL para borrar un programa
+    path('locutores', views.locutores, name='locutores'), # Muestra todos los locutores de la radio
+    path('locutores/agregar', views.agregar_Locutor, name='agregar_locutor'), # Form para agregar un locutor nuevo
+    path('locutores/<int:id_locutor>', views.ver_locutor, name='locutor'), # URL para ver informacion del partido
+    path('locutores/<int:id_locutor>/eliminar', views.eliminar_locutor, name='eliminar_locutor'), # URL para eliminar un locutor
+    path('locutores/<int:id_locutor>/editar', views.editar_locutor, name='editar_locutor'), # URL para editar un locutor
 ]

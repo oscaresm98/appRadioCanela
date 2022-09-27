@@ -28,10 +28,10 @@ const modalBorrar = {
                         </div>
 
                         <div class="modal-footer">
-                            <button class="modal-dafault-button btn btn-primary btn-sm" @click="redirectToPage">
+                            <button class="modal-dafault-button btn btn-primary btn-sm me-2" @click="redirectToPage">
                                 Sí, estoy seguro
                             </button>
-                            <button class="modal-dafault-button btn btn-primary btn-sm" @click="cancelar">
+                            <button class="modal-dafault-button btn btn-secondary  btn-sm" @click="cancelar">
                                 Cancelar
                             </button>
                         </div>

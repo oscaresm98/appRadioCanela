@@ -1,0 +1,55 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% comment %} {% load webadmin_tags %} {% endcomment %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_equipo.css' %}">
+{% endblock %}
+{% block content %}
+    <h2><b>{{ equipo.equipo }}</b></h2>
+
+
+    <div class="img-container">
+        <img class="shield" id="preview" src="{{ locutor.imagen }}">
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">URL de imagen:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ locutor.imagen }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Nombre completo:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ locutor.nombre }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Descripción del locutor:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ locutor.descripcion }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4" id="redSocial">
+            <label class="fw-bold ms-5 label">Redes Sociales:</label>
+        </div>
+        {% for red in redSocialLocutor %}
+        <div class="col-12 text-center">
+            <i class="{{ red.id_red_social.logo_red_social }}"></i>
+            <label class="ms-3">{{ red.id_red_social.nombre  }}:</label>
+            <label class="ms-3"><a href="{{ red.link  }}" target="_blank">@{{ red.username }}</a></label>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

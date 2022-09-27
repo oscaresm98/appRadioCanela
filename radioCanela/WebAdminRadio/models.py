@@ -268,9 +268,10 @@ class RedSocialEquipo(models.Model):
 
 
 class RedSocialLocutor(models.Model):
-    id_locutor = models.OneToOneField(Locutor, on_delete=models.CASCADE, db_column='id_locutor', primary_key=True)
+    id_locutor = models.ForeignKey(Locutor, on_delete=models.CASCADE, db_column='id_locutor')
     id_red_social = models.ForeignKey(RedSocial, on_delete=models.CASCADE, db_column='id_red_social')
     username = models.CharField(max_length=150, blank=True, null=True)
+    estado = models.BooleanField(default=True)
     link = models.CharField(max_length=2080, blank=True, null=True)
 
 

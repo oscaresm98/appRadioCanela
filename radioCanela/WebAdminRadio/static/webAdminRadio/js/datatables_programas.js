@@ -39,8 +39,8 @@ function getSegmentos(emisora) {
                 return html;
             }},
             { width: 150, className: "text-center", targets: 4, render: function(data){
-                return `<a href="/segmentos/` + data + `" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye mx-auto"></i></a>
-                        <a href="/segmentos/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
+                return `<a href="/programas/` + data + `" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye mx-auto"></i></a>
+                        <a href="/programas/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
                         <a href="#" onclick="showWarning(` + data + `)" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>
                         `
             }},

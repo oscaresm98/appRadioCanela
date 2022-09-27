@@ -383,6 +383,51 @@ class ListPartidoTransmisiones(generics.ListAPIView):
     queryset = PartidoTransmision.objects.filter(estado=True).order_by('-fecha_evento')
 
 
+@api_view(['GET', 'POST', 'DELETE'])
+def LocutorList(request):
+    try:
+        locutor = Locutor.objects.filter(estado=True)
+    except Locutor.DoesNotExist:
+        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = LocutoresSerializer(locutor, many=True)
+        return Response(serializer.data)
+        
+    elif request.method == 'POST':
+        serializer = LocutoresSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        locutor.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# Se maneja la radios por id     
+@api_view(['GET', 'PUT','DELETE'])
+def Locutor_detalle(request,pk): 
+    try: 
+        locutor = Locutor.objects.get(id=pk)
+    except Locutor.DoesNotExist:
+        return Response({'Error': 'Locutor no existe'}, status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializers = LocutoresSerializer(locutor) 
+        return Response(serializers.data) 
+      
+    elif request.method == 'PUT':       
+        serializer = LocutoresSerializer(locutor, data=request.data)    
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+     
+    elif request.method == 'DELETE':
+        locutor.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 
+
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer
