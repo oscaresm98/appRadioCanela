@@ -765,3 +765,34 @@ def ver_publicidad(request, id_publicidad):
         'publicidad':publicidad,
     }
     return render(request, 'webAdminRadio/ver_publicidad.html', context)
+
+@login_required
+def modificar_publicidad(request, id_publicidad):
+    edit_publicidad = Publicidad.objects.get(id=id_publicidad)
+    list_radios = Radio.objects.all()
+    fechainicio = str(edit_publicidad.fecha_inicio)[0:10]
+    fechafin = str(edit_publicidad.fecha_fin)[0:10]
+    context = {
+        'title': 'Editar Publicidad',
+        'publicidad': edit_publicidad,
+        'radios': list_radios,
+        'fechainicio': fechainicio,
+        'fechafin': fechafin,
+    }
+    if request.POST:
+        publicidad_form = PublicidadForm(request.POST, instance=edit_publicidad)
+        if publicidad_form.is_valid():
+            publicidad_form.save()
+            context['success'] = '¡El registro ha sido modificado con éxito!'
+        else:
+            context['error'] = publicidad_form.errors
+    return render(request, 'webAdminRadio/editar_publicidad.html', context)
+
+
+@login_required
+def borrar_publicidad(request, id_publicidad):
+    delete_publicidad = Publicidad.objects.get(id=id_publicidad)
+    delete_publicidad.estado = False
+    delete_publicidad.save()
+    messages.success(request, 'La publicidad ha sido eliminada con exito')
+    return redirect('publicidad')

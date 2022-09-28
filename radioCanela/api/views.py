@@ -435,7 +435,7 @@ class ListPublicidad(generics.ListAPIView):
     
     def get_queryset(self):
         radio = self.kwargs['id_radio']
-        return Publicidad.objects.filter(id_radio=radio)
+        return Publicidad.objects.filter(id_radio=radio, estado=True)
 
 
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
