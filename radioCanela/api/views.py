@@ -1,4 +1,3 @@
-from msilib.schema import RadioButton
 from rest_framework import generics
 # Social media imports
 # FACEBOOK
