@@ -5,9 +5,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_equipo.css' %}">
 {% endblock %}
 {% block content %}
-    <h2><b>{{ equipo.equipo }}</b></h2>
-
-
+    <div class="d-flex">
+        <button class="btn btn-light rounded-circle mx-1" id='volver' type="button"><i class="fas fa-chevron-left"></i></button>
+        <h2><b>{{ equipo.equipo }}</b></h2>
+    </div>
+    
     <div class="img-container">
         <img class="shield" id="preview" src="{{ equipo.imagen }}">
     </div>
@@ -52,6 +54,10 @@
         {% endfor %}
     </div>
 
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/back.js' %}"></script>
 {% endblock %}
 
 {% comment %} {% block page_script %}

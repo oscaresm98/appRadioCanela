@@ -4,7 +4,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/ver_segmentos.css' %}">
 {% endblock %}
 {% block content %}
-    <h2><b>{{ publicidad.titulo }}</b></h2>
+    <div class="d-flex">
+        <button class="btn btn-light rounded-circle mx-1" id='volver' type="button"><i class="fas fa-chevron-left"></i></button>
+        <h2><b>{{ publicidad.titulo }}</b></h2>
+    </div>
+    
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="img-container">
@@ -86,4 +90,8 @@
         
             
     </div>
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/back.js' %}"></script>
 {% endblock %}

@@ -51,7 +51,7 @@
             </div>
             <div class="col-9">  
                 <select id="emisoraSelect" class="form-select form-control" name="emisora" oninvalid="this.setCustomValidity('Seleccione una emisora de la lista')" required oninput="this.setCustomValidity('')">
-                    <option disabled>Seleccione la emisora</option>
+                    <option value="" disabled>Seleccione la emisora</option>
                     {% for emisora in emisoras %}
                         <option value="{{ emisora.id }}"
                         {% if emisora.id == segmentoEmisora.emisora.id %}
@@ -105,7 +105,7 @@
                 <label for="horainicio">Hora de inicio</label>
             </div>
             <div class="col-9">
-                <input id="horainicio" name="horainicio" type="time" class="form-control" oninvalid="this.setCustomValidity('Ingrese una hora')" oninput="this.setCustomValidity('')" required>
+                <input id="horainicio" name="horainicio" type="time" class="form-control" oninvalid="this.setCustomValidity('Ingrese un horario valido')" oninput="this.setCustomValidity('')" required>
             </div>
         </div>
         <!-- Hora fin -->
@@ -114,7 +114,7 @@
                 <label for="horafin">Hora de finalizacion</label>
             </div>
             <div class="col-9">
-                <input id="horafin" name="horafin" type="time" class="form-control" oninvalid="this.setCustomValidity('Ingrese una hora')" oninput="this.setCustomValidity('')" required>
+                <input id="horafin" name="horafin" type="time" class="form-control" oninvalid="this.setCustomValidity('Ingrese un horario valido')" oninput="this.setCustomValidity('')" required>
             </div>
         </div>
 
@@ -146,8 +146,25 @@
                 $('#horainicio').attr('value', horarios[0].hora_inicio);
                 $('#horafin').attr('value', horarios[0].hora_fin);
             }
-            console.log(horarios.length)
-            
+            $("#horafin").change(function(){
+                $(".alert").remove();
+                var horaInicio = $("#horainicio").val();
+                var horaFin = $("#horafin").val();
+                if (horaFin <= horaInicio) {
+                    $("#horafin").parent().after('<div class="alert alert-warning w-75 mt-1 ms-2">La hora de finalización debe ser mayor a la hora de inicio</div>');
+                    $("#horafin").val("");
+                }
+            })
+            $("#horainicio").change(function(){
+                $(".alert").remove();
+                var horaf = document.getElementById('horafin')
+                var horaInicio = $("#horainicio").val();
+                var horaFin = $("#horafin").val();
+                if (horaFin <= horaInicio && horaf.value) {
+                    $("#horainicio").parent().after('<div class="alert alert-warning w-75 mt-1 ms-2">La hora de inicio debe ser menor a la hora de finalizacion</div>');
+                    $("#horainicio").val("");
+                }
+            })         
             
         });
     </script>

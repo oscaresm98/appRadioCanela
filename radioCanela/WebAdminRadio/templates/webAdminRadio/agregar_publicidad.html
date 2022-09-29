@@ -101,8 +101,8 @@
                 <label for="radioSelect">Radio</label>
             </div>
             <div class="col-9">  
-                <select id="radioSelect" class="form-select form-control" name="radio" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" required oninput="this.setCustomValidity('')">
-                    <option selected disabled>Seleccione la radio</option>
+                <select id="radioSelect" class="form-select form-control" name="radio" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" oninput="this.setCustomValidity('')" required>
+                    <option value="" selected disabled>Seleccione la radio</option>
                     {% for radio in radios %}
                         <option value="{{ radio.id }}">{{ radio.nombre }}</option>
                     {% endfor %}
@@ -137,4 +137,17 @@
 <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
 <script src="{% static 'webAdminRadio/js/updateImage.js' %}" type="module"></script>
+<script>
+    $(document).ready(function(){
+        start = document.getElementById('fechainicio');
+        end = document.getElementById('fechafin');
+		start.addEventListener('change', function() {
+            if (start.value) end.min = start.value;
+        }, false);
+
+        end.addEventListener('change', function() {
+            if (end.value) start.max = end.value;
+        }, false);
+    })
+</script>
 {% endblock %}
