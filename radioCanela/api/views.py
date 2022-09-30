@@ -40,6 +40,12 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from django.contrib.auth.decorators import login_required
 
+import datetime
+from django.utils import timezone
+
+from django.db.models import Q
+from .pagination import PartidosPagination 
+
 #from WebAdminRadio.models import *
 # Create your views here.
 
@@ -381,6 +387,21 @@ class ListPartidoTransmisiones(generics.ListAPIView):
     serializer_class = serializers.PartidoTransmisionSerializer
     queryset = PartidoTransmision.objects.filter(estado=True).order_by('-fecha_evento')
 
+class ListPartidosJugados(generics.ListAPIView):
+    serializer_class = serializers.PartidoTransmisionSerializer
+    pagination_class = PartidosPagination
+
+    def get_queryset(self):
+        fecha_actual = datetime.datetime.now(tz=timezone.utc)
+        return PartidoTransmision.objects.filter(Q(fecha_evento__lt=fecha_actual))
+
+class ListPartidosPorJugar(generics.ListAPIView):
+    serializer_class = serializers.PartidoTransmisionSerializer
+    pagination_class = PartidosPagination
+
+    def get_queryset(self):
+        fecha_actual = datetime.datetime.now(tz=timezone.utc)
+        return PartidoTransmision.objects.filter(Q(fecha_evento__gte=fecha_actual))
 
 @api_view(['GET', 'POST', 'DELETE'])
 def LocutorList(request):
