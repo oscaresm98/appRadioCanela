@@ -539,8 +539,13 @@ def agregar_programa(request):
         programa_form = ProgramaForm(request.POST)
         if programa_form.is_valid():
             programa_form.save()
-            emisoraid = request.POST['emisora']
+            # Se sube el archivo a Firebase Storage y se asigna el url
+            programa = Programa.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(programa.id), 'imagenes/')
+            programa.imagen=url
+            programa.save()
             # Enlazar programa con emisora
+            emisoraid = request.POST['emisora']
             SegmentoEmisora.objects.create(
                 emisora=Emisora.objects.get(id=emisoraid),
                 segmento=Programa.objects.order_by('-id')[0]
@@ -614,6 +619,10 @@ def modificar_programa(request, id_programa):
         if programa_form.is_valid():
             programa_form.save()
             horarios.delete()
+            if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+                url = agregarImagen(request, str(edit_segmento.id), 'imagenes/')
+                edit_segmento.imagen=url
+                edit_segmento.save()
             # Enlazar programa con emisora
             segmentoEmisora.emisora = Emisora.objects.get(id=request.POST['emisora'])
             segmentoEmisora.segmento = edit_segmento
