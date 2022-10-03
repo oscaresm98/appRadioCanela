@@ -20,9 +20,9 @@ urlpatterns = [
     path('torneos/', views.torneosList,name='torneos-list'),
     
     path('equipos/', views.equipoList ,name='equipos-list'),
-    path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
+    path('equipos/<int:pk>', views.EquipoPorId.as_view()),
     
-    path('partidos', views.ListPartidoTransmisiones.as_view(), name="partidos-list"),
+    path('partidos', views.ListPartidoTransmisiones.as_view(), name="partidos-list"), # URL para obtener todos los partidos
     path('partidos_jugados', views.ListPartidosJugados.as_view(), name="partidos-list-jugados"), # URL para obtener los partidos ya jugados
     path('partidos_por_jugar', views.ListPartidosPorJugar.as_view(), name="partidos-list-por-jugar"), # URL para obtener los partidos por jugar
     

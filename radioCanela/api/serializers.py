@@ -61,23 +61,34 @@ class RedSocialSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.RedSocial
 
+#
+# Serializadores para la api de detalle de equipos
+# 
+
+# Equipos
+class EquipoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = '__all__'
+        model = models.Equipo
+
 # RedSocial de equipo
 class RedSocialEquipoSerializer(serializers.ModelSerializer):
     id_red_social = RedSocialSerializer()
 
     class Meta:
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = [ 'id_equipo' ]
         model = models.RedSocialEquipo
 
-# Equipos
-class EquipoSerializer(serializers.ModelSerializer):
-    redes_sociales = RedSocialEquipoSerializer(source="get_redes_sociales_equipo", many=True)
+
+class EquipoDetallerSerializer(serializers.ModelSerializer):
+    redes_sociales = RedSocialEquipoSerializer(source='get_redes_sociales_equipo', many=True)
 
     class Meta:
         fields = '__all__'
-        extra_fields = ['redes_sociales']
+        extra_fields = [ 'redes_sociales' ]
         model = models.Equipo
-
 
 #
 # Serializadores para la api de partidos 
@@ -94,9 +105,7 @@ class EmisoraPartidoSerializer(serializers.ModelSerializer):
 # Equipos (Serializador que devuelve solo los datos importantes de un equipo)
 class EquipoPartidoSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = [
-            'id', 'equipo', 'imagen'
-        ]
+        fields = [ 'id', 'equipo', 'imagen' ]
         model = models.Equipo
 
 # Partidos

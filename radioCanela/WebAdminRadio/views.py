@@ -38,6 +38,7 @@ def agregarImagen(request, nombre, carpeta):
 @login_required
 def administrador(request):
     return render(request, 'webAdminRadio/administrador.html', {'title': 'Administrador'})
+
 @login_required
 #@has_permission_decorator('emisoras')
 def usuarios(request):

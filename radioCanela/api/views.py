@@ -321,7 +321,11 @@ def usuarioList(request):
     elif request.method == 'DELETE':
         usuarios.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+# 
+# Vistas de la API para torneos
+# 
+
 # Torneos
 @api_view(['GET', 'POST','DELETE','PUT'])
 def torneosList(request):
@@ -352,7 +356,11 @@ def torneosList(request):
         torneo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# 
+# Vistas de la API para equipos
+# 
 
+# Equipos
 @api_view(['GET', 'POST','DELETE'])
 def equipoList(request):
     
@@ -375,18 +383,29 @@ def equipoList(request):
         equipo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class ListEquiposPorId(generics.ListAPIView):
-    serializer_class = serializers.EquipoSerializer
+# class ListEquiposPorId(generics.ListAPIView):
+#     serializer_class = serializers.EquipoSerializer
 
-    def get_queryset(self):
-        idteam = self.kwargs['id_equipo']
-        queryset = Equipo.objects.filter(id=idteam, estado=True)
-        return queryset
+#     def get_queryset(self):
+#         idteam = self.kwargs['id_equipo']
+#         queryset = Equipo.objects.filter(id=idteam, estado=True)
+#         return queryset
 
+# Detalle Equipo
+class EquipoPorId(generics.RetrieveAPIView):
+    serializer_class = serializers.EquipoDetallerSerializer
+    queryset = Equipo.objects.all()
+
+# 
+# Vistas de la API para partidos
+# 
+
+# Partidos
 class ListPartidoTransmisiones(generics.ListAPIView):
     serializer_class = serializers.PartidoTransmisionSerializer
     queryset = PartidoTransmision.objects.filter(estado=True).order_by('-fecha_evento')
 
+# Partidos ya jugados
 class ListPartidosJugados(generics.ListAPIView):
     serializer_class = serializers.PartidoTransmisionSerializer
     pagination_class = PartidosPagination
@@ -395,6 +414,7 @@ class ListPartidosJugados(generics.ListAPIView):
         fecha_actual = datetime.datetime.now(tz=timezone.utc)
         return PartidoTransmision.objects.filter(Q(fecha_evento__lt=fecha_actual))
 
+# Partidos por jugar
 class ListPartidosPorJugar(generics.ListAPIView):
     serializer_class = serializers.PartidoTransmisionSerializer
     pagination_class = PartidosPagination
@@ -402,6 +422,10 @@ class ListPartidosPorJugar(generics.ListAPIView):
     def get_queryset(self):
         fecha_actual = datetime.datetime.now(tz=timezone.utc)
         return PartidoTransmision.objects.filter(Q(fecha_evento__gte=fecha_actual))
+
+# 
+# Vistas de API para locutores
+# 
 
 @api_view(['GET', 'POST', 'DELETE'])
 def LocutorList(request):
