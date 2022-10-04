@@ -33,8 +33,8 @@ function getPublicidad(emisora) {
             { width: 150, targets: 1, render: function(data) {
                 return '<img src="' + data + '" width="100%" >';
             }},
-            { width: 250, targets: 2},
-            { width: 100, targets: 3},
+            { width: 200, targets: 2},
+            { width: 150, targets: 3},
             { width: 150, targets: 4, render: function(data) {
                 return `${data.slice(0,10)}`;
             }},

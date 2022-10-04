@@ -7,7 +7,6 @@ from accounts.models import Usuario
 
 from rolepermissions.roles import assign_role
 
-
 class TimeSerializer(serializers.Serializer):
     fecha = serializers.DateField()
     hora = serializers.TimeField(format='%H:%M:%S')
@@ -30,18 +29,20 @@ class ConcursosSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Concursos
-        
-#Emisora
-class EmisoraSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = models.Emisora
 
 #Radio
 class RadioSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Radio
+
+#Emisora
+class EmisoraSerializer(serializers.ModelSerializer):
+    id_radio = RadioSerializer()
+    class Meta:
+        fields = '__all__'
+        model = models.Emisora
+
 # Usuario  
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,55 +54,6 @@ class TorneosSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Torneo
-        
-# Equipos
-class EquipoSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = models.Equipo
-
-
-#
-# Serializadores para la api de partidos 
-#  
-
-#Emisora
-# Serializador que devuelve pocos datos
-class EmisoraMinInfoSerializer(serializers.ModelSerializer):
-    radio = serializers.CharField(source='id_radio.nombre')
-
-    class Meta:
-        fields = [ 'id', 'frecuencia_dial', 'tipo_frecuencia', 'radio' ]
-        model = models.Emisora
-
-# Equipos
-# Serializador que devuelve pocos datos
-class EquipoMinInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = [
-            'id', 'equipo', 'imagen'
-        ]
-        model = models.Equipo
-
-# Partidos
-class PartidoTransmisionSerializer(serializers.ModelSerializer):
-    emisoras = EmisoraMinInfoSerializer(source="get_emisoras", many=True)
-    id_torneo = TorneosSerializer()
-    id_equipo_local = EquipoMinInfoSerializer()
-    id_equipo_visitante = EquipoMinInfoSerializer()
-
-    class Meta:
-        fields = [
-            'id', 'id_torneo', 'id_equipo_local', 'id_equipo_visitante', 
-            'ptos_equipo_local', 'ptos_equipo_visitante', 'fecha_evento', 'hora_inicio', 
-            'emisoras' 
-        ] 
-        model = models.PartidoTransmision
-
-#
-# 
-#
-
 
 # RedSocial
 class RedSocialSerializer(serializers.ModelSerializer):
@@ -109,11 +61,68 @@ class RedSocialSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.RedSocial
 
-# RedSocial de equipo
-class RedSocialEquipoSerializer(serializers.ModelSerializer):
+#
+# Serializadores para la api de detalle de equipos
+# 
+
+# Equipos
+class EquipoSerializer(serializers.ModelSerializer):
+
     class Meta:
         fields = '__all__'
+        model = models.Equipo
+
+# RedSocial de equipo
+class RedSocialEquipoSerializer(serializers.ModelSerializer):
+    id_red_social = RedSocialSerializer()
+
+    class Meta:
+        # fields = '__all__'
+        exclude = [ 'id_equipo' ]
         model = models.RedSocialEquipo
+
+
+class EquipoDetallerSerializer(serializers.ModelSerializer):
+    redes_sociales = RedSocialEquipoSerializer(source='get_redes_sociales_equipo', many=True)
+
+    class Meta:
+        fields = '__all__'
+        extra_fields = [ 'redes_sociales' ]
+        model = models.Equipo
+
+#
+# Serializadores para la api de partidos 
+#  
+
+# Emisora (Serializador que devuelve solo datos los datos importantes de la emisora)
+class EmisoraPartidoSerializer(serializers.ModelSerializer):
+    radio = serializers.CharField(source='id_radio.nombre')
+
+    class Meta:
+        fields = [ 'id', 'frecuencia_dial', 'tipo_frecuencia', 'radio' ]
+        model = models.Emisora
+
+# Equipos (Serializador que devuelve solo los datos importantes de un equipo)
+class EquipoPartidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = [ 'id', 'equipo', 'imagen' ]
+        model = models.Equipo
+
+# Partidos
+class PartidoTransmisionSerializer(serializers.ModelSerializer):
+    emisoras = EmisoraPartidoSerializer(source="get_emisoras", many=True)
+    id_torneo = TorneosSerializer()
+    id_equipo_local = EquipoPartidoSerializer()
+    id_equipo_visitante = EquipoPartidoSerializer()
+
+    class Meta:
+        fields = '__all__'
+        extra_fields =['emisoras']
+        model = models.PartidoTransmision
+
+#
+# 
+#
 
 # Segmento emisora
 class SegementoEmisoraSerializer(serializers.ModelSerializer):

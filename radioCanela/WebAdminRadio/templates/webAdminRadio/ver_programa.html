@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/ver_segmentos.css' %}">
 {% endblock %}
 {% block content %}
+    <button class="btn btn-light rounded-circle mx-1" id='volver' type="button"><i class="fas fa-chevron-left"></i></button>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="img-container">
@@ -74,4 +75,7 @@
         </div>
     </div>
     
+{% endblock %}
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/back.js' %}"></script>
 {% endblock %}

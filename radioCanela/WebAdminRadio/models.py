@@ -28,6 +28,8 @@ class Equipo(models.Model):
     imagen = models.CharField(max_length=2080, blank=True, null=True)
     estado = models.BooleanField(default=True)
 
+    def get_redes_sociales_equipo(self):
+        return RedSocialEquipo.objects.filter(id_equipo=self.id)
 
 class Locutor(models.Model):
     nombre = models.CharField(max_length=255, blank=True, null=True)

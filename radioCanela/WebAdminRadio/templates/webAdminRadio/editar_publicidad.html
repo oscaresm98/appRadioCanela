@@ -38,8 +38,6 @@
             <div class="form-file input-group mb-3 w-50">
                 <input type="file" name="archivo" class="form-control" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen')" oninput="this.setCustomValidity('')">
                 <input type="hidden" name="imagen" value="{{ publicidad.imagen }}" id="imagen">
-                <button type="button" id="btnImagen" class="btn btn-primary rounded-2"><i class="fas fa-upload"></i></button>
-                <div class="error"></div>
             </div>
         </div>
         
@@ -91,7 +89,7 @@
             </div>
             <div class="col-9">  
                 <select id="radioSelect" class="form-select form-control" name="radio" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" required oninput="this.setCustomValidity('')">
-                    <option selected disabled>Seleccione la radio</option>
+                    <option value="" selected disabled>Seleccione la radio</option>
                     {% for radio in radios %}
                         <option value="{{ radio.id }}"
                         {% if radio.id == publicidad.id_radio.id %}
@@ -130,8 +128,21 @@
 {% block page_script %}
     <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
     <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
-    <script src="{% static 'webAdminRadio/js/updateImage.js' %}" type="module"></script>
     <script>
-
+        $(document).ready(function(){
+            start = document.getElementById('fechainicio');
+            end = document.getElementById('fechafin');
+            start.addEventListener('change', function() {
+                if (start.value) end.min = start.value;
+            }, false);
+            end.addEventListener('change', function() {
+                if (end.value) start.max = end.value;
+            }, false);
+            let valor = document.getElementById('imgSegmento')
+            console.log(valor.value)
+            valor.addEventListener('change', function() {
+                console.log(valor.value)
+            });
+        })
     </script>
 {% endblock %}

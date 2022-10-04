@@ -116,7 +116,7 @@
             <label class="fw-bold ms-5 label">Fecha y Hora encuentro:</label>
         </div>
         <div class="col-8">
-            <label class="ms-3">{{ partido.fecha_evento }} - {{ partido.hora_inicio }}</label>
+            <label class="ms-3">{{ partido.fecha_evento | date:'d/m/Y' }} - {{ partido.hora_inicio }}</label>
         </div>
     </div>
 
