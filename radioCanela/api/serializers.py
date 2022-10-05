@@ -17,6 +17,7 @@ class ProgramaSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Programa
+
 # Programas
 class RolSerializer(serializers.ModelSerializer):
     # horarios = serializers.ReadOnlyField(source="get_horarios")
@@ -167,6 +168,16 @@ class PublicidadSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Publicidad
+
+
+# Noticias
+class NoticiaSerializer(serializers.ModelSerializer):
+    radioEmisora = serializers.ReadOnlyField(source="get_radio")
+    class Meta:
+        fields = '__all__'
+        extra_fields =['radioEmisora']
+        model = models.NoticiasTips
+
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")

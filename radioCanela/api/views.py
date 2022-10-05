@@ -512,6 +512,26 @@ class ListPublicidad(generics.ListAPIView):
         radio = self.kwargs['id_radio']
         return Publicidad.objects.filter(id_radio=radio, estado=True)
 
+#
+# Vistas de API para Noticias
+#
+
+# GET de todas las noticias
+class NoticiasList(generics.ListAPIView):
+    queryset = NoticiasTips.objects.filter(estado=True)
+    serializer_class = serializers.NoticiaSerializer
+
+# lista de las noticias de una emisora
+class ListNoticia(generics.ListAPIView):
+    serializer_class = serializers.NoticiaSerializer
+    
+    def get_queryset(self):
+        emisora = self.kwargs['id_emisora']
+        return NoticiasTips.objects.filter(id_emisora=emisora, estado=True)
+
+
+
+
 
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'

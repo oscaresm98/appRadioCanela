@@ -187,12 +187,16 @@ class NoticiasTips(models.Model):
     titulo = models.CharField(max_length=300)
     fecha_subida = models.DateTimeField(blank=True, null=True)
     imagen = models.CharField(max_length=2080, blank=True, null=True)
-    likes = models.IntegerField(blank=True, null=True)
-    compartidos = models.IntegerField(blank=True, null=True)
-    visualizacion = models.IntegerField(blank=True, null=True)
+    likes = models.IntegerField(default=0)
+    compartidos = models.IntegerField(default=0)
+    visualizacion = models.IntegerField(default=0)
     tipo = models.CharField(max_length=30, blank=True, null=True)
-    activo = models.IntegerField(blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
+    activo = models.BooleanField(default=True)
     estado = models.BooleanField(default=True)
+    
+    def get_radio(self):
+        return f"{self.id_emisora.id_radio.nombre} {self.id_emisora.frecuencia_dial}"
 
 
 class OpcionPregunta(models.Model):

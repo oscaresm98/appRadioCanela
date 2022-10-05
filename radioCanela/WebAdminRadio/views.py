@@ -859,3 +859,35 @@ def borrar_publicidad(request, id_publicidad):
     delete_publicidad.save()
     messages.success(request, 'La publicidad ha sido eliminada con exito')
     return redirect('publicidad')
+
+# Noticia
+@login_required
+def noticia(request):
+    list_noticias = NoticiasTips.objects.filter(estado=True)
+    context = {
+        'title': 'Noticias y Tips',
+        'noticias': list_noticias,
+    }
+    return render(request, 'webAdminRadio/noticias.html', context)
+
+
+@login_required
+def agregar_noticia(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Noticia/Tips',
+        'emisoras': list_emisoras
+        }
+    if request.POST:
+        noticia_form = NoticiaForm(request.POST)
+        if noticia_form.is_valid():
+            noticia_form.save()
+            # Se sube el archivo a Firebase Storage y se asigna el url
+            noticia = NoticiasTips.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(noticia.id), 'imagenes/')
+            noticia.imagen=url
+            noticia.save()
+            context['success'] = '¡El registro de la publicidad se ha sido creado con éxito!'
+        else:
+            context['error'] = noticia_form.errors
+    return render(request, 'webAdminRadio/agregar_noticia.html', context)

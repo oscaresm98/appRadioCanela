@@ -38,6 +38,10 @@ urlpatterns = [
     
     path('radio/<int:id_radio>/publicidad',views.ListPublicidad.as_view(), name="list_radio_publicidad"),
     
+    path('noticias/',views.NoticiasList.as_view(),name='noticias-list'),
+    path('emisora/<int:id_emisora>/noticia',views.ListNoticia.as_view(), name="list_emisora_noticia"),
+    
+    
     
     #path('radio/', views.ListEmisora.as_view()),
 
