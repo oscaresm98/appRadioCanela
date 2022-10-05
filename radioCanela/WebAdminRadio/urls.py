@@ -31,6 +31,10 @@ urlpatterns = [
     path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
     path('usuarios/editar/<int:id_usuario>', views.editar_usuario, name='editar_usuario'),
     path('usuarios/eliminar/<int:id_usuario>',views.borrar_usuario,name='eliminar_usuario'),
+    
+    path('roles',views.roles,name="lista_roles"),
+    path('agregar_rol',views.agregar_rol,name="agregar_rol"),
+    
     path('programas', views.programas, name='programas'), # Página principal donde se muestran los programas
     path('programas/agregar', views.agregar_programa, name="agregar_programa"), # Muestra la pantalla para agregar programa
     path('programas/<int:id_programa>', views.ver_programa, name="ver_programa"), # Muestra la información un programa

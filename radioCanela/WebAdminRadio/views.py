@@ -44,7 +44,18 @@ def administrador(request):
 def usuarios(request):
     listaUsuarios= Usuario.objects.filter(activo=True)
     context = {'title': 'Usuarios', 'usuarios':listaUsuarios}
+    #return render(request,"webAdminRadio/prueba.html")
     return render(request, 'webAdminRadio/usuarios.html', context)
+@login_required
+#@has_permission_decorator('emisoras')
+def roles(request):
+    listaroles= Rol.objects.filter(activo=True)
+    context = {'title': 'Roles', 'roles':listaroles}
+    return render(request, 'webAdminRadio/roles.html', context)
+def agregar_rol(request):
+    context = {'title': 'Agregar Rol'}
+
+    return render(request,"webAdminRadio/agregar_rol.html")
 
 @login_required
 def agregar_usuario(request):
@@ -58,7 +69,7 @@ def agregar_usuario(request):
         cedula = request.POST['cedula']
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
-        rol = request.POST['rol']
+        #rol = request.POST['rol']
         #foto = request.POST['foto']
         descripcion=request.POST['descripcion']
         activo=True
@@ -75,7 +86,7 @@ def agregar_usuario(request):
             'cedula':cedula,
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
-            'rol':rol,
+            #'rol':rol,
             'descripcion':descripcion,
             'activo':activo,
             #'foto':foto,
@@ -107,7 +118,7 @@ def editar_usuario(request,id_usuario):
         cedula = request.POST['cedula']
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
-        rol = request.POST['rol']
+        #rol = request.POST['rol']
         #foto = request.POST['foto']
         descripcion=request.POST['descripcion']
         activo=True
@@ -124,7 +135,7 @@ def editar_usuario(request,id_usuario):
             'cedula':cedula,
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
-            'rol':rol,
+            #'rol':rol,
             'descripcion':descripcion,
             'activo':activo,
             #'foto':foto,

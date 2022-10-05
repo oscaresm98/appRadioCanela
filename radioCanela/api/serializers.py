@@ -3,7 +3,7 @@ from dataclasses import fields
 from pyexpat import model
 from rest_framework import serializers
 from WebAdminRadio import models
-from accounts.models import Usuario
+from accounts.models import Usuario,Rol
 
 from rolepermissions.roles import assign_role
 
@@ -17,6 +17,13 @@ class ProgramaSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Programa
+# Programas
+class RolSerializer(serializers.ModelSerializer):
+    # horarios = serializers.ReadOnlyField(source="get_horarios")
+    class Meta:
+        fields = '__all__'
+        model = models.Rol
+
 
 # Auditoria
 class AuditoriaSerializer(serializers.ModelSerializer):

@@ -16,6 +16,7 @@ urlpatterns = [
     path('segmentoemisora/', views.SegmentoEmisoraList.as_view(),name='segmento_emisora-list'),
     path('horarios/', views.HorariosList.as_view(),name='horarios-list'),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
+    path('roles/', views.rolesList,name='roles-list'),
 
     path('torneos/', views.torneosList,name='torneos-list'),
     
