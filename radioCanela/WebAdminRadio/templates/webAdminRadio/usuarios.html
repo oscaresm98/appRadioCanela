@@ -4,14 +4,8 @@
 {% load webadmin_tags %}
 {% endcomment %}
 
-{% block cdn_stlyes %}
-<link rel="stylesheet" type="text/css"href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-{% endblock %}
-
 {% block page_style %}
 <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/datatables.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
 {% endblock %}
 
 
@@ -78,11 +72,12 @@
                 <td>{{user.activo}}</td>
                 <td>
                     <div class="d-flex justify-content-center">
-                        <a class="action" href="/usuarios/editar/{{user.id}}">
-                            <i class="fas fa-pen-to-square"></i>
+                        <a href="/usuarios/editar/{{user.id}}" class="btn btn-success btn-sm" role="button">
+                            <i class="fas fa-pen mx-auto"></i>
                         </a>
-                        <a class="action" href="/usuarios/eliminar/{{user.id}}">
-                            <i class="fa-regular fa-trash-can"></i>
+                        
+                        <a href="/usuarios/eliminar/{{user.id}}" class="btn btn-danger btn-sm" role="button">
+                            <i class="fas fa-times mx-auto"></i>
                         </a>
                     </div>
                 </td>

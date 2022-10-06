@@ -109,9 +109,22 @@ function validateTelefono(){
         return false;
     }
     cellphone_error.innerHTML="<i class='fa-regular fa-circle-check'></i>"
+    console.log("Name: ",validateName());
+    console.log("Apellido: ",validateLastName());
+    console.log("Cedula: ",validateID());
+    console.log("Email: ",validateEmail());
+    console.log("Username: ",validateUsername());
+    //console.log("Tellefono: ",validateTelefono())
     return true;
 }
 function submitData(){
+    console-log("Name: ",validateName());
+    console.log("Apellido: ",validateLastName());
+    console.log("Cedula: ",validateID());
+    console.log("Email: ",validateEmail());
+    console.log("Username: ",validateUsername());
+    console.log("Tellefono: ",validateTelefono())
+
     if(validateName() && validateLastName() && validateID() && validateEmail()&&
     validateUsername() && validateTelefono()) return true;
     return false;

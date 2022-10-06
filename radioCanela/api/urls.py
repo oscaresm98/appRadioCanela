@@ -16,13 +16,14 @@ urlpatterns = [
     path('segmentoemisora/', views.SegmentoEmisoraList.as_view(),name='segmento_emisora-list'),
     path('horarios/', views.HorariosList.as_view(),name='horarios-list'),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
+    path('roles/', views.rolesList,name='roles-list'),
 
     path('torneos/', views.torneosList,name='torneos-list'),
     
     path('equipos/', views.equipoList ,name='equipos-list'),
-    path('equipos/<int:id_equipo>', views.ListEquiposPorId.as_view()),
+    path('equipos/<int:pk>', views.EquipoPorId.as_view()),
     
-    path('partidos', views.ListPartidoTransmisiones.as_view(), name="partidos-list"),
+    path('partidos', views.ListPartidoTransmisiones.as_view(), name="partidos-list"), # URL para obtener todos los partidos
     path('partidos_jugados', views.ListPartidosJugados.as_view(), name="partidos-list-jugados"), # URL para obtener los partidos ya jugados
     path('partidos_por_jugar', views.ListPartidosPorJugar.as_view(), name="partidos-list-por-jugar"), # URL para obtener los partidos por jugar
     
@@ -36,6 +37,10 @@ urlpatterns = [
     path('locutores/<int:pk>', views.Locutor_detalle, name='locutor-detalle'),
     
     path('radio/<int:id_radio>/publicidad',views.ListPublicidad.as_view(), name="list_radio_publicidad"),
+    
+    path('noticias/',views.NoticiasList.as_view(),name='noticias-list'),
+    path('emisora/<int:id_emisora>/noticia',views.ListNoticia.as_view(), name="list_emisora_noticia"),
+    
     
     
     #path('radio/', views.ListEmisora.as_view()),

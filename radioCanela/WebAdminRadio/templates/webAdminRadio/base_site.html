@@ -33,9 +33,6 @@
             <li>
                 <a class="action" href="{% url 'webadminradio:encuestas' %}"><i class="fas fa-clipboard-list"></i>Encuestas</a>
             </li>
-            <li>
-                <a class="action" href="{% url 'webadminradio:torneos' %}"><i class="fas fa-trophy"></i>Torneos</a>
-            </li>
             {% endcomment %}
             <li>
                 <a class="action" href="{% url 'torneos' %}"><i class="fas fa-trophy"></i>Torneos</a>
@@ -45,6 +42,9 @@
             </li>
             <li>
                 <a class="action" href="{% url 'partidos' %}"><i class="fas fa-futbol"></i>Partidos</a>
+            </li>
+            <li>
+                <a class="action" href="{% url 'lista_roles' %}"><i class="fa-solid fa-users-gear"></i></i>Roles</a>
             </li>
             {% comment %} <li>
                 <a class="action" href="{% url 'webadminradio:transmisiones' %}"><i class="fas fa-rss"></i>Transmisiones</a>
@@ -58,6 +58,9 @@
             <li>
                 <a class="action" href="{% url 'webadminradio:sugerencias' %}"><i class="fas fa-edit"></i>Sugerencias</a>
             </li> {% endcomment %}
+            <li>
+                <a class="action" href="{% url 'noticia' %}"><i class="fas fa-newspaper"></i>Noticias/Tips</a>
+            </li>
             <li>
                 <a class="action" href="{% url 'publicidad' %}"><i class="fas fa-ad"></i>Publicidad</a>
             </li>

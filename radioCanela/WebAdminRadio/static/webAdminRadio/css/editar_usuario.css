@@ -18,6 +18,7 @@
   align-items: center;
   margin: 10px 0;
   position: relative;
+  color: gold;
 }
 .input-container span{
   position:absolute;

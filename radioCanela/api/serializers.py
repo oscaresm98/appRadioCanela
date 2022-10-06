@@ -3,7 +3,7 @@ from dataclasses import fields
 from pyexpat import model
 from rest_framework import serializers
 from WebAdminRadio import models
-from accounts.models import Usuario
+from accounts.models import Usuario,Rol
 
 from rolepermissions.roles import assign_role
 
@@ -17,6 +17,14 @@ class ProgramaSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Programa
+
+# Programas
+class RolSerializer(serializers.ModelSerializer):
+    # horarios = serializers.ReadOnlyField(source="get_horarios")
+    class Meta:
+        fields = '__all__'
+        model = models.Rol
+
 
 # Auditoria
 class AuditoriaSerializer(serializers.ModelSerializer):
@@ -61,23 +69,34 @@ class RedSocialSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.RedSocial
 
+#
+# Serializadores para la api de detalle de equipos
+# 
+
+# Equipos
+class EquipoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = '__all__'
+        model = models.Equipo
+
 # RedSocial de equipo
 class RedSocialEquipoSerializer(serializers.ModelSerializer):
     id_red_social = RedSocialSerializer()
 
     class Meta:
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = [ 'id_equipo' ]
         model = models.RedSocialEquipo
 
-# Equipos
-class EquipoSerializer(serializers.ModelSerializer):
-    redes_sociales = RedSocialEquipoSerializer(source="get_redes_sociales_equipo", many=True)
+
+class EquipoDetallerSerializer(serializers.ModelSerializer):
+    redes_sociales = RedSocialEquipoSerializer(source='get_redes_sociales_equipo', many=True)
 
     class Meta:
         fields = '__all__'
-        extra_fields = ['redes_sociales']
+        extra_fields = [ 'redes_sociales' ]
         model = models.Equipo
-
 
 #
 # Serializadores para la api de partidos 
@@ -94,9 +113,7 @@ class EmisoraPartidoSerializer(serializers.ModelSerializer):
 # Equipos (Serializador que devuelve solo los datos importantes de un equipo)
 class EquipoPartidoSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = [
-            'id', 'equipo', 'imagen'
-        ]
+        fields = [ 'id', 'equipo', 'imagen' ]
         model = models.Equipo
 
 # Partidos
@@ -151,6 +168,16 @@ class PublicidadSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Publicidad
+
+
+# Noticias
+class NoticiaSerializer(serializers.ModelSerializer):
+    radioEmisora = serializers.ReadOnlyField(source="get_radio")
+    class Meta:
+        fields = '__all__'
+        extra_fields =['radioEmisora']
+        model = models.NoticiasTips
+
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")

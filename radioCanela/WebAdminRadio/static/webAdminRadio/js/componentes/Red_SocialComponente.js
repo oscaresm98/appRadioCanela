@@ -29,15 +29,40 @@ const RedSocial=  {
         <div class="mb-2 col-3">
             <select @change="verificarOtraRed($event,index)" v-bind:name="'red_social_nombre'" class="form-select form-control" required>
                 <option disabled selected value="">Red Social</option>
-                <option value="Facebook">Facebook</option>
-                <option value="Twitter">Twitter</option>
-                <option value="Instagram">Instagram</option>
-                <option value="Youtube">Youtube</option>
-                <option value="Otra">Otra</option>
+                <template v-if="red.nombre == 'Facebook'">
+                  <option value="Facebook" selected>Facebook</option>
+                </template>
+                <template v-else>
+                  <option value="Facebook">Facebook</option>
+                </template>
+                <template v-if="red.nombre == 'Twitter'">
+                  <option value="Twitter" selected>Twitter</option>
+                </template>
+                <template v-else>
+                  <option value="Twitter">Twitter</option>
+                </template>
+                <template v-if="red.nombre == 'Instagram'">
+                  <option value="Instagram" selected>Instagram</option>
+                </template>
+                <template v-else>
+                  <option value="Instagram">Instagram</option>
+                </template>
+                <template v-if="red.nombre == 'Youtube'">
+                  <option value="Youtube" selected>Youtube</option>
+                </template>
+                <template v-else>
+                  <option value="Youtube">Youtube</option>
+                </template>
+                <template v-if="red.esOtra == true">
+                  <option value="Otra" selected>Otra</option>
+                </template>
+                <template v-else>
+                  <option value="Otra">Otra</option>
+                </template>
             </select>
         </div>
         <div v-if="red.esOtra == true" class="mb-2 col-3">
-            <input v-model="red.nombre" class="form-control" v-bind:name="'red_social_nombre'" placeholder="Ingrese el nombre de la red social">
+            <input v-model="red.nombre" class="form-control" v-bind:name="'otra_red_social'" placeholder="Ingrese el nombre de la red social">
         </div>
         <div v-if="index != 0" class="mb-2 col-3">
             <button type="button" class="btn btn-primary" @click="eliminarRegistro(index)" >Eliminar</button>

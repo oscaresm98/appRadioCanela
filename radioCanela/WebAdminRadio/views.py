@@ -5,18 +5,57 @@ from WebAdminRadio.forms import *
 from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+import pyrebase
+
+# configuración de firebase
+firebaseConfig = {
+    "apiKey": "AIzaSyDr3NaNXjIt0IJQSPsQw-jZ2fJPVv-uGKs",
+    "authDomain": "radiocanela-13416.firebaseapp.com",
+    "databaseURL": "https://radiocanela-13416-default-rtdb.firebaseio.com",
+    "projectId": "radiocanela-13416",
+    "storageBucket": "radiocanela-13416.appspot.com",
+    "messagingSenderId": "182045702474",
+    "appId": "1:182045702474:web:b70eebc5f65ffcd320e9b3",
+    "measurementId": "G-GPTM872CX8"
+}
+firebase = pyrebase.initialize_app(firebaseConfig)
+
+# Definiendo el storage
+storage = firebase.storage()
+
+# Funcion para agregar archivo a Firebase Storage, retorna el URL donde se se guardo el archivo
+# Toma como parametros: el request para obtener el archico del input, el nombre para modificar la parte inicial del nombre que se sube
+# y por ultimo la capeta del storage donde se quiere subir el archivo
+def agregarImagen(request, nombre, carpeta):
+    img = request.FILES['archivo']
+    destino = carpeta + nombre + img.name # Ej. si carpeta="imagenes/", nombre = "img" y img.name="redonda.jpg" -> destino="imagenes/imgredonda.jpg"
+    storage.child(destino).put(img) # al storage se sube el archivo img en la carpeta imagenes con el nombre imgredonda.jpg
+    return storage.child(destino).get_url(None)
+
 # Create your views here.
 
 
 @login_required
 def administrador(request):
     return render(request, 'webAdminRadio/administrador.html', {'title': 'Administrador'})
+
 @login_required
 #@has_permission_decorator('emisoras')
 def usuarios(request):
     listaUsuarios= Usuario.objects.filter(activo=True)
     context = {'title': 'Usuarios', 'usuarios':listaUsuarios}
+    #return render(request,"webAdminRadio/prueba.html")
     return render(request, 'webAdminRadio/usuarios.html', context)
+@login_required
+#@has_permission_decorator('emisoras')
+def roles(request):
+    listaroles= Rol.objects.filter(activo=True)
+    context = {'title': 'Roles', 'roles':listaroles}
+    return render(request, 'webAdminRadio/roles.html', context)
+def agregar_rol(request):
+    context = {'title': 'Agregar Rol'}
+
+    return render(request,"webAdminRadio/agregar_rol.html")
 
 @login_required
 def agregar_usuario(request):
@@ -30,7 +69,7 @@ def agregar_usuario(request):
         cedula = request.POST['cedula']
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
-        rol = request.POST['rol']
+        #rol = request.POST['rol']
         #foto = request.POST['foto']
         descripcion=request.POST['descripcion']
         activo=True
@@ -47,7 +86,7 @@ def agregar_usuario(request):
             'cedula':cedula,
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
-            'rol':rol,
+            #'rol':rol,
             'descripcion':descripcion,
             'activo':activo,
             #'foto':foto,
@@ -79,7 +118,7 @@ def editar_usuario(request,id_usuario):
         cedula = request.POST['cedula']
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
-        rol = request.POST['rol']
+        #rol = request.POST['rol']
         #foto = request.POST['foto']
         descripcion=request.POST['descripcion']
         activo=True
@@ -96,7 +135,7 @@ def editar_usuario(request,id_usuario):
             'cedula':cedula,
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
-            'rol':rol,
+            #'rol':rol,
             'descripcion':descripcion,
             'activo':activo,
             #'foto':foto,
@@ -232,20 +271,10 @@ def equipos(request):
 def agregar_equipo(request):
     context = {'title': 'Agregar Equipo'}
     if request.POST:
-        equipo = request.POST['equipo']
-        ciudad = request.POST['ciudad']
-        descripcion = request.POST['descripcion']
-        imagen =  request.POST['imagen']
-        equipo_form = EquipoForm({
-            'equipo': equipo,
-            'ciudad': ciudad,
-            'descripcion': descripcion,
-            'imagen': imagen,
-        })
+        equipo_form = EquipoForm(request.POST)
         if not equipo_form.is_valid():
             context['error'] = equipo_form.errors
             return render(request, 'webAdminRadio/agregar_equipo.html', context)
-        
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             red_form = RedSocialForm({
                 'nombre': request.POST.getlist('red_social_nombre')[i],
@@ -254,10 +283,19 @@ def agregar_equipo(request):
             if not red_form.is_valid():
                 context['error'] = red_form.errors
                 return render(request, 'webAdminRadio/agregar_emisora.html', context)
-        
         equipo_form.save()
+        # Se sube la imagen a Firebase Storage y se asigna el url
+        equipo = Equipo.objects.order_by('-id')[0]
+        url = agregarImagen(request, str(equipo.id), 'imagenes/')
+        equipo.imagen=url
+        equipo.save()
+        aumento=0
         for i in range(len(request.POST.getlist('red_social_nombre'))):
-            id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
+            if request.POST.getlist('red_social_nombre')[i] == 'Otra':
+                id = comprobarRedSocial(request.POST.getlist('otra_red_social')[aumento])
+                aumento=aumento+1
+            else:
+                id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
             RedSocialEquipo.objects.create(
                 id_equipo=Equipo.objects.order_by('-id')[0],
                 id_red_social=id,
@@ -306,21 +344,19 @@ def modificar_equipo(request, id_equipo):
         'equipo': edit_equipo,
         'redsocial': json.dumps(list(red_social.values('id_red_social', 'link')), cls=DjangoJSONEncoder)
     }
+    nombre_redes=[]
+    for red in red_social:
+      nombre_redes.append(red.id_red_social.nombre)
+    context['nomredes']=json.dumps(list(nombre_redes), cls=DjangoJSONEncoder)
+    
     if request.POST:
-        equipo = request.POST['equipo']
-        ciudad = request.POST['ciudad']
-        descripcion = request.POST['descripcion']
-        imagen =  request.POST['imagen']
-        equipo_form = EquipoForm({
-            'equipo': equipo,
-            'ciudad': ciudad,
-            'descripcion': descripcion,
-            'imagen': imagen,
-        }, instance=edit_equipo)
+        equipo_form = EquipoForm(request.POST, instance=edit_equipo)
         if not equipo_form.is_valid():
             context['error'] = equipo_form.errors
             return render(request, 'webAdminRadio/agregar_equipo.html', context)
-        
+        print(len(request.POST.getlist('red_social_nombre')))
+        print(request.POST.getlist('red_social_nombre'))
+        print(range(len(request.POST.getlist('red_social_nombre'))))
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             red_form = RedSocialForm({
                 'nombre': request.POST.getlist('red_social_nombre')[i],
@@ -331,9 +367,18 @@ def modificar_equipo(request, id_equipo):
                 return render(request, 'webAdminRadio/agregar_emisora.html', context)
         
         equipo_form.save()
+        if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+                url = agregarImagen(request, str(edit_equipo.id), 'imagenes/')
+                edit_equipo.imagen=url
+                edit_equipo.save()
         red_social.delete()
+        aumento=0
         for i in range(len(request.POST.getlist('red_social_nombre'))):
-            id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
+            if request.POST.getlist('red_social_nombre')[i] == 'Otra':
+                id = comprobarRedSocial(request.POST.getlist('otra_red_social')[aumento])
+                aumento=aumento+1
+            else:
+                id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
             RedSocialEquipo.objects.create(
                 id_equipo=edit_equipo,
                 id_red_social=id,
@@ -506,8 +551,13 @@ def agregar_programa(request):
         programa_form = ProgramaForm(request.POST)
         if programa_form.is_valid():
             programa_form.save()
-            emisoraid = request.POST['emisora']
+            # Se sube el archivo a Firebase Storage y se asigna el url
+            programa = Programa.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(programa.id), 'imagenes/')
+            programa.imagen=url
+            programa.save()
             # Enlazar programa con emisora
+            emisoraid = request.POST['emisora']
             SegmentoEmisora.objects.create(
                 emisora=Emisora.objects.get(id=emisoraid),
                 segmento=Programa.objects.order_by('-id')[0]
@@ -581,6 +631,10 @@ def modificar_programa(request, id_programa):
         if programa_form.is_valid():
             programa_form.save()
             horarios.delete()
+            if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+                url = agregarImagen(request, str(edit_segmento.id), 'imagenes/')
+                edit_segmento.imagen=url
+                edit_segmento.save()
             # Enlazar programa con emisora
             segmentoEmisora.emisora = Emisora.objects.get(id=request.POST['emisora'])
             segmentoEmisora.segmento = edit_segmento
@@ -752,6 +806,11 @@ def agregar_publicidad(request):
         publicidad_form = PublicidadForm(request.POST)
         if publicidad_form.is_valid():
             publicidad_form.save()
+            # Se sube el archivo a Firebase Storage y se asigna el url
+            publi = Publicidad.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(publi.id), 'imagenes/')
+            publi.imagen=url
+            publi.save()
             context['success'] = '¡El registro de la publicidad se ha sido creado con éxito!'
         else:
             context['error'] = publicidad_form.errors
@@ -783,6 +842,10 @@ def modificar_publicidad(request, id_publicidad):
         publicidad_form = PublicidadForm(request.POST, instance=edit_publicidad)
         if publicidad_form.is_valid():
             publicidad_form.save()
+            if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+                url = agregarImagen(request, str(edit_publicidad.id), 'imagenes/')
+                edit_publicidad.imagen=url
+                edit_publicidad.save()
             context['success'] = '¡El registro ha sido modificado con éxito!'
         else:
             context['error'] = publicidad_form.errors
@@ -796,3 +859,35 @@ def borrar_publicidad(request, id_publicidad):
     delete_publicidad.save()
     messages.success(request, 'La publicidad ha sido eliminada con exito')
     return redirect('publicidad')
+
+# Noticia
+@login_required
+def noticia(request):
+    list_noticias = NoticiasTips.objects.filter(estado=True)
+    context = {
+        'title': 'Noticias y Tips',
+        'noticias': list_noticias,
+    }
+    return render(request, 'webAdminRadio/noticias.html', context)
+
+
+@login_required
+def agregar_noticia(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Noticia/Tips',
+        'emisoras': list_emisoras
+        }
+    if request.POST:
+        noticia_form = NoticiaForm(request.POST)
+        if noticia_form.is_valid():
+            noticia_form.save()
+            # Se sube el archivo a Firebase Storage y se asigna el url
+            noticia = NoticiasTips.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(noticia.id), 'imagenes/')
+            noticia.imagen=url
+            noticia.save()
+            context['success'] = '¡El registro de la publicidad se ha sido creado con éxito!'
+        else:
+            context['error'] = noticia_form.errors
+    return render(request, 'webAdminRadio/agregar_noticia.html', context)

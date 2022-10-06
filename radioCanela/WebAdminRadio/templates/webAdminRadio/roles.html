@@ -1,0 +1,82 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% comment %}
+{% load webadmin_tags %}
+{% endcomment %}
+
+
+{% block page_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/datatables.css' %}">
+{% endblock %}
+
+
+{% block agregar_button %}
+{% endblock %}
+
+
+{% block content %}
+{% comment %}
+{% if messages %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="">
+        <h3 slot="header" class="action"><i class="fas fa-info-circle"></i>Información</h3>
+        <div slot="body">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    </modal-info>
+</div>
+{% endif %}
+<div id="componente_borrar">
+    <modal-borrar v-if="showModal">
+        <h3 slot="header" class="action"><i class="fas fa-exclamation-triangle "></i>¡Aviso!</h3>
+        <div slot="body">
+            <p>¿Está seguro de que desea eliminar este usuario?</p>
+        </div>
+    </modal-borrar>
+</div>
+{% endcomment %}
+
+<div class="d-flex flex-row justify-content-between mx-3 my-2">
+    <span class="h2">Usuarios</span>
+    <div>
+        <a href="{% url 'agregar_rol' %}" class="btn btn-primary btn-md ml-auto action" role="button"><i
+                class="fas fa-plus-circle">
+            </i>Agregar Rol</i>
+        </a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table id="data_table" class="table table-striped table-bordered dt-body-center">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha de creacion</th>
+                <th>Activo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rol in roles %}
+            <tr>
+                <td>{{rol.nombre}}</td>
+                <td>{{rol.created_at}}</td>
+                <td>{{rol.activo}}</td>
+                
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <a href="/usuarios/editar/{{user.id}}" class="btn btn-success btn-sm" role="button">
+                            <i class="fas fa-pen mx-auto"></i>
+                        </a>
+                        
+                        <a href="/usuarios/eliminar/{{user.id}}" class="btn btn-danger btn-sm" role="button">
+                            <i class="fas fa-times mx-auto"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
