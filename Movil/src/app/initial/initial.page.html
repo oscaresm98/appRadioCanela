@@ -1,0 +1,37 @@
+<ion-header>
+
+  
+
+</ion-header>
+
+<ion-content class="auth-form" fullscreen>
+  
+
+  <ion-grid>
+
+    <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
+      <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
+        
+          <ion-img class="logoImage ion-margin-top" src="assets/images/Logo.png"></ion-img>
+        
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
+      <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="8" sizeSm="4" align-self-center>
+
+        <ion-button shape="round" class="loginButton" [routerLink]="['/login']" expand="block" color="dark">Ingreso</ion-button>
+
+        <ion-button shape="round" class="registerButton" [routerLink]="['/register']" expand="block" color="dark">Registro</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+<!-- Footer without a border -->
+<ion-footer class="ion-no-border">
+    <p class="policiesText">Al utilizar nuestra aplicación, usted está deacuerdo con: Términos y Condiciones y Política de Privacidad</p>
+</ion-footer>
+

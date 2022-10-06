@@ -1,0 +1,48 @@
+#shield-team {
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    margin: 1rem 0;
+}
+
+.team-padding {
+    padding: 1rem;
+}
+
+.team-presentation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} 
+
+.team-description {
+    text-align: center;
+}
+
+#social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-social-networks {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+#social-logo {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+}
+
+.social-net {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

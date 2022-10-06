@@ -1,0 +1,25 @@
+<ion-header>
+  <app-back-toolbar></app-back-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="team-presentation team-padding">
+    <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="shield" id="shield-team">
+    <h1>Nombre Equipo {{teamId}}</h1>
+    <h2>Ciudad del equipo</h2>
+  </div>
+  <div class="team-description team-padding">
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias minima mollitia fugit accusantium, natus aperiam accusamus laboriosam reprehenderit nobis blanditiis, repudiandae architecto. Odit perspiciatis cum odio laborum accusamus autem impedit.</p>
+  </div>
+
+  <div id="social">
+    <h2>Redes sociales</h2>
+    <div class="team-social-networks team-padding">
+      <div class="social-net" *ngFor="let i of [1,2,3,4]">
+        <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="shield" id="social-logo">
+        <span>Red social {{i}}</span>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>

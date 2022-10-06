@@ -1,0 +1,24 @@
+
+<ion-item lines="none" href="{{url}}" *ngIf="social_network == 1">
+  <ion-icon slot="start" color="black" name="logo-instagram"></ion-icon>
+  <ion-label>
+    <h2><b>@{{Username}}</b></h2>
+    <p>Instagram</p>
+  </ion-label>
+</ion-item>
+
+<ion-item lines="none" href="{{url}}" *ngIf="social_network == 2">
+<ion-icon slot="start" color="black" name="logo-twitter"></ion-icon>
+<ion-label>
+  <h2><b>@{{Username}}</b></h2>
+  <p>Twitter</p>
+</ion-label>
+</ion-item>
+
+<ion-item lines="none" *ngIf="social_network == 3" href="{{url}}" >
+<ion-icon slot="start" color="black" name="logo-facebook"></ion-icon>
+<ion-label>
+  <h2><b>{{Username}}</b></h2>
+  <p>Facebook</p>
+</ion-label>
+</ion-item>

@@ -1,0 +1,102 @@
+<ion-header >
+  
+  <ion-toolbar>
+    <app-back-toolbar></app-back-toolbar>
+    
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-grid  >
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="8" >
+        <ion-img class="logoImage ion-margin-top" src="https://doortudoor.com/wp-content/uploads/2021/04/default-profile-icon.png"></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="5">
+        <ion-button  color="dark">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Editar foto
+        </ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-button  color="dark">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Eliminar foto
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+
+        <ion-list lines="full" class="ion-no-margin">
+
+          <ion-item>
+            <ion-label>Nombre</ion-label>
+            <ion-input placeholder="placeholder"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Apellido</ion-label>
+            <ion-input placeholder="placeholder"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Nombre de usuario</ion-label>
+            <ion-input placeholder="placeholder"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Correo electrónico</ion-label>
+            <ion-input placeholder="placeholder"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Número de teléfono</ion-label>
+            <ion-input placeholder="placeholder"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Número de cedula</ion-label>
+            <ion-input placeholder="placeholder"></ion-input>
+          </ion-item>
+
+          <ion-item >
+            <ion-label>Fecha de nacimiento</ion-label>
+            <ion-datetime-button slot="end" datetime="datetime"></ion-datetime-button>
+          </ion-item>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template >
+              <ion-datetime presentation="date" (ionChange)="changeDate($event)" [showDefaultButtons]="true"  id="datetime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+          
+          
+        </ion-list>
+
+
+      </ion-col>
+      
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ">
+      <ion-col size="10" class="ion-text-end" >
+        <ion-button color="dark"  routerLink="/tabs/tab4">
+           
+          <span style="text-transform: none;"  class="textButton ion-text-wrap ">Guardar</span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+
+
+  </ion-grid>
+
+  
+</ion-content>

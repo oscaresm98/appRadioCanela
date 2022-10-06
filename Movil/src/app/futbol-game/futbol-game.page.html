@@ -1,0 +1,24 @@
+<ion-header>
+  <app-back-toolbar></app-back-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="display: flex; flex-direction: column; padding: 0% 1rem 0% 1rem;">
+    <h2>Partidos</h2>
+
+    <ion-segment value="por_jugar">
+      <ion-col>
+        <ion-segment-button (click)="getGamesToPlay()" value="por_jugar">Por jugar</ion-segment-button>
+      </ion-col>
+      <ion-col>
+        <ion-segment-button (click)="getGamesPlayed()" value="disputados">Disputados</ion-segment-button>
+      </ion-col>
+    </ion-segment>
+
+    <div class="por-disputar">
+      <app-match-card  *ngFor="let match of matchesView" [matchFootball]="match" (selectMatch)="openModal($event)"></app-match-card>      
+    </div>
+
+  </div>
+
+</ion-content>

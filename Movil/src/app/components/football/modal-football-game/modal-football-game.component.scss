@@ -1,0 +1,58 @@
+ion-toolbar {
+    height: 2.5rem;
+}
+
+ion-content {
+    width: 90%;
+    align-self: center;
+}
+
+ion-row {
+    text-align: center;
+}
+
+.tournament-of-match {
+    font-weight: 700;
+    line-height: 18px;
+    padding: 0.5rem;
+}
+
+ion-row > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.team-modal, .score-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-modal {
+    height: 100%;
+    font-size: 2rem;
+}
+
+.btn-match {
+    align-self: center;
+    margin: 0.5rem;
+}
+
+.btn-match > ion-icon {
+    margin-right: 0.4rem;
+}
+
+.match-date {
+    margin-bottom: 1rem;
+}
+
+.row-button {
+    display: flex;
+    justify-content: center;
+}
+
+.row-button > ion-button {
+    width: 75%;
+}

@@ -1,0 +1,5 @@
+<ion-slides [options]="slideOpts">
+  <ion-slide *ngFor="let image of images" pager="true" >
+    <img src="{{ image.src }}" alt="{{ image.alt }}" />
+  </ion-slide>
+</ion-slides>

@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <app-tool-bar></app-tool-bar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <swiper [config]="swiperConfig" (slideChange)="changePlatform($event)">
+    <ng-template swiperSlide *ngFor="let platform of platforms">
+      <div class="platform-option">{{platform}}</div>
+    </ng-template>
+  </swiper>
+
+  <div class="stream">
+    <h2>{{currentStream.titulo}}</h2>
+    <div class="display-stream" *ngIf="currentStream.platform.toLowerCase() === 'youtube'">
+      <iframe [src]="sanatize(currentStream.url)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="display-stream" *ngIf="currentStream.platform.toLowerCase() === 'facebook'">
+      <iframe [src]="sanatize(currentStream.url)" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+    </div>
+  </div>  
+
+  <app-carousel></app-carousel>
+
+  <div class="stream-info-div">
+    <h3>{{currentStream.subtitulo}}</h3>
+    <p>{{currentStream.descripcion}}</p>
+  </div>
+
+</ion-content>
