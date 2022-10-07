@@ -153,6 +153,11 @@ class ProgramaSerializerFull(serializers.ModelSerializer):
         model = models.Programa
         fields = ('id', 'nombre', 'imagen','idEmisora', 'descripcion', 'horarios')
 
+class SegementoLocutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ['id','nombre','descripcion','imagen']
+        model = models.Locutor
+
 class LocutoresSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Locutor

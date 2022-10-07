@@ -30,23 +30,23 @@ const RedSocial=  {
         </div>
         <div class="mb-2 col-3">
             <select @change="verificarOtraRed($event,index)" v-bind:name="'red_social_nombre'" class="form-select form-control" required>
-                <option disabled selected value="">Red Social</option>
-                <option value="Facebook">Facebook</option>
-                <option value="Twitter">Twitter</option>
-                <option value="Instagram">Instagram</option>
-                <option value="Youtube">Youtube</option>
+              <option disabled :selected="red.nombre === null" value="">Red Social</option>
+              <option :selected="red.nombre === 'Facebook'" value="Facebook">Facebook</option>
+              <option :selected="red.nombre === 'Twitter'" value="Twitter">Twitter</option>
+              <option :selected="red.nombre === 'Instagram'" value="Instagram">Instagram</option>
+              <option :selected="red.nombre === 'Youtube'" value="Youtube">Youtube</option>
                 <option value="Otra">Otra</option>
             </select>
         </div>
         <div v-if="red.esOtra == true" class="mb-2 col-3">
             <input v-model="red.nombre" class="form-control" v-bind:name="'red_social_nombre'" placeholder="Ingrese el nombre de la red social">
         </div>
-        <div v-if="index != 0" class="mb-2 col-3">
+        <div class="mb-2 col-3">
             <button type="button" class="btn btn-primary" @click="eliminarRegistro(index)" >Eliminar</button>
         </div>
-        <div class="mb-2 col-3">
-            <button v-if="index == redes_sociales.length - 1" type="button" class="btn btn-primary" @click="agregarRegistro" >Agregar Nuevo</button>
-        </div>
+      </div>
+      <div class="mb-2 col-3">
+        <button type="button" class="btn btn-primary" @click="agregarRegistro" >Agregar Nuevo</button>
       </div>
     </div>
     `

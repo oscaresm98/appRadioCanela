@@ -73,6 +73,22 @@
             {% endfor %}
             
         </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Locutores:</label>
+            </div>
+
+            <div class="col-8">
+                <ul>
+                    {% for locutor in locutores %}
+                        <div class="col-5 my-2">
+                            <li><label class="ms-3">{{locutor.nombre}}</label></li>
+                        </div>
+                    {% endfor %} 
+                </ul>           
+            </div>
+        </div>
     </div>
     
 {% endblock %}

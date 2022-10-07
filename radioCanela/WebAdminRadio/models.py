@@ -289,8 +289,16 @@ class SegmentoEmisora(models.Model):
 
 
 class SegmentoLocutor(models.Model):
-    id_segmento = models.OneToOneField(Programa, on_delete=models.CASCADE, db_column='id_segmento', primary_key=True)
+    id_segmento = models.ForeignKey(Programa, on_delete=models.CASCADE, db_column='id_segmento')
     id_locutor = models.ForeignKey(Locutor, on_delete=models.CASCADE, db_column='id_locutor')
+
+    def get_locutores(fk):
+        listrelations = SegmentoLocutor.objects.filter(id_segmento=fk).values('id_locutor')
+        locutores = []
+        for i in range(len(listrelations)):
+            id = listrelations[i]['id_locutor']
+            locutores.append(Locutor.objects.get(id=id))
+        return locutores
 
 
 class SugerenciaReclamos(models.Model):

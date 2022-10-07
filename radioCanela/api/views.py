@@ -158,6 +158,19 @@ def programa_detalle(request,pk):
         programa.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
 
+@api_view(['GET', 'POST','DELETE'])
+def programaLocutorList(request,pk):
+    
+    try:
+        emisora = SegmentoLocutor.get_locutores(pk)
+    except Emisora.DoesNotExist:
+        return Response({'Error': 'El programa no tiene locutores asignados'}, status=status.HTTP_400_NOT_FOUND)
+    
+    #GET: Vista que obtiene todas las emisoras 
+    if request.method == 'GET':
+        serializer = SegementoLocutorSerializer(emisora, many=True)
+        return Response(serializer.data)
+
 
 #Emisora 
 # Se maneja todas las emisoras 
