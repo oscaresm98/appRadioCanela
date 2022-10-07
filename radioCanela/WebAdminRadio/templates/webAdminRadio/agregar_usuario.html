@@ -81,8 +81,8 @@
         </div>
         <div class="col-9">
             <input id="fechaNac" name="fechaNac" type="date" class="form-control"
-            required>
-                <span id="birth-date-error"></span>
+           oninvalid="this.setCustomValidity('Ingrese una fecha')"
+                oninput="this.setCustomValidity('')" required>
             </div>
     </div>
     <!-- E-mail -->
@@ -116,8 +116,8 @@
                     <option value="noBinario">No binario</option>
                 </select>
         </div>
-
     </div>
+    
     <!-- Rol -->
     <div class="my-3 row align-items-center">
         <div class="col-2">
@@ -133,6 +133,7 @@
         </div>
 
     </div>
+
     <!--Estado Activo-->
     <div class="my-3 row align-items-center">
         <div class="col-2">
@@ -166,6 +167,7 @@
             </div>
         </div>
     </div>
+
     <!--Descripcion-->
     <div class=" form-floating">
         <textarea name="descripcion"  class="form-control" style="height: 7rem;" placeholder="Leave a comment here" id="floatingTextarea">

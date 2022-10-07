@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import Usuario,Rol
+from accounts.models import Usuario,Rol, Permisos
 # Create your models here.
 
 class Auditoria(models.Model):

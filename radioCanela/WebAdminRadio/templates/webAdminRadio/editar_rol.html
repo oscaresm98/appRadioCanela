@@ -30,8 +30,7 @@
 {% endif %}
 {% endcomment %}
 <h2><b>Agregar rol </b></h2>
-<form id="addLocutor" action="{% url 'agregar_rol' %}" onsubmit="return validate()" method="POST"
-    enctype="multipart/form-data">
+<form id="addLocutor" action="{% url 'editar_rol' rol.id %}" onsubmit="return validate()" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <!-- Nombre del rol -->
     <div class="my-3 row align-items-center ">
@@ -39,35 +38,47 @@
             <label for="nombre" class="fs-4 col-sm-1 col-form-label">Nombre</label>
         </div>
         <div class="col-10">
-            <input id="nombre" name="nombre" type="text" class="form-control"
+            <input id="nombre" name="nombre" type="text" class="form-control" value="{{ rol.nombre }}"
                 oninvalid="this.setCustomValidity('Ingrese un nombre válido')" oninput="this.setCustomValidity('')"
                 required>
         </div>
     </div>
 
-    {% for label in labels%}
+    {% for permiso in permisos%}
     <div class="my-4">
         <div class="h4 pb-2 mb-4 text-dark border-bottom border-danger">
-            {{label}}
+            {{permiso.nombre}}
         </div>
         <div class="mx-4 form-check form-check-inline">
-            <input  name='{{label}}_ver' class="form-check-input"
-                type="checkbox" id="inlineCheckbox1">
+            <input 
+            {% if permiso.ver == True %} 
+            checked
+            {% endif%}
+             name='{{permiso.nombre}}_ver' class="form-check-input" type="checkbox" id="inlineCheckbox1">
             <label class="form-check-label" for="inlineCheckbox1">Visualizar</label>
         </div>
-        <div class="mx-4 form-check form-check-inline">
-            <input name="{{label}}_agregar"
-                class="form-check-input" type="checkbox" id="inlineCheckbox2">
+        <div  class="mx-4 form-check form-check-inline">
+            <input 
+            {% if permiso.agregar == True %} 
+            checked
+            {% endif%}
+             name="{{permiso.nombre}}_agregar" class="form-check-input" type="checkbox" id="inlineCheckbox2">
             <label class="form-check-label" for="inlineCheckbox2">Agregar</label>
         </div>
         <div class="mx-4 form-check form-check-inline">
-            <input name="{{label}}_actualizar"
-                class="form-check-input" type="checkbox" id="inlineCheckbox3">
+            <input
+            {% if permiso.actualizar == True %} 
+            checked
+            {% endif%}
+            name="{{permiso.nombre}}_actualizar" class="form-check-input" type="checkbox" id="inlineCheckbox3" >
             <label class="form-check-label" for="inlineCheckbox3">Actualizar</label>
         </div>
         <div class="mx-4 form-check form-check-inline">
-            <input name="{{label}}_borrar"
-                class="form-check-input" type="checkbox" id="inlineCheckbox4">
+            <input 
+            {% if permiso.borrar == True %} 
+            checked
+            {% endif%}
+            name="{{permiso.nombre}}_borrar" class="form-check-input" type="checkbox" id="inlineCheckbox4" >
             <label class="form-check-label" for="inlineCheckbox4">Eliminar</label>
         </div>
     </div>
@@ -76,6 +87,7 @@
     <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar y
         continuar</button>
 </form>
+
 {% endblock %}
 {% block page_script %}
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>

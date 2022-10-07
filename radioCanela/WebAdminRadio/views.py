@@ -1,3 +1,4 @@
+from pickle import TRUE
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from WebAdminRadio.models import *
@@ -42,24 +43,128 @@ def administrador(request):
 @login_required
 #@has_permission_decorator('emisoras')
 def usuarios(request):
-    listaUsuarios= Usuario.objects.filter(activo=True)
+    #listaUsuarios= Usuario.objects.filter(activo=True)
+    listaUsuarios= Usuario.objects.all()
     context = {'title': 'Usuarios', 'usuarios':listaUsuarios}
     #return render(request,"webAdminRadio/prueba.html")
     return render(request, 'webAdminRadio/usuarios.html', context)
+
+def geValueCheckBox(request,inputName):
+    condition=True
+    try:
+        condition=request.POST[inputName]=='on'
+    except:
+        condition=False
+    return condition
+
 @login_required
 #@has_permission_decorator('emisoras')
 def roles(request):
     listaroles= Rol.objects.filter(activo=True)
     context = {'title': 'Roles', 'roles':listaroles}
     return render(request, 'webAdminRadio/roles.html', context)
+@login_required
 def agregar_rol(request):
-    context = {'title': 'Agregar Rol'}
+    print("DENTRO DE LA FUNCIONA AREGRAE ROL")
+    labels=['Emisora','Usuario','Programa','Torneo','Equipo','Partido','Rol']
+    context = {'title': 'Agregar Rol','labels':labels}
+    if request.POST:
+        nombre=request.POST['nombre']
+        activo=True
+        rol_form = RolForm({
+            'nombre':nombre,
+            'activo':activo,
+            'descripcion':nombre
+            
+        })
+        if rol_form.is_valid():
+            
+            rol=rol_form.save()
+            print("Rol exitoso: ",rol)
+            context['success'] = '¡El Rol se ha registrado!'
+            id=rol.id
+            for label in labels:
+                nombre=label
+                ver=geValueCheckBox(request,label+"_ver")
+                agregar=geValueCheckBox(request,label+"_agregar")
+                actualizar=geValueCheckBox(request,label+"_actualizar")
+                borrar=geValueCheckBox(request,label+"_borrar")
+                agregar_permisos(context,id,nombre,ver,agregar,actualizar,borrar)
+        else:
+            context['error'] = rol_form.errors
+    
+    print("QUE OCURRIO: ",context)
+    return render(request, 'webAdminRadio/agregar_rol.html', context)
 
-    return render(request,"webAdminRadio/agregar_rol.html")
+@login_required
+def editar_rol(request,id_rol):
+    # Termianar este request
+    labels=['Emisora','Usuario','Programa','Torneo','Equipo','Partido','Rol']
+    edit_rol = Rol.objects.get(id=id_rol)
+    permisos_list=Permisos.objects.filter(id_rol=id_rol)
+    context = {
+        'title': 'Editar Usuario',
+        'rol': edit_rol,
+        'permisos':permisos_list
+    }
+    
+    if request.POST:
+        # Actualizar los roles
+        for permiso in permisos_list:
+            editar_permisos(request,permiso,context,id_rol,permiso.nombre,permiso.ver,
+            permiso.agregar,permiso.actualizar,permiso.borrar)
+            labels.remove(permiso.nombre)
+            # Para los elementos y permisos nuevois agregados
+        for label in labels:
+            nombre=label
+            ver=geValueCheckBox(request,label+"_ver")
+            agregar=geValueCheckBox(request,label+"_agregar")
+            actualizar=geValueCheckBox(request,label+"_actualizar")
+            borrar=geValueCheckBox(request,label+"_borrar")
+            agregar_permisos(context,id,nombre,ver,agregar,actualizar,borrar)
+        context['success'] = '¡El Rol se ha actualizado!'
+    else:
+            context['error'] = 'Ocurrio un error al editar los  roles'
+    
+    return render(request,"webAdminRadio/editar_rol.html",context)
+def agregar_permisos(context,id_rol,nombre,ver,agregar,actualizar,borrar):
+    permisos_form=PermisosForm({
+        'id_rol':id_rol,
+        'nombre':nombre,
+        'ver':ver,
+        'agregar':agregar,
+        'actualizar':actualizar,
+        'borrar':borrar,
+        'activo':True
+    })
+    if permisos_form.is_valid():
+        permiso=permisos_form.save()
+        print("Permisos exitoso: ",permiso)
+        context['permiso_success'] = '¡El Permiso se ha registrado!'
+    else:
+        context['permiso_error'] = permisos_form.errors
+
+def editar_permisos(request,intance_permiso,context,id_rol,nombre,ver,agregar,actualizar,borrar):
+    permisos_form=PermisosForm({
+        'id_rol':id_rol,
+        'nombre':nombre,
+        'ver':ver,
+        'agregar':agregar,
+        'actualizar':actualizar,
+        'borrar':borrar,
+        'activo':True
+    }, request.FILES, instance=intance_permiso)
+    if permisos_form.is_valid():
+        permiso=permisos_form.save()
+        print("Permisos exitoso: ",permiso)
+        context['permiso_success'] = '¡El Permiso se ha actualizado!'
+    else:
+        context['permiso_error'] = permisos_form.errors
 
 @login_required
 def agregar_usuario(request):
     context = {'title': 'Agregar Usuario'}
+
     if request.POST:
         username = request.POST['username']
         first = request.POST['nombre']
@@ -72,11 +177,8 @@ def agregar_usuario(request):
         #rol = request.POST['rol']
         #foto = request.POST['foto']
         descripcion=request.POST['descripcion']
-        activo=True
-        try:
-            activo=request.POST['activo']=='on'
-        except:
-            activo=False
+        activo=geValueCheckBox(request,'activo')
+        
         user_form = UsuarioForm({
             'username':username,
             'first_name':first,
@@ -141,11 +243,19 @@ def editar_usuario(request,id_usuario):
             #'foto':foto,
         }, request.FILES, instance=edit_usuario)
         if user_form.is_valid():
-            user_form.save()
+            user2=user_form.save()
+            print("DATOS USUARIO FORM: ",user2.id)
             context['success'] = '¡El usuario ha sido modificado exitosamente!'
         else:
             context['error'] = user_form.errors
     return render(request,"webAdminRadio/editar_usuario.html",context)
+@login_required
+def borrar_rol(request, id_rol):
+    delete_rol = Rol.objects.get(id=id_rol)
+    delete_rol.activo = False
+    delete_rol.delete()
+    messages.success(request, 'El Rol ha sido eliminado')
+    return redirect('lista_roles')
 @login_required
 def borrar_usuario(request, id_usuario):
     delete_usuario = Usuario.objects.get(id=id_usuario)

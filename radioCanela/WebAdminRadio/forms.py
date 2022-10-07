@@ -27,7 +27,26 @@ class RadioForm(forms.ModelForm):
             'sitio_web',
             'descripcion'
         ]
-        
+class RolForm(forms.ModelForm):
+    class Meta:
+        model = Rol
+        fields = [
+            'nombre', 
+            'descripcion',
+            'activo',
+        ]
+class PermisosForm(forms.ModelForm):
+    class Meta:
+        model = Permisos
+        fields = [
+            'id_rol', 
+            'nombre',
+            'ver',
+            'agregar',
+            'actualizar',
+            'borrar',
+            'activo',
+        ]        
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario

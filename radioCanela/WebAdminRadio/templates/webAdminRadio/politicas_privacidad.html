@@ -1,0 +1,46 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+
+{% block page_style %}
+{% endblock %}
+
+{% block content %}
+{% comment %}
+{% if error %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="">
+        <h3 slot="header">Error</h3>
+        <div slot="body">
+            <p>Existen algunos errores en los siguientes campos:</p>
+            {% for campo,e in error.items %}
+            <h5>{{campo}}</h5>
+            {{e}}
+            {% endfor %}
+        </div>
+    </modal-info>
+</div>
+{% endif %}
+{% if success %}
+<div id="componente_modal_info">
+    <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:asignar_permisos' id_usuario %}">
+        <h3 slot="header">Información</h3>
+        <p slot="body">{{success}}</p>
+    </modal-info>
+</div>
+{% endif %}
+{% endcomment %}
+<h2><b>Politicas y privacidad </b></h2>
+<form id="addLocutor" onsubmit="false" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Nombre del usuario -->
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="min-width: 90vh"></textarea>
+        <label for="floatingTextarea2">Comments</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Guardar y
+        continuar</button>
+</form>
+{% endblock %}
+{% block page_script %}
+
+{% endblock %}

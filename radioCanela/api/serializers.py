@@ -17,13 +17,18 @@ class ProgramaSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Programa
-# Programas
+# Roles
 class RolSerializer(serializers.ModelSerializer):
     # horarios = serializers.ReadOnlyField(source="get_horarios")
     class Meta:
         fields = '__all__'
         model = models.Rol
-
+# Permisos
+class PermisosSerializer(serializers.ModelSerializer):
+    # horarios = serializers.ReadOnlyField(source="get_horarios")
+    class Meta:
+        fields = '__all__'
+        model = models.Permisos
 
 # Auditoria
 class AuditoriaSerializer(serializers.ModelSerializer):

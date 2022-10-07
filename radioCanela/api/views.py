@@ -325,7 +325,6 @@ def usuarioList(request):
 # Roles
 @api_view(['GET', 'POST','DELETE','PUT'])
 def rolesList(request):
-    
     if request.method == 'GET':
         try:
             roles = Rol.objects.all()
@@ -349,8 +348,38 @@ def rolesList(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        #roles = Rol.objects.all()
+        roles = Rol.objects.all()
         roles.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+# Roles
+@api_view(['GET', 'POST','DELETE','PUT'])
+def permisosList(request):
+    
+    if request.method == 'GET':
+        try:
+            permisos = Permisos.objects.all()
+            serializer = PermisosSerializer(permisos, many=True)
+            return Response(serializer.data)
+        except Permisos.DoesNotExist:
+            return Response({'Error': 'El permiso no existe'}, status=status.HTTP_400_NOT_FOUND)
+        
+    elif request.method == 'POST':
+        serializer = PermisosSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'PUT':
+        serializer = PermisosSerializer(permisos, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        permisos = Permisos.objects.all()
+        permisos.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # 

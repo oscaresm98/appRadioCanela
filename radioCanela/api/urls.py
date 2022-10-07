@@ -17,6 +17,7 @@ urlpatterns = [
     path('horarios/', views.HorariosList.as_view(),name='horarios-list'),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
     path('roles/', views.rolesList,name='roles-list'),
+    path('permisos/', views.permisosList,name='permisos-list'),
 
     path('torneos/', views.torneosList,name='torneos-list'),
     
