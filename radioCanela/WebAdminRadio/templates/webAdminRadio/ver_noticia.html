@@ -1,0 +1,106 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/ver_segmentos.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="d-flex">
+        <button class="btn btn-light rounded-circle mx-1" id='volver' type="button"><i class="fas fa-chevron-left"></i></button>
+        <h2><b>{{ publicidad.titulo }}</b></h2>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="img-container">
+                <img class="image" src="{{ noticia.imagen }}">
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Ruta imagen:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.imagen }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Emisora:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.id_emisora.id_radio.nombre }} {{ noticia.id_emisora.frecuencia_dial }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Titulo:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.titulo }} </label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">N&uacute;mero de vistas:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.visualizacion }} </label>
+            </div>
+        </div>
+
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">N&uacute;mero de likes:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.likes }} </label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">N&uacute;mero de compartidos:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.compartidos }} </label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Fecha de subida:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.fecha_subida }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Contenido:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.descripcion }}</label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label class="fw-bold ms-5 label">Activo:</label>
+            </div>
+            <div class="col-8">
+                <label class="ms-3">{{ noticia.activo }}</label>
+            </div>
+        </div>
+            
+    </div>
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/back.js' %}"></script>
+{% endblock %}

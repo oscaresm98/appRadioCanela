@@ -43,8 +43,8 @@
             <div class="col-4">
                 <select name="emisoraSelect" id="emisoraSelect" class="form-select w-75">
                     <option selected disabled>--</option>
-                    {% for noticia in noticias %}
-                        <option value="{{ noticia.id_emisora.id }}">{{ noticia.id_emisora.id_radio.nombre }} {{ noticia.id_emisora.frecuencia_dial }}</option>
+                    {% for emisora in emisoras %}
+                        <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre }} {{ emisora.frecuencia_dial }}</option>
                     {% endfor %}
                 </select>
             </div>
