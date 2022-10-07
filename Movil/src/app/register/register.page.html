@@ -1,0 +1,184 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <app-back-toolbar></app-back-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
+      <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
+
+        <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+
+        <h1 style="font-weight: bold;">REGISTRO</h1>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
+      <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
+
+        <!-- <form method="post" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm.value)">
+
+          <ion-item lines="none">
+            <ion-label class="input-group" position="stacked">
+              Nombre de usuario: 
+              <label  *ngIf="isSubmitted && errorControl.username.errors?.required" style="color:red ;">*</label>
+               
+            </ion-label>
+            <ion-input class="input biggerInput" id="inputUsername" formControlName="username" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label class="input-group" position="stacked">
+              Nombre:
+              <label  *ngIf="isSubmitted && errorControl.first_name.errors?.required" style="color:red ;">*</label> 
+            </ion-label>
+            <ion-input class="input" id="inputName" formControlName="first_name" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label class="input-group" position="stacked">
+              Apellido: <label  *ngIf="isSubmitted && errorControl.last_name.errors?.required" style="color:red ;" >*</label> 
+            </ion-label>
+            <ion-input class="input" id="inputLname" formControlName="last_name" required></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label class="input-group" position="stacked">
+              Email 
+              <label *ngIf="isSubmitted && errorControl.email.errors?.required" style="color:red ;" for="inputPrivacy">*</label> 
+            </ion-label>
+            <ion-input class="input" type="email" id="inputEmail" formControlName="email" required></ion-input>
+            <label *ngIf="registerForm.get('email').errors?.['email']" style="color:red ;">E-mail inválido.</label> 
+          </ion-item> 
+
+          <ion-item lines="none">
+            <ion-label class="input-group" position="stacked">
+              Contraseña 
+              <label *ngIf="isSubmitted && errorControl.password.errors?.required" style="color:red ;">*</label> 
+            </ion-label>
+            <ion-item class="input" lines="none">
+              <ion-input [type]="showPassword ? 'text' : 'password'" id="inputPassword" formControlName="password" required ></ion-input>
+              <ion-icon slot="end" class="show-option" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()"></ion-icon>
+              <label *ngIf="registerForm.get('password').errors?.['minLength']" style="color:red ;">contraseña debe tener minimo 8 carcateres</label> 
+            </ion-item>
+            </ion-item>
+
+
+          
+          <ion-item lines="none">
+            <ion-label class="input-group" position="stacked">
+              Confirmar contraseña 
+              <label  *ngIf="isSubmitted && errorControl.conf_password.errors?.required" style="color:red ;">*</label>
+            </ion-label>
+            <ion-item class="passwField input" lines="none">
+              <ion-input [type]="showPassword ? 'text' : 'password'" id="inputConfPassword" formControlName="conf_password" required ></ion-input>
+              <ion-icon slot="end" class="show-option" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()"></ion-icon>
+            </ion-item>
+          </ion-item>
+
+          <ion-row class="ion-text-center">
+            <ion-col>
+              <ion-item lines="none">
+                <ion-checkbox  formControlName="policy"></ion-checkbox>
+                <ion-label class="ion-text-wrap ion-text-center">
+                  AL utilizar nuestra aplicacion, usted esta deacuerdo con 
+                  <a >Términos y condiciones</a> y <a routerLink="/privacy-policies">Políticas de privacidad</a>
+                </ion-label>
+                <label  *ngIf="isSubmitted && errorControl.policy.errors?.required" style="color:red;" for="inputPrivacy">*</label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="11">
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>
+              <ion-button [disabled]="registerForm.invalid" shape="round" type="submit" color="dark" expand="block">Registrarse</ion-button>
+            </ion-col>
+          </ion-row>
+        </form> -->
+
+
+        <!-- pruebas locas uwu -->
+
+        <form method="post" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm.value)">
+          <div class="input-group">
+            <label class="input-group"  position="stacked"><b>Nombre de usuario:</b> </label>
+            <label *ngIf="errorControl.username.errors?.required && registerForm.get('username').touched" style="color:red ;">*</label>
+            <input class="input biggerInput" id="inputUsername" formControlName="username" required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-group" position="stacked"><b>Nombre:</b></label>
+            <label  *ngIf="errorControl.first_name.errors?.required && registerForm.get('first_name').touched" style="color:red ;">*</label> 
+            <input class="input" id="inputName" formControlName="first_name" required>
+          </div>
+
+          <div class="input-group">
+            <label position="stacked"><b> Apellido:</b> </label>
+            <label *ngIf="errorControl.last_name.errors?.required && registerForm.get('last_name').touched" style="color:red ;" >*</label> 
+            <input class="input" id="inputLname" formControlName="last_name" required>
+          </div>
+
+          <div class="input-group">
+            <label position="stacked"><b>Email: </b></label>
+            <label *ngIf="errorControl.email.errors?.required && registerForm.get('email').touched" style="color:red ;" for="inputPrivacy">*</label> 
+            <input class="input" type="email" id="inputEmail" formControlName="email" required>
+            <small *ngIf="registerForm.get('email').errors?.['email']" style="color:red ;">E-mail inválido.</small> 
+          </div>
+
+          <div class="input-group">
+            <label  position="stacked"><b>Contraseña:</b></label>
+            <label *ngIf="errorControl.password.errors?.required && registerForm.get('password').touched" style="color:red ;">*</label> 
+            <input class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputPassword" formControlName="password" required>
+            <ion-icon class="errspan" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()"></ion-icon>
+            <small *ngIf="errorControl.password.errors?.['minlength']" class="text-danger">La contraseña debe tener minimo 8 caracteres.</small>          
+          </div>
+
+          <div class="input-group">
+            <label class="input-group"><b> Confirmar contraseña:</b></label>
+            <label *ngIf="errorControl.conf_password.errors?.required && registerForm.get('conf_password').touched" style="color:red ;">*</label>
+            <input class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputConfPassword" formControlName="conf_password" required >
+            <ion-icon class="errspan" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()"></ion-icon>
+            <small *ngIf="errorControl.conf_password.errors?.['minlength']" class="text-danger">La contraseña debe tener minimo 8 caracteres.</small>          
+          </div>
+
+          <ion-row class="ion-text-center">
+            <ion-col>
+              <ion-item lines="none">
+                <ion-checkbox  formControlName="policy"></ion-checkbox>
+                <ion-label class="ion-text-wrap ion-text-center">
+                  Al utilizar nuestra aplicacion, usted esta deacuerdo con 
+                  <a >Términos y condiciones</a> y <a routerLink="/privacy-policies">Políticas de privacidad</a>
+                </ion-label>
+                <label *ngIf="isSubmitted && errorControl.policy.errors?.required" style="color:red;">*</label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="11">
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button [disabled]="registerForm.invalid" shape="round" type="submit" color="dark" expand="block">Registrarse</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+
+        <!-- pruebas locas uwu -->
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

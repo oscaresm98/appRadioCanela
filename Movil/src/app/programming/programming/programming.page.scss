@@ -1,0 +1,27 @@
+
+
+.program-img {
+    width: 100%;
+    height: auto;
+}
+
+.lista-horario {
+    border: solid 1px black;
+    border-radius: 10px;
+    margin: 0vh 5vh;
+
+    ion-item {
+        border-bottom: 1px solid black;
+    }
+
+    ion-item:last-child {
+        border: 0px;
+    }
+}
+
+.locutor {
+    .image-center{
+        margin:0 auto;
+    }
+}
+

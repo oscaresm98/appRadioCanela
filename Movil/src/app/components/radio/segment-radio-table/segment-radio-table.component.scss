@@ -1,0 +1,21 @@
+.container-table {
+    display: flex;
+    justify-content: center;
+}
+
+.segment-table {
+    width: 90%;
+}
+
+ion-list-header {
+    padding-left: 0;
+}
+
+ion-list, ion-segment {
+    width: 100%;
+}
+
+.img-segment {
+    width: 2rem;
+    height: 2rem;
+}

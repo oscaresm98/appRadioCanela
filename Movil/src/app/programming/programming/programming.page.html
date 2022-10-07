@@ -1,0 +1,180 @@
+<ion-header>
+  <app-back-toolbar></app-back-toolbar>
+</ion-header>
+
+
+
+<ion-content *ngIf="listo">
+  <div>
+    <img class="program-img" src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="">
+  </div>
+  
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col class="titulo">
+        <span>{{Programa.nombre}}</span>    
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <span>
+          {{Programa.descripcion}}
+        </span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="titulo">
+        <span>
+          Horario
+        </span>      
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <ion-list class="lista-horario" >
+          <ion-item class="ion-no-padding" lines="none" *ngFor="let horario of Programa.horarios">
+            <ion-label class="ion-text-center ion-text-wrap">
+              {{horario.dia}}
+            </ion-label>
+            <ion-label class="ion-text-center ">
+              {{horario.fecha_inicio}} - {{horario.fecha_fin}}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="titulo">
+        <span>
+          Locutores
+        </span> 
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="4" class="ion-justify-content-center locutor" *ngFor="let locutor of Locutores" [routerLink]="['/hosts',Programa.id, locutor.id]">
+          <div>
+            <ion-avatar class="image-center">
+              <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="locutor1">
+            </ion-avatar>
+          </div>
+        <ion-item lines="none">
+          <ion-label class="ion-text-wrap ion-text-center">
+            {{locutor.first_name}} {{locutor.last_name}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<!-- <ion-content>
+  <div>
+    <img class="program-img" src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="">
+  </div>
+  
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col class="titulo">
+        <span>Programa 1</span>    
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum arcu eu dolor commodo cursus.
+        </span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="titulo">
+        <span>
+          Horario
+        </span>      
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <ion-list class="lista-horario">
+          <ion-item class="ion-no-padding" lines="none">
+            <ion-label class="ion-text-center">
+              Martes
+            </ion-label>
+            <ion-label class="ion-text-center ">
+              9h00 - 11h00
+            </ion-label>
+          </ion-item>
+          
+          <ion-item class="ion-no-padding" lines="none">
+            <ion-label class="ion-text-center">
+              Jueves
+            </ion-label>
+            <ion-label class="ion-text-center">
+              9h00 - 11h00
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="titulo">
+        <span>
+          Locutores
+        </span> 
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="4" class="ion-justify-content-center locutor">
+          <div>
+            <ion-avatar class="image-center">
+              <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="locutor1">
+            </ion-avatar>
+          </div>
+        <ion-item lines="none">
+          <ion-label class="ion-text-wrap ion-text-center">
+            nombre apellido
+          </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="4" class="ion-justify-content-center locutor">
+        <div>
+          <ion-avatar class="image-center">
+            <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="locutor1">
+          </ion-avatar>
+        </div>
+      <ion-item lines="none">
+        <ion-label class="ion-text-wrap ion-text-center">
+          nombre apellido
+        </ion-label>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="4" class="ion-justify-content-center locutor">
+      <div>
+        <ion-avatar class="image-center">
+          <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="locutor1">
+        </ion-avatar>
+      </div>
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap ion-text-center">
+        nombre apellido
+      </ion-label>
+    </ion-item>
+  </ion-col>
+
+    </ion-row>
+    
+  </ion-grid>
+  
+
+</ion-content> -->

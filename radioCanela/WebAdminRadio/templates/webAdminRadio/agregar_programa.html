@@ -118,6 +118,20 @@
             </div>
         </div>
 
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="horafin">Locutores:</label>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    {% for locutor in locutores %}
+                        <div class="col-5">
+                            <input name="locutor" type="checkbox" value="{{ locutor.id }}"/> <label>{{ locutor.nombre }}</label> 
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         
         <button type="submit" class="btn btn-primary btn-lg mt-5 submit"><i class="fas fa-plus-circle"></i>Agregar Programa</button>
     </form>

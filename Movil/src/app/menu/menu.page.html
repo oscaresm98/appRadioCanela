@@ -1,0 +1,356 @@
+<ion-header >
+  
+  <ion-toolbar>
+    <app-back-toolbar></app-back-toolbar>
+    
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-grid full >
+
+    <ion-row >
+      <ion-col size="12">
+        <ion-text class="ion-margin-start">
+       
+          <span class="pageName">Menú</span>
+        </ion-text>
+      </ion-col>
+      
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      
+        <ion-text>
+       
+          <span class="pageName">Username</span>
+        </ion-text>
+     
+      
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+     
+        <ion-icon class="userImage" name="person-circle-outline"></ion-icon>
+      
+      
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around">
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon  class="iconButton" name="mic"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">PodCasts</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col>  
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="image"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Galeria</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col> 
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around">
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="newspaper"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Noticias</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col>  
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="bulb"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap">Tips/Comentarios</span>
+                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col> 
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around">
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="heart"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Favoritos</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col>  
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" [routerLink]="['/futbol']">
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="football"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Fútbol</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col> 
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around">
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="storefront"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Tienda</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col>  
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="trophy"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Concursos</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col> 
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around">
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="trending-up"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Encuestas</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col>  
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton" name="clipboard"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap ">Rendición de cuentas</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col> 
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around">
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton " name="document-lock"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap " >Politicas de privacidad</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          
+        </ion-button>
+
+      </ion-col>  
+
+      <ion-col size="5">
+        <!-- (click)="onClick()" -->
+      
+        <ion-button color="dark" class="menuOptionButton" >
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon class="iconButton " name="people"></ion-icon>
+              </ion-col>
+            </ion-row>
+  
+            <ion-row >
+              <ion-col  size="12">
+                <span style="text-transform: none;" class="textButton ion-text-wrap " >Reclamos y Sugerencias</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-button>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="11">
+
+          <ion-button color="dark"  routerLink="/initial" expand="block">
+           
+            <span style="text-transform: none;"  class="textButton ion-text-wrap "> Cerrar Sesión</span>
+          </ion-button>
+       
+      </ion-col>
+    </ion-row>
+   
+
+
+  </ion-grid>
+
+
+</ion-content>

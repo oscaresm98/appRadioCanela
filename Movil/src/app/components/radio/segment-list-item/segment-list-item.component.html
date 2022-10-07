@@ -1,0 +1,13 @@
+<ion-item [ngClass]="{highlight: currentSegment && currentSegment.nombre === nameSegment}">
+  <ion-avatar slot="start" (click) = "openProgramInfo()">
+    <img src="{{image}}" alt="Placeholder" class="img-segment">
+  </ion-avatar>
+  <ion-label (click) = "openProgramInfo()">
+    <h2>{{nameSegment}}</h2>
+    <p>{{startHour}} - {{finishHour}} </p>
+  </ion-label>
+  <ion-button shape="circle" fill="clear" color="dark" (click)="toggleNotification()">
+    <ion-icon *ngIf="!active" name="heart-outline"></ion-icon>
+    <ion-icon *ngIf="active" name="heart"></ion-icon>
+  </ion-button>  
+</ion-item>

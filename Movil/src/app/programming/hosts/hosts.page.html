@@ -1,0 +1,54 @@
+<ion-header>
+  <app-back-toolbar></app-back-toolbar>
+</ion-header>
+
+<ion-content *ngIf="ready">
+<ion-grid class="ion-text-center">
+  <ion-row class="ion-justify-content-center">
+    <div *ngIf="apiVieja" class="avatar" [style.backgroundImage]="'url(' + 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg' + ')'"></div>
+    <div *ngIf="!apiVieja" class="avatar" [style.backgroundImage]="'url(' + Host.imagen + ')'"></div>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="titulo">
+      <span *ngIf="apiVieja">
+        {{Host1.first_name}} {{Host1.last_name}}
+      </span>
+
+      <span *ngIf="!apiVieja">
+        {{Host.first_name}} {{Host.last_name}}
+      </span>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="11">
+      <span *ngIf="apiVieja">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum arcu eu dolor commodo cursus.
+      </span>
+
+      <span *ngIf="1apiVieja">
+        {{Host.emisora}}
+      </span>
+    </ion-col>
+  </ion-row>.
+
+  <ion-row>
+    <ion-col class="titulo">
+      <span>
+        Redes Sociales
+      </span>    
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="11">
+      <app-host-socials *ngFor="let social of Socials" 
+      [social_network]="social.social_network_id"
+      [Username]="social.username" 
+      [url]="social.url"></app-host-socials>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

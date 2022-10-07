@@ -158,6 +158,19 @@ def programa_detalle(request,pk):
         programa.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
 
+@api_view(['GET', 'POST','DELETE'])
+def programaLocutorList(request,pk):
+    
+    try:
+        emisora = SegmentoLocutor.get_locutores(pk)
+    except Emisora.DoesNotExist:
+        return Response({'Error': 'El programa no tiene locutores asignados'}, status=status.HTTP_400_NOT_FOUND)
+    
+    #GET: Vista que obtiene todas las emisoras 
+    if request.method == 'GET':
+        serializer = SegementoLocutorSerializer(emisora, many=True)
+        return Response(serializer.data)
+
 
 #Emisora 
 # Se maneja todas las emisoras 
@@ -540,6 +553,26 @@ class ListPublicidad(generics.ListAPIView):
     def get_queryset(self):
         radio = self.kwargs['id_radio']
         return Publicidad.objects.filter(id_radio=radio, estado=True)
+
+#
+# Vistas de API para Noticias
+#
+
+# GET de todas las noticias
+class NoticiasList(generics.ListAPIView):
+    queryset = NoticiasTips.objects.filter(estado=True)
+    serializer_class = serializers.NoticiaSerializer
+
+# lista de las noticias de una emisora
+class ListNoticia(generics.ListAPIView):
+    serializer_class = serializers.NoticiaSerializer
+    
+    def get_queryset(self):
+        emisora = self.kwargs['id_emisora']
+        return NoticiasTips.objects.filter(id_emisora=emisora, estado=True)
+
+
+
 
 
 # class ListUsuarios(generics.ListAPIView, HasRoleMixin):

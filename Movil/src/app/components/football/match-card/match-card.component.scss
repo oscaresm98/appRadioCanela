@@ -1,0 +1,34 @@
+ion-row {
+    text-align: center;
+}
+
+.tournament-of-match {
+    font-weight: 700;
+    line-height: 18px;
+}
+
+ion-row > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.team, .score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.score {
+    height: 100%;
+}
+
+.team-shield {
+    border-radius: 2px;
+}
+
+.team > h4 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}

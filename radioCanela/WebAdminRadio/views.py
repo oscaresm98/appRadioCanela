@@ -656,7 +656,9 @@ def programas(request):
 @login_required
 def agregar_programa(request):
     list_emisoras = Emisora.objects.filter(estado=True)
-    context = {'title': 'Agregar Programa', 'emisoras': list_emisoras}
+    list_locutores = Locutor.objects.filter(estado=True)
+    context = {'title': 'Agregar Programa', 'emisoras': list_emisoras, 'locutores': list_locutores}
+    
     if request.POST:
         programa_form = ProgramaForm(request.POST)
         if programa_form.is_valid():
@@ -672,6 +674,13 @@ def agregar_programa(request):
                 emisora=Emisora.objects.get(id=emisoraid),
                 segmento=Programa.objects.order_by('-id')[0]
             )
+
+            for i in range(len(request.POST.getlist('locutor'))):
+                SegmentoLocutor.objects.create(
+                    id_segmento = Programa.objects.order_by('-id')[0],
+                    id_locutor = Locutor.objects.get(id=request.POST.getlist('locutor')[i])
+                )
+
             if request.POST['dias']=='L':
                 lista = ['Lunes','Martes','Miércoles','Jueves','Viernes']
                 agregarHorario(lista, context, request)
@@ -716,10 +725,13 @@ def agregarHorario(lista, context, request):
 def ver_programa(request, id_programa):
     programa = Programa.objects.get(id=id_programa)
     segmentoEmisora = SegmentoEmisora.objects.get(segmento=id_programa)
+    locutores = SegmentoLocutor.get_locutores(id_programa)
+    
     context = {
         'title': 'Información del programa',
         'programa': programa,
-        'segemntoEmisora': segmentoEmisora
+        'segemntoEmisora': segmentoEmisora,
+        'locutores': locutores
     }
     return render(request, 'webAdminRadio/ver_programa.html', context)
 
@@ -729,12 +741,17 @@ def modificar_programa(request, id_programa):
     horarios = Horario.objects.filter(id_programa=id_programa)
     list_emisoras = Emisora.objects.filter(estado=True)
     segmentoEmisora = SegmentoEmisora.objects.get(segmento=id_programa)
+    list_locutores = Locutor.objects.filter(estado=True)
+    list_locutoresPrograma = SegmentoLocutor.objects.filter(id_segmento = id_programa)
+    
     context = {
         'title': 'Editar Programa',
         'segmento': edit_segmento,
         'emisoras': list_emisoras,
         'segmentoEmisora': segmentoEmisora,
-        'horarios': json.dumps(list(horarios.values('dia', 'hora_inicio', 'hora_fin')), cls=DjangoJSONEncoder)
+        'horarios': json.dumps(list(horarios.values('dia', 'hora_inicio', 'hora_fin')), cls=DjangoJSONEncoder),
+        'locutores': list_locutores,
+        'locutoresPrograma': list_locutoresPrograma
     }
     if request.POST:
         programa_form = ProgramaForm(request.POST, instance=edit_segmento)
@@ -749,6 +766,13 @@ def modificar_programa(request, id_programa):
             segmentoEmisora.emisora = Emisora.objects.get(id=request.POST['emisora'])
             segmentoEmisora.segmento = edit_segmento
             segmentoEmisora.save()
+
+            list_locutoresPrograma.delete()
+            for i in range(len(request.POST.getlist('locutor'))):
+                SegmentoLocutor.objects.create(
+                    id_segmento = Programa.objects.order_by('-id')[0],
+                    id_locutor = Locutor.objects.get(id=request.POST.getlist('locutor')[i])
+                )
             
             if request.POST['dias']=='L':
                 lista = ['Lunes','Martes','Miércoles','Jueves','Viernes']
@@ -765,7 +789,7 @@ def modificar_programa(request, id_programa):
                 modificarHorario(['Domingo'], context, request)
 
             if 'error' not in context:
-                context['success'] = '¡El programa ha sido creado con éxito!'
+                context['success'] = '¡El programa ha sido editado con éxito!'
             else:
                 context['error'] = programa_form.errors
         return render(request, 'webAdminRadio/editar_programa.html', context)
@@ -969,3 +993,35 @@ def borrar_publicidad(request, id_publicidad):
     delete_publicidad.save()
     messages.success(request, 'La publicidad ha sido eliminada con exito')
     return redirect('publicidad')
+
+# Noticia
+@login_required
+def noticia(request):
+    list_noticias = NoticiasTips.objects.filter(estado=True)
+    context = {
+        'title': 'Noticias y Tips',
+        'noticias': list_noticias,
+    }
+    return render(request, 'webAdminRadio/noticias.html', context)
+
+
+@login_required
+def agregar_noticia(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Noticia/Tips',
+        'emisoras': list_emisoras
+        }
+    if request.POST:
+        noticia_form = NoticiaForm(request.POST)
+        if noticia_form.is_valid():
+            noticia_form.save()
+            # Se sube el archivo a Firebase Storage y se asigna el url
+            noticia = NoticiasTips.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(noticia.id), 'imagenes/')
+            noticia.imagen=url
+            noticia.save()
+            context['success'] = '¡El registro de la publicidad se ha sido creado con éxito!'
+        else:
+            context['error'] = noticia_form.errors
+    return render(request, 'webAdminRadio/agregar_noticia.html', context)

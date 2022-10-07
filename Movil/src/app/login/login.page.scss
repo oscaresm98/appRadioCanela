@@ -1,0 +1,39 @@
+.inputTopText {
+    font-size: larger;
+}
+
+ion-button[shape=circle] {
+    --border-radius: 50%;
+    width: 64px;
+    height: 64px;
+}
+
+ion-icon {
+    font-size: 64px;
+}
+
+.invitadoText {
+    font-weight: bolder;
+}
+
+.forgot {
+    color: black;
+   text-decoration: none;
+}
+
+.formField {
+    margin-right: .6rem;
+}
+
+.input-icons i {
+    position: absolute;
+}
+
+.errspan {
+    font-size: 25px;
+    float: right;
+    margin-right: 15px;
+    margin-top: -31px;
+    position: relative;
+    z-index: 3;
+}

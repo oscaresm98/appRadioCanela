@@ -1,0 +1,31 @@
+<ion-card (click)="selected()">
+  <ion-card-content>
+    <ion-row>
+      <div class="tournament-of-match">{{matchFootball.event.name}}</div>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <div class="team">
+          <img src="{{matchFootball.team1.shield}}" alt="" class="team-shield">
+          <h4>{{matchFootball.team1.name}}</h4>
+        </div>        
+      </ion-col>
+      <ion-col>
+        <div class="score">
+          {{matchFootball.scoreTeam1}} - {{matchFootball.scoreTeam2}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="team">
+          <img src="{{matchFootball.team2.shield}}" alt="" class="team-shield">
+          <h4>{{matchFootball.team2.name}}</h4>
+        </div>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <div>{{matchFootball.date}}</div>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,9 @@
+ion-button[shape=circle] {
+    --border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+}
+
+.highlight {
+    border: 1px solid #FFFF33;
+}

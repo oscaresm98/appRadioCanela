@@ -1,0 +1,49 @@
+<ion-toolbar color="translucent">
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <ion-row>
+    <div class="tournament-of-match">{{matchFootball.event.name}}</div>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col>
+      <div class="team-modal" (click)="navigate(1)">
+        <img src="{{matchFootball.team1.shield}}" alt="" class="team-shield">
+        <h4>{{matchFootball.team1.name}}</h4>
+      </div>        
+    </ion-col>
+    <ion-col>
+      <div class="score-modal">
+        {{matchFootball.scoreTeam1}} - {{matchFootball.scoreTeam2}}
+      </div>
+    </ion-col>
+    <ion-col>
+      <div class="team-modal" (click)="navigate(2)">
+        <img src="{{matchFootball.team2.shield}}" alt="" class="team-shield">
+        <h4>{{matchFootball.team2.name}}</h4>
+      </div>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row class="match-date">
+    <div>{{matchFootball.date}}</div>
+  </ion-row>    
+
+  <ion-row class="row-button">
+    <ion-button expand="block" fill="outline" class="btn-match">Sintonizar encuentro</ion-button>
+  </ion-row>
+  
+  <ion-row class="row-button">
+    <ion-button class="btn-match">
+      <ion-icon name="notifications-outline"></ion-icon>
+      <span>Agregar Recordatorio</span>
+    </ion-button>
+  </ion-row>
+
+</ion-content>

@@ -141,6 +141,29 @@ class PublicidadForm(forms.ModelForm):
         field_name = field_name_mapping.get(field_name, field_name)
         return super(PublicidadForm, self).add_prefix(field_name)
 
+# Noticia
+class NoticiaForm(forms.ModelForm):
+    class Meta:
+        model = NoticiasTips
+        fields = [
+            'id_emisora',
+            'titulo',
+            'fecha_subida',
+            'imagen',
+            'tipo',
+            'descripcion',
+            'activo',
+        ]
+    # Esta función define el atributo 'name' con el valor del diccionario
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'id_emisora': 'emisora',
+            'fecha_subida': 'fechasubida',
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(NoticiaForm, self).add_prefix(field_name)
+
+
 
 # class FrecuenciaForm(forms.ModelForm):
 #     class Meta:

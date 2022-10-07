@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <app-tool-bar></app-tool-bar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" >
+  <ion-header collapse="condense">
+    <ion-title size="large">Home</ion-title>
+  </ion-header>
+
+  <div class="carousel-principal">
+    <app-carousel></app-carousel>
+  </div>
+
+  <div class="home-container ion-text-center">
+    <div class="ion-text-center">
+      <ion-button color="light" routerLink="/tabs/tab3">
+        <!-- <ion-icon name="play-circle-outline" size="large"></ion-icon> -->
+        ¡ESCUCHA AHORA!
+      </ion-button>
+  
+      <div class="carousel-publicidad">
+        <div class="carousel">
+          <app-carousel></app-carousel>
+        </div>
+      </div>
+    
+      <ion-card class="">
+        <ion-card-header>
+          <ion-card-title class="ion-text-center"> RADIO FOREVER </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-justify">
+          <div class="information">
+            <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="Placeholder">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et neque facilisis, tincidunt odio in, 
+              tempor nibh. Cras tincidunt mollis orci ut egestas. Fusce posuere est nec iaculis interdum. Maecenas 
+              luctus molestie urna ut accumsan. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices 
+              posuere cubilia curae; Vestibulum a odio eget leo fringilla finibus. Donec sed orci imperdiet, rhoncus
+              lectus sodales, gravida turpis. Vivamus faucibus tempus lorem vitae blandit.
+              <br> <br>
+              In at lorem convallis mi 
+              suscipit aliquet. Mauris finibus, nisi vitae feugiat vehicula, lacus metus hendrerit leo, vitae eleifend 
+              lectus mauris eu quam. Duis molestie eget odio pellentesque luctus. Proin dolor quam, semper id molestie 
+              in, eleifend a ante. Maecenas consectetur, eros vitae tincidunt vehicula, dui elit luctus magna, vel 
+              tristique lectus quam nec massa. Nullam at malesuada metus, sed facilisis mi. Quisque egestas convallis 
+              sem et finibus.
+            </p><br>
+          </div>
+          
+
+          <div class="socials ion-text-center">
+            <h2> Siguenos en </h2>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <a href=""><ion-icon name="logo-facebook" size="large" color="dark"></ion-icon></a>
+                </ion-col>
+                <ion-col>
+                  <a href=""><ion-icon name="logo-instagram" size="large" color="dark"></ion-icon></a>
+                </ion-col>
+                <ion-col>
+                  <a href=""><ion-icon name="logo-twitter" size="large" color="dark"></ion-icon></a>
+                </ion-col>
+                <ion-col>
+                  <a href=""><ion-icon name="logo-youtube" size="large" color="dark"></ion-icon></a>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+ 
+
+  
+</ion-content>

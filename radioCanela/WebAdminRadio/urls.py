@@ -53,5 +53,7 @@ urlpatterns = [
     path('publicidad/<int:id_publicidad>', views.ver_publicidad, name = 'ver_publicidad'), # Muestra la pantalla de informacion de la publicidad.
     path('publicidad/<int:id_publicidad>/editar', views.modificar_publicidad, name = 'editar_publicidad'), # Muestra la pantalla para editar una de la publicidad.
     path('publicidad/<int:id_publicidad>/eliminar', views.borrar_publicidad, name="borrar_publicidad"), # URL para borrar un segmento
+    path('noticia', views.noticia, name='noticia'), #Pagina principal donde se muestra la noticias.
+    path('noticia/agregar', views.agregar_noticia, name = 'agregar_noticia'), #Muestra la pantalla para agregar noticia.
     
 ]

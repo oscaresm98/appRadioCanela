@@ -157,6 +157,11 @@ class ProgramaSerializerFull(serializers.ModelSerializer):
         model = models.Programa
         fields = ('id', 'nombre', 'imagen','idEmisora', 'descripcion', 'horarios')
 
+class SegementoLocutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ['id','nombre','descripcion','imagen']
+        model = models.Locutor
+
 class LocutoresSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Locutor
@@ -172,6 +177,16 @@ class PublicidadSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Publicidad
+
+
+# Noticias
+class NoticiaSerializer(serializers.ModelSerializer):
+    radioEmisora = serializers.ReadOnlyField(source="get_radio")
+    class Meta:
+        fields = '__all__'
+        extra_fields =['radioEmisora']
+        model = models.NoticiasTips
+
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
