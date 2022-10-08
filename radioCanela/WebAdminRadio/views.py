@@ -997,10 +997,10 @@ def borrar_publicidad(request, id_publicidad):
 # Noticia
 @login_required
 def noticia(request):
-    list_noticias = NoticiasTips.objects.filter(estado=True)
+    list_emisoras = Emisora.objects.filter(estado=True)
     context = {
         'title': 'Noticias y Tips',
-        'noticias': list_noticias,
+        'emisoras': list_emisoras,
     }
     return render(request, 'webAdminRadio/noticias.html', context)
 
@@ -1025,3 +1025,44 @@ def agregar_noticia(request):
         else:
             context['error'] = noticia_form.errors
     return render(request, 'webAdminRadio/agregar_noticia.html', context)
+
+@login_required
+def ver_noticia(request, id_noticia):
+    noticia = NoticiasTips.objects.get(id=id_noticia)
+    context = {
+        'title': "Informacion de la noticia",
+        'noticia': noticia,
+    }
+    return render(request, 'webAdminRadio/ver_noticia.html', context)
+
+@login_required
+def modificar_noticia(request, id_noticia):
+    edit_noticia = NoticiasTips.objects.get(id=id_noticia)
+    list_emisoras = Emisora.objects.filter(estado=True)
+    fechasubida = str(edit_noticia.fecha_subida)[0:10]
+    context = {
+        'title': 'Editar Noticia o Tip',
+        'noticia': edit_noticia,
+        'emisoras': list_emisoras,
+        'fechasubida': fechasubida,
+    }
+    if request.POST:
+        noticia_form = NoticiaForm(request.POST, instance=edit_noticia)
+        if noticia_form.is_valid():
+            noticia_form.save()
+            if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+                url = agregarImagen(request, str(edit_noticia.id), 'imagenes/')
+                edit_noticia.imagen=url
+                edit_noticia.save()
+            context['success'] = '¡El registro ha sido modificado con éxito!'
+        else:
+            context['error'] = noticia_form.errors
+    return render(request, 'webAdminRadio/editar_noticia.html', context)
+
+@login_required
+def borrar_noticia(request, id_noticia):
+    delete_noticia = NoticiasTips.objects.get(id=id_noticia)
+    delete_noticia.estado = False
+    delete_noticia.save()
+    messages.success(request, 'La noticia/tip ha sido eliminada con exito')
+    return redirect('noticia')

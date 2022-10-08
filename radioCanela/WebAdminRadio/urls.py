@@ -7,14 +7,15 @@ urlpatterns = [
     path('emisoras/agregarEmisora/', views.agregar_emisora, name="agregar_emisora"), # Muestra la pantalla para agregar emisora
     path('emisoras/agregarRadio/', views.agregar_radio, name="agregar_radio"), # Muestra la pantalla para agregar radio
     path('emisoras/<int:id_emisora>/editarEmisora/', views.editar_emisora, name="editar_emisora"), # Muestra la pantalla para agregar emisora
+    path('emisoras/<int:id_emisora>/eliminar/', views.borrar_emisora, name="borrar_emisora"), # Muestra la pantalla para agregar emisora
 
     path('torneos', views.torneos, name='torneos'),
     path('torneos/agregarTorneo', views.agregar_torneo, name='agregar_torneo'),
     path('torneos/<int:id_torneo>/editar', views.modificar_torneo, name='editar_torneo'),
     path('torneos/<int:id_torneo>/eliminar', views.eliminar_torneo, name='eliminar_torneo'),
 
-    path('emisoras/<int:id_emisora>/eliminarEmisora/', views.borrar_emisora, name="borrar_emisora"), # Muestra la pantalla para agregar emisora
-    path('emisoras/<int:id_radio>/eliminarRadio/', views.borrar_radio, name="borrar_radio"), # Muestra la pantalla para agregar emisora
+    # path('emisoras/<int:id_emisora>/eliminarEmisora/', views.borrar_emisora, name="borrar_emisora"), # Muestra la pantalla para agregar emisora
+    # path('emisoras/<int:id_radio>/eliminarRadio/', views.borrar_radio, name="borrar_radio"), # Muestra la pantalla para agregar emisora
     path('equipos', views.equipos, name='equipos'), # URL para ver los equipos del sistema,
     path('equipos/agregar', views.agregar_equipo, name='agregar_equipo'), # Muestra la pantalla para agregar equipo
     path('equipos/<int:id_equipo>', views.ver_equipo, name='ver_equipo'), # URL para ver la informacion del equipo
@@ -48,12 +49,17 @@ urlpatterns = [
     path('locutores/<int:id_locutor>', views.ver_locutor, name='locutor'), # URL para ver informacion del partido
     path('locutores/<int:id_locutor>/eliminar', views.eliminar_locutor, name='eliminar_locutor'), # URL para eliminar un locutor
     path('locutores/<int:id_locutor>/editar', views.editar_locutor, name='editar_locutor'), # URL para editar un locutor
+    
     path('publicidad', views.publicidad, name='publicidad'), #Pagina principal donde se muestra la publicidad.
     path('publicidad/agregar', views.agregar_publicidad, name = 'agregar_publicidad'), #Muestra la pantalla para agregar publicidad.
     path('publicidad/<int:id_publicidad>', views.ver_publicidad, name = 'ver_publicidad'), # Muestra la pantalla de informacion de la publicidad.
     path('publicidad/<int:id_publicidad>/editar', views.modificar_publicidad, name = 'editar_publicidad'), # Muestra la pantalla para editar una de la publicidad.
-    path('publicidad/<int:id_publicidad>/eliminar', views.borrar_publicidad, name="borrar_publicidad"), # URL para borrar un segmento
+    path('publicidad/<int:id_publicidad>/eliminar', views.borrar_publicidad, name="borrar_publicidad"), # URL para borrar una publicidad
+    
     path('noticia', views.noticia, name='noticia'), #Pagina principal donde se muestra la noticias.
     path('noticia/agregar', views.agregar_noticia, name = 'agregar_noticia'), #Muestra la pantalla para agregar noticia.
+    path('noticia/<int:id_noticia>', views.ver_noticia, name = 'ver_noticia'), # Muestra la pantalla de informacion de la noticia.
+    path('noticia/<int:id_noticia>/editar', views.modificar_noticia, name = 'editar_noticia'), # Muestra la pantalla para editar una de la noticia.
+    path('noticia/<int:id_noticia>/eliminar', views.borrar_noticia, name="borrar_noticia"), # URL para borrar un noticia
     
 ]

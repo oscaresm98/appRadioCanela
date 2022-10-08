@@ -28,18 +28,18 @@
     </div>
     {% endif %}
     <h4><b>Información de Noticia</b></h4>
-    <form id="addSegmento" method="POST" action="{% url 'agregar_noticia' %}" enctype="multipart/form-data">
+    <form id="addSegmento" onsubmit="return validate()" action="{% url 'editar_noticia' noticia.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
 
         <!-- Div de imagen -->
         <div class="d-flex flex-column align-items-center mb-3">
             <div class="img-holder d-flex align-items-center">
-                <img id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+                <img id="preview" src="{{ noticia.imagen }}">
             </div>
             <div class="form-file input-group mb-3 w-50">
-                <input type="file" name="archivo" class="form-control" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen')" oninput="this.setCustomValidity('')" required>
-                <input type="hidden" name="imagen" value="redonda.jpg" id="imagen">
+                <input type="file" name="archivo" class="form-control" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen')" oninput="this.setCustomValidity('')">
+                <input type="hidden" name="imagen" value="{{ noticia.imagen }}" id="imagen">
             </div>
         </div>
 
@@ -52,7 +52,10 @@
                 <select id="emisoraSelect" class="form-select form-control" name="emisora" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" oninput="this.setCustomValidity('')" required>
                     <option value="" selected disabled>Seleccione la emisora</option>
                     {% for emisora in emisoras %}
-                        <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre }} {{ emisora.frecuencia_dial }}</option>
+                        <option value="{{ emisora.id }}"
+                        {% if emisora.id == noticia.id_emisora.id %}
+                        selected
+                        {% endif %}>{{ emisora.id_radio.nombre }} {{ emisora.frecuencia_dial }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -66,8 +69,8 @@
             <div class="col-9">
                 <select name="tipo" id="tipoSelect" class="form-select" oninvalid="this.setCustomValidity('Seleccione una emisora de la lista')" oninput="this.setCustomValidity('')" required>
                     <option value="" selected disabled>Seleccione un tipo</option>
-                    <option value="Noticia">Noticia</option>
-                    <option value="Tip">Tip</option>
+                    <option value="Noticia" {% if noticia.tipo == 'Noticia' %} selected{% endif %}>Noticia</option>
+                    <option value="Tip"{% if noticia.tipo == 'Tip' %} selected{% endif %}>Tip</option>
                 </select>
             </div> 
         </div> 
@@ -78,7 +81,7 @@
                 <label for="nombreInput">Título</label>
             </div>
             <div class="col-9">
-                <input required name="titulo" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título de la noticia o tip" maxlength=150>
+                <input required name="titulo" value="{{ noticia.titulo }}" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título de la noticia o tip" maxlength=150>
             </div>
         </div>
 
@@ -88,7 +91,7 @@
                 <label for="fechasubida">fecha de subida</label>
             </div>
             <div class="col-9">
-                <input id="fechasubida" name="fechasubida" type="date" class="form-control" oninvalid="this.setCustomValidity('Ingrese una fecha')" oninput="this.setCustomValidity('')" required>
+                <input id="fechasubida" name="fechasubida" value="{{ fechasubida }}" type="date" class="form-control" oninvalid="this.setCustomValidity('Ingrese una fecha')" oninput="this.setCustomValidity('')" required>
             </div>
         </div>
 
@@ -98,7 +101,7 @@
                 <label for="descInput">Contenido</label>
             </div>
             <div class="col-9">
-                <textarea class="form-control" rows="15" id="descInput" name="descripcion" placeholder="Ingrese el contenido" oninvalid="this.setCustomValidity('Ingrese el contenido')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" rows="15" id="descInput" name="descripcion" placeholder="Ingrese el contenido" oninvalid="this.setCustomValidity('Ingrese el contenido')" oninput="this.setCustomValidity('')" required>{{noticia.descripcion}}</textarea>
             </div>
         </div>
 
@@ -108,11 +111,14 @@
                 <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
             </div>
             <div class="col-9 fs-3 form-check form-switch">
-                <input name="activo" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                <input name="activo" class="form-check-input"  type="checkbox" role="switch" id="flexSwitchCheckChecked" {% if noticia.activo %} checked{% endif %}>
             </div>
         </div>
         
-        <button type="submit" class="btn btn-primary btn-lg mt-5 submit"><i class="fas fa-plus-circle"></i>Agregar Noticia o Tip</button>
+        <div class="text-center mt-5">
+            <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle"></i>Modificar</button>
+            <a href="{% url 'noticia' %}" class="btn btn-danger btn-lg ms-5"><i class="fa-solid fa-circle-xmark"></i>Cancelar</a>
+        </div>
     </form>
 {% endblock %}
 {% block page_script %}
