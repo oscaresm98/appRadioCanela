@@ -61,7 +61,7 @@ def geValueCheckBox(request,inputName):
 #@has_permission_decorator('emisoras')
 def roles(request):
     listaroles= Rol.objects.filter(activo=True)
-    context = {'title': 'Roles', 'roles':listaroles}
+    context = {'title': 'Lista Roles', 'roles':listaroles}
     return render(request, 'webAdminRadio/roles.html', context)
 @login_required
 def agregar_rol(request):
