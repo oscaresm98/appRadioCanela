@@ -24,13 +24,13 @@
         </div>
     {% endif %}
     {% comment %} <div id="componente_borrar">
-        <modal-borrar v-if="showModal" url_redirect="{% url 'webadminradio:borrar_emisora' 1 %}">
+        <modal-borrar v-if="showModal" url_redirect="{% url 'borrar_emisora' 1 %}">
             <h3 slot="header" class="action"><i class="fas fa-exclamation-triangle "></i>¡Aviso!</h3>
             <div slot="body">
                 <p>¿Está seguro de eliminar esta emisora?</p>
             </div>
         </modal-borrar>
-    </div> {% endcomment %}
+    </div>  {% endcomment %}
     <div class="Radio">
         {% for radio in radios %}
         <div class="wrapper">
@@ -46,7 +46,7 @@
             </div>
             <div class="btn-wrapper">
                 <div class="act-buttons">
-                    {% comment %} <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a> {% endcomment %}
+                     {% comment %} <a href="{% url radio.id 'editar_emisora' %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>  {% endcomment %}
                     <a href="#"  onclick="showWarningRadio({{ radio.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
                 </div> 
                 {% comment %} <div class="info">
