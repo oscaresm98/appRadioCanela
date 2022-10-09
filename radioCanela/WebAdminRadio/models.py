@@ -213,6 +213,7 @@ class PartidoTransmision(models.Model):
     hora_inicio = models.TimeField(blank=True, null=True)
     fecha_evento = models.DateTimeField(blank=True, null=True)
     lugar = models.CharField(max_length=50, blank=True, null=True)
+    estadio= models.CharField(max_length=100, blank=True, null=True, default='')
     descripcion = models.TextField(blank=True, null=True)
     marcador = models.CharField(max_length=20, blank=True, null=True)
     ptos_equipo_local = models.SmallIntegerField(blank=True, null=True)

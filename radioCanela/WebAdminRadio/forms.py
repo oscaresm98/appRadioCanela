@@ -275,6 +275,7 @@ class PartidoTransmisionForm(forms.ModelForm):
             'id_equipo_visitante',
             'ptos_equipo_local',
             'ptos_equipo_visitante',
+            'estadio'
         ]
 
     # Se usa este metodo para sobrescribir los campos del formulario

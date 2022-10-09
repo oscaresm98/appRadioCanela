@@ -3,6 +3,8 @@ django==3.2.7
 djangorestframework
 django-role-permissions
 django-dbbackup
+django-rest-auth
+dj-rest-auth
 django-cors-headers
 django-allauth
 pymysql

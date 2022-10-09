@@ -157,11 +157,20 @@
         </div>
         <!-- Lugar del evento -->
         <div class="form-group">
-            <label for="lugar">Lugar del partido</label>
+            <label for="lugar">Ciudad</label>
             <input id="lugar" name="lugar" type="text" 
                 class="form-control" oninvalid="this.setCustomValidity('Ingrese un lugar válido)" 
                 oninput="this.setCustomValidity('')" 
                 value="{{ partido_editar.lugar }}" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="lugar">Estadio</label>
+            <input id="lugar" name="estadio" type="text" 
+                class="form-control" oninvalid="this.setCustomValidity('Ingrese un lugar válido)" 
+                oninput="this.setCustomValidity('')" 
+                value="{{ partido_editar.estadio }}" required>
         </div>
         <br>
 
