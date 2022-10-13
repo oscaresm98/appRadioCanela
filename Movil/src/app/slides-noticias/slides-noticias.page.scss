@@ -7,34 +7,43 @@
 }
 
 ion-slides {
-    --bullet-background: yellow !important;
-    --bullet-background-active: rebeccapurple !important;
+    --bullet-background: orange !important;
+    --bullet-background-active: orange !important;
 }
 
 :host ::ng-deep ion-slides {
     --bullet-background: yellow !important;
     --bullet-background-active: rebeccapurple !important;
 }
-.slide{
+
+.slide {
     position: relative;
 }
-.information{
-    
+
+.information {
+
     position: absolute;
-    width: 85vw;
+    max-width: 85vw;
     bottom: 10vw;
 }
-.tipo{
+
+.tipo {
     white-space: nowrap;
     background: #F69238;
-    
+
 }
-.title{
+
+.title {
     display: block;
     font-size: 4.5vw;
     font-weight: 600;
 }
-.description{
+
+.description {
+    max-height: 3vw;
     display: block;
     font-size: 3vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

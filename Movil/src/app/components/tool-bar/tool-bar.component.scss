@@ -55,3 +55,17 @@ ion-toolbar-background{
 .icon{
     color:white
 }
+.ion-padding{
+    --background: #F69238 !important;
+}
+.option-text{
+    margin-left: 2vw;
+}
+.option{
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+   margin-left: 2vw;
+}
+.option:active{
+    background: black;
+ }

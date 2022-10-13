@@ -1,7 +1,55 @@
-.logo{
+.logo {
     width: 40vw;
 }
-.image-container{
+
+.image-container {
     display: flex;
     justify-content: center;
+}
+
+.external-border,
+.internal-border {
+    box-shadow: rgba(0, 0, 0, 0) 0px 30px 60px -12px inset, rgba(255, 255, 255, 0.3) 0px 18px 36px -18px inset;
+    border-radius: 5vw;
+}
+
+.internal-border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    height: 30vw;
+
+}
+
+.icon {
+    font-size: 15vw;
+}
+.element{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+    margin-top: 2vw;
+    color: #F69238 ;
+}
+
+.external-border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 40vw;
+    height: 40vw;
+    place-self: center;
+}
+
+.grid {
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: center;
 }
