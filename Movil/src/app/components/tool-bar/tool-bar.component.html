@@ -1,3 +1,4 @@
+<!--
 <ion-toolbar>
   <ion-grid>
     <ion-row>
@@ -14,3 +15,64 @@
     </ion-row>
   </ion-grid>
 </ion-toolbar>
+-->
+<ion-menu class="menu" side="start" contentId="mainContent">
+   <ion-content >
+    <ion-list class="list">
+      <ion-item class="item" >
+        <ion-icon name="home" slot="start"></ion-icon>
+          <span class="item-text" slot="start">Inicio</span>
+      </ion-item>
+      <ion-item class="item">
+          <ion-icon name="images-outline"></ion-icon>
+          <span class="item-text">Galeria</span>
+      </ion-item>
+      <ion-item class="item">
+        <ion-icon name="football-outline"></ion-icon>
+          <span class="item-text">Partidos</span>
+      </ion-item>
+      <ion-item class="item">
+        <ion-icon name="trophy"></ion-icon>
+        <span class="item-text">Concursos y torneos</span>
+      </ion-item>
+      <ion-item class="item">
+        <ion-icon name="reader-outline"></ion-icon>
+        <span class="item-text">Encuestas</span>
+      </ion-item>
+      <ion-item class="item">
+        <i class=" foco fa-regular fa-lightbulb"></i>
+        <span class="item-text">Tips</span>
+      </ion-item>
+      <ion-item class="item">
+        <ion-icon name="call-outline"></ion-icon>
+        <span class="item-text">Contactenos</span>
+      </ion-item>
+    </ion-list>
+   </ion-content>
+</ion-menu>     
+
+<ion-header >
+  <!--class="ion-page" id = "mainContent" main-->
+  <ion-toolbar class="header" id = "mainContent" main>
+    <ion-buttons slot="secondary">
+      <ion-button>
+        <ion-menu-button class="icon"></ion-menu-button>
+      </ion-button>
+      <ion-button>
+        <ion-icon class="icon" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon class="icon"  name="notifications"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon class="icon" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+

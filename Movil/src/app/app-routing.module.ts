@@ -75,7 +75,19 @@ const routes: Routes = [
   {
     path: 'futbol-team/:id',
     loadChildren: () => import('./futbol-team/futbol-team.module').then( m => m.FutbolTeamPageModule)
+  },  {
+    path: 'home-page',
+    loadChildren: () => import('./home-page/home-page.module').then( m => m.HomePagePageModule)
   },
+  {
+    path: 'slides-noticias',
+    loadChildren: () => import('./slides-noticias/slides-noticias.module').then( m => m.SlidesNoticiasPageModule)
+  },
+  {
+    path: 'slides-noticias',
+    loadChildren: () => import('./slides-noticias/slides-noticias.module').then( m => m.SlidesNoticiasPageModule)
+  },
+
 
 ];
 

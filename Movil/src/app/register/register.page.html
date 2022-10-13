@@ -1,15 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <app-back-toolbar></app-back-toolbar>
+    <app-back-toolbar [namePreviousSection]="'Regresar inicio'">holaa</app-back-toolbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-text-center">
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
-      <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
+      <ion-col class=" ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
 
-        <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
+          <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
+
+          <ion-img class="futbol-image" [src]="'../../assets/images/futbol.jpg'"></ion-img>
+
+
 
       </ion-col>
     </ion-row>
@@ -17,7 +21,7 @@
     <ion-row>
       <ion-col>
 
-        <h1 style="font-weight: bold;">REGISTRO</h1>
+        <h1 style="font-weight: bold;">Regristro Usuario</h1>
 
       </ion-col>
     </ion-row>
