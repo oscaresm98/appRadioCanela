@@ -867,7 +867,7 @@ def agregar_Locutor(request):
             })
             if not red_form.is_valid():
                 context['error'] = red_form.errors
-                return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+                return render(request, 'webAdminRadio/agregar_locutor.html', context)
         
         locutor_form.save()
         for i in range(len(request.POST.getlist('red_social_nombre'))):
