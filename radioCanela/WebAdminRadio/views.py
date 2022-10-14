@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 import pyrebase
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
 
 # configuración de firebase
 firebaseConfig = {
@@ -206,6 +208,10 @@ def agregar_usuario(request):
 def editar_usuario(request,id_usuario):
     # Termianar este request
     edit_usuario = Usuario.objects.get(id=id_usuario)
+    print("-----PASSWORD: ",edit_usuario.password)
+    print("-----HASH: ",make_password("1234"))
+    print("EQUALS: ",edit_usuario.password==make_password("1234"))
+    print("---SECOND EQUALS: ",check_password('1234', edit_usuario.password))
     context = {
         'title': 'Editar Usuario',
         'usuario': edit_usuario,
