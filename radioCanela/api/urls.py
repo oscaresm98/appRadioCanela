@@ -43,7 +43,7 @@ urlpatterns = [
     path('noticias/',views.NoticiasList.as_view(),name='noticias-list'),
     path('noticia/<int:pk>', views.Noticia_detalle.as_view(), name='noticia-detalle'),
     path('emisora/<int:id_emisora>/noticia',views.ListNoticia.as_view(), name="list_emisora_noticia"),
-    
+    path('noticia/<str:tipo>', views.NoticiaTipo.as_view(), name="list_noticia_tipo"),
     
     
     #path('radio/', views.ListEmisora.as_view()),

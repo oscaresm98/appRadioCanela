@@ -864,7 +864,7 @@ def agregar_Locutor(request):
         print(locutor_form)
         if not locutor_form.is_valid():
             context['error'] = locutor_form.errors
-            return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+            return render(request, 'webAdminRadio/agregar_locutor.html', context)
         
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             red_form = RedSocialForm({
@@ -885,7 +885,7 @@ def agregar_Locutor(request):
                 link = request.POST.getlist('red_social_url')[i]
             )
         context['success'] = '¡El/La locutor/a ha sido agregado/a con éxito!'
-    return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+    return render(request, 'webAdminRadio/agregar_locutor.html', context)
 
 @login_required
 def editar_locutor(request, id_locutor):
