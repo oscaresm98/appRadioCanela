@@ -25,9 +25,10 @@ export class LoginPage implements OnInit {
 
   onLogin(form: any) {
     if (this.loginForm.valid ) {
+      /*
       this.data.postLogin(form).subscribe(res => {
         console.log(res);
-      });
+      });*/
 
       this.router.navigate(['/tabs']);
     }

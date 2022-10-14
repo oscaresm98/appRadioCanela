@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'app/services/auth.service';
+import { DataService } from 'app/services/data/data.service';
 
 @Component({
   selector: 'app-slides-noticias',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SlidesNoticiasPage implements OnInit {
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.dataService.getNoticias();
   }
 
 }

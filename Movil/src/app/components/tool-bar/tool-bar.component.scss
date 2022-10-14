@@ -61,11 +61,18 @@ ion-toolbar-background{
 .option-text{
     margin-left: 2vw;
 }
-.option{
-    margin-top: 2vw;
-    margin-bottom: 2vw;
-   margin-left: 2vw;
+.popover{
+    width: 70vw;
 }
-.option:active{
+.option{
+    font-size: 4vw;
+    background-color: #F69238;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+   margin-left: 2vw;
+   padding: 3vw;
+}
+.option:focus{
     background: black;
+    border-radius: 10vw;
  }

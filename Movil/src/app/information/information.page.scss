@@ -1,0 +1,37 @@
+.logo {
+    width: 40vw;
+}
+.image{
+    width: 90vw;
+    box-shadow: 0 2vw 0px 0px #F69238
+}
+.emisora-name{
+    margin-top: 2vw;
+    border-radius: 2vw;
+    padding-right: 2vw;
+    padding-left: 2vw;
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: rgba(98, 98, 133, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.image-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.text-emisora{
+    color: #F69238;
+}
+.icon{
+    font-size: 8vw;
+}
+.go{
+    width: 8vw;
+    --border-radius: 90vw;
+    --background: rgba(98, 98, 133, 0.25);
+    
+}

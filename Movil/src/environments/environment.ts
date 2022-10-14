@@ -12,6 +12,9 @@ export const environment = {
     messagingSenderId: '251071856025',
     appId: '1:251071856025:web:581e65934257e5e3df6708'
   },
+  REMOTE_BASE_URL: 'https://gruporadios.pythonanywhere.com',
+  TOKEN_URL: '/api_generate_token/',
+  NOTICIA_URL: '/api/noticias/'
 };
 
 /*
