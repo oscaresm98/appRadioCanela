@@ -41,6 +41,7 @@ urlpatterns = [
     path('radio/<int:id_radio>/publicidad',views.ListPublicidad.as_view(), name="list_radio_publicidad"),
     
     path('noticias/',views.NoticiasList.as_view(),name='noticias-list'),
+    path('noticia/<int:pk>', views.Noticia_detalle.as_view(), name='noticia-detalle'),
     path('emisora/<int:id_emisora>/noticia',views.ListNoticia.as_view(), name="list_emisora_noticia"),
     
     
