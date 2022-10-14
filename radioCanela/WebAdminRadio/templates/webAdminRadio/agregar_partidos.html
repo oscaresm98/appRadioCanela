@@ -22,12 +22,12 @@
     {% endif %}
 
     {% if success %}
-    <div id="componente_modal_info">
-        <modal-info v-if="showModal" url_redirect="{% url 'partidos' %}">
-            <h3 slot="header">Información</h3>
-            <p slot="body">{{success}}</p>
-        </modal-info>
-    </div>
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="{% url 'partidos' %}">
+                <h3 slot="header">Información</h3>
+                <p slot="body">{{success}}</p>
+            </modal-info>
+        </div>
     {% endif %}
 
     <h4><b>Información del partido</b></h4>
