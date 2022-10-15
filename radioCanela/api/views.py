@@ -572,6 +572,24 @@ class ListNoticia(generics.ListAPIView):
         return NoticiasTips.objects.filter(id_emisora=emisora, estado=True)
 
 
+# lista de las noticias por id
+class Noticia_detalle(generics.ListAPIView):
+    serializer_class = serializers.NoticiaSerializer
+    
+    def get_queryset(self):
+        noticia = self.kwargs['pk']
+        return NoticiasTips.objects.filter(id=noticia, estado=True)
+
+
+# lista de las noticias por tipo
+class NoticiaTipo(generics.ListAPIView):
+    serializer_class = serializers.NoticiaSerializer
+    
+    def get_queryset(self):
+        tipo = self.kwargs['tipo']
+        return NoticiasTips.objects.filter(tipo=tipo.capitalize(), estado=True)
+
+
 
 
 

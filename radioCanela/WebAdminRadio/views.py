@@ -254,6 +254,7 @@ def editar_usuario(request,id_usuario):
         else:
             context['error'] = user_form.errors
     return render(request,"webAdminRadio/editar_usuario.html",context)
+
 @login_required
 def borrar_rol(request, id_rol):
     delete_rol = Rol.objects.get(id=id_rol)
@@ -261,6 +262,7 @@ def borrar_rol(request, id_rol):
     delete_rol.delete()
     messages.success(request, 'El Rol ha sido eliminado')
     return redirect('lista_roles')
+
 @login_required
 def borrar_usuario(request, id_usuario):
     delete_usuario = Usuario.objects.get(id=id_usuario)
@@ -307,7 +309,8 @@ def agregar_radio(request):
 # @has_permission_decorator('add_emisora')
 def agregar_emisora(request):
     listaRadios= Radio.objects.filter(estado=True)
-    context = {'title': 'Agregar Emisora','radios': listaRadios}
+    context = {'title': 'Agregar Emisora', 'radios': listaRadios}
+
     if request.POST:
         id_radio = request.POST['id_radio']
         frecuencia_dial = request.POST['frecuencia_dial']
@@ -334,6 +337,7 @@ def agregar_emisora(request):
         
         emisora_form.save()
         context['success'] = '¡La emisora ha sido registrada con éxito!'
+    
     return render(request, 'webAdminRadio/agregar_emisora.html', context)
 
 @login_required
@@ -356,7 +360,7 @@ def borrar_radio(request, id_radio):
 @login_required
 def editar_emisora(request,id_emisora):
     edit_emisora = Emisora.objects.get(id=id_emisora, estado=True)
-    edit_radio = Radio.objects.get(id=id_emisora,stado=True)
+    # edit_radio = Radio.objects.get(id=id_emisora,estado=True)
     # red_social = RedSocial_emisora.objects.filter(idEmisora=id_emisora)
     context = {
         'title': 'Editar Emisora',
@@ -373,6 +377,8 @@ def editar_emisora(request,id_emisora):
             return render(request, 'webAdminRadio/editar_emisora.html', context)
         
         return render(request, 'webAdminRadio/editar_emisora.html', context)
+
+    return render(request, 'webAdminRadio/editar_emisora.html', context)
 
 # Equipos
 
@@ -857,7 +863,7 @@ def agregar_Locutor(request):
         print(locutor_form)
         if not locutor_form.is_valid():
             context['error'] = locutor_form.errors
-            return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+            return render(request, 'webAdminRadio/agregar_locutor.html', context)
         
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             red_form = RedSocialForm({
@@ -866,7 +872,7 @@ def agregar_Locutor(request):
             })
             if not red_form.is_valid():
                 context['error'] = red_form.errors
-                return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+                return render(request, 'webAdminRadio/agregar_locutor.html', context)
         
         locutor_form.save()
         for i in range(len(request.POST.getlist('red_social_nombre'))):
@@ -878,7 +884,7 @@ def agregar_Locutor(request):
                 link = request.POST.getlist('red_social_url')[i]
             )
         context['success'] = '¡El/La locutor/a ha sido agregado/a con éxito!'
-    return render(request, 'webAdminRadio/agregar_Locutor.html', context)
+    return render(request, 'webAdminRadio/agregar_locutor.html', context)
 
 @login_required
 def editar_locutor(request, id_locutor):
