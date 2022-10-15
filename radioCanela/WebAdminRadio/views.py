@@ -216,7 +216,6 @@ def editar_usuario(request,id_usuario):
         'title': 'Editar Usuario',
         'usuario': edit_usuario,
     }
-    
     if request.POST:
         username = request.POST['username']
         first = request.POST['nombre']
