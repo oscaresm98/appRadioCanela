@@ -1,32 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    
-        <ion-button onclick="history.back()" slot="start" fill="clear" color="dark">
-          <ion-icon name="arrow-back-outline" size="large"></ion-icon>
-        </ion-button>
-          <ion-button fill="clear" slot="end" color="dark" [routerLink]="['/tabs']"><span class="invitadoText">Invitado </span><span><ion-icon name="chevron-forward-outline" size="large"></ion-icon></span>
-        </ion-button>
-       
+
+    <ion-button onclick="history.back()" slot="start" fill="clear" color="dark">
+      <ion-icon name="arrow-back-outline" size="large"></ion-icon>
+    </ion-button>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content  class="auth-form" fullscreen>
-  
-    <ion-grid>
-      <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
-        <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
+<ion-content class="auth-form" fullscreen>
+  <div class="header">
+    <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
+    <ion-img class="futbol-image" [src]="'../../assets/images/futbol_radio.jpg'"></ion-img>
+  </div>
 
-          <ion-img class="logoImage ion-margin-top" src="assets/images/Logo.png"></ion-img>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
+      
+      <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
+        <span class="text-inicio">INICIO DE SESIÓN</span>
+        <form method="post" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
 
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
-        <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
-
-          <form method="post" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-
-            <!-- <ion-item class="formField" lines="none">
+          <!-- <ion-item class="formField" lines="none">
               <ion-label class="inputTopText" position="stacked">Email</ion-label>
               <ion-input class="input" type="email" required></ion-input>
             </ion-item>
@@ -36,57 +31,73 @@
               <ion-input class="input" type="password" required></ion-input>
             </ion-item> -->
 
-            <div class="input-group">
-              <label position="stacked"><b>Email: </b></label>
-              <label *ngIf="errorControl.email.errors?.required && loginForm.get('email').touched" style="color:red ;" for="inputPrivacy">*</label> 
-              <input class="input" type="email" id="inputEmail" formControlName="email" required>
-              <small *ngIf="loginForm.get('email').errors?.['email']" style="color:red ;">E-mail inválido.</small> 
-            </div>
+          <div class="input-group">
+            <label *ngIf="errorControl.email.errors?.required && loginForm.get('email').touched" style="color:red ;"
+              for="inputPrivacy">Usuario/Correo es requerido</label>
+            <input placeholder="Usuario/Correo" class="input" type="email" id="inputEmail" formControlName="email" required>
+            <!--
+            <small *ngIf="loginForm.get('email').errors?.['email']" style="color:red ;">E-mail inválido.</small>
+            -->
+          </div>
 
-            <div class="input-group">
-              <label  position="stacked"><b>Contraseña:</b></label>
-              <label *ngIf="errorControl.password.errors?.required && loginForm.get('password').touched" style="color:red ;">*</label> 
-              <input class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputPassword" formControlName="password" required>
-              <ion-icon class="errspan" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()"></ion-icon>
-              <small *ngIf="errorControl.password.errors?.['minlength']" class="text-danger">La contraseña debe tener minimo 8 caracteres.</small>          
-            </div>
+          <div class="input-group">
 
-            <ion-row class="ion-justify-content-center">
-              <ion-col >
-                  <ion-button [disabled]="loginForm.invalid" shape="round" type="submit" color="dark" expand="block">Ingresar</ion-button>
-                  <a [routerLink]="['/forgot-password']"  class="forgot small-text">¿Has olvidado tu contraseña?</a>
-              </ion-col>
-            </ion-row>
+            <label *ngIf="errorControl.password.errors?.required && loginForm.get('password').touched"
+              style="color:red ;">Contraseña es requerida</label>
+            <input placeholder="Contraseña" class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputPassword"
+              formControlName="password" required>
+            <ion-icon class="errspan" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()">
+            </ion-icon>
+            <small *ngIf="errorControl.password.errors?.['minlength']" class="text-danger">La contraseña debe tener
+              minimo 8 caracteres.</small>
+              <a [routerLink]="['/forgot-password']" class="forgot small-text">¿Has olvidado tu contraseña?</a>
+          </div>
 
-            <ion-row class="ion-justify-content-center">
-              
-              <p>o ingresa con</p>
-            </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col>
+              <div class="go-out">
+                <a [routerLink]="['/register']"> 
+                  <span>Registrarme</span>
+                </a>
+                <a [routerLink]="['/home-page']">
+                  <span>Omitir</span>
+                </a>
+                
+              </div>
+              <ion-button class="button-ingresar" [disabled]="loginForm.invalid" shape="round" type="submit"  expand="block">
+                Ingresar</ion-button>
+            </ion-col>
+          </ion-row>
 
-            <ion-row class="ion-justify-content-between">
-              <ion-col size="3">
-                <ion-button shape="circle" fill="clear" color="dark" (click)="signInWithFacebook()">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </ion-button>
-              </ion-col>
+          <ion-row class="ion-justify-content-center">
 
-              <ion-col size="3">
-                <ion-button shape="circle" fill="clear" color="dark" (click)="signInWithGoogle()">
-                  <ion-icon name="logo-google"></ion-icon>
-                </ion-button>
-              </ion-col>
-              
-              <ion-col size="3">
-                <ion-button shape="circle" fill="clear" color="dark" (click)="signInWithApple()">
-                  <ion-icon name="logo-apple"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </form>
+            <p class="text-ingresar">Ingresa con:</p>
+          </ion-row>
 
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  
+          <ion-row class="ion-justify-content-between">
+            <ion-col size="3">
+              <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithFacebook()">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="3">
+              <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithGoogle()">
+                <ion-icon name="logo-google"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="3">
+              <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithApple()">
+                <ion-icon name="logo-apple"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
 </ion-content>

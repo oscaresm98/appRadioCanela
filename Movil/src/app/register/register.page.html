@@ -1,27 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <app-back-toolbar [namePreviousSection]="'Regresar inicio'">holaa</app-back-toolbar>
+    <app-back-toolbar></app-back-toolbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-text-center">
+  <div class="header">
+    <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
+    <ion-img class="futbol-image" [src]="'../../assets/images/futbol_radio.jpg'"></ion-img>
+  </div>
   <ion-grid>
-    <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
-      <ion-col class=" ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
-
-          <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
-
-          <ion-img class="futbol-image" [src]="'../../assets/images/futbol.jpg'"></ion-img>
-
-
-
-      </ion-col>
-    </ion-row>
-
     <ion-row>
       <ion-col>
 
-        <h1 style="font-weight: bold;">Regristro Usuario</h1>
+        <span class="tittle-registro">REGISTRO DE USUARIOS</span>
 
       </ion-col>
     </ion-row>
@@ -117,42 +109,36 @@
 
         <form method="post" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm.value)">
           <div class="input-group">
-            <label class="input-group"  position="stacked"><b>Nombre de usuario:</b> </label>
             <label *ngIf="errorControl.username.errors?.required && registerForm.get('username').touched" style="color:red ;">*</label>
-            <input class="input biggerInput" id="inputUsername" formControlName="username" required>
+            <input placeholder="Nombre de usuario" class="input biggerInput" id="inputUsername" formControlName="username" required>
           </div>
 
           <div class="input-group">
-            <label class="input-group" position="stacked"><b>Nombre:</b></label>
             <label  *ngIf="errorControl.first_name.errors?.required && registerForm.get('first_name').touched" style="color:red ;">*</label> 
-            <input class="input" id="inputName" formControlName="first_name" required>
+            <input placeholder="Nombre" class="input" id="inputName" formControlName="first_name" required>
           </div>
 
           <div class="input-group">
-            <label position="stacked"><b> Apellido:</b> </label>
             <label *ngIf="errorControl.last_name.errors?.required && registerForm.get('last_name').touched" style="color:red ;" >*</label> 
-            <input class="input" id="inputLname" formControlName="last_name" required>
+            <input placeholder="Apellido" class="input" id="inputLname" formControlName="last_name" required>
           </div>
 
           <div class="input-group">
-            <label position="stacked"><b>Email: </b></label>
             <label *ngIf="errorControl.email.errors?.required && registerForm.get('email').touched" style="color:red ;" for="inputPrivacy">*</label> 
-            <input class="input" type="email" id="inputEmail" formControlName="email" required>
+            <input placeholder="Correo" class="input" type="email" id="inputEmail" formControlName="email" required>
             <small *ngIf="registerForm.get('email').errors?.['email']" style="color:red ;">E-mail inválido.</small> 
           </div>
 
           <div class="input-group">
-            <label  position="stacked"><b>Contraseña:</b></label>
             <label *ngIf="errorControl.password.errors?.required && registerForm.get('password').touched" style="color:red ;">*</label> 
-            <input class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputPassword" formControlName="password" required>
+            <input placeholder="Contraseña" class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputPassword" formControlName="password" required>
             <ion-icon class="errspan" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()"></ion-icon>
             <small *ngIf="errorControl.password.errors?.['minlength']" class="text-danger">La contraseña debe tener minimo 8 caracteres.</small>          
           </div>
 
           <div class="input-group">
-            <label class="input-group"><b> Confirmar contraseña:</b></label>
             <label *ngIf="errorControl.conf_password.errors?.required && registerForm.get('conf_password').touched" style="color:red ;">*</label>
-            <input class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputConfPassword" formControlName="conf_password" required >
+            <input placeholder="Confirmar contraseña" class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputConfPassword" formControlName="conf_password" required >
             <ion-icon class="errspan" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()"></ion-icon>
             <small *ngIf="errorControl.conf_password.errors?.['minlength']" class="text-danger">La contraseña debe tener minimo 8 caracteres.</small>          
           </div>
@@ -161,9 +147,9 @@
             <ion-col>
               <ion-item lines="none">
                 <ion-checkbox  formControlName="policy"></ion-checkbox>
-                <ion-label class="ion-text-wrap ion-text-center">
-                  Al utilizar nuestra aplicacion, usted esta deacuerdo con 
-                  <a >Términos y condiciones</a> y <a routerLink="/privacy-policies">Políticas de privacidad</a>
+                <ion-label class="politicas ion-text-wrap ion-text-center">
+                  Acepto 
+                  Términos y Condiciones y Política de Privacidad
                 </ion-label>
                 <label *ngIf="isSubmitted && errorControl.policy.errors?.required" style="color:red;">*</label>
               </ion-item>
@@ -174,7 +160,7 @@
 
           <ion-row>
             <ion-col>
-              <ion-button [disabled]="registerForm.invalid" shape="round" type="submit" color="dark" expand="block">Registrarse</ion-button>
+              <ion-button class="button-ingresar" [disabled]="registerForm.invalid" shape="round" type="submit"  expand="block">Registrarse</ion-button>
             </ion-col>
           </ion-row>
         </form>

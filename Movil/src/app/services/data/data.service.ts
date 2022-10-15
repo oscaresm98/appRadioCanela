@@ -13,11 +13,15 @@ export class DataService {
 
   url = ""
   private URL_NOTICIA= environment.REMOTE_BASE_URL + environment.NOTICIA_URL;
+  private noticias:any[];
 
   constructor(private http: HttpClient) { }
 
   public getData(){
     return this.http.get(this.url)
+  }
+  public getNoticias(){
+    return this.noticias;
   }
 
   public getPrograma(){
@@ -42,12 +46,13 @@ export class DataService {
     return this.http.post<Response>(url_register, form)
   }
   
-  public getNoticias(){
+  public obtenerNoticias(){
     return new Promise((resolve)=>{
       this.http.get(this.URL_NOTICIA).subscribe({
         next:(res:any)=>{
           if (res != null) {
             console.log("Obteniendo NOTicias: ",res);
+            this.noticias=res;
             const data = { resCode: 0 };
             resolve(data);
           }

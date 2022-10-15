@@ -43,7 +43,7 @@
         <i class=" foco fa-regular fa-lightbulb"></i>
         <span class="item-text">Tips</span>
       </ion-item>
-      <ion-item class="item">
+      <ion-item [routerLink]="['/information']" class="item">
         <ion-icon name="call-outline"></ion-icon>
         <span class="item-text">Contactenos</span>
       </ion-item>
@@ -80,7 +80,7 @@
               <i class="fa-solid fa-gear"></i>
               <span class="option-text">Mi Cuenta</span>
             </button>
-            <button class="option">
+            <button class="option" [routerLink]="['/initial']">
               <i class="fa-solid fa-arrow-right-from-bracket"></i>
               <span class="option-text">Cerrar sesion</span>
             </button>

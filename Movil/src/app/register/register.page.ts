@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from 'app/services/auth.service';
 import { DataService } from 'app/services/data/data.service';
+import { IUsuario } from 'app/shared/usuario.interface';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -36,8 +39,10 @@ export class RegisterPage implements OnInit {
     private data: DataService,
     public formBuilder: FormBuilder,
     private alertController: AlertController,
-    private router:Router
+    private router:Router,
+    private authService: AuthService
   ) {}
+  ngOnInit() {}
 
   public showHide(): void {
     this.showPassword = !this.showPassword;
@@ -83,9 +88,32 @@ export class RegisterPage implements OnInit {
         console.log(res)
       })
       console.log(form.password, form.conf_password);
-      this.router.navigate(['/login']);
+      const user:IUsuario={
+        username: form.username,
+        first_name: form.first_name,
+        last_name: form.last_name,
+        email: form.email,
+        password: form.password
+      }
+      this.authService.createUser(user).then(
+        async (data:any)=>{
+          if (data.resCode == 0) {
+            console.log("Ingreso perfecto");
+            this.router.navigate(['/login']);
+          } else {
+            const alert = await this.alertController.create({
+              header: 'Oops!',
+              message: 'Este nombre de usuario ya existe',
+              buttons: ['OK'],
+            });
+            await alert.present();
+            console.log("ERROR!!!!!")
+          }
+        }
+        );
+      
     }
   }
-  ngOnInit() {}
+  
 }
 

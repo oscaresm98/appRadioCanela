@@ -17,8 +17,8 @@ ion-icon {
 }
 
 .forgot {
-    color: black;
-   text-decoration: none;
+    color: #F69238;
+   text-decoration: underline;
 }
 
 .formField {
@@ -30,10 +30,62 @@ ion-icon {
 }
 
 .errspan {
-    font-size: 25px;
+    font-size: 8vw;
     float: right;
-    margin-right: 15px;
-    margin-top: -31px;
+    bottom: 11vw;
+    right: -33vw;
+    //margin-right: 15px;
+    //margin-top: -31px;
     position: relative;
     z-index: 3;
+}
+.logoImage{
+    width: 40vw;
+}
+.futbol-image{
+    width: 90vw;
+    box-shadow: 0 2vw 0px 0px #F69238
+}
+.text-inicio,.text-ingresar{
+    font-size: large;
+    color: #F69238;
+}
+.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input{
+    width: 90vw;
+    font-weight: bold;
+    height: 15vw;
+    border-radius: 20vw;
+    color: #434444;
+    background-color: black;
+    box-shadow: rgba(67, 68, 68, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.input-group{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.button-ingresar{
+    --background: #F69238 !important;
+    --color:#434443
+}
+.social-media{
+    --color: #F69238;
+}
+.go-out, .go-out a{
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #434444;
+    font-weight: bold;
 }

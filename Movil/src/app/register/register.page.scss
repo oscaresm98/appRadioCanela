@@ -4,20 +4,73 @@
 .input-icons i {
     position: absolute;
 }
-
-.errspan {
-    font-size: 25px;
-    float: right;
-    margin-right: 15px;
-    margin-top: -31px;
-    position: relative;
-    z-index: 3;
-}
 .columna{
     padding: 0;
     margin: 0;
 }
+.logoImage{
+    width: 40vw;
+}
+ion-col{
+    --text-align: center;
+}
+.errspan {
+    font-size: 8vw;
+    float: right;
+    bottom: 11vw;
+    right: -33vw;
+    //margin-right: 15px;
+    //margin-top: -31px;
+    position: relative;
+    z-index: 3;
+}
+.futbol-image{
+    width: 90vw;
+    box-shadow: 0 2vw 0px 0px #F69238;
+    margin-bottom: 5vw;
+    
+}
+.text-inicio,.text-ingresar{
+    font-size: large;
+    color: #F69238;
+}
+.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.input{
+    width: 90vw;
+    font-weight: bold;
+    font-size: 4vw;
+    padding-left: 5vw;
+    height: 15vw;
+    border-radius: 20vw;
+    color: #434444;
+    background-color: black;
+    box-shadow: rgba(67, 68, 68, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.input-group{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.politicas{
+    --color: #F69238;
+}
+.button-ingresar{
+    --background: #F69238 !important;
+    --color:#434443
+}
+.tittle-registro{
+    font-size: 6vw;
+    font-weight: bold;
+    color: #F69238;
+}
 //Previous logo Design
 /*
 .image-container{

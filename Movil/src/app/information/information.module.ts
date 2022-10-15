@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { InformationPageRoutingModule } from './information-routing.module';
 
 import { InformationPage } from './information.page';
-
+import { BackToolbarComponentModule } from 'app/components/back-toolbar/back-toolbar.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InformationPageRoutingModule
+    InformationPageRoutingModule,
+    BackToolbarComponentModule
   ],
   declarations: [InformationPage]
 })

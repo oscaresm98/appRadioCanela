@@ -1,5 +1,22 @@
-<ion-slides  pager="true" >
-  <ion-slide class="slide">
+
+<ion-slides  pager="true">
+  <ion-slide *ngIf="false">
+    <ion-thumbnail class="skeleton" slot="start">
+      <ion-skeleton-text class="text-skeleton"  [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+  </ion-slide>
+  <ion-slide  class="slide" *ngFor="let noticia of noticias">
+    <div class="image-container">
+      <ion-img class="image" src="{{noticia.imagen}}"></ion-img>
+    </div>
+    <div class="information">
+      <span class="tipo">Futbol</span>
+      <span class="title">{{noticia.titulo}}</span>
+      <span class="description">{{noticia.descripcion}}</span>
+    </div>
+  </ion-slide>
+  
+  <ion-slide  class="slide">
     <div class="image-container">
       <ion-img class="image" src="assets/images/ronald.jpg"></ion-img>
     </div>
@@ -9,10 +26,5 @@
       <span class="description">Grhamp Potter, actual entrenador del Chelsea de la Primera League, tendria que mirar a Moises Caicedo aaaaaaaaaaaaa patoooooooooooooooooooooooooooooooooooooooooooooooooo</span>
     </div>
   </ion-slide>
-  <ion-slide>
-    <h1>Item2</h1>
-  </ion-slide>
-  <ion-slide>
-    <h1>Item3</h1>
-  </ion-slide>
 </ion-slides>
+
