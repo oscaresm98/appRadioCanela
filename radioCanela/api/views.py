@@ -19,6 +19,7 @@ from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.exceptions import AuthenticationFailed
 from django.shortcuts import render
 from WebAdminRadio.models import *
 
@@ -29,7 +30,7 @@ from django.conf import settings
 
 from django.urls import path
 from . import views
-import datetime
+import datetime, jwt
 from datetime import timedelta
 
 from rolepermissions.roles import assign_role
@@ -202,7 +203,7 @@ def emisoraList(request):
         emisora.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
  
-#Se maneja emisora por id  
+#Se maneja emisora por id 
 @api_view(['GET', 'PUT','DELETE'])
 def emisora_detalle(request,pk):
     try:
@@ -305,11 +306,11 @@ def radio_detalle(request,pk):
         radio.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
         
-
-# Usuarios
-@api_view(['GET', 'POST','DELETE','PUT'])
+#
+## Usuarios
+#
+@api_view(['GET'])
 def usuarioList(request):
-    
     if request.method == 'GET':
         try:
             usuarios = Usuario.objects.all()
@@ -317,27 +318,72 @@ def usuarioList(request):
             return Response(serializer.data)
         except Usuario.DoesNotExist:
             return Response({'Error': 'El usuario no existe'}, status=status.HTTP_400_NOT_FOUND)
-        
-    elif request.method == 'POST':
-        serializer = UsuarioSerializer(data=request.data)
-        if serializer.is_valid():
-            #serializer.set_password(request.data['password'])
-            print("DATA: ",serializer)
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    elif request.method == 'PUT':
-        serializer = UsuarioSerializer(usuarios, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    elif request.method == 'DELETE':
-        usuarios = Usuario.objects.all()
-        usuarios.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# Servicio para registro de un nuevo usuario
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UsuarioMovilSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+# Servicio para vericicar el login de usuario
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data['username']
+        password = request.data['password']
+
+        user = Usuario.objects.filter(username=username).first()
+
+        if user is None:
+            raise AuthenticationFailed('Usuario no encontrado!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Password Incorecta!')
+
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+        return response
+
+# Servicio para obtener los datos del usuario autentificado
+class UserView(APIView):
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        user = Usuario.objects.filter(id=payload['id']).first()
+        serializer = UsuarioMovilSerializer(user)
+        return Response(serializer.data)
+
+# Servicio para cerrar session
+class LogoutView(APIView):
+    def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'success'
+        }
+        return response
+
 # Roles
 @api_view(['GET', 'POST','DELETE','PUT'])
 def rolesList(request):
