@@ -212,6 +212,9 @@ def editar_usuario(request,id_usuario):
     print("-----HASH: ",make_password("1234"))
     print("EQUALS: ",edit_usuario.password==make_password("1234"))
     print("---SECOND EQUALS: ",check_password('1234', edit_usuario.password))
+    pato='pato1234'
+    encrypted=make_password(pato)
+    print("Comprobacion: ",check_password('pato1234',encrypted))
     context = {
         'title': 'Editar Usuario',
         'usuario': edit_usuario,

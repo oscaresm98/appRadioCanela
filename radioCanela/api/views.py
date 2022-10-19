@@ -39,6 +39,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 
 import datetime
 from django.utils import timezone
@@ -320,6 +321,8 @@ def usuarioList(request):
     elif request.method == 'POST':
         serializer = UsuarioSerializer(data=request.data)
         if serializer.is_valid():
+            #serializer.set_password(request.data['password'])
+            print("DATA: ",serializer)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -60,6 +60,16 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.Usuario
+    def create(self, validated_data):
+        print("-------EJECUTANDO CREATE USUARIO SERIALIZER")
+        user = models.Usuario.objects.create( # this line  will solve your problem
+              username=validated_data['username'],
+              email=validated_data['email'],
+              slug=validated_data['slug'],
+            )
+        user.set_password(validated_data['password']) 
+        user.save()
+        return user
 
 # Torneo
 class TorneosSerializer(serializers.ModelSerializer):
