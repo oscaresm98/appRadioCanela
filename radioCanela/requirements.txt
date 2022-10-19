@@ -10,3 +10,4 @@ django-allauth
 pymysql
 mysqlclient
 pyrebase4
+PyJWT
