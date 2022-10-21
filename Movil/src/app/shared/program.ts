@@ -1,10 +1,8 @@
-
-
 export interface Program {
     id: number;
     nombre: string;
-    slogan: string;
+    imagen: string;
+    idemisora: Array<any>;
     descripcion: string;
-    image: string;
     horarios: Array<any>;
 }

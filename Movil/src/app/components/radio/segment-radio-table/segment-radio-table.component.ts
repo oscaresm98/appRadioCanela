@@ -64,12 +64,12 @@ export class SegmentRadioTableComponent implements OnInit, AfterViewChecked, OnD
     this.daySegments = [];
 
     let item: SegmentItem;
-    /* for (let index = 0; index < 10; index++) {
+  /*   for (let index = 0; index < 5; index++) {
       item = {
         id:index,
         horaInicio: `${(new Date()).getHours()}:${(new Date()).getMinutes() + index}`,
         horaFin: `${(new Date()).getHours()}:${(new Date()).getMinutes() + index + 1}`,
-        name:`${segment} Program ${index}`,
+        nombre:`Program ${index}`,
         imageUrl:'https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg'
       };
       items.push(item);
@@ -80,16 +80,16 @@ export class SegmentRadioTableComponent implements OnInit, AfterViewChecked, OnD
         if (segment.horarios[i].dia == this.selectedDay){
           item = {
             id: segment.id,
-            horaInicio: segment.horarios[i].fecha_inicio,
-            horaFin: segment.horarios[i].fecha_fin,
-            nombre: `${this.station.name}: ${segment.nombre}`,
-            imageUrl:'https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg'
+            horaInicio: segment.horarios[i].hora_inicio,
+            horaFin: segment.horarios[i].hora_fin,
+            nombre: segment.nombre,
+            imageUrl: segment.imagen
           };
-          this.daySegments.push(item);
+          items.push(item);
         }
       }
     }
-    //this.daySegments = items;
+    this.daySegments = items;
     this.getCurrentSegment();
   }
 
@@ -102,7 +102,7 @@ export class SegmentRadioTableComponent implements OnInit, AfterViewChecked, OnD
   }
 
   private getCurrentSegment(){
-    const currentHour = `${(new Date()).getHours()}:${(new Date()).getMinutes()}:${(new Date()).getSeconds()}`;
+    const currentHour = `${(new Date()).getHours()}:${(new Date()).getMinutes()}`;
     for (const segment of this.daySegments) {
       if( currentHour <= segment.horaFin && currentHour >= segment.horaInicio){
         this.currentSegment = segment;

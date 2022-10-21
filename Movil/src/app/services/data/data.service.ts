@@ -33,7 +33,7 @@ export class DataService {
   }
 
   public getSegmentOfRadio(){
-    return this.http.get('https://gruporadios.pythonanywhere.com/api/emisora/13/segmentos')
+    return this.http.get('https://gruporadios.pythonanywhere.com/api/emisora/5/programas')
   }
 /*
   public postLogin(form:LoginForm):Observable<Response>{

@@ -1,3 +1,33 @@
+/*
+    ESTILOS PARA LOS BOTONES EN ION SEGMENT
+*/
+
+ion-segment {
+    --background: rgb(235, 9, 9);
+}
+
+ion-segment-button {
+    --indicator-color: #ffffff;
+}
+
+/* Estilo para disp. Android */
+ion-segment-button.md {
+    --color: #ffffff;
+    --color-checked: #ffffff;
+    --indicator-height: 4px;
+}
+
+/* Estilos para ios */
+ion-segment-button.ios {
+    --color: #ffffff;
+    --color-checked: #000;
+    --border-radius: 20px;
+}
+
+/*
+    ESTILOS PARA OTRAS PARTES DE A TABLA
+*/
+
 .container-table {
     display: flex;
     justify-content: center;
@@ -11,6 +41,10 @@ ion-list-header {
     padding-left: 0;
 }
 
+ion-list {
+    padding: 0 0;
+}
+
 ion-list, ion-segment {
     width: 100%;
 }
@@ -18,4 +52,7 @@ ion-list, ion-segment {
 .img-segment {
     width: 2rem;
     height: 2rem;
+}
+.card,.card-description{
+    width: 60vw;
 }

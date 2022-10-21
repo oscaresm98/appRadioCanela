@@ -1,24 +1,20 @@
-<ion-header [translucent]="true">
+<ion-header>
   <app-tool-bar></app-tool-bar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense"></ion-header>
+<ion-content [fullscreen]="true" class="bg-images-positions page-waves">
   
-  <swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)" (slideChangeTransitionStart)="stopRadioPlayer()">
-    <ng-template swiperSlide *ngFor="let station of stations">
-      <div class="ion-text-center div-slide">
-        <h1 class="ion-text-uppercase">{{station.name}}</h1>    
-        <img id="logo" src="{{station.image}}" (error)="errorImage($event)" alt="imagen">  
-        <h3>Estas escuchando {{station.dial}}</h3>
-        <ion-button color="dark" shape="circle" #buttonRadio id="play-pause-radio" fill="outline" (click)="playAudio()">    
-          <ion-icon *ngIf="!this.radioService.isPlaying" name="play-outline"></ion-icon>
-          <ion-icon *ngIf="this.radioService.isPlaying" name="pause-outline"></ion-icon>
-        </ion-button>
-      </div>        
+  <swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
+    <ng-template swiperSlide *ngFor="let station of stations; let i = index">
+      <app-dial-subpage #radioStation 
+        [station]="station"
+        [playerIndex]="i"  
+      ></app-dial-subpage>
     </ng-template>    
   </swiper>
 
-  <app-segment-radio-table [station]="currentStation"></app-segment-radio-table>
+  <div class="segment-radio-table-container">
+    <app-segment-radio-table [station]="currentStation"></app-segment-radio-table>
+  </div>
 
 </ion-content>

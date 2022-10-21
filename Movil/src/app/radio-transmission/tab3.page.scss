@@ -1,25 +1,21 @@
+ion-content {
+    --color: white;
+}
+
+.page-waves {
+    --background: transparent;
+    //background-image: url('../../assets/images/ondas_radio.png'), linear-gradient(to bottom, #2c3a73, #256895);    
+}
+
 swiper {
     width: 100%;
+    height: 80%;
+}
+
+app-dial-subpage {
     height: 100%;
 }
 
-#logo {
-    width: 12rem;
-    height: 12rem;
-    border-radius: 50%;
-}
-
-.div-slide {
-    width: 100%;
-    height: inherit;
-}
-
-ion-button[shape=circle] {
-    --border-radius: 50%;
-    width: 56px;
-    height: 56px;
-}
-
-ion-button {
-    border-color: white;    
+.segment-radio-table-container {
+    padding: 1rem 0;
 }

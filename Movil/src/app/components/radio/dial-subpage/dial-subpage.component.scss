@@ -1,0 +1,30 @@
+#logo {
+    width: 80%;
+    height: 20%;
+    margin: 2rem 0;    
+}
+
+.div-slide {
+    width: 100%;
+    height: inherit;
+    padding-top: 1rem;
+}
+
+ion-button[shape=circle] {
+    --border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+
+ion-button {
+    --background: #f33210;
+    --background-hover: #f0553a;
+    --background-activated: #e0735f;
+    --background-focused: #e3978a;
+    margin-top: 1.5rem;
+}
+
+ion-button ion-icon {
+    font-size: 30px;
+    
+}

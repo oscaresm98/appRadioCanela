@@ -9,7 +9,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 import { ToolBarComponentModule } from '../components/tool-bar/tool-bar.module';
 
-import { DialSubpageComponentModule } from '../components/dial-subpage/dial-subpage.module';
+import { DialSubpageComponentModule } from '../components/radio/dial-subpage/dial-subpage.module';
 import { SegmentRadioTableComponentModule } from '../components/radio/segment-radio-table/segment-radio-table.module';
 
 import { SwiperModule } from 'swiper/angular';
