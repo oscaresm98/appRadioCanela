@@ -17,6 +17,11 @@ urlpatterns = [
     path('segmentoemisora/', views.SegmentoEmisoraList.as_view(),name='segmento_emisora-list'),
     path('horarios/', views.HorariosList.as_view(),name='horarios-list'),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
+    path('registro/', views.RegisterView.as_view(),name='registro-view'),
+    path('login/', views.LoginView.as_view(),name='login-view'),
+    path('user/', views.UserView.as_view(),name='usuario-view'),
+    path('logout/', views.LogoutView.as_view(),name='logout-view'),
+    
     path('roles/', views.rolesList,name='roles-list'),
     path('permisos/', views.permisosList,name='permisos-list'),
 
