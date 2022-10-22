@@ -1,0 +1,22 @@
+.titleNews {
+    font-weight: bold;
+}
+
+.contentNews {
+    text-align: justify;
+    text-justify: inter-word;
+}
+.buttonNews {
+  z-index: 10;
+  border-radius: 5px;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  //white-space: pre-wrap;
+}
+
+p { white-space: pre-wrap;}

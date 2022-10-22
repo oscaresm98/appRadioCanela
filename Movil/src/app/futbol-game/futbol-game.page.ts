@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { ModalFootballGameComponent } from 'app/components/football/modal-football-game/modal-football-game.component';
 import { FootballService } from 'app/services/football.service';
-import { MatchFootball } from 'app/shared/football';
+import { FootballGame } from 'app/shared/football';
+import { Router } from '@angular/router';
+import { isLaterDate } from 'app/shared/utils';
 
 @Component({
   selector: 'app-futbol-game',
@@ -11,33 +13,76 @@ import { MatchFootball } from 'app/shared/football';
 })
 export class FutbolGamePage implements OnInit {
 
-  matchesView: MatchFootball[] = [];
-
-  constructor(private footballGameService: FootballService, private modalCtrl: ModalController) { }
+  matchesView: FootballGame[] = [];
+  seccion:string='porJugar';
+  constructor(
+    private footballGameService: FootballService,
+    private modalCtrl: ModalController,
+    private router: Router,
+    private loadingCtrl: LoadingController
+  ) { }
 
   ngOnInit() {
     this.getGamesToPlay();
   }
 
-  async openModal(event: MatchFootball) {
+  async openModal(event: FootballGame) {
     const modal =  await this.modalCtrl.create({
       component: ModalFootballGameComponent,
       componentProps: { matchFootball: event },
-      cssClass: 'modal-match'
+      cssClass: ['modal-match', isLaterDate(event.fecha_evento) ? 'large-modal-football': 'normal-modal-football'],
+    });
+
+    console.log('Modal destruido');
+    modal.onDidDismiss().then(data => {
+      try {
+        this.router.navigate(['/futbol-team', data.data.idTeam]);
+      } catch (error) {
+        // console.error(error);
+      }
     });
 
     await modal.present();
   }
 
-  getGamesToPlay() {
-    this.matchesView = this.footballGameService.getAllMatches().slice(0, 3);
+  async getGamesToPlay() {
+    this.seccion='porJugar';
+    // this.matchesView = this.footballGameService.getAllMatches().slice(0, 3);
+    const loading = await this.showLoadingGames();
+    this.matchesView = [];
+
+    this.footballGameService.getAllGamesToPlay().subscribe(
+      resp => {
+        this.matchesView = resp as FootballGame[];
+        loading.dismiss();
+      },
+      error => loading.dismiss());
     console.log('Partidos por jugar');
   }
 
-  getGamesPlayed() {
-    this.matchesView = this.footballGameService.getAllMatches().slice(3);
+  async getGamesPlayed() {
+    this.seccion='disputados';
+    // this.matchesView = this.footballGameService.getAllMatches().slice(3);
+    const loading = await this.showLoadingGames();
+    this.matchesView = [];
+
+    this.footballGameService.getAllGamesPlayed().subscribe(
+      resp => {
+        this.matchesView = resp as FootballGame[];
+        loading.dismiss();
+      },
+      error => loading.dismiss());
     console.log('Partidos ya disputados');
   }
 
+  private async showLoadingGames() {
+    const loadingModal = await this.loadingCtrl.create({
+      message: 'Cargando Partidos',
+      mode: 'ios',
+      spinner: 'circular'
+    });
+    await loadingModal.present();
+    return loadingModal;
+  }
 
 }

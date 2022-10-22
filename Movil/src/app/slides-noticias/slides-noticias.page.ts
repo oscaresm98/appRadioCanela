@@ -17,7 +17,7 @@ export class SlidesNoticiasPage implements OnInit {
     this.dataService.obtenerNoticias().then(
       async (data:any)=>{
         if (data.resCode == 0) {
-          this.noticias=this.dataService.getNoticias();
+          this.noticias=data.resData;
           console.log("NOTICIAS EXITOSAS: ",this.noticias)
           setTimeout(function () {
             console.log("YA PASO 5 SEGUNDOS")

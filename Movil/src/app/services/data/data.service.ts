@@ -20,9 +20,7 @@ export class DataService {
   public getData(){
     return this.http.get(this.url)
   }
-  public getNoticias(){
-    return this.noticias;
-  }
+  
 
   public getPrograma(){
     return this.http.get('https://gruporadios.pythonanywhere.com/api/segmentos/')
@@ -53,7 +51,7 @@ export class DataService {
           if (res != null) {
             console.log("Obteniendo NOTicias: ",res);
             this.noticias=res;
-            const data = { resCode: 0 };
+            const data = { resCode: 0, resData:res };
             resolve(data);
           }
         },
@@ -66,6 +64,27 @@ export class DataService {
         },
       })
     });
+  }
+  //NOTICIAS & TIPS
+  public getNoticiaTip(id:number){
+    return this.http.get('https://gruporadios.pythonanywhere.com/api/noticia/' + id)
+  }
+
+  //NOTICIAS
+  public getNoticias(){
+    //return this.http.get('https://gruporadios.pythonanywhere.com/api/emisora/3/noticia')
+    return this.http.get('https://gruporadios.pythonanywhere.com/api/noticia/noticia');
+  }
+
+  //TIPS
+  public getTips(){
+    return this.http.get('https://gruporadios.pythonanywhere.com/api/noticia/tip')
+  }
+
+
+  //GALLERY
+  public getGallery(){
+    return this.http.get('https://picsum.photos/v2/list?page=2&limit=100');
   }
 }
 

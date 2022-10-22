@@ -1,3 +1,9 @@
+hr {
+    height: 1vw;
+    background-color: white;
+    background: var(--radio-color);
+  }
+
 #logo {
     width: 80%;
     height: 20%;
@@ -10,21 +16,56 @@
     padding-top: 1rem;
 }
 
-ion-button[shape=circle] {
+
+.play-pause-radio{
+    --background: var(--radio-color);
+    --background-hover: #f0553a;
+    --background-activated: #e0735f;
+    --background-focused: #e3978a;
     --border-radius: 50%;
     width: 70px;
     height: 70px;
 }
-
-ion-button {
-    --background: #f33210;
-    --background-hover: #f0553a;
-    --background-activated: #e0735f;
-    --background-focused: #e3978a;
-    margin-top: 1.5rem;
+.play,.pause,.heart{
+    font-size: 5vw;
+}
+.heart-button{
+    height: 15vw;
+    width: 15vw;
+    --border-radius: 50%;
+    --background: none;
+    --background-hover: var(--radio-color);
+    --background-activated: var(--radio-color);
+    --background-focused: none;
+    outline: none;
 }
 
-ion-button ion-icon {
-    font-size: 30px;
-    
+.player{
+    border-radius: 20vw;
+    border:solid var(--radio-color);
+}
+.card,.card-description{
+    width: 60vw;
+}
+.like-button{
+    position: absolute;
+    right: 0;
+   bottom: 30vw;
+   --border-radius: 50%;
+   --border-radius: 50%;
+    --background: var(--radio-color);
+    --background-hover: var(--radio-color);
+    --background-activated: var(--radio-color);
+    --background-focused: none;
+    width: 20vw;
+    height: 20vw;
+}
+.relative{
+    position: relative;
+}
+.heart{
+    font-size: 10vw;
+}
+.margin{
+    margin-top: 10vw;
 }

@@ -1,26 +1,36 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface FootballTeam {
     id: number;
-    name: string;
-    shield: string;
-    city: string;
-    description: string;
-    state: boolean;
+    equipo: string;
+    imagen: string;
+    ciudad: string;
+    descripcion: string;
+    estado: boolean;
+    redes_sociales: any[];
 }
 
-export interface Tournament {
+export interface StationFootball {
     id: number;
-    name: string;
-    place: string;
-    state: boolean;
+    frecuencia_dial: string;
+    tipo_frecuencia: string;
+    radio: string;
 }
 
-export interface MatchFootball {
-    idStation: number;
-    date: string;
-    startHour: string;
-    team1: any;
-    team2: any;
-    scoreTeam1: number;
-    scoreTeam2: number;
-    event: Tournament;
+export interface FootballGame {
+    id: number;
+    emisoras: StationFootball[];
+    id_torneo: any;
+    id_equipo_local: any;
+    id_equipo_visitante: any;
+    hora_inicio: string;
+    fecha_evento: string;
+    lugar: string;
+    descripcion: string;
+    marcador: string;
+    ptos_equipo_local: number;
+    ptos_equipo_visitante: number;
+    url_partido: string;
+    plataforma: string;
+    estadio: string;
+    estado: boolean;
 }

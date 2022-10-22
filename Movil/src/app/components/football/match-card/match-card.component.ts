@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { MatchFootball } from 'app/shared/football';
+import { FootballGame } from 'app/shared/football';
 
 @Component({
   selector: 'app-match-card',
@@ -7,8 +7,8 @@ import { MatchFootball } from 'app/shared/football';
   styleUrls: ['./match-card.component.scss'],
 })
 export class MatchCardComponent implements OnInit {
-  @Input() matchFootball: MatchFootball;
-  @Output() selectMatch: EventEmitter<MatchFootball> = new EventEmitter();
+  @Input() matchFootball: FootballGame;
+  @Output() selectMatch: EventEmitter<FootballGame> = new EventEmitter();
 
   constructor() {}
 
@@ -16,6 +16,10 @@ export class MatchCardComponent implements OnInit {
 
   selected() {
     this.selectMatch.emit(this.matchFootball);
+  }
+
+  getFormatedDate(date: string) {
+    return (new Date(date)).toLocaleDateString();
   }
 
 }

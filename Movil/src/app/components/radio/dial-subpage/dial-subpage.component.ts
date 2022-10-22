@@ -12,6 +12,7 @@ export class DialSubpageComponent implements OnInit {
   @Input() station!: Station;
   @Input() playerIndex!: number;
   isPlaying = false;
+  isLiking=false;
 
   constructor(
     public radioService: RadioService,
@@ -71,6 +72,9 @@ export class DialSubpageComponent implements OnInit {
   destroyRadio() {
     this.isPlaying = false;
     this.radioService.destroyRadio();
+  }
+  like(){
+    this.isLiking=!this.isLiking;
   }
 
 }

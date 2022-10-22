@@ -2,7 +2,11 @@ ion-toolbar {
     height: 2.5rem;
 }
 
+
 ion-content {
+    --background: transparent;
+    --color: white;
+
     width: 90%;
     align-self: center;
 }
@@ -12,6 +16,7 @@ ion-row {
 }
 
 .tournament-of-match {
+    font-size: larger;
     font-weight: 700;
     line-height: 18px;
     padding: 0.5rem;
@@ -30,6 +35,23 @@ ion-row > div {
     justify-content: center;
 }
 
+.shield-place {
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    border: solid white 1px;
+    background-color: white;
+    border: 4px double #000;
+}
+
+.team-shield {
+    width: 4rem;
+    height: 4rem;
+}
+
 .score-modal {
     height: 100%;
     font-size: 2rem;
@@ -44,8 +66,16 @@ ion-row > div {
     margin-right: 0.4rem;
 }
 
-.match-date {
+.match-info {
     margin-bottom: 1rem;
+}
+
+.match-info > div {
+    margin: 0.2rem 0;
+}
+
+.match-info > div > strong {
+    margin-right: 0.2rem;
 }
 
 .row-button {
