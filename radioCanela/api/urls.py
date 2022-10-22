@@ -2,6 +2,9 @@
 from django.urls import include, path
 # rom .views import FacebookLogin, TwitterLogin, CreateUser
 from . import views
+import accounts.api_views as account_api_views
+
+
 app_name = 'api'
 
 urlpatterns = [
@@ -17,8 +20,10 @@ urlpatterns = [
     path('segmentoemisora/', views.SegmentoEmisoraList.as_view(),name='segmento_emisora-list'),
     path('horarios/', views.HorariosList.as_view(),name='horarios-list'),
     path('usuarios/', views.usuarioList,name='usuarios-list'),
+    
     path('registro/', views.RegisterView.as_view(),name='registro-view'),
     path('login/', views.LoginView.as_view(),name='login-view'),
+    path('social_login/', account_api_views.SocialLoginView.as_view(), name='social-login-view'),
     path('user/', views.UserView.as_view(),name='usuario-view'),
     path('logout/', views.LogoutView.as_view(),name='logout-view'),
     

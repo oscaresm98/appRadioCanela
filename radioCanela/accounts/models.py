@@ -3,6 +3,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
+from enum import Enum
 
 # Create your models here.
 class Rol(models.Model):
@@ -26,6 +27,12 @@ class Permisos(models.Model):
     activo = models.BooleanField(default=True)
 
 
+OPCIONES_INGRESO = (
+    ('email', 'EMAIL'),
+    ('google', 'GOOGLE'),
+    ('facebook', 'FACEBOOK'),
+    ('apple', 'APPLE'),
+)
 
 class Usuario(AbstractUser):
     username = models.CharField(max_length=30, blank=True, null=True, unique=True)
@@ -40,7 +47,8 @@ class Usuario(AbstractUser):
     #rol = models.CharField(max_length=50, blank=True, null=True)
     foto = models.CharField(max_length=2080, blank=True, null=True)
     activo = models.BooleanField(default=True)
-    
+    metodo_ingreso = models.CharField(max_length=20, choices=OPCIONES_INGRESO, default='email')
+
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 
