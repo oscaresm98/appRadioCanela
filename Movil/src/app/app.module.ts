@@ -19,7 +19,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 
 
 @NgModule({
@@ -39,6 +39,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
   ],
   providers: [
     ForegroundService,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [

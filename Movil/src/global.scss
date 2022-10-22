@@ -37,6 +37,14 @@
 
     
 } */
+:root{
+    --radio-color:#F69238;
+}
+html,
+body {
+  background-color: black;
+  // margin: 0px;
+}
 
 .input{
     border-radius: 10px;
@@ -76,12 +84,13 @@ input:focus {
 /* Modal Match */
 
 .modal-match {
-    --height: 45%;
+    --background: black; // Color de fondo para el modal
     --border-radius: 16px;
     --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --width: 95%;
 }
 
 .modal-match::part(backdrop) {
-    background: rgba(209, 213, 219);
+    //background: rgba(209, 213, 219);
     opacity: 1;
 }

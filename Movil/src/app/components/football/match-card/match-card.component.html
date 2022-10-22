@@ -1,31 +1,37 @@
 <ion-card (click)="selected()">
   <ion-card-content>
     <ion-row>
-      <div class="tournament-of-match">{{matchFootball.event.name}}</div>
+      <div class="tournament-of-match">
+        <strong>{{matchFootball.id_torneo.nombre}}</strong>
+      </div>
     </ion-row>
   
     <ion-row>
       <ion-col>
         <div class="team">
-          <img src="{{matchFootball.team1.shield}}" alt="" class="team-shield">
-          <h4>{{matchFootball.team1.name}}</h4>
+          <div class="shield-place">
+            <img src="{{matchFootball.id_equipo_local.imagen}}" alt="" class="team-shield">
+          </div>
+          <h4>{{matchFootball.id_equipo_local.equipo}}</h4>
         </div>        
       </ion-col>
       <ion-col>
         <div class="score">
-          {{matchFootball.scoreTeam1}} - {{matchFootball.scoreTeam2}}
+          {{matchFootball.ptos_equipo_local}} - {{matchFootball.ptos_equipo_visitante}}
         </div>
       </ion-col>
       <ion-col>
         <div class="team">
-          <img src="{{matchFootball.team2.shield}}" alt="" class="team-shield">
-          <h4>{{matchFootball.team2.name}}</h4>
+          <div class="shield-place">
+            <img src="{{matchFootball.id_equipo_visitante.imagen}}" alt="" class="team-shield">
+          </div>          
+          <h4>{{matchFootball.id_equipo_visitante.equipo}}</h4>
         </div>
       </ion-col>
     </ion-row>
     
     <ion-row>
-      <div>{{matchFootball.date}}</div>
+      <div> {{getFormatedDate(matchFootball.fecha_evento)}} -  {{matchFootball.hora_inicio}}</div>
     </ion-row>
   </ion-card-content>
 </ion-card>

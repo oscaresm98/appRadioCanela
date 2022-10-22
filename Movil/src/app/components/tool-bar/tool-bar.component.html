@@ -16,7 +16,7 @@
   </ion-grid>
 </ion-toolbar>
 -->
-<ion-menu class="menu" side="start" contentId="mainContent">
+<ion-menu class="menu" side="start" contentId="mainContent" main>
   <ion-content>
     <ion-list class="list">
       <ion-item class="item">
@@ -51,14 +51,14 @@
   </ion-content>
 </ion-menu>
 
-<ion-header>
+
   <!--class="ion-page" id = "mainContent" main-->
-  <ion-toolbar class="header" id="mainContent" main>
+  <ion-toolbar  class="header" id="mainContent"main>
     <ion-buttons side="start" slot="secondary">
       <ion-button>
         <ion-menu-button class="icon"></ion-menu-button>
       </ion-button>
-      <ion-button>
+      <ion-button onclick="history.back()" >
         <ion-icon class="icon" name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -90,4 +90,3 @@
     </ion-buttons>
 
   </ion-toolbar>
-</ion-header>

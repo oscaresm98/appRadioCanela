@@ -1,10 +1,56 @@
-<div class="ion-text-center div-slide">
-  <!-- <h1 class="ion-text-uppercase">{{station.radio.nombre}}</h1>     -->
-  <!-- <img id="logo" src="{{station.radio.imagen}}" alt="imagen">  -->
-  <img id="logo" src="assets/images/LargeLogo.png" alt="imagen"> 
-  <h3>Estas escuchando {{station.frecuencia_dial}}</h3>
-  <ion-button shape="circle" #buttonRadio id="play-pause-radio" (click)="playPauseRadio()">    
-    <ion-icon *ngIf="!isPlaying" name="play"></ion-icon>
-    <ion-icon *ngIf="isPlaying" name="pause"></ion-icon>
-  </ion-button>
-</div>        
+<app-tool-bar></app-tool-bar>
+  <div id="mainContent" class="ion-text-center div-slide">
+
+    <h3>Estas escuchando {{station.frecuencia_dial}}</h3>
+    
+    <ion-grid class="margin">
+      
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-row class="ion-justify-content-center ion-align-items-center">
+          <div class="relative">
+            
+            <ion-card class="card">
+              <ion-img src="assets/images/cantera.jpg"></ion-img>
+            </ion-card>
+            
+              <ion-button class="like-button" (click)="like()">
+                <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
+                <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
+              </ion-button>
+            
+          </div>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <div class="card-description">
+            <ion-text>Exitos de siempre</ion-text>
+            <ion-text>6:00 - 8:00</ion-text>
+          </div>
+        </ion-row>
+      </ion-row>
+      
+      
+    </ion-grid>
+  
+    <ion-grid>
+      <ion-row class="player ion-justify-content-center ion-align-items-center">
+        <ion-col>
+          <ion-button class="play-pause-radio" shape="circle" #buttonRadio id="play-pause-radio" (click)="playPauseRadio()">    
+            <ion-icon class="play" *ngIf="!isPlaying" name="play"></ion-icon>
+            <ion-icon class="pause" *ngIf="isPlaying" name="pause"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <hr>
+        </ion-col>
+        <ion-col>
+          <ion-button class="heart-button">
+            <ion-icon class="heart" name="heart-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        
+      </ion-row>
+      
+    </ion-grid>  
+    
+  
+  </div>        

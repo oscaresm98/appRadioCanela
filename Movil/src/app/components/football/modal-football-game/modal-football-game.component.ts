@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { MatchFootball } from 'app/shared/football';
+import { FootballGame } from 'app/shared/football';
+import { isLaterDate } from '../../../shared/utils';
 
 @Component({
   selector: 'app-modal-team',
@@ -9,7 +10,7 @@ import { MatchFootball } from 'app/shared/football';
   styleUrls: ['./modal-football-game.component.scss'],
 })
 export class ModalFootballGameComponent implements OnInit {
-  @Input() matchFootball: MatchFootball;
+  @Input() matchFootball: FootballGame;
 
   constructor(private modalCtrl: ModalController, private router: Router) { }
 
@@ -20,8 +21,13 @@ export class ModalFootballGameComponent implements OnInit {
   }
 
   navigate(id: number) {
-    this.close();
-    this.router.navigate(['/futbol-team', id]);
+    this.modalCtrl.dismiss({idTeam: id});
   }
+
+  getFormatedDate(date: string) {
+    return (new Date(date)).toLocaleDateString();
+  }
+
+  showActionButtons = () => isLaterDate(this.matchFootball.fecha_evento);
 
 }

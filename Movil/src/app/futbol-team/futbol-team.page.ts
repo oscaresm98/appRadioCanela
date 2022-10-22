@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable radix */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FootballService } from 'app/services/football.service';
+import { FootballTeam } from 'app/shared/football';
 
 @Component({
   selector: 'app-futbol-team',
@@ -8,13 +11,21 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./futbol-team.page.scss'],
 })
 export class FutbolTeamPage implements OnInit {
-  teamId: number;
+  team: FootballTeam = {
+    id: -1, ciudad: '', descripcion:'', equipo:'', imagen:'', estado: false, redes_sociales: null
+  };
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private footballService: FootballService
+  ) { }
 
   ngOnInit() {
     const params = this.activatedRoute.snapshot.params;
-    this.teamId = parseInt(params.id);
+    const idTeam = parseInt(params.id);
+    this.footballService.getTeamInfo(idTeam).subscribe(resp => {
+      this.team = resp as FootballTeam;
+    });
   }
 
 }
