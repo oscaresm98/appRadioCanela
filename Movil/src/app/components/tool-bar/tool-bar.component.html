@@ -19,7 +19,7 @@
 <ion-menu class="menu" side="start" contentId="mainContent" main>
   <ion-content>
     <ion-list class="list">
-      <ion-item class="item">
+      <ion-item class="item" routerLink='/home-page'>
         <ion-icon name="home" slot="start"></ion-icon>
         <span class="item-text" slot="start">Inicio</span>
       </ion-item>
@@ -39,8 +39,8 @@
         <ion-icon name="reader-outline"></ion-icon>
         <span class="item-text">Encuestas</span>
       </ion-item>
-      <ion-item class="item">
-        <i class=" foco fa-regular fa-lightbulb"></i>
+      <ion-item class="item" routerLink='/tips'>
+        <ion-icon name="clipboard-outline"></ion-icon>
         <span class="item-text">Tips</span>
       </ion-item>
       <ion-item [routerLink]="['/information']" class="item">
@@ -69,7 +69,7 @@
       <ion-button id="bottom-start">
         <ion-icon class="icon" name="person-circle"></ion-icon>
       </ion-button>
-      <ion-popover class="popover" trigger="bottom-start" side="bottom" alignment="start">
+      <ion-popover class="popover" #popover trigger="bottom-start" side="bottom" alignment="start">
         <ng-template>
           <ion-content class="ion-padding">
             <button class="option">
@@ -80,7 +80,7 @@
               <i class="fa-solid fa-gear"></i>
               <span class="option-text">Mi Cuenta</span>
             </button>
-            <button class="option" [routerLink]="['/initial']">
+            <button class="option" (click)="hidePopover($event)" [routerLink]="['/initial']" routerDirection="root">
               <i class="fa-solid fa-arrow-right-from-bracket"></i>
               <span class="option-text">Cerrar sesion</span>
             </button>
