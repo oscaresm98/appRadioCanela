@@ -27,7 +27,7 @@
         <ion-icon name="images-outline"></ion-icon>
         <span class="item-text">Galeria</span>
       </ion-item>
-      <ion-item class="item">
+      <ion-item class="item" [routerLink]="['/futbol']">
         <ion-icon name="football-outline"></ion-icon>
         <span class="item-text">Partidos</span>
       </ion-item>
@@ -53,40 +53,43 @@
 
 
   <!--class="ion-page" id = "mainContent" main-->
-  <ion-toolbar  class="header" id="mainContent"main>
-    <ion-buttons side="start" slot="secondary">
-      <ion-button>
-        <ion-menu-button class="icon"></ion-menu-button>
-      </ion-button>
-      <ion-button onclick="history.back()" >
-        <ion-icon class="icon" name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons side="end" slot="primary">
-      <ion-button>
-        <ion-icon class="icon" name="notifications"></ion-icon>
-      </ion-button>
-      <ion-button id="bottom-start">
-        <ion-icon class="icon" name="person-circle"></ion-icon>
-      </ion-button>
-      <ion-popover class="popover" trigger="bottom-start" side="bottom" alignment="start">
-        <ng-template>
-          <ion-content class="ion-padding">
-            <button class="option">
-              <i class="fa-solid fa-star"></i>
-              <span class="option-text">Favoritos</span>
-            </button>
-            <button class="option">
-              <i class="fa-solid fa-gear"></i>
-              <span class="option-text">Mi Cuenta</span>
-            </button>
-            <button class="option" [routerLink]="['/initial']">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>
-              <span class="option-text">Cerrar sesion</span>
-            </button>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-    </ion-buttons>
+  
+  <ion-toolbar  class="header" id="mainContent" main>
+      <ion-buttons side="start" slot="secondary">
+        <ion-button>
+          <ion-menu-button class="icon"></ion-menu-button>
+        </ion-button>
+        <ion-button onclick="history.back()" >
+          <ion-icon class="icon" name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons side="end" slot="primary">
+        <ion-button>
+          <ion-icon class="icon" name="notifications"></ion-icon>
+        </ion-button>
+        <ion-button id="bottom-start">
+          <ion-icon class="icon" name="person-circle"></ion-icon>
+        </ion-button>
+        <ion-popover class="popover" trigger="bottom-start" side="bottom" alignment="start">
+          <ng-template>
+            <ion-content class="ion-padding">
+              <button class="option">
+                <i class="fa-solid fa-star"></i>
+                <span class="option-text">Favoritos</span>
+              </button>
+              <button class="option">
+                <i class="fa-solid fa-gear"></i>
+                <span class="option-text">Mi Cuenta</span>
+              </button>
+              <button class="option" [routerLink]="['/initial']">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span class="option-text">Cerrar sesion</span>
+              </button>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-buttons>
+  
+    </ion-toolbar>
 
-  </ion-toolbar>
+  

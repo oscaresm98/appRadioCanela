@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="body">
   <div class="image-container">
     <ion-img class="logo" src="assets/images/Logo.png"></ion-img>
   </div>
@@ -6,7 +6,7 @@
   <app-slides-noticias></app-slides-noticias>
   <div class="grid">
     <!--Radio-->
-    <div class="element">
+    <div class="element" [routerLink]="['/radio-transmision']">
       <div class="external-border">
         <div class="internal-border">
           <i class="icon fa-solid fa-radio"></i>
@@ -34,7 +34,7 @@
       <span class="text">Podcast</span>
     </div>
     <!--Noticias-->
-    <div class="element">
+    <div class="element" [routerLink]="['/news']">
       <div class="external-border">
         <div class="internal-border">
           <i class="icon fa-regular fa-newspaper"></i>
