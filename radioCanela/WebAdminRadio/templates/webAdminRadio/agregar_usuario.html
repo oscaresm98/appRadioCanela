@@ -3,6 +3,7 @@
 
 {% block page_style %}
 <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_usuario.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -34,6 +35,18 @@
 <form id="addLocutor" onsubmit="return submitData()" action="{% url 'agregar_usuario' %}"
     method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
+    <!-- Imagen -->
+    <div class="d-flex flex-column align-items-center mb-3">
+        <div class="img-holder d-flex align-items-center">
+            <img id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+        </div>
+        <div class="form-file input-group mb-3 w-50">
+            <input type="file" name="archivo" class="form-control" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen')" oninput="this.setCustomValidity('')" required>
+            <input type="hidden" name="imagen" value="redonda.jpg" id="imagen">
+        </div>
+    </div>
+
     <!-- Nombre del usuario -->
     <div class="my-3 align-items-center ">
 
@@ -146,27 +159,6 @@
         </div>
     </div>
 
-    <!-- Imange del usuario -->
-    <div class="form-group">
-        <div class="custom-file">
-            <div class="my-3 row align-items-center">
-                <div class="col-2">
-                    <label for="formFile" class="form-label">Foto de perfil</label>
-                </div>
-                <div class="col-10">
-                    <input class="form-control" type="file" id="imgSegmento" accept=".png, .jpg, .jpeg"
-                        oninvalid="this.setCustomValidity('Ingrese una imagen para el segmento')"
-                        oninput="alert('Imagen ingresada con exito')">
-                </div>
-            </div>
-            <div class="img-container">
-
-                <img id="preview" class="image"
-                    src="{% static 'webAdminRadio/images/placeholder.png' %}">
-                    <span id="image-error"></span>
-            </div>
-        </div>
-    </div>
 
     <!--Descripcion-->
     <div class=" form-floating">

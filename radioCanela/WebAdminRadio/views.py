@@ -27,8 +27,6 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 storage = firebase.storage()
 
 # Funcion para agregar archivo a Firebase Storage, retorna el URL donde se se guardo el archivo
-# Toma como parametros: el request para obtener el archico del input, el nombre para modificar la parte inicial del nombre que se sube
-# y por ultimo la capeta del storage donde se quiere subir el archivo
 def agregarImagen(request, nombre, carpeta):
     img = request.FILES['archivo']
     destino = carpeta + nombre + img.name # Ej. si carpeta="imagenes/", nombre = "img" y img.name="redonda.jpg" -> destino="imagenes/imgredonda.jpg"
@@ -168,7 +166,6 @@ def editar_permisos(request,intance_permiso,context,id_rol,nombre,ver,agregar,ac
 @login_required
 def agregar_usuario(request):
     context = {'title': 'Agregar Usuario'}
-
     if request.POST:
         username = request.POST['username']
         first = request.POST['nombre']
@@ -179,7 +176,6 @@ def agregar_usuario(request):
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
         #rol = request.POST['rol']
-        #foto = request.POST['foto']
         descripcion=request.POST['descripcion']
         activo=geValueCheckBox(request,'activo')
         
@@ -195,11 +191,14 @@ def agregar_usuario(request):
             #'rol':rol,
             'descripcion':descripcion,
             'activo':activo,
-            #'foto':foto,
         })
         
         if user_form.is_valid():
             user_form.save()
+            us = Usuario.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(us.id), 'imagenes/')
+            us.foto=url
+            us.save()
             context['success'] = '¡El usuario se ha registrado!'
         else:
             context['error'] = user_form.errors
@@ -210,13 +209,6 @@ def agregar_usuario(request):
 def editar_usuario(request,id_usuario):
     # Termianar este request
     edit_usuario = Usuario.objects.get(id=id_usuario)
-    print("-----PASSWORD: ",edit_usuario.password)
-    print("-----HASH: ",make_password("1234"))
-    print("EQUALS: ",edit_usuario.password==make_password("1234"))
-    print("---SECOND EQUALS: ",check_password('1234', edit_usuario.password))
-    pato='pato1234'
-    encrypted=make_password(pato)
-    print("Comprobacion: ",check_password('pato1234',encrypted))
     context = {
         'title': 'Editar Usuario',
         'usuario': edit_usuario,
@@ -231,7 +223,6 @@ def editar_usuario(request,id_usuario):
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
         #rol = request.POST['rol']
-        #foto = request.POST['foto']
         descripcion=request.POST['descripcion']
         activo=True
         try:
@@ -250,11 +241,13 @@ def editar_usuario(request,id_usuario):
             #'rol':rol,
             'descripcion':descripcion,
             'activo':activo,
-            #'foto':foto,
-        }, request.FILES, instance=edit_usuario)
+        }, instance=edit_usuario)
         if user_form.is_valid():
             user2=user_form.save()
-            print("DATOS USUARIO FORM: ",user2.id)
+            if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+                url = agregarImagen(request, str(edit_usuario.id), 'imagenes/')
+                edit_usuario.foto=url
+                edit_usuario.save()
             context['success'] = '¡El usuario ha sido modificado exitosamente!'
         else:
             context['error'] = user_form.errors
@@ -706,7 +699,7 @@ def agregar_programa(request):
                 agregarHorario(fds, context, request)
 
             elif request.POST['dias']=='S':
-                agregarHorario(['Sabado'], context, request)
+                agregarHorario(['Sábado'], context, request)
 
             elif request.POST['dias']=='D':
                 agregarHorario(['Domingo'], context, request)
@@ -799,7 +792,7 @@ def modificar_programa(request, id_programa):
                 modificarHorario(fds, context, request)
 
             elif request.POST['dias']=='S':
-                modificarHorario(['Sabado'], context, request)
+                modificarHorario(['Sábado'], context, request)
 
             elif request.POST['dias']=='D':
                 modificarHorario(['Domingo'], context, request)
