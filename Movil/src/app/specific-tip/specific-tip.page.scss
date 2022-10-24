@@ -1,0 +1,51 @@
+.titleTips {
+    font-weight: bold;
+}
+
+.contentTips {
+    text-align: justify;
+  text-justify: inter-word;
+}
+
+.buttonNews {
+  z-index: 10;
+  --background: #000;
+}
+.imageSizing {
+    max-width: 25%;
+    height: 25%;
+}
+.contenedor-pildora{
+    display: flex;
+    justify-content: center;
+    max-width: 90%;
+    margin: 0 1rem;
+    border-radius: 2rem;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  //white-space: pre-wrap;
+}
+ion-card-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 1rem;
+    align-items: center;
+    justify-items: center;
+    background-color: #0d0d0d;
+}
+ion-card-header .titulo {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #f39627;
+}
+ion-card {
+    background-color: transparent;
+    border-radius: 1rem;
+}
+
+p { white-space: pre-wrap;}

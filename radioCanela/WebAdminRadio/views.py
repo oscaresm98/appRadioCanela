@@ -65,6 +65,8 @@ def roles(request):
     listaroles= Rol.objects.filter(activo=True)
     context = {'title': 'Lista Roles', 'roles':listaroles}
     return render(request, 'webAdminRadio/roles.html', context)
+
+
 @login_required
 def agregar_rol(request):
     print("DENTRO DE LA FUNCIONA AREGRAE ROL")

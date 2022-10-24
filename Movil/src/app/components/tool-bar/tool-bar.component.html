@@ -19,7 +19,7 @@
 <ion-menu class="menu" side="start" contentId="mainContent" main>
   <ion-content>
     <ion-list class="list">
-      <ion-item class="item">
+      <ion-item class="item" routerLink='/home-page'>
         <ion-icon name="home" slot="start"></ion-icon>
         <span class="item-text" slot="start">Inicio</span>
       </ion-item>
@@ -39,8 +39,8 @@
         <ion-icon name="reader-outline"></ion-icon>
         <span class="item-text">Encuestas</span>
       </ion-item>
-      <ion-item class="item">
-        <i class=" foco fa-regular fa-lightbulb"></i>
+      <ion-item class="item" routerLink='/tips'>
+        <ion-icon name="clipboard-outline"></ion-icon>
         <span class="item-text">Tips</span>
       </ion-item>
       <ion-item [routerLink]="['/information']" class="item">

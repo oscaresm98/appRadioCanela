@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-tool-bar',
@@ -6,9 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tool-bar.component.scss'],
 })
 export class ToolBarComponent implements OnInit {
-
+  @ViewChild('popover') popover;
   constructor() { }
 
   ngOnInit() {}
+
+  hidePopover(e: Event) {
+    this.popover.event = e;
+    this.popover.dismiss().then(() => { this.popover = null; });
+  }
 
 }
