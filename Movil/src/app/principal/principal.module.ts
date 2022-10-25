@@ -23,6 +23,12 @@ import { SlidesComponent } from './slides/slides.component';
     PrincipalPage,
   MenuComponent,
 ToolbarComponent,
-  SlidesComponent]
+  SlidesComponent
+],
+  exports:[
+    MenuComponent,
+    ToolbarComponent,
+      SlidesComponent
+  ]
 })
 export class PrincipalPageModule {}

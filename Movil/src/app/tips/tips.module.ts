@@ -7,8 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TipsPageRoutingModule } from './tips-routing.module';
 
 import { TipsPage } from './tips.page';
-import { ToolBarComponentModule } from '../components/tool-bar/tool-bar.module';
-import { SlidesNoticiasPageModule } from 'app/slides-noticias/slides-noticias.module';
+import { PrincipalPageModule } from 'app/principal/principal.module';
 
 @NgModule({
   imports: [
@@ -16,8 +15,8 @@ import { SlidesNoticiasPageModule } from 'app/slides-noticias/slides-noticias.mo
     FormsModule,
     IonicModule,
     TipsPageRoutingModule,
-    ToolBarComponentModule,
-    SlidesNoticiasPageModule
+    PrincipalPageModule
+    
   ],
   declarations: [TipsPage]
 })
