@@ -173,6 +173,17 @@ def programaLocutorList(request,pk):
         serializer = SegementoLocutorSerializer(emisora, many=True)
         return Response(serializer.data)
 
+# lista de los programas de una emisora por dia
+class ListProgramasDia(generics.ListAPIView):
+    serializer_class = serializers.HorarioProgramaSerializer
+    
+    def get_queryset(self):
+        em = self.kwargs['id_emisora']
+        d = self.kwargs['dia']
+        programas = Programa.objects.filter(pk__in=SegmentoEmisora.objects.filter(emisora=em).values('segmento'), estado=True)
+        return Horario.objects.filter(id_programa__in=programas, estado=True, dia=d.capitalize())
+    
+
 
 #Emisora 
 # Se maneja todas las emisoras 
@@ -305,7 +316,15 @@ def radio_detalle(request,pk):
     elif request.method == 'DELETE':
         radio.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
-        
+
+# api que obtiene las emisoras de una radio
+class ListRadioEmisoras(generics.ListAPIView):
+    serializer_class = serializers.EmisoraPartidoSerializer
+    
+    def get_queryset(self):
+        radio = self.kwargs['id_radio']
+        return Emisora.objects.filter(id_radio=radio, estado=True)
+       
 #
 ## Usuarios
 #
@@ -413,6 +432,7 @@ def rolesList(request):
         roles = Rol.objects.all()
         roles.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 # Roles
 @api_view(['GET', 'POST','DELETE','PUT'])
 def permisosList(request):

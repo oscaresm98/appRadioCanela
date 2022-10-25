@@ -64,7 +64,7 @@
             {% for user in usuarios %}
             <tr>
                 <td>{{user.id}}</td>
-                <td>{{user.foto}}</td>
+                <td class="text-center" WIDTH="150"><img src="{{user.foto}}" width="100%" ></td>
                 <td>{{user.first_name}} {{user.last_name}}</td>
                 <td>{{user.fechaNacimiento}}</td>
                 <td>{{user.email}}</td>

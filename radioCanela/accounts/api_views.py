@@ -23,7 +23,7 @@ class SocialLoginView(APIView):
                 print(usuario)
 
                 if usuario.metodo_ingreso !=  request.data.get('metodo_ingreso'):
-                    return Response({'mensaje_error': 'Este email ya ha sido registrado'})
+                    return Response({'mensaje_error': 'Este email ya ha sido registrado'}, status=status.HTTP_400_BAD_REQUEST)
 
             payload = {
                 'id': usuario.id,

@@ -163,6 +163,12 @@ class HorarioSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.Horario
 
+class HorarioProgramaSerializer(serializers.ModelSerializer):
+    programa = serializers.ReadOnlyField(source="get_programa")
+    class Meta:
+        fields = ['dia', 'hora_inicio', 'hora_fin', 'programa']
+        model = models.Horario
+
 # Programas CON HORARIOS y emisora
 class ProgramaSerializerFull(serializers.ModelSerializer):
     horarios = serializers.ReadOnlyField(source="get_horarios")
