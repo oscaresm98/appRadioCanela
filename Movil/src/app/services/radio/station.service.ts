@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 import { Station } from 'app/shared/station';
 import { map } from 'rxjs/operators';
 
-import { environment } from 'environments/environment';
+import { URL } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class StationService {
-  private url = environment.REMOTE_BASE_URL + '/api/emisoras/';
+  private url = URL + '/api/emisoras/';
 
   constructor( private http: HttpClient ) {}
 

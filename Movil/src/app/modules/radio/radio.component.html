@@ -1,0 +1,8 @@
+<swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
+  <ng-template swiperSlide *ngFor="let station of stations; let i = index">
+    <app-dial-subpage #radioStation 
+      [station]="station"
+      [playerIndex]="i"  
+    ></app-dial-subpage>
+  </ng-template>    
+</swiper>

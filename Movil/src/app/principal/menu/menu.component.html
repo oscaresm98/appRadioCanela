@@ -1,0 +1,50 @@
+<ion-menu class="menu" side="start" menuId="first" contentId="principal">
+  <ion-content>
+    <ion-list class="list">
+      <ion-menu-toggle>
+        <ion-item class="item" [routerLink]="['/principal/home']">
+          <ion-icon name="home" slot="start"></ion-icon>
+          <span class="item-text" slot="start">Inicio</span>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item class="item">
+          <ion-icon name="images-outline"></ion-icon>
+          <span class="item-text">Galeria</span>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item class="item" [routerLink]="['/principal/partidos']">
+          <ion-icon name="football-outline"></ion-icon>
+          <span class="item-text">Partidos</span>
+        </ion-item>
+      </ion-menu-toggle>
+      
+      <ion-menu-toggle>
+        <ion-item class="item">
+          <ion-icon name="trophy"></ion-icon>
+          <span class="item-text">Concursos y torneos</span>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item class="item">
+          <ion-icon name="reader-outline"></ion-icon>
+          <span class="item-text">Encuestas</span>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item class="item" [routerLink]="['/principal/tips']">
+          <ion-icon name="clipboard-outline"></ion-icon>
+          <span class="item-text">Tips</span>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/information']" class="item">
+          <ion-icon name="call-outline"></ion-icon>
+          <span class="item-text">Contactenos</span>
+        </ion-item>
+      </ion-menu-toggle>
+      
+    </ion-list>
+  </ion-content>
+</ion-menu>

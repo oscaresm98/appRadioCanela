@@ -1,0 +1,34 @@
+<div class="team-presentation team-padding">
+  <div class="shield-place">
+    <img src="{{team.imagen}}" alt="shield" id="shield-team">
+  </div>
+  <h1>{{team.equipo}}</h1>
+  <h2>{{team.ciudad}}</h2>
+
+  <div class="team-description team-padding">
+    <h4>DESCRIPCION DEL EQUIPO</h4>
+    <p>{{team.descripcion}}</p>
+  </div>
+
+</div>
+
+<div id="social">
+  <h2>Redes sociales</h2>
+  <div class="team-social-networks team-padding">
+    <!-- EN EL CASO QUE EXISTAN REDES SOCIALES PARA EL EQUIPO -->
+    <div *ngFor="let red of team.redes_sociales">
+      <a class="social-net" href="{{red.link}}">
+        <!-- <img src="https://www.vidawellnessandbeauty.com/wp-content/uploads/2020/04/panel01-1.jpg" alt="shield" id="social-logo"> -->
+        <div class="social-logo-container">
+          <i class="{{red.id_red_social.logo_red_social}}"></i>
+        </div>
+        <span>{{red.id_red_social.nombre}}</span>
+      </a>
+    </div>
+
+    <!-- EN EL CASO DE QUE NO EXISTAN REDES SOCIALES -->
+    <div id="no-social-nets" *ngIf="team.redes_sociales && team.redes_sociales.length === 0">        
+      No hay redes sociales disponibles por el momento        
+    </div>
+  </div>
+</div>

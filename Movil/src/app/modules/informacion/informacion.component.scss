@@ -1,0 +1,92 @@
+.logo {
+    width: 40vw;
+}
+.image{
+    width: 90vw;
+    box-shadow: 0 2vw 0px 0px #F69238
+}
+.emisora-name{
+    margin-top: 2vw;
+    border-radius: 2vw;
+    padding-right: 2vw;
+    padding-left: 2vw;
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: rgba(98, 98, 133, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.image-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.text-emisora{
+    color: #F69238;
+}
+.icon{
+    font-size: 8vw;
+}
+.go{
+    width: 8vw;
+    height: 8vw;
+    --border-radius: 90vw;
+    --background: rgba(98, 98, 133, 0.25);
+    
+}
+.descripcion{
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5vw;
+    color: #434444;
+    background-color: black;
+    box-shadow: rgba(67, 68, 68, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+}
+.title-descripcion{
+    font-size: 5vw;
+    color: #F69238;
+}
+.text-descripcion{
+    font-size: 4vw;
+    color: #434443;
+}
+.contacto{
+    width: 90vw;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: center;
+}
+.contact-info{
+    color: #434443;
+    display: flex;
+    flex-direction: row;
+    //justify-content: center;
+    align-items: center;
+
+}
+.contact-info ion-icon{
+    
+    font-size: 7vw;
+    color: #F69238;
+    margin-right: 2vw;
+}
+.image-mapa{
+    border-radius: 5vw !important;
+    overflow: hidden;
+}
+.social-media{
+    --color: #F69238;
+}

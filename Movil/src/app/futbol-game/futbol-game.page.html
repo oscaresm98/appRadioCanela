@@ -1,8 +1,9 @@
-<ion-header>
-  <app-back-toolbar></app-back-toolbar>
-</ion-header>
-
-<ion-content class="content">
+<ion-content class="body">
+  <div class="image-container">
+    <ion-img class="logo" src="assets/images/Logo.png"></ion-img>
+  </div>
+  <app-tool-bar></app-tool-bar>
+  <app-slides-noticias></app-slides-noticias>
 <div style="display: flex; flex-direction: column; padding: 0% 1rem 0% 1rem;">
   
   
@@ -18,7 +19,7 @@
     </ion-col>
   </ion-segment>
 
-  <ion-list>
+  <ion-list class="body">
     <app-match-card  *ngFor="let match of matchesView" [matchFootball]="match" (selectMatch)="openModal($event)"></app-match-card>
   </ion-list>
 

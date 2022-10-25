@@ -1,0 +1,14 @@
+<ion-content class="ion-padding">
+  <button class="option">
+    <i class="fa-solid fa-star"></i>
+    <span class="option-text">Favoritos</span>
+  </button>
+  <button class="option">
+    <i class="fa-solid fa-gear"></i>
+    <span class="option-text">Mi Cuenta</span>
+  </button>
+  <button class="option" (click)="logout()"  [routerLink]="['/initial']">
+    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    <span class="option-text">Cerrar sesion</span>
+  </button>
+</ion-content>

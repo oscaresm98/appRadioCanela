@@ -102,7 +102,13 @@ const routes: Routes = [
   {
     path: 'tips/:id',
     loadChildren: () => import('./specific-tip/specific-tip.module').then( m => m.SpecificTipPageModule)
-  }
+  },
+  {
+    path: 'principal',
+    loadChildren: () => import('./principal/principal.module').then( m => m.PrincipalPageModule)
+  },
+
+
 
 
 ];
