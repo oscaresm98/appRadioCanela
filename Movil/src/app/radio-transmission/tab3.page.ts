@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { AfterContentChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import Swiper, { SwiperOptions, Pagination } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 
@@ -19,7 +19,10 @@ export class Tab3Page implements OnInit, AfterContentChecked {
   @ViewChild('mySwiper') mySwiper: SwiperComponent;
   @ViewChildren('radioStation') radioStations: QueryList<DialSubpageComponent>;
 
-  swiperConfig: SwiperOptions = { lazy: { checkInView:true }, pagination:false };
+  swiperConfig: SwiperOptions = { 
+    lazy: { checkInView: true }, 
+    pagination: false ,
+    spaceBetween:-100};
 
   // Arreglo y observable para manejar los datos de las emisoras
   stations: Station[] = [];
@@ -32,7 +35,7 @@ export class Tab3Page implements OnInit, AfterContentChecked {
     private stationService: StationService,
     private changeDetector: ChangeDetectorRef,
     private loadingCtrl: LoadingController
-  ){}
+  ) { }
 
   async ngOnInit() {
     const loading = await this.showLoadingData();
@@ -42,7 +45,7 @@ export class Tab3Page implements OnInit, AfterContentChecked {
         this.stations = resp as Station[];
         this.currentStation = this.stations[0];
         console.log("---Lsit: ", this.stations)
-        console.log("----CURRENT STATION: ",this.currentStation)
+        console.log("----CURRENT STATION: ", this.currentStation)
         loading.dismiss();
       },
       error => loading.dismiss()
@@ -53,13 +56,13 @@ export class Tab3Page implements OnInit, AfterContentChecked {
 
 
   ngAfterContentChecked(): void {
-    if(this.mySwiper){ this.mySwiper.updateSwiper({}); }
+    if (this.mySwiper) { this.mySwiper.updateSwiper({}); }
   }
 
   /**
    * Funcion que se encarga de desactivar el reproductor cuando se haga un deslizamiento
    */
-  async changeStation(event: any){
+  async changeStation(event: any) {
     const elem: Swiper = event[0];
 
     this.radioStations.get(elem.previousIndex).destroyRadio();

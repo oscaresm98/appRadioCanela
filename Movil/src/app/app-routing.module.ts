@@ -92,6 +92,18 @@ const routes: Routes = [
     path: 'news/:id',
     loadChildren: () => import('./specific-news/specific-news.module').then( m => m.SpecificNewsPageModule)
   },
+  {
+    path: 'radio-transmision',
+    loadChildren: () => import('./radio-transmission/tab3.module').then( m => m.Tab3PageModule)
+  },{
+    path: 'tips',
+    loadChildren: () => import('./tips/tips.module').then( m => m.TipsPageModule)
+  },
+  {
+    path: 'tips/:id',
+    loadChildren: () => import('./specific-tip/specific-tip.module').then( m => m.SpecificTipPageModule)
+  }
+
 
 ];
 

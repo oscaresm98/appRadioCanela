@@ -1,5 +1,7 @@
+
 hr {
     height: 1vw;
+    width: 20vw;
     background-color: white;
     background: var(--radio-color);
   }
@@ -23,8 +25,8 @@ hr {
     --background-activated: #e0735f;
     --background-focused: #e3978a;
     --border-radius: 50%;
-    width: 70px;
-    height: 70px;
+    width: 15vw;
+    height: 15vw;
 }
 .play,.pause,.heart{
     font-size: 5vw;
@@ -43,14 +45,27 @@ hr {
 .player{
     border-radius: 20vw;
     border:solid var(--radio-color);
+    max-width: 80vw;
 }
 .card,.card-description{
     width: 60vw;
 }
+.card{
+    height: 60vw;
+    border-radius: 10vw;
+    
+}
+.programa-image{
+    height: 60vw;
+    object-fit: cover;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
 .like-button{
     position: absolute;
     right: 0;
-   bottom: 30vw;
+   bottom: 50vw;
    --border-radius: 50%;
    --border-radius: 50%;
     --background: var(--radio-color);
@@ -68,4 +83,7 @@ hr {
 }
 .margin{
     margin-top: 10vw;
+}
+.text-programa{
+    font-size: 1.5rem;
 }

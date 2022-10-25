@@ -12,6 +12,8 @@ urlpatterns = [
     path('programas/', views.programaList,name='programas-list'),
     path('programas/<int:pk>', views.programa_detalle,name='programas-detalle'),
     path('programas/<int:pk>/locutores', views.programaLocutorList,name='programas-detalle'),
+    path('emisora/<int:id_emisora>/dia/<str:dia>/programas', views.ListProgramasDia.as_view(), name="list_programa_dia"),
+    
     path('auditoria/', views.ListAuditoria.as_view()),
     path('concurso/', views.ListConcursos),
     path('emisoras/', views.emisoraList,name='emisoras-list'),
@@ -49,6 +51,7 @@ urlpatterns = [
     path('locutores/<int:pk>', views.Locutor_detalle, name='locutor-detalle'),
     
     path('radio/<int:id_radio>/publicidad',views.ListPublicidad.as_view(), name="list_radio_publicidad"),
+    path('radio/<int:id_radio>/emisoras',views.ListRadioEmisoras.as_view(), name="list_radio_emisora"),
     
     path('noticias/',views.NoticiasList.as_view(),name='noticias-list'),
     path('noticia/<int:pk>', views.Noticia_detalle.as_view(), name='noticia-detalle'),

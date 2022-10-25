@@ -173,6 +173,10 @@ class Horario(models.Model):
     hora_inicio = models.TimeField(blank=True, null=True)
     hora_fin = models.TimeField(blank=True, null=True)
     estado = models.BooleanField(default=True)
+    
+    # Esta función retorna todo 
+    def get_programa(self):
+        return Programa.objects.filter(id=self.id_programa.id).values('nombre', 'descripcion', 'imagen')
 
 
 class Mensajechat(models.Model):
