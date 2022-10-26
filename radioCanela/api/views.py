@@ -349,10 +349,15 @@ class RegisterView(APIView):
 # Servicio para vericicar el login de usuario
 class LoginView(APIView):
     def post(self, request):
-        username = request.data['username']
+        username_email = request.data['username_email']
         password = request.data['password']
 
-        user = Usuario.objects.filter(username=username).first()
+        # try:
+        #     username_email = request.data['username']
+        # except KeyError:
+        #     username_email = request.data['email']
+
+        user = Usuario.objects.filter(Q(username=username_email) | Q(email=username_email)).first()
 
         if user is None:
             raise AuthenticationFailed('Usuario no encontrado!')
