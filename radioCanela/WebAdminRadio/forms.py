@@ -81,8 +81,8 @@ class UsuarioForm(forms.ModelForm):
     #     field_name = field_name_mapping.get(field_name, field_name)
     #     return super(EmisoraForm, self).add_prefix(field_name)
 
-# class TelefonoForm(forms.Form):
-#     telefono = forms.RegexField(regex=r"(\+)?[0-9]+", max_length=10)
+class TelefonoForm(forms.Form):
+    telefono = forms.RegexField(regex=r"(\+)?[0-9]+", max_length=10)
 
 
 class ProgramaForm(forms.ModelForm):

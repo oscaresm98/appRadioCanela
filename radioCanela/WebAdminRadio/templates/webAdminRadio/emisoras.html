@@ -1,5 +1,5 @@
 {% extends 'webAdminRadio/base_site.html' %}
-{% comment %} {% load webadmin_tags %} {% endcomment %}
+{% load webadmin_tags %}
 {% load static %}
 {% block page_style %}
     <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/emisoras.css' %}">
@@ -23,15 +23,15 @@
             </modal-info>
         </div>
     {% endif %}
-    {% comment %} <div id="componente_borrar">
-        <modal-borrar v-if="showModal" url_redirect="{% url 'borrar_emisora' 1 %}">
+  <div id="componente_borrar">
+        <modal-borrar v-if="showModal">
             <h3 slot="header" class="action"><i class="fas fa-exclamation-triangle "></i>¡Aviso!</h3>
             <div slot="body">
                 <p>¿Está seguro de eliminar esta emisora?</p>
             </div>
         </modal-borrar>
-    </div>  {% endcomment %}
-    <div class="Radio">
+    </div>  
+    {% comment %} <div class="Radio">
         {% for radio in radios %}
         <div class="wrapper">
             <div class="img-container">
@@ -46,18 +46,14 @@
             </div>
             <div class="btn-wrapper">
                 <div class="act-buttons">
-                     {% comment %} <a href="{% url radio.id 'editar_emisora' %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar información</a>  {% endcomment %}
                     <a href="#"  onclick="showWarningRadio({{ radio.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar Radio</a>
                 </div> 
-                {% comment %} <div class="info">
-                    <p><b>Segmentos registrados:</b> {% get_cant_segmentos emisora %}</p>
-                    <p><b>Locutores registrados:</b> {% get_cant_locutores emisora %}</p>
-                </div> {% endcomment %}
+
             </div>
         </div>
         <hr>
         {% endfor %}
-    </div>
+    </div> {% endcomment %}
 
     <div class="emisoras">
         {% for emisora in emisoras %}
@@ -69,20 +65,26 @@
                 <h3><b>Emisora de: {{ emisora.id_radio.nombre }}</b></h3>
                 <p><i>{{ emisora.frecuencia_dial }} {{ emisora.tipo_frecuencia }}</i></p>
                 <p><i class="fas fa-map-marker-alt icon"></i>{{emisora.direccion}}, {{emisora.ciudad}}, {{emisora.provincia}}</p>
+                {% get_telf_emisora emisora as telefonos %}
+                    <p><i class="fas fa-phone icon"></i>
+                        {% for tel in telefonos %}
+                            {{ tel.telefono  }}
+                        {% endfor %}
+                    </p>
+                <p><i class="fas fa-globe icon"></i>{{ emisora.url_streaming }}</p>
                 
             </div>
             <div class="btn-wrapper">
                 
                 <div class="act-buttons">
-                    {% comment %} <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar emisora</a> {% endcomment %}
-                    <a href="#"  onclick="showWarningEmisora({{ emisora.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar emisora</a>
+                    <a href="{% url 'editar_emisora' emisora.id %}" class="btn btn-success btn-md action a-btn" role="button"><i class="fas fa-pen"></i>Editar emisora</a>
+                    <a href="#"  onclick="showWarning({{ emisora.id }})" class="btn btn-danger btn-md action a-btn" role="button"><i class="fas fa-times"></i>Eliminar emisora</a>
                     
                 </div>
-                {% comment %} 
                 <div class="info">
                     <p><b>Segmentos registrados:</b> {% get_cant_segmentos emisora %}</p>
                     <p><b>Locutores registrados:</b> {% get_cant_locutores emisora %}</p>
-                </div> {% endcomment %}
+                </div>
             </div>
         </div>
         <hr>
@@ -95,17 +97,17 @@
     <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
     <script src="{% static 'webAdminRadio/js/componentes/BorrarComponent.js' %}"></script>
     <script>
-        function showWarningEmisora(id){
-            contenedorBorrar.$data.objects_to_delete = "emisoras";
+        function showWarning(id){
+            contenedorBorrar.$data.objects_to_delete = 'emisoras';
             contenedorBorrar.$data.id = id;
             contenedorBorrar.$data.showModal = true;        
         }
     </script>
-    <script>
+    {% comment %} <script>
         function showWarningRadio(id){
             contenedorBorrar.$data.objects_to_delete = "radios";
             contenedorBorrar.$data.id = id;
             contenedorBorrar.$data.showModal = true;        
         }
-    </script>
+    </script> {% endcomment %}
 {% endblock %} 
