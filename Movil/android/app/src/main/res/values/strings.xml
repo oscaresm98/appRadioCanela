@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">radioForever</string>
-    <string name="title_activity_main">radioForever</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">radioCanela</string>
+    <string name="title_activity_main">radioCanela</string>
+    <string name="package_name">io.ionic.radioCanela</string>
+    <string name="custom_url_scheme">io.ionic.radioCanela</string>
 </resources>
