@@ -94,7 +94,6 @@ class RedSocialSerializer(serializers.ModelSerializer):
 
 # Equipos
 class EquipoSerializer(serializers.ModelSerializer):
-
     class Meta:
         fields = '__all__'
         model = models.Equipo
@@ -102,7 +101,6 @@ class EquipoSerializer(serializers.ModelSerializer):
 # RedSocial de equipo
 class RedSocialEquipoSerializer(serializers.ModelSerializer):
     id_red_social = RedSocialSerializer()
-
     class Meta:
         # fields = '__all__'
         exclude = [ 'id_equipo' ]
@@ -146,10 +144,6 @@ class PartidoTransmisionSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_fields =['emisoras']
         model = models.PartidoTransmision
-
-#
-# 
-#
 
 # Segmento emisora
 class SegementoEmisoraSerializer(serializers.ModelSerializer):
@@ -208,6 +202,22 @@ class NoticiaSerializer(serializers.ModelSerializer):
         extra_fields =['radioEmisora']
         model = models.NoticiasTips
 
+
+class PodcastSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Podcast
+
+
+class PodcastEmisoraSerializer(serializers.ModelSerializer):
+    idEmisora = serializers.ReadOnlyField(source="get_emisora")
+    class Meta:
+        fields = (
+            'id',
+            'podcast',
+            'id_emisora',
+        )
+        model = models.Podcast
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
@@ -411,32 +421,6 @@ class NoticiaSerializer(serializers.ModelSerializer):
 #         )
 #         model = models.GaleriaEmisora
 
-class PodcastSerializer(serializers.ModelSerializer):
-    # emisoras = serializers.ReadOnlyField(source='get_emisoras')
-    
-    class Meta:
-        fields = (
-            'id',
-            'nombre',
-            'descripcion',
-            'audio',
-            'fecha',
-            'imagen',
-            'autores',
-            'likes',
-            'activo'
-        )
-        model = models.Podcast
-
-# class PodcastEmisoraSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         fields = (
-#             'id',
-#             'podcast',
-#             'emisora'
-#         )
-#         model = models.PodcastEmisora
 
 
 # class FrecuenciaSerializer(serializers.ModelSerializer):

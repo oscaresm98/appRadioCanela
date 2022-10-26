@@ -59,7 +59,7 @@ urlpatterns = [
     path('noticia/<str:tipo>', views.NoticiaTipo.as_view(), name="list_noticia_tipo"),
 
     path('podcasts', views.ListPodcasts,name='podcast-list'),
-    # path('emisora/<int:id_emisora>/podcasts', views.ListPodcastsPorEmisora.as_view()),
+    path('emisora/<int:id_emisora>/podcasts', views.Emisora_Podcast_list,name='list_emisora_podcast'),
     # path('podcastsemisora', views.ListPodcastsEmisora.as_view()),
     
     
