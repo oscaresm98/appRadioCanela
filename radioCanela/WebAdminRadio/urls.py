@@ -60,5 +60,14 @@ urlpatterns = [
     path('noticia/<int:id_noticia>', views.ver_noticia, name = 'ver_noticia'), # Muestra la pantalla de informacion de la noticia.
     path('noticia/<int:id_noticia>/editar', views.modificar_noticia, name = 'editar_noticia'), # Muestra la pantalla para editar una de la noticia.
     path('noticia/<int:id_noticia>/eliminar', views.borrar_noticia, name="borrar_noticia"), # URL para borrar un noticia
+
+    path('noticia', views.noticia, name='noticia'),  # Pagina principal donde se muestra la noticias.
+    path('noticia/agregar', views.agregar_noticia, name='agregar_noticia'),  # Muestra la pantalla para agregar noticia.
+    path('noticia/<int:id_noticia>', views.ver_noticia, name='ver_noticia'),
+    # Muestra la pantalla de informacion de la noticia.
+    path('noticia/<int:id_noticia>/editar', views.modificar_noticia, name='editar_noticia'),
+    # Muestra la pantalla para editar una de la noticia.
+    path('noticia/<int:id_noticia>/eliminar', views.borrar_noticia, name="borrar_noticia"),
+    # URL para borrar un noticia
     
 ]

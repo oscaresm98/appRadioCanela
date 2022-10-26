@@ -411,24 +411,25 @@ class NoticiaSerializer(serializers.ModelSerializer):
 #         )
 #         model = models.GaleriaEmisora
 
-# class PodcastSerializer(serializers.ModelSerializer):
-#     # emisoras = serializers.ReadOnlyField(source='get_emisoras')
+class PodcastSerializer(serializers.ModelSerializer):
+    # emisoras = serializers.ReadOnlyField(source='get_emisoras')
     
-#     class Meta:
-#         fields = (
-#             'id',
-#             'nombre',
-#             'audio',
-#             'descripcion',
-#             'fecha',
-#             'emisora',
-#             # 'emisoras',
-#             'activo',
-#         )
-#         model = models.Podcast
+    class Meta:
+        fields = (
+            'id',
+            'nombre',
+            'descripcion',
+            'audio',
+            'fecha',
+            'imagen',
+            'autores',
+            'likes',
+            'activo'
+        )
+        model = models.Podcast
 
 # class PodcastEmisoraSerializer(serializers.ModelSerializer):
-    
+
 #     class Meta:
 #         fields = (
 #             'id',

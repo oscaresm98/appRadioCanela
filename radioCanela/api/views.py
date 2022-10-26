@@ -663,7 +663,16 @@ class NoticiaTipo(generics.ListAPIView):
         tipo = self.kwargs['tipo']
         return NoticiasTips.objects.filter(tipo=tipo.capitalize(), estado=True)
 
+@api_view(['GET'])
+def ListPodcasts(request):
+    try:
+        podcast = Podcast.objects.filter(estado=True)
+    except Podcast.DoesNotExist:
+        return Response({'Error': 'El podcast no existe'}, status=status.HTTP_400_NOT_FOUND)
 
+    if request.method == 'GET':
+        serializer = LocutoresSerializer(podcast, many=True)
+        return Response(serializer.data)
 
 
 
@@ -858,9 +867,7 @@ class NoticiaTipo(generics.ListAPIView):
 #     # queryset = q.union(q2)
 
 
-# class ListPodcasts(generics.ListAPIView):
-#     serializer_class = serializers.PodcastSerializer
-#     queryset = models.Podcast.objects.filter(activo=True).order_by('-fecha')
+
 
 
 # class ListPodcastsEmisora(generics.ListAPIView):

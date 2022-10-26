@@ -57,6 +57,10 @@ urlpatterns = [
     path('noticia/<int:pk>', views.Noticia_detalle.as_view(), name='noticia-detalle'),
     path('emisora/<int:id_emisora>/noticia',views.ListNoticia.as_view(), name="list_emisora_noticia"),
     path('noticia/<str:tipo>', views.NoticiaTipo.as_view(), name="list_noticia_tipo"),
+
+    path('podcasts', views.ListPodcasts,name='podcast-list'),
+    # path('emisora/<int:id_emisora>/podcasts', views.ListPodcastsPorEmisora.as_view()),
+    # path('podcastsemisora', views.ListPodcastsEmisora.as_view()),
     
     
     #path('radio/', views.ListEmisora.as_view()),
@@ -108,10 +112,6 @@ urlpatterns = [
     # path('galeria', views.ListGaleria.as_view(), name="list_galeria"),
     # path('emisora/<int:id_emisora>/galeria', views.ListGaleriaPorEmisora.as_view()),
     # path('galeriaemisora', views.ListGaleriaEmisora.as_view()),
-
-    # path('podcasts', views.ListPodcasts.as_view(), name="list_podcasts"),
-    # path('emisora/<int:id_emisora>/podcasts', views.ListPodcastsPorEmisora.as_view()),
-    # path('podcastsemisora', views.ListPodcastsEmisora.as_view()),
 
     # path('contactenos/', views.CreateContacto.as_view(), name='contactenos'),
     # path('usuarios_redes/', views.CreateUserRedes.as_view(), name='userredes'),
