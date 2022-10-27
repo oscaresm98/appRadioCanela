@@ -27,7 +27,7 @@ const RedSocial=  {
             <input v-model="red.link" v-bind:name="'red_social_url'" type="url" class="form-control" placeholder="Ingrese la url de la red social">
         </div>
         <div class="mb-2 col-3">
-            <select @change="verificarOtraRed($event,index)" v-bind:name="'red_social_nombre'" class="form-select form-control" required>
+            <select @change="verificarOtraRed($event,index)" v-bind:name="'red_social_nombre'" class="form-select form-control">
                 <option disabled selected value="">Red Social</option>
                 <template v-if="red.nombre == 'Facebook'">
                   <option value="Facebook" selected>Facebook</option>

@@ -262,6 +262,7 @@ class Publicidad(models.Model):
     url = models.CharField(max_length=2080, blank=True, null=True)
     fecha_inicio = models.DateTimeField(blank=True, null=True)
     fecha_fin = models.DateTimeField(blank=True, null=True)
+    creada = models.DateTimeField(auto_now_add=True)
     estado = models.BooleanField(default=True)
 
 

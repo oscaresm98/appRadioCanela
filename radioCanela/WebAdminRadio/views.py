@@ -477,7 +477,7 @@ def agregar_equipo(request):
                 id_red_social=id,
                 link=request.POST.getlist('red_social_url')[i]
             )
-        context['success'] = '¡La emisora ha sido registrada con éxito!'
+        context['success'] = '¡El equipo ha sido registrada con éxito!'
     return render(request, 'webAdminRadio/agregar_equipo.html', context)
 
 
@@ -530,9 +530,6 @@ def modificar_equipo(request, id_equipo):
         if not equipo_form.is_valid():
             context['error'] = equipo_form.errors
             return render(request, 'webAdminRadio/agregar_equipo.html', context)
-        print(len(request.POST.getlist('red_social_nombre')))
-        print(request.POST.getlist('red_social_nombre'))
-        print(range(len(request.POST.getlist('red_social_nombre'))))
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             red_form = RedSocialForm({
                 'nombre': request.POST.getlist('red_social_nombre')[i],
@@ -560,7 +557,7 @@ def modificar_equipo(request, id_equipo):
                 id_red_social=id,
                 link=request.POST.getlist('red_social_url')[i]
             )
-        context['success'] = '¡La emisora ha sido registrada con éxito!'
+        context['success'] = '¡El equipo ha sido registrada con éxito!'
     return render(request, 'webAdminRadio/editar_equipo.html', context)
 
 
@@ -1087,7 +1084,7 @@ def agregar_noticia(request):
             url = agregarImagen(request, str(noticia.id), 'imagenes/')
             noticia.imagen=url
             noticia.save()
-            context['success'] = '¡El registro de la publicidad se ha sido creado con éxito!'
+            context['success'] = '¡El registro se ha sido creado con éxito!'
         else:
             context['error'] = noticia_form.errors
     return render(request, 'webAdminRadio/agregar_noticia.html', context)
@@ -1130,5 +1127,5 @@ def borrar_noticia(request, id_noticia):
     delete_noticia = NoticiasTips.objects.get(id=id_noticia)
     delete_noticia.estado = False
     delete_noticia.save()
-    messages.success(request, 'La noticia/tip ha sido eliminada con exito')
+    messages.success(request, 'La noticia|tip ha sido eliminada con exito')
     return redirect('noticia')

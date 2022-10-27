@@ -45,6 +45,12 @@
         <div class="col-4" id="redSocial">
             <label class="fw-bold ms-5 label">Redes Sociales:</label>
         </div>
+        {% if redSociaEquipo|length == 0 %}
+        <div class="col-8">
+            <label class="ms-3">No ha ingresado redes sociales</label>
+        </div>
+        {% endif %}
+
         {% for red in redSociaEquipo %}
         <div class="col-12 text-center">
             <i class="{{ red.id_red_social.logo_red_social }}"></i>
