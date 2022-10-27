@@ -7,20 +7,16 @@ hr {
     background-color: white;
     background: var(--radio-color);
   }
-
 #logo {
     width: 80%;
     height: 20%;
     margin: 2rem 0;    
 }
-
 .div-slide {
     width: 100%;
     height: inherit;
-    padding-top: 1rem;
+    //padding-top: 1rem;
 }
-
-
 .play-pause-radio{
     --background: var(--radio-color);
     --background-hover: #f0553a;
@@ -50,15 +46,15 @@ hr {
     max-width: 80vw;
 }
 .card,.card-description{
-    width: 60vw;
+    width: 35vw;
 }
 .card{
-    height: 60vw;
+    height: 35vw;
     border-radius: 10vw;
     
 }
 .programa-image{
-    height: 60vw;
+    height: 35vw;
     object-fit: cover;
     overflow: hidden;
     display: inline-block;
@@ -67,15 +63,16 @@ hr {
 .like-button{
     position: absolute;
     right: 0;
-   bottom: 50vw;
+   bottom: 30vw;
    --border-radius: 50%;
    --border-radius: 50%;
     --background: var(--radio-color);
     --background-hover: var(--radio-color);
     --background-activated: var(--radio-color);
     --background-focused: none;
-    width: 20vw;
-    height: 20vw;
+    width: 15vw;
+    height: 15vw;
+    --box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .relative{
     position: relative;
@@ -83,9 +80,7 @@ hr {
 .heart{
     font-size: 10vw;
 }
-.margin{
-    margin-top: 10vw;
-}
+
 .text-programa{
     font-size: 1.5rem;
 }

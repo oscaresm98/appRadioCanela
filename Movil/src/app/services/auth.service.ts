@@ -32,7 +32,7 @@ export class AuthService {
           if (res != null) {
             console.log("Obteniendo token usuario: ",res);
             this.token=res.token;
-            this.getUserData();
+            //this.getUserData();
             const data = { resCode: 0 };
             resolve(data);
           }

@@ -4,6 +4,8 @@
 .buttonNews {
     z-index: 10;
     --background: #000;
+    margin-left: 10vw;
+    margin-right: 10vw;
 }
 
 .truncate {
@@ -29,6 +31,11 @@
     max-width: 90%;
     margin: 0 1rem;
     border-radius: 2rem;
+}
+.card{
+    
+    border-radius: 20vw;
+    box-shadow: rgba(240, 240, 240, 0.25) 0px 30px 60px -12px inset, rgba(255, 255, 255, 1) 0px 18px 36px -18px inset, inset 0 -10px 10px -10px #ffffff;
 }
 ion-card-header {
     display: grid;

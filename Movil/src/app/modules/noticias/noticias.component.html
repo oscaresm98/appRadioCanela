@@ -19,21 +19,21 @@
   <ion-row>
     <ion-col size="12">
 
-      <ion-item class="C" *ngFor="let news of newsList; let i = index;" [routerLink] = "['/principal/noticias',news.id]">
-        <ion-grid>
-          <ion-row class="info ion-justify-content-center " >
-            <ion-col size="4">
+      <ion-item class="item" *ngFor="let news of newsList; let i = index;" [routerLink] = "['/principal/noticias',news.id]">
+        <ion-grid class="limit">
+          <ion-row  class="info ion-justify-content-center " >
+            <ion-col  size="4">
                 <img class="image" src="{{news.imagen}}" >
               
             </ion-col>
-            <ion-col size="8">
+            <ion-col  size="8">
               <p class="title truncate">{{news.titulo}}</p>
             
               <p class="truncate" >
                 {{news.descripcion}}
               </p>
                 <ion-text color="medium">
-                  {{news.fecha_subida}}
+                  {{ news.fecha_subida | date:'dd/MM/YYYY HH:mm' }}
                 </ion-text> 
               
               

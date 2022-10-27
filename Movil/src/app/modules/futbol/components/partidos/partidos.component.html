@@ -1,19 +1,22 @@
-<div style="display: flex; flex-direction: column; padding: 0% 1rem 0% 1rem;">
+<div class="main">
   
   
-  <div class="title">
+  <div class=" title">
     <h2>Partidos</h2>
   </div>
-  <ion-segment scrollable="true" value="por_jugar" mode="ios" >
-    <ion-col>
-      <ion-segment-button [ngClass]="{'selected' : seccion=='porJugar'}" (click)="getGamesToPlay()" value="por_jugar" >Por jugar</ion-segment-button>
-    </ion-col>
-    <ion-col>
-      <ion-segment-button [ngClass]="{'selected' : seccion=='disputados'}"  (click)="getGamesPlayed()" value="disputados">Disputados</ion-segment-button>
-    </ion-col>
-  </ion-segment>
+  <div class="flex">
+    <ion-segment scrollable="true" value="por_jugar" mode="ios" >
+      <ion-col>
+        <ion-segment-button [ngClass]="{'selected' : seccion=='porJugar'}" (click)="getGamesToPlay()" value="por_jugar" >Por jugar</ion-segment-button>
+      </ion-col>
+      <ion-col>
+        <ion-segment-button [ngClass]="{'selected' : seccion=='disputados'}"  (click)="getGamesPlayed()" value="disputados">Disputados</ion-segment-button>
+      </ion-col>
+    </ion-segment>
+  </div>
+  
 
-  <ion-list class="transparent">
+  <ion-list class="flex transparent">
     <app-match-card  *ngFor="let match of matchesView" [matchFootball]="match" (selectMatch)="openModal($event)"></app-match-card>
   </ion-list>
 

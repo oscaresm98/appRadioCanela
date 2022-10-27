@@ -4,8 +4,8 @@
 <ion-grid full>
   <ion-row>
     <ion-col size="12">
-      <ion-item class="transparent" lines="none" *ngFor="let tip of tipsList; let i = index;" >
-        <ion-card button="true">
+      <ion-item class="transparent " lines="none" *ngFor="let tip of tipsList; let i = index;" >
+        <ion-card class="card" button="true">
           <ion-card-header [routerLink] = "['/tips',tip.id]">
             <ion-img [routerLink] = "['/tips',tip.id]" src="{{tip.imagen}}"></ion-img>
             <ion-row>

@@ -10,6 +10,7 @@ import { PrincipalPage } from './principal.page';
 import { MenuComponent } from './menu/menu.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SlidesComponent } from './slides/slides.component';
+import { BannerComponent } from './banner/banner.component';
 
 
 @NgModule({
@@ -17,13 +18,14 @@ import { SlidesComponent } from './slides/slides.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    PrincipalPageRoutingModule
+    PrincipalPageRoutingModule,
   ],
   declarations: [
     PrincipalPage,
   MenuComponent,
 ToolbarComponent,
-  SlidesComponent
+  SlidesComponent,
+  BannerComponent
 ],
   exports:[
     MenuComponent,

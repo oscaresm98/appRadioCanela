@@ -1,0 +1,15 @@
+ion-slides {
+    img {
+        color: white;
+        min-width: 90%;
+        max-height: 10vw;
+        object-fit: inherit;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 8px;
+        margin-top: 1vw;
+        margin-bottom: 5vw;
+
+    }
+}

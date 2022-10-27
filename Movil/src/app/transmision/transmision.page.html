@@ -1,0 +1,56 @@
+
+<ion-content class="content">
+  <div class="image-container">
+    <ion-img class="logo" src="assets/images/Logo.png"></ion-img>
+  </div>
+  <app-toolbar></app-toolbar>
+
+  <swiper [config]="swiperConfig" (slideChange)="changePlatform($event)">
+    <ng-template swiperSlide *ngFor="let platform of platforms">
+      <div class="platform-option">{{platform}}</div>
+    </ng-template>
+  </swiper>
+
+  <div class="stream">
+    <h2>{{currentStream.titulo}}</h2>
+    <div class="line-break"></div>
+
+    <!-- <div #loadingDiv id="loading-div" class="display-stream">
+      <ion-spinner name="circular"></ion-spinner>
+      <span>Cargando Stream</span>
+    </div> -->
+
+    <div class="display-stream" *ngIf="currentStream.platform.toLowerCase() === 'youtube'">
+      <iframe [src]="sanatize(currentStream.url)" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen></iframe>
+    </div>
+    <div class="display-stream" *ngIf="currentStream.platform.toLowerCase() === 'facebook'">
+      <iframe [src]="sanatize(currentStream.url)" 
+        style="border:none;overflow:hidden" 
+        scrolling="no" 
+        frameborder="0" 
+        allowfullscreen="true" 
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" 
+        allowFullScreen="true"></iframe>
+    </div>
+  </div>  
+
+  <div class="divider"></div>
+  <div class="carousel-publicidad ion-text-center">
+    <!--   <div class="carousel">
+        <app-carousel></app-carousel>
+      </div> -->
+      <img src="https://www.radioforever925.com/wp-content/uploads/2021/08/forever1920x300-scaled-1920x301.jpg" alt="publicidad">
+  </div>
+  <div class="divider"></div>
+  
+  <div class="stream-info-div">
+    <h3>{{currentStream.subtitulo}}</h3>
+    <div class="line-break"></div>
+    <p>{{currentStream.descripcion}}</p>
+  </div>
+
+</ion-content>

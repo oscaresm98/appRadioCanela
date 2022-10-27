@@ -1,33 +1,35 @@
 <div class="body ion-text-center div-slide">
   <h3>Estas escuchando {{station.frecuencia_dial}}</h3>
 
-  <ion-grid class="margin">
-
+  <ion-grid >
     <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-row class="ion-justify-content-center ion-align-items-center">
-        <div class="relative">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <div class="relative">
 
-          <ion-card class="card">
-            <img class="programa-image" src="assets/images/cantera.jpg">
-          </ion-card>
+            <ion-card class="card">
+              <img class="programa-image" src="assets/images/cantera.jpg">
+            </ion-card>
 
-          <ion-button class="like-button" (click)="like()">
-            <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
-            <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
-          </ion-button>
+            <ion-button class="like-button" (click)="like()">
+              <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
+              <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
+            </ion-button>
 
-        </div>
-      </ion-row>
-      <ion-row class="ion-justify-content-center ion-align-items-center">
-        <div class="card-description">
-          <ion-row class="ion-justify-content-center ion-align-items-center">
-            <ion-text class="text-programa">Exitos de siempre</ion-text>
-          </ion-row>
-          <ion-row class="ion-justify-content-center ion-align-items-center">
-            <ion-text class="text-programa">6:00 - 8:00</ion-text>
-          </ion-row>
-        </div>
-      </ion-row>
+          </div>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <div class="card-description">
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+              <ion-text class="text-programa">Exitos de siempre</ion-text>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+              <ion-text class="text-programa">6:00 - 8:00</ion-text>
+            </ion-row>
+          </div>
+        </ion-row>
+      </ion-grid>
+
     </ion-row>
 
 
