@@ -384,7 +384,10 @@ class LoginView(APIView):
 # Servicio para obtener los datos del usuario autentificado
 class UserView(APIView):
     def get(self, request):
+        print(request.COOKIES)
+
         token = request.COOKIES.get('jwt')
+        print(token)
 
         if not token:
             raise AuthenticationFailed('Unauthenticated!')

@@ -38,8 +38,8 @@ ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = 'accounts.Usuario'
 
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -179,6 +179,3 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/login/'
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
