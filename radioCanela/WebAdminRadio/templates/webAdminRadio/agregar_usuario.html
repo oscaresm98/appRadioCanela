@@ -4,10 +4,11 @@
 {% block page_style %}
 <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_usuario.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
 {% endblock %}
 
 {% block content %}
-{% comment %}
+
 {% if error %}
 <div id="componente_modal_info">
     <modal-info v-if="showModal" url_redirect="">
@@ -15,8 +16,8 @@
         <div slot="body">
             <p>Existen algunos errores en los siguientes campos:</p>
             {% for campo,e in error.items %}
-            <h5>{{campo}}</h5>
-            {{e}}
+                <h5>{{campo}}</h5>
+                {{e}}
             {% endfor %}
         </div>
     </modal-info>
@@ -24,15 +25,15 @@
 {% endif %}
 {% if success %}
 <div id="componente_modal_info">
-    <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:asignar_permisos' id_usuario %}">
+    <modal-info v-if="showModal" url_redirect="{% url 'lista_usuarios' %}">
         <h3 slot="header">Información</h3>
         <p slot="body">{{success}}</p>
     </modal-info>
 </div>
 {% endif %}
-{% endcomment %}
+
 <h4><b>Información del Usuario </b></h4>
-<form id="addLocutor" onsubmit="return submitData()" action="{% url 'agregar_usuario' %}"
+<form id="addSegmento" onsubmit="return submitData()" action="{% url 'agregar_usuario' %}"
     method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -43,6 +44,7 @@
         </div>
         <div class="form-file input-group mb-3 w-50">
             <input type="file" name="archivo" class="form-control" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen')" oninput="this.setCustomValidity('')" required>
+            <span id="image-error"></span>
             <input type="hidden" name="imagen" value="redonda.jpg" id="imagen">
         </div>
     </div>
@@ -70,7 +72,7 @@
     <!--Cedula-->
     <div class="my-3 align-items-center">
         <div class="input-container">
-            <label for="cedula" class="me-3">Cedula</label>
+            <label for="cedula" class="me-3">Cédula</label>
             <input id="cedula" name="cedula" type="text" class="form-control"
             onkeyup="validateID()"
                 required>
@@ -171,6 +173,7 @@
 </form>
 {% endblock %}
 {% block page_script %}
+<script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
 <script src="{% static 'webAdminRadio/js/user_form.js' %}"></script>
 
