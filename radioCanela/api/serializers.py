@@ -4,6 +4,7 @@ from pyexpat import model
 from rest_framework import serializers
 from WebAdminRadio import models
 from accounts.models import Usuario,Rol
+from rest_framework.validators import UniqueValidator
 
 from rolepermissions.roles import assign_role
 
@@ -66,7 +67,8 @@ class UsuarioMovilSerializer(serializers.ModelSerializer):
         model = Usuario
         fields = ['id', 'first_name', 'last_name', 'password', 'username','email']
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True},
+            'email': { 'validators': [UniqueValidator(queryset=Usuario.objects.all())] }
         }
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -75,6 +77,12 @@ class UsuarioMovilSerializer(serializers.ModelSerializer):
             user.set_password(password)
         user.save()
         return user
+
+class UsuarioMovilDatosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['id', 'first_name', 'last_name', 'password', 'username', 'email', 
+            'telefono', 'fechaNacimiento', 'cedula', 'sexo']
 
 # Torneo
 class TorneosSerializer(serializers.ModelSerializer):

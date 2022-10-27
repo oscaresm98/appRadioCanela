@@ -35,7 +35,7 @@ OPCIONES_INGRESO = (
 )
 
 class Usuario(AbstractUser):
-    username = models.CharField(max_length=30, blank=True, null=True, unique=True)
+    username = models.CharField(max_length=50, blank=True, null=True, unique=True)
     sexo = models.CharField(max_length=30, blank=True, null=True)
     email = models.CharField(max_length=40, blank=True, null=True)
     cedula = models.CharField(max_length=11, blank=True, null=True)
@@ -50,9 +50,7 @@ class Usuario(AbstractUser):
     metodo_ingreso = models.CharField(max_length=20, choices=OPCIONES_INGRESO, default='email')
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
-
-
+        return f'Username: {self.username}' + ' - ' +f'Nombres y Apellidos: {self.first_name} {self.last_name}'
 
 
 def create_slug(instance, sender, new_slug=None):

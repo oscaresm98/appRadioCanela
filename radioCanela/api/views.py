@@ -395,7 +395,7 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         user = Usuario.objects.filter(id=payload['id']).first()
-        serializer = UsuarioMovilSerializer(user)
+        serializer = UsuarioMovilDatosSerializer(user)
         return Response(serializer.data)
 
 # Servicio para cerrar session
