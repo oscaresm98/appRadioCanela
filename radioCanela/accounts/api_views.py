@@ -32,7 +32,7 @@ class SocialLoginView(APIView):
             token = jwt.encode(payload, 'secret', algorithm='HS256')
 
             response = Response()
-            response.set_cookie(key='jwt', value=token, httponly=True)
+            response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True)
             response.data = {'jwt': token }
             response.status_code = status.HTTP_200_OK
             return response

@@ -50,7 +50,8 @@ class SocialLoginSerializer(serializers.ModelSerializer):
         }
     
     def create(self, validated_data):
-        nombre_usuario = verificar_username(validated_data.get('username'))
+        username = validated_data.get('username')
+        nombre_usuario = verificar_username('-'.join(username.split(' ')[0:2]))
         nombre, apellido = obtener_nombre_apellido(validated_data.get('username'))
         usuario = Usuario( 
             first_name =nombre,
