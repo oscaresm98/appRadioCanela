@@ -1,15 +1,18 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'radioForever',
+  appId: 'io.ionic.radioCanela',
+  appName: 'radioCanela',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     LocalNotifications: {
       smallIcon: 'ic_stat_icon_config_sample',
       iconColor: '#488AFF',
+    },
+    FirebaseAuthentication: {
+      skipNativeAuth: false,
+      providers: ['google.com', 'facebook.com', 'apple.com']
     }
   }
 };

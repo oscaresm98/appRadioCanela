@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
 
 from .serializers import SocialLoginSerializer
 
@@ -17,13 +18,10 @@ class SocialLoginView(APIView):
         if serializer.is_valid():
             if not Usuario.objects.filter(email=request.data.get('email')).exists():
                 usuario = serializer.save()
-                print(usuario)
             else:
                 usuario = Usuario.objects.get(email=request.data.get('email'))
-                print(usuario)
-
                 if usuario.metodo_ingreso !=  request.data.get('metodo_ingreso'):
-                    return Response({'mensaje_error': 'Este email ya ha sido registrado'}, status=status.HTTP_400_BAD_REQUEST)
+                    raise AuthenticationFailed(detail="Este email ya ha sido registrado")
 
             payload = {
                 'id': usuario.id,
@@ -39,7 +37,7 @@ class SocialLoginView(APIView):
             response.status_code = status.HTTP_200_OK
             return response
         else:
-            return Response({'mensaje': 'Los campos enviados no son validos' }, status=status.HTTP_400_BAD_REQUEST)
+            raise AuthenticationFailed(detail="Los campos enviados no son validos", code=status.HTTP_400_BAD_REQUEST)
 
             
             

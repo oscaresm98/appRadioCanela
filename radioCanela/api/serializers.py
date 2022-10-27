@@ -4,6 +4,7 @@ from pyexpat import model
 from rest_framework import serializers
 from WebAdminRadio import models
 from accounts.models import Usuario,Rol
+from rest_framework.validators import UniqueValidator
 
 from rolepermissions.roles import assign_role
 
@@ -66,7 +67,8 @@ class UsuarioMovilSerializer(serializers.ModelSerializer):
         model = Usuario
         fields = ['id', 'first_name', 'last_name', 'password', 'username','email']
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True},
+            'email': { 'validators': [UniqueValidator(queryset=Usuario.objects.all())] }
         }
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -75,6 +77,12 @@ class UsuarioMovilSerializer(serializers.ModelSerializer):
             user.set_password(password)
         user.save()
         return user
+
+class UsuarioMovilDatosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['id', 'first_name', 'last_name', 'password', 'username', 'email', 
+            'telefono', 'fechaNacimiento', 'cedula', 'sexo']
 
 # Torneo
 class TorneosSerializer(serializers.ModelSerializer):
@@ -94,7 +102,6 @@ class RedSocialSerializer(serializers.ModelSerializer):
 
 # Equipos
 class EquipoSerializer(serializers.ModelSerializer):
-
     class Meta:
         fields = '__all__'
         model = models.Equipo
@@ -102,7 +109,6 @@ class EquipoSerializer(serializers.ModelSerializer):
 # RedSocial de equipo
 class RedSocialEquipoSerializer(serializers.ModelSerializer):
     id_red_social = RedSocialSerializer()
-
     class Meta:
         # fields = '__all__'
         exclude = [ 'id_equipo' ]
@@ -146,10 +152,6 @@ class PartidoTransmisionSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_fields =['emisoras']
         model = models.PartidoTransmision
-
-#
-# 
-#
 
 # Segmento emisora
 class SegementoEmisoraSerializer(serializers.ModelSerializer):
@@ -208,6 +210,22 @@ class NoticiaSerializer(serializers.ModelSerializer):
         extra_fields =['radioEmisora']
         model = models.NoticiasTips
 
+
+class PodcastSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Podcast
+
+
+class PodcastEmisoraSerializer(serializers.ModelSerializer):
+    idEmisora = serializers.ReadOnlyField(source="get_emisora")
+    class Meta:
+        fields = (
+            'id',
+            'podcast',
+            'id_emisora',
+        )
+        model = models.Podcast
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
@@ -411,31 +429,6 @@ class NoticiaSerializer(serializers.ModelSerializer):
 #         )
 #         model = models.GaleriaEmisora
 
-# class PodcastSerializer(serializers.ModelSerializer):
-#     # emisoras = serializers.ReadOnlyField(source='get_emisoras')
-    
-#     class Meta:
-#         fields = (
-#             'id',
-#             'nombre',
-#             'audio',
-#             'descripcion',
-#             'fecha',
-#             'emisora',
-#             # 'emisoras',
-#             'activo',
-#         )
-#         model = models.Podcast
-
-# class PodcastEmisoraSerializer(serializers.ModelSerializer):
-    
-#     class Meta:
-#         fields = (
-#             'id',
-#             'podcast',
-#             'emisora'
-#         )
-#         model = models.PodcastEmisora
 
 
 # class FrecuenciaSerializer(serializers.ModelSerializer):

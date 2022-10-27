@@ -203,11 +203,10 @@ def agregar_usuario(request):
         else:
             context['error'] = user_form.errors
     # Termianar este request
-    return render(request,"webAdminRadio/agregar_usuario.html")
+    return render(request,"webAdminRadio/agregar_usuario.html", context)
 
 @login_required
 def editar_usuario(request,id_usuario):
-    # Termianar este request
     edit_usuario = Usuario.objects.get(id=id_usuario)
     context = {
         'title': 'Editar Usuario',
@@ -224,6 +223,7 @@ def editar_usuario(request,id_usuario):
         telefono = request.POST['telefono']
         #rol = request.POST['rol']
         descripcion=request.POST['descripcion']
+        foto=request.POST['imagen']
         activo=True
         try:
             activo=request.POST['activo']=='on'
@@ -239,11 +239,12 @@ def editar_usuario(request,id_usuario):
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
             #'rol':rol,
+            'foto': foto,
             'descripcion':descripcion,
             'activo':activo,
         }, instance=edit_usuario)
         if user_form.is_valid():
-            user2=user_form.save()
+            user_form.save()
             if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
                 url = agregarImagen(request, str(edit_usuario.id), 'imagenes/')
                 edit_usuario.foto=url

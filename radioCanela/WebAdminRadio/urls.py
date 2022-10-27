@@ -30,7 +30,7 @@ urlpatterns = [
     path('usuarios',views.usuarios,name="lista_usuarios"),
     path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
     path('usuarios/editar/<int:id_usuario>', views.editar_usuario, name='editar_usuario'),
-    path('usuarios/eliminar/<int:id_usuario>',views.borrar_usuario,name='eliminar_usuario'),
+    path('usuarios/<int:id_usuario>/eliminar',views.borrar_usuario,name='eliminar_usuario'),
     
     path('roles',views.roles,name="lista_roles"),
     path('roles/agregar',views.agregar_rol,name="agregar_rol"),
@@ -60,5 +60,6 @@ urlpatterns = [
     path('noticia/<int:id_noticia>', views.ver_noticia, name = 'ver_noticia'), # Muestra la pantalla de informacion de la noticia.
     path('noticia/<int:id_noticia>/editar', views.modificar_noticia, name = 'editar_noticia'), # Muestra la pantalla para editar una de la noticia.
     path('noticia/<int:id_noticia>/eliminar', views.borrar_noticia, name="borrar_noticia"), # URL para borrar un noticia
-    
+
+
 ]

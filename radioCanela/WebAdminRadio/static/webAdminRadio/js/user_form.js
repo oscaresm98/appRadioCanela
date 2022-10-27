@@ -42,7 +42,7 @@ function validateID(){
     }
     var expression=/^[0-9]{10}$/;
     if(!id.match(expression)){
-        id_error.innerHTML='Cedula invalida.';
+        id_error.innerHTML='Cédula invalida.';
         return false;
     }
     id_error.innerHTML="<i class='fa-regular fa-circle-check'></i>"
@@ -105,25 +105,13 @@ function validateTelefono(){
     }
     var expression=/^[0-9]{10}$/;
     if(!telefono.match(expression)){
-        cellphone_error.innerHTML='telefono invalido.';
+        cellphone_error.innerHTML='Teléfono invalido.';
         return false;
     }
     cellphone_error.innerHTML="<i class='fa-regular fa-circle-check'></i>"
-    console.log("Name: ",validateName());
-    console.log("Apellido: ",validateLastName());
-    console.log("Cedula: ",validateID());
-    console.log("Email: ",validateEmail());
-    console.log("Username: ",validateUsername());
-    //console.log("Tellefono: ",validateTelefono())
     return true;
 }
 function submitData(){
-    console-log("Name: ",validateName());
-    console.log("Apellido: ",validateLastName());
-    console.log("Cedula: ",validateID());
-    console.log("Email: ",validateEmail());
-    console.log("Username: ",validateUsername());
-    console.log("Tellefono: ",validateTelefono())
 
     if(validateName() && validateLastName() && validateID() && validateEmail()&&
     validateUsername() && validateTelefono()) return true;

@@ -349,10 +349,15 @@ class RegisterView(APIView):
 # Servicio para vericicar el login de usuario
 class LoginView(APIView):
     def post(self, request):
-        username = request.data['username']
+        username_email = request.data['username_email']
         password = request.data['password']
 
-        user = Usuario.objects.filter(username=username).first()
+        # try:
+        #     username_email = request.data['username']
+        # except KeyError:
+        #     username_email = request.data['email']
+
+        user = Usuario.objects.filter(Q(username=username_email) | Q(email=username_email)).first()
 
         if user is None:
             raise AuthenticationFailed('Usuario no encontrado!')
@@ -390,7 +395,7 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         user = Usuario.objects.filter(id=payload['id']).first()
-        serializer = UsuarioMovilSerializer(user)
+        serializer = UsuarioMovilDatosSerializer(user)
         return Response(serializer.data)
 
 # Servicio para cerrar session
@@ -658,11 +663,30 @@ class NoticiaTipo(generics.ListAPIView):
         tipo = self.kwargs['tipo']
         return NoticiasTips.objects.filter(tipo=tipo.capitalize(), estado=True)
 
+@api_view(['GET'])
+def ListPodcasts(request):
+    try:
+        podcast = Podcast.objects.filter(estado=True)
+    except Podcast.DoesNotExist:
+        return Response({'Error': 'El podcast no existe'}, status=status.HTTP_400_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PodcastSerializer(podcast, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def Emisora_Podcast_list(request, id_emisora):
+    try:
+        podcast = Podcast.objects.filter(estado=True,id_emisora=id_emisora)
+    except Podcast.DoesNotExist:
+        return Response({'Error': 'El podcast no existe'}, status=status.HTTP_400_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PodcastSerializer(podcast, many=True)
+        return Response(serializer.data)
 
 
-
-
-# class ListUsuarios(generics.ListAPIView, HasRoleMixin):
+    # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer
 #     queryset = Usuario.objects.filter(is_active=True)
@@ -853,9 +877,7 @@ class NoticiaTipo(generics.ListAPIView):
 #     # queryset = q.union(q2)
 
 
-# class ListPodcasts(generics.ListAPIView):
-#     serializer_class = serializers.PodcastSerializer
-#     queryset = models.Podcast.objects.filter(activo=True).order_by('-fecha')
+
 
 
 # class ListPodcastsEmisora(generics.ListAPIView):
