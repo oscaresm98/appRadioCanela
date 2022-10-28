@@ -708,7 +708,6 @@ class ListEmisoraTrasmisiones(generics.ListAPIView):
         return Transmision.objects.filter(id_emisora=em)
 
 
-
 # class ListEncuestasActivas(generics.ListAPIView):  # servicio para web, retorna encuestas activas
 #     serializer_class = serializers.EncuestaSerializer
 #     fecha = datetime.datetime.now().date()

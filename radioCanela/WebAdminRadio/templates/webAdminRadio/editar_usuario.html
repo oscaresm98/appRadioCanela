@@ -149,26 +149,14 @@
         </div>
         <div class="col-10">
             <select name="rol" class=" form-select" aria-label="Default select example">
-                {% if usuario.rol == "Locutor"%}
-                <option value="Locutor" selected>Locutor</option>
-                {% else %}
-                <option value="Locutor">Locutor</option>
-                {% endif %}
-                {% if usuario.rol == "Gerente"%}
-                <option value="Gerente" selected>Gerente</option>
-                {% else %}
-                <option value="Gerente">Gerente</option>
-                {% endif %}
-                {% if usuario.rol == "Director"%}
-                <option value="Director" selected>Director</option>
-                {% else %}
-                <option value="Director">Director</option>
-                {% endif %}
-                {% if usuario.rol == "Community Manager"%}
-                <option value="Community Manager" selected>Community Manager</option>
-                {% else %}
-                <option value="Community Manager">Community Manager</option>
-                {% endif %}
+                <option value="" selected disabled>Seleccione un rol</option>
+                {% for rol in roles %}
+                    <option value="{{ rol.id }}"
+                    {% if rol.id == usuario.rol.id %}
+                            selected
+                        {% endif %}
+                    >{{ rol.nombre }}</option>
+                {% endfor %}
             </select>
         </div>
 

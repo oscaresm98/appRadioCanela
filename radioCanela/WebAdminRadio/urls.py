@@ -35,7 +35,7 @@ urlpatterns = [
     path('roles',views.roles,name="lista_roles"),
     path('roles/agregar',views.agregar_rol,name="agregar_rol"),
     path('roles/editar/<int:id_rol>',views.editar_rol,name="editar_rol"),
-    path('roles/eliminar/<int:id_rol>',views.borrar_rol,name="eliminar_rol"),
+    path('roles/<int:id_rol>/eliminar',views.borrar_rol,name="eliminar_rol"),
     
     path('programas', views.programas, name='programas'), # Página principal donde se muestran los programas
     path('programas/agregar', views.agregar_programa, name="agregar_programa"), # Muestra la pantalla para agregar programa
