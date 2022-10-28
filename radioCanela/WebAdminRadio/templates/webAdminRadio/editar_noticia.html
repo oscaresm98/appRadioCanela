@@ -124,11 +124,4 @@
 {% block page_script %}
 <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
-<script>
-    $(document).ready(function(){
-        start = document.getElementById('fechasubida');
-        actual = new Date();
-        start.min= actual.toISOString().split('T')[0]
-    })
-</script>
 {% endblock %}

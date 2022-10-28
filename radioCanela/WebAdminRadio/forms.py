@@ -163,6 +163,19 @@ class NoticiaForm(forms.ModelForm):
         field_name = field_name_mapping.get(field_name, field_name)
         return super(NoticiaForm, self).add_prefix(field_name)
 
+# Trabsmisiones
+class TransmisionForm(forms.ModelForm):
+    class Meta:
+        model = Transmision
+        fields = [
+            'id_emisora',
+            'titulo',
+            'subtitulo',
+            'descripcion',
+            'estado',
+        ]
+
+
 
 
 # class FrecuenciaForm(forms.ModelForm):

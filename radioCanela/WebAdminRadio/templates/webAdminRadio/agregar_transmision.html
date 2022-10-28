@@ -1,0 +1,128 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/agregar_segmento.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% endblock %}
+{% block content %}
+    {% if error %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="">
+                <h3 slot="header">Error</h3>
+                <div slot="body">
+                    <p>Existen algunos errores en los siguientes campos:</p>
+                    {% for campo,e in error.items %}
+                        <h5>{{campo}}</h5>
+                        {{e}}
+                    {% endfor %}
+                </div>
+            </modal-info>
+        </div>
+    {% endif %}
+    {% if success %}
+    <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="{% url 'transmision' %}">
+                <h3 slot="header">Información</h3>
+                <p slot="body">{{success}}</p>
+            </modal-info>
+    </div>
+    {% endif %}
+    <h4><b>Información de Transmisión</b></h4>
+    <form id="addSegmento" class="mt-5" method="POST" action="{% url 'agregar_transmision' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+        <!-- Selección de Emisora -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="emisoraSelect">Emisora</label>
+            </div>
+            <div class="col-9">
+                <select id="emisoraSelect" class="form-select form-control" name="id_emisora" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" oninput="this.setCustomValidity('')" required>
+                    <option value="" selected disabled>Seleccione la emisora</option>
+                    {% for emisora in emisoras %}
+                        <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre }} {{ emisora.frecuencia_dial }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <!-- Div de Título -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="nombreInput">Título</label>
+            </div>
+            <div class="col-9">
+                <input required name="titulo" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título de la transmisión" maxlength=150>
+            </div>
+        </div>
+
+        <!-- Div de Título -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="subtituloInput">Subtitulo</label>
+            </div>
+            <div class="col-9">
+                <input required name="subtitulo" id="subtituloInput" type="text" class="form-control" placeholder="Ingrese el Subtitulo de la transmisión" maxlength=150>
+            </div>
+        </div>
+
+        <!-- Plataforma -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="plataformaSelect">Plataforma</label>
+            </div>
+            <div class="col-9">
+                <select name="plataforma" id="plataformaSelect" class="form-select" oninvalid="this.setCustomValidity('Seleccione una plataforma de la lista')" oninput="this.setCustomValidity('')" required>
+                    <option value="" selected disabled>Seleccione un Plataforma</option>
+                    <option value="Radio">Radio</option>
+                    <option value="Television">Televisión</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div> 
+        </div> 
+
+        <!-- url -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="urlInput">URL</label>
+            </div>
+            <div class="col-9">
+                <input required name="url" id="urlInput" type="url" class="form-control" placeholder="Ingrese una URL" maxlength=150>
+            </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="descInput">Descripción</label>
+            </div>
+            <div class="col-9">
+                <textarea class="form-control" id="descInput" name="descripcion" rows="3" placeholder="Ingrese una breve descripción" oninvalid="this.setCustomValidity('Ingrese una descripcion del segmento')" oninput="this.setCustomValidity('')" maxlength="250" required></textarea>
+            </div>
+        </div>
+
+        <!--Estado Activo-->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+            </div>
+            <div class="col-9 fs-3 form-check form-switch">
+                <input name="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg mt-5 submit"><i class="fas fa-plus-circle"></i>Agregar Transmisión</button>
+    </form>
+{% endblock %}
+{% block page_script %}
+<script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+<script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        start = document.getElementById('fechasubida');
+        actual = new Date();
+        start.min= actual.toISOString().split('T')[0]
+    })
+</script>
+{% endblock %}

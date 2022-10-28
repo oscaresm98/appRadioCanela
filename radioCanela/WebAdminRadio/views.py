@@ -1129,3 +1129,73 @@ def borrar_noticia(request, id_noticia):
     delete_noticia.save()
     messages.success(request, 'La noticia|tip ha sido eliminada con exito')
     return redirect('noticia')
+
+
+# Streaming
+@login_required
+def transmision(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Transmisión',
+        'emisoras': list_emisoras,
+    }
+    return render(request, 'webAdminRadio/transmision.html', context)
+
+
+@login_required
+def agregar_transmision(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Transmisión',
+        'emisoras': list_emisoras
+        }
+    if request.POST:
+        transmision_form = TransmisionForm(request.POST)
+        if transmision_form.is_valid():
+            transmision_form.save()
+            plataforma = request.POST['plataforma']
+            url = request.POST['url']
+            PlataformaTransmision.objects.create(
+                id_transmision=Transmision.objects.order_by('-id')[0],
+                plataforma=plataforma,
+                url=url
+            )
+            context['success'] = '¡El registro se ha sido creado con éxito!'
+        else:
+            context['error'] = transmision_form.errors
+    return render(request, 'webAdminRadio/agregar_transmision.html', context)
+
+
+@login_required
+def modificar_transmision(request, id_transmision):
+    edit_transmision = Transmision.objects.get(id=id_transmision)
+    list_emisoras = Emisora.objects.filter(estado=True)
+    plataforma = PlataformaTransmision.objects.get(id_transmision=id_transmision)
+    context = {
+        'title': 'Editar Noticia o Tip',
+        'transmision': edit_transmision,
+        'emisoras': list_emisoras,
+        'plataforma': plataforma
+    }
+    if request.POST:
+        transmision_form = TransmisionForm(request.POST, instance=edit_transmision)
+        if transmision_form.is_valid():
+            transmision_form.save()
+            plataf = request.POST['plataforma']
+            url = request.POST['url']
+            plataforma.plataforma = plataf
+            plataforma.url = url
+            plataforma.save()
+            context['success'] = '¡El registro ha sido modificado con éxito!'
+        else:
+            context['error'] = transmision_form.errors
+    return render(request, 'webAdminRadio/editar_transmision.html', context)
+
+
+@login_required
+def borrar_transmision(request, id_transmision):
+    delete_transmision = Transmision.objects.get(id=id_transmision)
+    delete_transmision.estado = False
+    delete_transmision.delete()
+    messages.success(request, 'La Transmision ha sido eliminada con exito')
+    return redirect('transmision')

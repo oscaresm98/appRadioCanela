@@ -195,6 +195,15 @@ class RedSocialLocutorSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.RedSocialLocutor
 
+# Trabsmisiones con plataformas
+class TransmisionesSerializerFull(serializers.ModelSerializer):
+    plataforma = serializers.ReadOnlyField(source="get_plataforma")
+
+    class Meta:
+        model = models.Transmision
+        fields = ('id', 'titulo', 'subtitulo', 'descripcion', 'plataforma')
+
+
 # Publicidad
 class PublicidadSerializer(serializers.ModelSerializer):
     class Meta:
