@@ -5,11 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'initial', pathMatch: 'full'
-  },
-  {
-    path: 'initial',
-    loadChildren: () => import('./initial/initial.module').then( m => m.InitialPageModule)
+    redirectTo: 'login', pathMatch: 'full'
   },
   {
     path: 'login',

@@ -1,5 +1,5 @@
 
-<ion-slides  pager="true">
+<ion-slides [options]="slideOpts"  pager="true">
   <ion-slide *ngIf="false">
     <ion-thumbnail class="skeleton" slot="start">
       <ion-skeleton-text class="text-skeleton"  [animated]="true"></ion-skeleton-text>
@@ -7,7 +7,7 @@
   </ion-slide>
   <ion-slide  class="slide" *ngFor="let noticia of noticias">
     <div class="image-container">
-      <ion-img class="image" src="{{noticia.imagen}}"></ion-img>
+      <img class="image" src="{{noticia.imagen}}">
     </div>
     <div class="information">
       <span class="tipo">{{noticia.tipo}}</span>

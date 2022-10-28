@@ -11,6 +11,14 @@ export class SlidesComponent implements OnInit {
   constructor(private dataService: DataService) { }
   noticias:any[]=[];
   loading:boolean=true;
+  slideOpts = {
+    speed: 400,
+    loop:true,
+    autoplay: {
+      delay: 4000
+    },
+    allowTouchMove: false
+  };
   ngOnInit() {
     this.dataService.obtenerNoticias().then(
       async (data:any)=>{

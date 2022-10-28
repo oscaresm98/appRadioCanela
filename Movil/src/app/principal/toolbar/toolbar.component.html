@@ -1,23 +1,26 @@
 <ion-toolbar class="header" id="mainContent" >
-  <ion-buttons side="start" slot="secondary">
-    <ion-button (click)="toggleMenu()">
-
-      <ion-icon class="icon" slot="icon-only" name="menu"></ion-icon>
-        
-        <!--
-      <ion-menu-button class="icon" menu="first"></ion-menu-button>
-          -->
-    </ion-button>
-    <ion-button onclick="history.back()">
-      <ion-icon class="icon" name="chevron-back-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-buttons side="end" slot="primary">
-    <ion-button>
-      <ion-icon class="icon" name="notifications"></ion-icon>
-    </ion-button>
-    <ion-button id="bottom-start" (click)="openPopover($event)">
-      <ion-icon class="icon" name="person-circle"></ion-icon>
-    </ion-button>
-  </ion-buttons>
+  <div class="flex-buttons">
+    <ion-buttons  slot="secondary">
+      <ion-button (click)="toggleMenu()">
+  
+        <ion-icon class="icon" slot="icon-only" name="menu"></ion-icon>
+          
+          <!--
+        <ion-menu-button class="icon" menu="first"></ion-menu-button>
+            -->
+      </ion-button>
+      <ion-button onclick="history.back()">
+        <ion-icon class="icon" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons  slot="primary">
+      <ion-button>
+        <ion-icon class="icon" name="notifications"></ion-icon>
+      </ion-button>
+      <ion-button id="bottom-start" (click)="openPopover($event)">
+        <ion-icon class="icon" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </div>
+  
 </ion-toolbar>

@@ -40,13 +40,23 @@
 
 :root{
     --radio-color:#F69238;
+    --background-app:black;
+    --font-app: libreBaskerville;
+    --text-color1:white;
 }
+
+    
+
 html,
 body {
   --background-color: black;
+  
   // margin: 0px;
 }
-
+@font-face {
+    font-family: libreBaskerville;
+    src: url(assets/fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf) format('truetype');
+}
 .input{
     border-radius: 10px;
     border: 1.5px solid #000000 !important;
