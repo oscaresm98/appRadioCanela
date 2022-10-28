@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, PopoverController } from '@ionic/angular';
+import { NotificationComponent } from '../notification/notification.component';
 import { PopOverComponent } from '../pop-over/pop-over.component';
 
 @Component({
@@ -26,5 +27,16 @@ export class ToolbarComponent implements OnInit {
   toggleMenu(){
     this.menuCtrl.toggle();
   }
+  async openNotification(e:any){
+    const popover=await this.popCtrl.create({
+      component: NotificationComponent,
+      event:e
+    });
+    popover.onDidDismiss().then((data:any)=>{
+      console.log("Opcion: ",data)
+    })
+    return await popover.present();
+  }
+  
 
 }

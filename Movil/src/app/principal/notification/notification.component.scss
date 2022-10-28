@@ -1,0 +1,31 @@
+.ion-padding{
+    --background: black !important;
+}
+.option-text{
+    margin-left: 3vw;
+}
+.popover{
+    width: 70vw;
+}
+.option{
+    font-size: 5vw;
+    background-color: #F69238;
+    margin-top: 1vw;
+    margin-bottom: 4vhs;
+    margin-left: 6vh;
+    padding: 3vw;
+    border-radius: 3vw;
+}
+
+.option:focus{
+    background: black;
+    border-radius: 10vw;
+ }
+
+ .notification{
+    font-size: 4vw;
+    color: white;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    margin-left: 2vh;
+ }
