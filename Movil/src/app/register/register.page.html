@@ -1,12 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header >
     <app-back-toolbar></app-back-toolbar>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-text-center">
+<ion-content class="content ion-text-center">
   <div class="header">
-    <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
+    <ion-img class="logoImage" src="../../assets/images/Logo.png"></ion-img>
     <ion-img class="futbol-image" [src]="'../../assets/images/futbol_radio.jpg'"></ion-img>
   </div>
   <ion-grid>
@@ -145,7 +143,7 @@
 
           <ion-row class="ion-text-center">
             <ion-col>
-              <ion-item lines="none">
+              <ion-item class="content" lines="none">
                 <ion-checkbox  formControlName="policy"></ion-checkbox>
                 <ion-label class="politicas ion-text-wrap ion-text-center">
                   Acepto 

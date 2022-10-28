@@ -13,7 +13,7 @@ export class PopOverComponent implements OnInit {
 
   ngOnInit() {}
   logout(){
-    this.router.navigate(['/initial']);
+    this.router.navigate(['/login']);
     this.popCtrl.dismiss({
       'fromPopUp':"Cerar session"
     })

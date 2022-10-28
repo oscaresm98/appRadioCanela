@@ -1,23 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-
-    <ion-button onclick="history.back()" slot="start" fill="clear" color="dark">
-      <ion-icon name="arrow-back-outline" size="large"></ion-icon>
-    </ion-button>
-
-  </ion-toolbar>
-</ion-header>
 
 <ion-content class="auth-form" fullscreen>
   <div class="header">
-    <ion-img class="logoImage ion-margin-top" src="../../assets/images/Logo.png"></ion-img>
+    <ion-img class="logoImage" src="../../assets/images/Logo.png"></ion-img>
     <ion-img class="futbol-image" [src]="'../../assets/images/futbol_radio.jpg'"></ion-img>
   </div>
 
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
       
-      <ion-col class="ion-margin-top ion-margin-bottom" sizeXs="10" sizeSm="4">
+      <ion-col class="ion-margin-bottom" sizeXs="10" sizeSm="4">
         <span class="text-inicio">INICIO DE SESIÓN</span>
         <form method="post" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
 
@@ -55,7 +46,7 @@
 
           <ion-row class="ion-justify-content-center">
             <ion-col>
-              <div class="go-out">
+              <div class="go-out ">
                 <a [routerLink]="['/register']"> 
                   <span>Registrarme</span>
                 </a>
@@ -73,26 +64,19 @@
 
             <p class="text-ingresar">Ingresa con:</p>
           </ion-row>
-
-          <ion-row class="ion-justify-content-between">
-            <ion-col size="3">
+          <div  class="social-footer">
+            <div class="row">
               <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithFacebook()">
                 <ion-icon name="logo-facebook"></ion-icon>
               </ion-button>
-            </ion-col>
-
-            <ion-col size="3">
-              <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithGoogle()">
+              <ion-button class="social-media margin-booth" shape="circle" fill="clear"  (click)="signInWithGoogle()">
                 <ion-icon name="logo-google"></ion-icon>
               </ion-button>
-            </ion-col>
-
-            <ion-col size="3">
               <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithApple()">
                 <ion-icon name="logo-apple"></ion-icon>
               </ion-button>
-            </ion-col>
-          </ion-row>
+            </div>
+          </div>
         </form>
 
       </ion-col>

@@ -3,8 +3,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { StreamingService } from 'app/services/streaming.service';
 import { Streaming } from 'app/shared/streaming';
 import { getUrlFacebookVideo } from 'app/shared/utils';
-import Swiper, { SwiperOptions } from 'swiper';
+import Swiper, { Navigation, SwiperOptions } from 'swiper';
 
+Swiper.use([Navigation]);
 @Component({
   selector: 'app-transmision',
   templateUrl: './transmision.page.html',

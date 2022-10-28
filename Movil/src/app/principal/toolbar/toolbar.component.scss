@@ -1,10 +1,19 @@
 ion-toolbar-background{
     background: #F69238 !important;
 }
-
+.flex-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 .header{
-    width: 90vw;
-    left: 5vw;
+    background: #F69238 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    
     --background: #F69238 !important;
     color:white
 }

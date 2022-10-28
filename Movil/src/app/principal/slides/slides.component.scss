@@ -1,7 +1,13 @@
+*{
+    font-family: libreBaskerville;
+}
 .image {
     width: 90vw;
     max-height: 40vw;
     border-radius: 5vw;
+    display: inline-block;
+    object-position: center;
+    object-fit: cover;
     overflow: hidden;
     margin-top: 1rem;
     margin-bottom: 2rem;

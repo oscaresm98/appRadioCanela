@@ -1,6 +1,28 @@
+*{
+    font-family: libreBaskerville;
+}
 .inputTopText {
     font-size: larger;
 }
+.auth-form{
+    --background: var(--background-app);
+}
+.row{
+    display: flex;
+    flex-direction: row;
+
+}
+.margin-booth{
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+.social-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 
 ion-button[shape=circle] {
     --border-radius: 50%;
@@ -26,13 +48,16 @@ ion-icon {
 }
 
 .input-icons i {
+    color: var(--text-color1);
     position: absolute;
 }
+
 
 .errspan {
     font-size: 8vw;
     float: right;
-    bottom: 11vw;
+    color: var(--text-color1);
+    bottom: 7vw;
     right: -33vw;
     //margin-right: 15px;
     //margin-top: -31px;
@@ -60,11 +85,16 @@ ion-icon {
 .input{
     width: 90vw;
     font-weight: bold;
-    height: 15vw;
+    height: 10vw;
     border-radius: 20vw;
-    color: #434444;
+    color: white;
+    opacity: 1;
     background-color: black;
-    box-shadow: rgba(67, 68, 68, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(124, 124, 124, 0.3) 0px 18px 36px -18px inset;
+}
+.input::placeholder{
+    color: var(--text-color1);
+    opacity: 0.7;
 }
 .input-group{
     position: relative;
@@ -81,11 +111,11 @@ ion-icon {
     --color: #F69238;
 }
 .go-out, .go-out a{
-    margin-top: 5vw;
-    margin-bottom: 5vw;
+    color: var(--text-color1);
+    margin-bottom: 2vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    color: #434444;
+    //color: #434444;
     font-weight: bold;
 }

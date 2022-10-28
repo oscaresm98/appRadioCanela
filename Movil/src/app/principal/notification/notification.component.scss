@@ -1,24 +1,24 @@
 .ion-padding{
-    --background: black !important;
+    --background: #F69238 !important;
 }
 .option-text{
     margin-left: 3vw;
 }
 .popover{
-    width: 70vw;
+    width: 80vw;
 }
 .option{
     font-size: 5vw;
-    background-color: #F69238;
+    background-color: black;
     margin-top: 1vw;
     margin-bottom: 4vhs;
     margin-left: 6vh;
     padding: 3vw;
-    border-radius: 3vw;
+    border-radius: 10vw;
 }
 
 .option:focus{
-    background: black;
+    background: #F69238;
     border-radius: 10vw;
  }
 
