@@ -1,89 +1,44 @@
-
-<ion-grid >
-  <ion-row >
-    <ion-col size="12">
-      <div class="title-noticias">
-        <h2>Noticias</h2>
+<div class="title-noticias">
+  <h2>Noticias</h2>
+</div>
+<div class="card-container">
+  <div class="card-content" *ngFor="let news of newsList; let i = index;">
+    <div class="card" [routerLink]="['/principal/noticias',news.id]">
+      <div class="image-container">
+        <img class="image" src="{{news.imagen}}">
       </div>
-    </ion-col>
-    
-  </ion-row>
+      <div class="info">
+        <p class="title truncate">{{news.titulo}}</p>
 
-  <!-- BETA SEARCHBAR NO IN THE MOCKUP -->
-  <!-- <ion-row>
-    <ion-col size="12">
-      <ion-searchbar [debounce]="1000" (ionChange)="handleChange($event)"></ion-searchbar>
-    </ion-col>
-  </ion-row> -->
-  
-  <ion-row>
-    <ion-col size="12">
+        <p class="truncate">
+          {{news.descripcion}}
+        </p>
+      </div>
+      <ion-button class="like-button" (click)="like()">
+        <div>
+          <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
+          <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
+        </div>
+      </ion-button>
+    </div>
+    <div class="card-footer">
+      <ion-button class="footer-buttons">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+        <span>{{ news.fecha_subida | date:'dd/MM/YYYY HH:mm' }}</span>
+      </ion-button>
+      <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
+        <ion-icon name="share-social-outline"></ion-icon>
+        <span color="medium">
+          {{interactionMaganer(news.compartidos)}}
+        </span>
+      </ion-button>
 
-      <ion-item class="item" *ngFor="let news of newsList; let i = index;" [routerLink] = "['/principal/noticias',news.id]">
-        <ion-grid class="limit">
-          <ion-row  class="info ion-justify-content-center " >
-            <ion-col  size="4">
-                <img class="image" src="{{news.imagen}}" >
-              
-            </ion-col>
-            <ion-col  size="8">
-              <p class="title truncate">{{news.titulo}}</p>
-            
-              <p class="truncate" >
-                {{news.descripcion}}
-              </p>
-                <ion-text color="medium">
-                  {{ news.fecha_subida | date:'dd/MM/YYYY HH:mm' }}
-                </ion-text> 
-              
-              
-              
-                
-              
-            </ion-col>
-          </ion-row>
-          <ion-row  class="ion-justify-content-around">
-                  
-            <ion-col size="5" class="ion-justify-content-center">
-              <ion-row class="ion-justify-content-center">
-                <ion-button class="buttonNews" color="danger">
-                  <ion-icon slot="icon-only" ios="heart" md="heart-sharp" color="medium"></ion-icon>
-                 
-                  <ion-text color="medium">
-                    {{interactionMaganer(news.likes)}}
-                  </ion-text>
-                </ion-button>
-              </ion-row>
-              
-            </ion-col>
+    </div>
+  </div>
 
-            <ion-col size="5" class="ion-justify-content-center">
-              <ion-row class="ion-justify-content-around">
-                <ion-button class="buttonNews" (click)="sShare(news.titulo, news.descripcion, news.imagen)" color="danger">
-                  <ion-icon slot="icon-only" ios="share" md="share-sharp" color="medium"></ion-icon>
-                  <ion-text color="medium">
-                    {{interactionMaganer(news.compartidos)}}
-                  </ion-text>
-                </ion-button>  
-              </ion-row>                    
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        
-        
+</div>
 
-
-      </ion-item>
-
-      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content
-          loadingSpinner="lines-small"
-          loadingText="Cargando más noticias...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ion-col>
-  </ion-row>
-
-
-
-</ion-grid>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll-content loadingSpinner="lines-small" loadingText="Cargando más noticias...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

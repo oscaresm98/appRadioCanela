@@ -1,11 +1,19 @@
 *{
     font-family: libreBaskerville;
     color: var(--text-color1);
-    
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 hr {
+    margin: 0;
+    margin-left: 2vw;
+    margin-right: 2vw;
     height: 1vw;
-    width: 20vw;
+    width: 30vw;
     background-color: white;
     background: var(--radio-color);
   }
@@ -16,7 +24,6 @@ hr {
 }
 .div-slide {
     width: 100%;
-    height: inherit;
     //padding-top: 1rem;
 }
 .play-pause-radio{
@@ -25,16 +32,16 @@ hr {
     --background-activated: #e0735f;
     --background-focused: #e3978a;
     --border-radius: 50%;
-    width: 15vw;
-    height: 15vw;
+    width: 10vw;
+    height: 10vw;
 }
-.play,.pause,.heart{
+.play,.pause{
     font-size: 5vw;
 }
 .heart-button{
-    height: 15vw;
-    width: 15vw;
-    --border-radius: 50%;
+    height: 10vw;
+    width: 10vw;
+    border-radius: 50%;
     --background: none;
     --background-hover: var(--radio-color);
     --background-activated: var(--radio-color);
@@ -43,9 +50,16 @@ hr {
 }
 
 .player{
+    margin: 0;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 20vw;
     border:solid var(--radio-color);
-    max-width: 80vw;
+    max-width: 70vw;
+    height: 15vw;
 }
 .card,.card-description{
     width: 35vw;
@@ -63,11 +77,14 @@ hr {
     vertical-align: middle;
 }
 .like-button{
+    --display: flex;
+    --align-items: center;
+    --justify-content: center;
     position: absolute;
     right: 0;
    bottom: 30vw;
-   --border-radius: 50%;
-   --border-radius: 50%;
+   --border-radius: 70%;
+   --border-radius: 70%;
     --background: var(--radio-color);
     --background-hover: var(--radio-color);
     --background-activated: var(--radio-color);
@@ -80,9 +97,10 @@ hr {
     position: relative;
 }
 .heart{
-    font-size: 15vw;
+    font-size: 10vw;
 }
 
 .text-programa{
-    font-size: 1.5rem;
+    font-size: 5vw;
+    color:var(--radio-color)
 }
