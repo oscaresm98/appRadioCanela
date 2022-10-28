@@ -35,7 +35,7 @@ urlpatterns = [
     path('roles',views.roles,name="lista_roles"),
     path('roles/agregar',views.agregar_rol,name="agregar_rol"),
     path('roles/editar/<int:id_rol>',views.editar_rol,name="editar_rol"),
-    path('roles/eliminar/<int:id_rol>',views.borrar_rol,name="eliminar_rol"),
+    path('roles/<int:id_rol>/eliminar',views.borrar_rol,name="eliminar_rol"),
     
     path('programas', views.programas, name='programas'), # Página principal donde se muestran los programas
     path('programas/agregar', views.agregar_programa, name="agregar_programa"), # Muestra la pantalla para agregar programa
@@ -60,6 +60,11 @@ urlpatterns = [
     path('noticia/<int:id_noticia>', views.ver_noticia, name = 'ver_noticia'), # Muestra la pantalla de informacion de la noticia.
     path('noticia/<int:id_noticia>/editar', views.modificar_noticia, name = 'editar_noticia'), # Muestra la pantalla para editar una de la noticia.
     path('noticia/<int:id_noticia>/eliminar', views.borrar_noticia, name="borrar_noticia"), # URL para borrar un noticia
-
-
+    
+    
+    path('transmision', views.transmision, name='transmision'), #Pagina principal donde se muestra lss transmisiones.
+    path('transmision/agregar', views.agregar_transmision, name = 'agregar_transmision'), #Muestra la pantalla para agregar transmision.
+    path('transmision/<int:id_transmision>/editar', views.modificar_transmision, name = 'editar_transmision'), # Muestra la pantalla para editar una de la transmision.
+    path('transmision/<int:id_transmision>/eliminar', views.borrar_transmision, name="borrar_transmision"), # URL para borrar un transmision
+    
 ]

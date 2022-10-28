@@ -7,6 +7,7 @@
 
 {% block page_style %}
 <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/datatables.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
 {% endblock %}
 
 
@@ -15,7 +16,7 @@
 
 
 {% block content %}
-{% comment %}
+
 {% if messages %}
 <div id="componente_modal_info">
     <modal-info v-if="showModal" url_redirect="">
@@ -32,11 +33,10 @@
     <modal-borrar v-if="showModal">
         <h3 slot="header" class="action"><i class="fas fa-exclamation-triangle "></i>¡Aviso!</h3>
         <div slot="body">
-            <p>¿Está seguro de que desea eliminar este usuario?</p>
+            <p>¿Está seguro de que desea eliminar este rol?</p>
         </div>
     </modal-borrar>
 </div>
-{% endcomment %}
 
 <div class="d-flex flex-row justify-content-between mx-3 my-2">
     <span class="h2">Roles</span>
@@ -68,7 +68,7 @@
                         <a href="/roles/editar/{{rol.id}}" class="btn btn-success btn-sm" role="button">
                             <i class="fas fa-pen mx-auto"></i>
                         </a>
-                        <a href="/roles/eliminar/{{rol.id}}" class="btn btn-danger btn-sm" role="button">
+                        <a href="#" onclick="showWarning(`{{rol.id}}`)" class="btn btn-danger btn-sm" role="button">
                             <i class="fas fa-times mx-auto"></i>
                         </a>
                     </div>
@@ -78,4 +78,18 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/componentes/BorrarComponent.js' %}"></script>
+    <script>
+        function showWarning(id){
+            contenedorBorrar.$data.objects_to_delete = "roles";
+            contenedorBorrar.$data.id = id;
+            contenedorBorrar.$data.showModal = true;
+        }
+
+    </script>
+
 {% endblock %}

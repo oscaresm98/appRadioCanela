@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block page_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
 {% endblock %}
 
 {% block content %}
-{% comment %}
+
 {% if error %}
 <div id="componente_modal_info">
     <modal-info v-if="showModal" url_redirect="">
@@ -22,13 +23,13 @@
 {% endif %}
 {% if success %}
 <div id="componente_modal_info">
-    <modal-info v-if="showModal" url_redirect="{% url 'webadminradio:asignar_permisos' id_usuario %}">
+    <modal-info v-if="showModal" url_redirect="{% url 'lista_roles' %}">
         <h3 slot="header">Información</h3>
         <p slot="body">{{success}}</p>
     </modal-info>
 </div>
 {% endif %}
-{% endcomment %}
+
 <h2><b>Agregar rol </b></h2>
 <form id="addLocutor" action="{% url 'agregar_rol' %}" onsubmit="return validate()" method="POST"
     enctype="multipart/form-data">
@@ -41,7 +42,7 @@
         <div class="col-10">
             <input id="nombre" name="nombre" type="text" class="form-control"
                 oninvalid="this.setCustomValidity('Ingrese un nombre válido')" oninput="this.setCustomValidity('')"
-                required>
+                maxlength="15" required>
         </div>
     </div>
 
@@ -79,5 +80,6 @@
 {% endblock %}
 {% block page_script %}
 <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
+<script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
 
 {% endblock %}

@@ -140,10 +140,10 @@
         </div>
         <div class="col-10">
             <select name="rol" class=" form-select" aria-label="Default select example">
-                <option value="Locutor">Locutor</option>
-                <option value="Gerente">Gerente</option>
-                <option value="Director">Director</option>
-                <option value="Community Manager">Community Manager</option>
+                <option value="" selected disabled>Seleccione un rol</option>
+                {% for rol in roles %}
+                    <option value="{{ rol.id }}">{{ rol.nombre }}</option>
+                {% endfor %}
             </select>
         </div>
 

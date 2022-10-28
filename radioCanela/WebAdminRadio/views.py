@@ -67,7 +67,6 @@ def roles(request):
 
 @login_required
 def agregar_rol(request):
-    print("DENTRO DE LA FUNCIONA AREGRAE ROL")
     labels=['Emisora','Usuario','Programa','Torneo','Equipo','Partido','Rol']
     context = {'title': 'Agregar Rol','labels':labels}
     if request.POST:
@@ -80,10 +79,8 @@ def agregar_rol(request):
             
         })
         if rol_form.is_valid():
-            
             rol=rol_form.save()
             print("Rol exitoso: ",rol)
-            context['success'] = '¡El Rol se ha registrado!'
             id=rol.id
             for label in labels:
                 nombre=label
@@ -92,6 +89,7 @@ def agregar_rol(request):
                 actualizar=geValueCheckBox(request,label+"_actualizar")
                 borrar=geValueCheckBox(request,label+"_borrar")
                 agregar_permisos(context,id,nombre,ver,agregar,actualizar,borrar)
+            context['success'] = '¡El Rol se ha registrado!'
         else:
             context['error'] = rol_form.errors
     
@@ -107,28 +105,45 @@ def editar_rol(request,id_rol):
     context = {
         'title': 'Editar Usuario',
         'rol': edit_rol,
-        'permisos':permisos_list
+        'permisos':permisos_list,
+        'labels':labels
     }
     
     if request.POST:
-        # Actualizar los roles
-        for permiso in permisos_list:
-            editar_permisos(request,permiso,context,id_rol,permiso.nombre,permiso.ver,
-            permiso.agregar,permiso.actualizar,permiso.borrar)
-            labels.remove(permiso.nombre)
+        nom=request.POST['nombre']
+        activo=True
+        rol_form = RolForm({
+            'nombre':nom,
+            'activo':activo,
+            'descripcion':nom
+            
+        }, instance=edit_rol)
+        if rol_form.is_valid():
+            rol_form.save()
+            # Actualizar los roles
+            for permiso in permisos_list:
+                ver=geValueCheckBox(request,permiso.nombre+"_ver")
+                agregar=geValueCheckBox(request,permiso.nombre+"_agregar")
+                actualizar=geValueCheckBox(request,permiso.nombre+"_actualizar")
+                borrar=geValueCheckBox(request,permiso.nombre+"_borrar")
+                editar_permisos(request,permiso,context,id_rol,permiso.nombre,ver,
+                agregar,actualizar,borrar)
+                labels.remove(permiso.nombre)
+            
             # Para los elementos y permisos nuevois agregados
-        for label in labels:
-            nombre=label
-            ver=geValueCheckBox(request,label+"_ver")
-            agregar=geValueCheckBox(request,label+"_agregar")
-            actualizar=geValueCheckBox(request,label+"_actualizar")
-            borrar=geValueCheckBox(request,label+"_borrar")
-            agregar_permisos(context,id,nombre,ver,agregar,actualizar,borrar)
-        context['success'] = '¡El Rol se ha actualizado!'
-    else:
+            for label in labels:
+                nombre=label
+                ver=geValueCheckBox(request,label+"_ver")
+                agregar=geValueCheckBox(request,label+"_agregar")
+                actualizar=geValueCheckBox(request,label+"_actualizar")
+                borrar=geValueCheckBox(request,label+"_borrar")
+                agregar_permisos(context,id,nombre,ver,agregar,actualizar,borrar)
+            context['success'] = '¡El Rol se ha actualizado!'
+        else:
             context['error'] = 'Ocurrio un error al editar los  roles'
     
     return render(request,"webAdminRadio/editar_rol.html",context)
+
 def agregar_permisos(context,id_rol,nombre,ver,agregar,actualizar,borrar):
     permisos_form=PermisosForm({
         'id_rol':id_rol,
@@ -142,9 +157,9 @@ def agregar_permisos(context,id_rol,nombre,ver,agregar,actualizar,borrar):
     if permisos_form.is_valid():
         permiso=permisos_form.save()
         print("Permisos exitoso: ",permiso)
-        context['permiso_success'] = '¡El Permiso se ha registrado!'
+        context['success'] = '¡El Permiso se ha registrado!'
     else:
-        context['permiso_error'] = permisos_form.errors
+        context['error'] = permisos_form.errors
 
 def editar_permisos(request,intance_permiso,context,id_rol,nombre,ver,agregar,actualizar,borrar):
     permisos_form=PermisosForm({
@@ -155,7 +170,7 @@ def editar_permisos(request,intance_permiso,context,id_rol,nombre,ver,agregar,ac
         'actualizar':actualizar,
         'borrar':borrar,
         'activo':True
-    }, request.FILES, instance=intance_permiso)
+    }, instance=intance_permiso)
     if permisos_form.is_valid():
         permiso=permisos_form.save()
         print("Permisos exitoso: ",permiso)
@@ -165,7 +180,8 @@ def editar_permisos(request,intance_permiso,context,id_rol,nombre,ver,agregar,ac
 
 @login_required
 def agregar_usuario(request):
-    context = {'title': 'Agregar Usuario'}
+    roles= Rol.objects.filter(activo=True)
+    context = {'title': 'Agregar Usuario', 'roles': roles}
     if request.POST:
         username = request.POST['username']
         first = request.POST['nombre']
@@ -175,7 +191,7 @@ def agregar_usuario(request):
         cedula = request.POST['cedula']
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
-        #rol = request.POST['rol']
+        rol = request.POST['rol']
         descripcion=request.POST['descripcion']
         activo=geValueCheckBox(request,'activo')
         
@@ -188,7 +204,7 @@ def agregar_usuario(request):
             'cedula':cedula,
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
-            #'rol':rol,
+            'rol':rol,
             'descripcion':descripcion,
             'activo':activo,
         })
@@ -208,9 +224,11 @@ def agregar_usuario(request):
 @login_required
 def editar_usuario(request,id_usuario):
     edit_usuario = Usuario.objects.get(id=id_usuario)
+    roles= Rol.objects.filter(activo=True)
     context = {
         'title': 'Editar Usuario',
         'usuario': edit_usuario,
+        'roles': roles,
     }
     if request.POST:
         username = request.POST['username']
@@ -221,7 +239,7 @@ def editar_usuario(request,id_usuario):
         cedula = request.POST['cedula']
         nacimiento = request.POST['fechaNac']
         telefono = request.POST['telefono']
-        #rol = request.POST['rol']
+        rol = request.POST['rol']
         descripcion=request.POST['descripcion']
         foto=request.POST['imagen']
         activo=True
@@ -238,7 +256,7 @@ def editar_usuario(request,id_usuario):
             'cedula':cedula,
             'fechaNacimiento':nacimiento,
             'telefono':telefono,
-            #'rol':rol,
+            'rol':rol,
             'foto': foto,
             'descripcion':descripcion,
             'activo':activo,
@@ -477,7 +495,7 @@ def agregar_equipo(request):
                 id_red_social=id,
                 link=request.POST.getlist('red_social_url')[i]
             )
-        context['success'] = '¡La emisora ha sido registrada con éxito!'
+        context['success'] = '¡El equipo ha sido registrada con éxito!'
     return render(request, 'webAdminRadio/agregar_equipo.html', context)
 
 
@@ -530,9 +548,6 @@ def modificar_equipo(request, id_equipo):
         if not equipo_form.is_valid():
             context['error'] = equipo_form.errors
             return render(request, 'webAdminRadio/agregar_equipo.html', context)
-        print(len(request.POST.getlist('red_social_nombre')))
-        print(request.POST.getlist('red_social_nombre'))
-        print(range(len(request.POST.getlist('red_social_nombre'))))
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             red_form = RedSocialForm({
                 'nombre': request.POST.getlist('red_social_nombre')[i],
@@ -560,7 +575,7 @@ def modificar_equipo(request, id_equipo):
                 id_red_social=id,
                 link=request.POST.getlist('red_social_url')[i]
             )
-        context['success'] = '¡La emisora ha sido registrada con éxito!'
+        context['success'] = '¡El equipo ha sido registrada con éxito!'
     return render(request, 'webAdminRadio/editar_equipo.html', context)
 
 
@@ -1087,7 +1102,7 @@ def agregar_noticia(request):
             url = agregarImagen(request, str(noticia.id), 'imagenes/')
             noticia.imagen=url
             noticia.save()
-            context['success'] = '¡El registro de la publicidad se ha sido creado con éxito!'
+            context['success'] = '¡El registro se ha sido creado con éxito!'
         else:
             context['error'] = noticia_form.errors
     return render(request, 'webAdminRadio/agregar_noticia.html', context)
@@ -1130,5 +1145,75 @@ def borrar_noticia(request, id_noticia):
     delete_noticia = NoticiasTips.objects.get(id=id_noticia)
     delete_noticia.estado = False
     delete_noticia.save()
-    messages.success(request, 'La noticia/tip ha sido eliminada con exito')
+    messages.success(request, 'La noticia|tip ha sido eliminada con exito')
     return redirect('noticia')
+
+
+# Streaming
+@login_required
+def transmision(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Transmisión',
+        'emisoras': list_emisoras,
+    }
+    return render(request, 'webAdminRadio/transmision.html', context)
+
+
+@login_required
+def agregar_transmision(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Transmisión',
+        'emisoras': list_emisoras
+        }
+    if request.POST:
+        transmision_form = TransmisionForm(request.POST)
+        if transmision_form.is_valid():
+            transmision_form.save()
+            plataforma = request.POST['plataforma']
+            url = request.POST['url']
+            PlataformaTransmision.objects.create(
+                id_transmision=Transmision.objects.order_by('-id')[0],
+                plataforma=plataforma,
+                url=url
+            )
+            context['success'] = '¡El registro se ha sido creado con éxito!'
+        else:
+            context['error'] = transmision_form.errors
+    return render(request, 'webAdminRadio/agregar_transmision.html', context)
+
+
+@login_required
+def modificar_transmision(request, id_transmision):
+    edit_transmision = Transmision.objects.get(id=id_transmision)
+    list_emisoras = Emisora.objects.filter(estado=True)
+    plataforma = PlataformaTransmision.objects.get(id_transmision=id_transmision)
+    context = {
+        'title': 'Editar Noticia o Tip',
+        'transmision': edit_transmision,
+        'emisoras': list_emisoras,
+        'plataforma': plataforma
+    }
+    if request.POST:
+        transmision_form = TransmisionForm(request.POST, instance=edit_transmision)
+        if transmision_form.is_valid():
+            transmision_form.save()
+            plataf = request.POST['plataforma']
+            url = request.POST['url']
+            plataforma.plataforma = plataf
+            plataforma.url = url
+            plataforma.save()
+            context['success'] = '¡El registro ha sido modificado con éxito!'
+        else:
+            context['error'] = transmision_form.errors
+    return render(request, 'webAdminRadio/editar_transmision.html', context)
+
+
+@login_required
+def borrar_transmision(request, id_transmision):
+    delete_transmision = Transmision.objects.get(id=id_transmision)
+    delete_transmision.estado = False
+    delete_transmision.delete()
+    messages.success(request, 'La Transmision ha sido eliminada con exito')
+    return redirect('transmision')

@@ -262,6 +262,7 @@ class Publicidad(models.Model):
     url = models.CharField(max_length=2080, blank=True, null=True)
     fecha_inicio = models.DateTimeField(blank=True, null=True)
     fecha_fin = models.DateTimeField(blank=True, null=True)
+    creada = models.DateTimeField(auto_now_add=True)
     estado = models.BooleanField(default=True)
 
 
@@ -326,9 +327,17 @@ class Transmision(models.Model):
     id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora')
     titulo = models.CharField(max_length=30)
     subtitulo = models.CharField(max_length=30, blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
+    estado = models.BooleanField(default=True)
+    
+    def get_plataforma(self):
+        return PlataformaTransmision.objects.filter(id_transmision=self.pk).values('url', 'plataforma')
+
+
+class PlataformaTransmision(models.Model):
+    id_transmision = models.ForeignKey(Transmision, on_delete=models.CASCADE, db_column='id_transimision')
     url = models.CharField(max_length=2080, blank=True, null=True)
     plataforma = models.CharField(max_length=30, blank=True, null=True)
-    descripcion = models.TextField(blank=True, null=True)
     estado = models.BooleanField(default=True)
 
 

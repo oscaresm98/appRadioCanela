@@ -21,27 +21,16 @@
     {% endif %}
     {% if success %}
     <div id="componente_modal_info">
-            <modal-info v-if="showModal" url_redirect="{% url 'noticia' %}">
+            <modal-info v-if="showModal" url_redirect="{% url 'transmision' %}">
                 <h3 slot="header">Información</h3>
                 <p slot="body">{{success}}</p>
             </modal-info>
     </div>
     {% endif %}
-    <h4><b>Información de Noticia</b></h4>
-    <form id="addSegmento" method="POST" action="{% url 'agregar_noticia' %}" enctype="multipart/form-data">
+    <h4><b>Información de Transmisión</b></h4>
+    <form id="addSegmento" class="mt-5" method="POST" action="{% url 'agregar_transmision' %}" enctype="multipart/form-data">
         {% csrf_token %}
 
-
-        <!-- Div de imagen -->
-        <div class="d-flex flex-column align-items-center mb-3">
-            <div class="img-holder d-flex align-items-center">
-                <img id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
-            </div>
-            <div class="form-file input-group mb-3 w-50">
-                <input type="file" name="archivo" class="form-control" id="imgSegmento" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen')" oninput="this.setCustomValidity('')" required>
-                <input type="hidden" name="imagen" value="redonda.jpg" id="imagen">
-            </div>
-        </div>
 
         <!-- Selección de Emisora -->
         <div class="row mb-3">
@@ -49,7 +38,7 @@
                 <label for="emisoraSelect">Emisora</label>
             </div>
             <div class="col-9">
-                <select id="emisoraSelect" class="form-select form-control" name="emisora" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" oninput="this.setCustomValidity('')" required>
+                <select id="emisoraSelect" class="form-select form-control" name="id_emisora" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" oninput="this.setCustomValidity('')" required>
                     <option value="" selected disabled>Seleccione la emisora</option>
                     {% for emisora in emisoras %}
                         <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre }} {{ emisora.frecuencia_dial }}</option>
@@ -58,47 +47,58 @@
             </div>
         </div>
 
-        <!-- Tipo -->
-        <div class="row mb-3">
-            <div class="col-3">
-                <label for="tipoSelect">Tipo</label>
-            </div>
-            <div class="col-9">
-                <select name="tipo" id="tipoSelect" class="form-select" oninvalid="this.setCustomValidity('Seleccione una emisora de la lista')" oninput="this.setCustomValidity('')" required>
-                    <option value="" selected disabled>Seleccione un tipo</option>
-                    <option value="Noticia">Noticia</option>
-                    <option value="Tip">Tip</option>
-                </select>
-            </div> 
-        </div> 
-
         <!-- Div de Título -->
         <div class="row mb-3">
             <div class="col-3">
                 <label for="nombreInput">Título</label>
             </div>
             <div class="col-9">
-                <input required name="titulo" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título de la noticia o tip" maxlength=150>
+                <input required name="titulo" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título de la transmisión" maxlength=150>
             </div>
         </div>
 
-        <!-- Fin subida -->
+        <!-- Div de Título -->
         <div class="row mb-3">
             <div class="col-3">
-                <label for="fechasubida">fecha de subida</label>
+                <label for="subtituloInput">Subtitulo</label>
             </div>
             <div class="col-9">
-                <input id="fechasubida" name="fechasubida" type="date" class="form-control" oninvalid="this.setCustomValidity('Ingrese una fecha')" oninput="this.setCustomValidity('')" required>
+                <input required name="subtitulo" id="subtituloInput" type="text" class="form-control" placeholder="Ingrese el Subtitulo de la transmisión" maxlength=150>
+            </div>
+        </div>
+
+        <!-- Plataforma -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="plataformaSelect">Plataforma</label>
+            </div>
+            <div class="col-9">
+                <select name="plataforma" id="plataformaSelect" class="form-select" oninvalid="this.setCustomValidity('Seleccione una plataforma de la lista')" oninput="this.setCustomValidity('')" required>
+                    <option value="" selected disabled>Seleccione un Plataforma</option>
+                    <option value="Radio">Radio</option>
+                    <option value="Television">Televisión</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div> 
+        </div> 
+
+        <!-- url -->
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="urlInput">URL</label>
+            </div>
+            <div class="col-9">
+                <input required name="url" id="urlInput" type="url" class="form-control" placeholder="Ingrese una URL" maxlength=150>
             </div>
         </div>
 
         <!-- Descripción -->
         <div class="row mb-3">
             <div class="col-3">
-                <label for="descInput">Contenido</label>
+                <label for="descInput">Descripción</label>
             </div>
             <div class="col-9">
-                <textarea class="form-control" maxlength="900" rows="15" id="descInput" name="descripcion" placeholder="Ingrese el contenido" oninvalid="this.setCustomValidity('Ingrese el contenido')" oninput="this.setCustomValidity('')" required></textarea>
+                <textarea class="form-control" id="descInput" name="descripcion" rows="3" placeholder="Ingrese una breve descripción" oninvalid="this.setCustomValidity('Ingrese una descripcion del segmento')" oninput="this.setCustomValidity('')" maxlength="250" required></textarea>
             </div>
         </div>
 
@@ -108,11 +108,11 @@
                 <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
             </div>
             <div class="col-9 fs-3 form-check form-switch">
-                <input name="activo" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                <input name="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
             </div>
         </div>
         
-        <button type="submit" class="btn btn-primary btn-lg mt-5 submit"><i class="fas fa-plus-circle"></i>Agregar Noticia o Tip</button>
+        <button type="submit" class="btn btn-primary btn-lg mt-5 submit"><i class="fas fa-plus-circle"></i>Agregar Transmisión</button>
     </form>
 {% endblock %}
 {% block page_script %}

@@ -168,7 +168,6 @@ def programaLocutorList(request,pk):
     except Emisora.DoesNotExist:
         return Response({'Error': 'El programa no tiene locutores asignados'}, status=status.HTTP_400_NOT_FOUND)
     
-    #GET: Vista que obtiene todas las emisoras 
     if request.method == 'GET':
         serializer = SegementoLocutorSerializer(emisora, many=True)
         return Response(serializer.data)
@@ -375,7 +374,7 @@ class LoginView(APIView):
 
         response = Response()
 
-        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True)
         response.data = {
             'jwt': token
         }
@@ -384,7 +383,10 @@ class LoginView(APIView):
 # Servicio para obtener los datos del usuario autentificado
 class UserView(APIView):
     def get(self, request):
+        print(request.COOKIES)
+
         token = request.COOKIES.get('jwt')
+        print(token)
 
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
@@ -690,6 +692,20 @@ def Emisora_Podcast_list(request, id_emisora):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer
 #     queryset = Usuario.objects.filter(is_active=True)
+
+
+
+#
+# Trabsmisiones
+#
+
+#Obtiene las transmisiones segun la emisora
+class ListEmisoraTrasmisiones(generics.ListAPIView):
+    serializer_class = serializers.TransmisionesSerializerFull
+
+    def get_queryset(self):
+        em = self.kwargs['id_emisora']
+        return Transmision.objects.filter(id_emisora=em)
 
 
 # class ListEncuestasActivas(generics.ListAPIView):  # servicio para web, retorna encuestas activas

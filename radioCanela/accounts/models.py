@@ -19,7 +19,7 @@ class Rol(models.Model):
 
 class Permisos(models.Model):
     id_rol = models.ForeignKey(Rol,on_delete=models.CASCADE, db_column='id_rol', blank=True, null=True)
-    nombre = models.CharField(max_length=35, unique=True)
+    nombre = models.CharField(max_length=35)
     ver = models.BooleanField(default=False)
     agregar = models.BooleanField(default=False)
     actualizar = models.BooleanField(default=False)
