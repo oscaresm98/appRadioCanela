@@ -327,6 +327,18 @@ class LocutorForm(forms.ModelForm):
             'fecha_nacimiento'
         ]
 
+class PodcastForm(forms.ModelForm):
+    emisora = forms.ModelChoiceField(queryset=Emisora.objects.all())
+    class Meta:
+        model = Podcast
+        fields = [
+            'nombre',
+            'descripcion',
+            'audio',
+            'fecha',
+            'emisora'
+        ]
+
 # class GaleriaForm(forms.ModelForm):
 
 #     class Meta:
@@ -345,18 +357,7 @@ class LocutorForm(forms.ModelForm):
 #             'emisora'
 #         ]
 
-# class PodcastForm(forms.ModelForm):
-#     emisora = forms.ModelChoiceField(queryset=Emisora.objects.all())
 
-#     class Meta:
-#         model = Podcast
-#         fields = [
-#             'nombre',
-#             'descripcion',
-#             'audio',
-#             'fecha',
-#             'emisora'
-#         ]
 
 # class PodcastEmisoraForm(forms.ModelForm):
 
