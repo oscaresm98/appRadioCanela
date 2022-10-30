@@ -7,17 +7,17 @@
   <div class="flex">
     <ion-segment scrollable="true" value="por_jugar" mode="ios" >
       <ion-col>
-        <ion-segment-button [ngClass]="{'selected' : seccion=='porJugar'}" (click)="getGamesToPlay()" value="por_jugar" >Por jugar</ion-segment-button>
+        <ion-segment-button [ngClass]="{'selected' : seccion==globalConstantes.ESTADO_PARTIDO_POR_JUGAR}" (click)="getGamesToPlay()" value="por_jugar" >Por jugar</ion-segment-button>
       </ion-col>
       <ion-col>
-        <ion-segment-button [ngClass]="{'selected' : seccion=='disputados'}"  (click)="getGamesPlayed()" value="disputados">Disputados</ion-segment-button>
+        <ion-segment-button [ngClass]="{'selected' : seccion==globalConstantes.ESTADO_PARTIDO_DISPUTADO}"  (click)="getGamesPlayed()" value="disputados">Disputados</ion-segment-button>
       </ion-col>
     </ion-segment>
   </div>
   
 
   <ion-list class="flex transparent">
-    <app-match-card  *ngFor="let match of matchesView" [matchFootball]="match" (selectMatch)="openModal($event)"></app-match-card>
+    <app-match-card [seccion]="seccion" *ngFor="let match of matchesView" [matchFootball]="match" (selectMatch)="openModal($event)"></app-match-card>
   </ion-list>
 
   <div id="no-games" *ngIf="matchesView.length === 0">

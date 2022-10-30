@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, LoadingController } from '@ionic/angular';
+import Constantes from 'app/modules/util/constantes';
 import { FootballService } from 'app/services/football.service';
 import { FootballGame } from 'app/shared/football';
 import { isLaterDate } from 'app/shared/utils';
@@ -14,7 +15,8 @@ import { ModalFootbalComponent } from '../modal-footbal/modal-footbal.component'
 export class PartidosComponent implements OnInit {
 
   matchesView: FootballGame[] = [];
-  seccion:string='porJugar';
+  seccion:string=Constantes.ESTADO_PARTIDO_POR_JUGAR;
+  public globalConstantes = Constantes;
   constructor(
     private footballGameService: FootballService,
     private modalCtrl: ModalController,
@@ -29,7 +31,7 @@ export class PartidosComponent implements OnInit {
   async openModal(event: FootballGame) {
     const modal =  await this.modalCtrl.create({
       component: ModalFootbalComponent,
-      componentProps: { matchFootball: event },
+      componentProps: { matchFootball: event, seccion:this.seccion },
       cssClass: ['modal-match', isLaterDate(event.fecha_evento) ? 'large-modal-football': 'normal-modal-football'],
     });
 
@@ -46,7 +48,7 @@ export class PartidosComponent implements OnInit {
   }
 
   async getGamesToPlay() {
-    this.seccion='porJugar';
+    this.seccion=Constantes.ESTADO_PARTIDO_POR_JUGAR;
     // this.matchesView = this.footballGameService.getAllMatches().slice(0, 3);
     const loading = await this.showLoadingGames();
     this.matchesView = [];
@@ -61,7 +63,7 @@ export class PartidosComponent implements OnInit {
   }
 
   async getGamesPlayed() {
-    this.seccion='disputados';
+    this.seccion=Constantes.ESTADO_PARTIDO_DISPUTADO;
     // this.matchesView = this.footballGameService.getAllMatches().slice(3);
     const loading = await this.showLoadingGames();
     this.matchesView = [];

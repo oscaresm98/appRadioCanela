@@ -3,11 +3,11 @@
 </div>
 <div class="card-container">
   <div class="card-content" *ngFor="let news of newsList; let i = index;">
-    <div class="card" [routerLink]="['/principal/noticias',news.id]">
-      <div class="image-container">
+    <div class="tarjeta" >
+      <div class="image-container" [routerLink]="['/principal/noticias',news.id]">
         <img class="image" src="{{news.imagen}}">
       </div>
-      <div class="info">
+      <div class="info" [routerLink]="['/principal/noticias',news.id]">
         <p class="title truncate">{{news.titulo}}</p>
 
         <p class="truncate">

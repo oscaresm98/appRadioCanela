@@ -6,11 +6,15 @@ export interface Program {
     descripcion: string;
     horarios: Array<any>;
 }
-export interface ProgramDia{
+export interface Programa {
+    nombre: string;
+    descripcion:    string;
+    imagen: string;
+}
+
+export interface ProgramPerDia{
     dia: string;
     hora_inicio: string;
     hora_fin:   string;
-    nombre:     string;
-    descripcion:    string;
-    imagen:         string;
+    programa:   Programa[];
 }

@@ -1,19 +1,28 @@
-
+*{
+    color: white;
+}
 ion-row {
     text-align: center;
 }
-
 .tournament-of-match {
     font-size: larger;
     font-weight: 700;
     line-height: 18px;
     padding: 0.5rem;
 }
-
 ion-row > div {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.entire{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+.bottom{
+    background: var(--background-app);
 }
 
 .team-modal, .score-modal {
@@ -46,16 +55,15 @@ ion-row > div {
 }
 
 .btn-match {
+    --background: var(--radio-color);
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --background-focused: none;
     align-self: center;
     margin: 0.5rem;
 }
-
-.btn-match > ion-icon {
+.icon {
     margin-right: 0.4rem;
-}
-
-*{
-    color: white;
 }
 .exit{
     font-size: 10vw;

@@ -14,7 +14,7 @@
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item class="item" [routerLink]="['/principal/partidos']">
+        <ion-item class="item" (click)="go()" [routerLink]="['/principal/partidos']">
           <ion-icon name="football-outline"></ion-icon>
           <span class="item-text">Partidos</span>
         </ion-item>

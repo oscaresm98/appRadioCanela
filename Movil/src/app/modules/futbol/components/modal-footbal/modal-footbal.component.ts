@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import Constantes from 'app/modules/util/constantes';
 import { FootballGame } from 'app/shared/football';
 import { isLaterDate } from 'app/shared/utils';
 
@@ -11,7 +12,8 @@ import { isLaterDate } from 'app/shared/utils';
 })
 export class ModalFootbalComponent implements OnInit {
   @Input() matchFootball: FootballGame;
-
+  public globalConstantes = Constantes;
+  @Input() seccion:string;
   constructor(private modalCtrl: ModalController, private router: Router) { }
 
   ngOnInit() {}

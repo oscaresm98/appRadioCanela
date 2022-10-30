@@ -1,7 +1,8 @@
-<ion-card class=" match " (click)="selected()">
-  <ion-card-content class="card" >
+
+<ion-card  class="match" (click)="selected()">
+  <ion-card-content class="tarjeta" >
     <ion-row>
-      <div class="tournament-of-match">
+      <div class="mt-3 tournament-of-match">
         <strong>{{matchFootball.id_torneo.nombre}}</strong>
       </div>
     </ion-row>
@@ -12,11 +13,13 @@
           <div class="shield-place">
             <img src="{{matchFootball.id_equipo_local.imagen}}" alt="" class="team-shield">
           </div>
-          <h4>{{matchFootball.id_equipo_local.equipo}}</h4>
         </div>        
       </ion-col>
       <ion-col>
-        <div class="score">
+        <div *ngIf="seccion==globalConstantes.ESTADO_PARTIDO_POR_JUGAR" class="score">
+          VS
+        </div>
+        <div *ngIf="seccion==globalConstantes.ESTADO_PARTIDO_DISPUTADO" class="score">
           {{matchFootball.ptos_equipo_local}} - {{matchFootball.ptos_equipo_visitante}}
         </div>
       </ion-col>
@@ -25,13 +28,16 @@
           <div class="shield-place">
             <img src="{{matchFootball.id_equipo_visitante.imagen}}" alt="" class="team-shield">
           </div>          
-          <h4>{{matchFootball.id_equipo_visitante.equipo}}</h4>
         </div>
       </ion-col>
     </ion-row>
     
     <ion-row>
-      <div> {{getFormatedDate(matchFootball.fecha_evento)}} -  {{matchFootball.hora_inicio}}</div>
+    <div class="center-column">
+      <span class="info">Fecha Part: {{matchFootball.fecha_evento | date:'dd/MM/YYYY' }}</span>
+      <span class="info">Horario: {{matchFootball.fecha_evento | date:'HH:mm' }}</span>
+
+    </div>      
     </ion-row>
   </ion-card-content>
 </ion-card>

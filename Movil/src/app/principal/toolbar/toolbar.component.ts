@@ -13,7 +13,9 @@ export class ToolbarComponent implements OnInit {
   constructor(private popCtrl:PopoverController,
     private menuCtrl:MenuController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
   async openPopover(e:any){
     const popover=await this.popCtrl.create({
       component: PopOverComponent,
@@ -26,6 +28,7 @@ export class ToolbarComponent implements OnInit {
   }
   toggleMenu(){
     this.menuCtrl.toggle();
+    
   }
   async openNotification(e:any){
     const popover=await this.popCtrl.create({

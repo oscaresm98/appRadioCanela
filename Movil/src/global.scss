@@ -37,7 +37,6 @@
 
     
 } */
-
 :root{
     --radio-color:#F69238;
     --background-app:black;
@@ -95,19 +94,12 @@ input:focus {
 /* Modal Match */
 
 .modal-match {
-    --background: transparent; // Color de fondo para el modal
+    --background: var(--background-app); // Color de fondo para el modal
     --border-radius: 16px;
     --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --width: 95%;
 }
-.modal-match [class=ion-page]{
-    justify-content: end;
-}
 
-.modal-match [class=ion-page]>*{
-    --background: black;
-    background: black;
-}
 .modal-match::part(backdrop) {
     //background: rgba(209, 213, 219);
     opacity: 1;

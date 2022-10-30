@@ -1,66 +1,78 @@
+<div class="entire">
 
-  <ion-toolbar color="translucent">
-    <ion-buttons slot="end">
-      <ion-button (click)="close()">
-        <ion-icon class="exit" name="close-outline" color="danger"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-row>
-    <div class="tournament-of-match">{{matchFootball.id_torneo.nombre}}</div>
-  </ion-row>
-  
-  <ion-row>
-    <ion-col>
-      <div class="team-modal" (click)="navigate(matchFootball.id_equipo_local.id)">
-        <div class="shield-place">
-          <img src="{{matchFootball.id_equipo_local.imagen}}" alt="" class="team-shield">
-        </div>
-        <h4>{{matchFootball.id_equipo_local.equipo}}</h4>
-      </div>        
-    </ion-col>
-    <ion-col>
-      <div class="score-modal">
-        {{matchFootball.ptos_equipo_local}} - {{matchFootball.ptos_equipo_visitante}}
-      </div>
-    </ion-col>
-    <ion-col>
-      <div class="team-modal" (click)="navigate(matchFootball.id_equipo_visitante.id)">
-        <div class="shield-place">
-          <img src="{{matchFootball.id_equipo_visitante.imagen}}" alt="" class="team-shield">
-        </div>
-        <h4>{{matchFootball.id_equipo_visitante.equipo}}</h4>
-      </div>
-    </ion-col>
-  </ion-row>
-  
-  <ion-row class="match-info">
-    <div><strong>Fecha y Hora del partido: </strong></div>
-    <div>{{getFormatedDate(matchFootball.fecha_evento)}} -  {{matchFootball.hora_inicio}}</div>
-  </ion-row>    
-  
-  <ion-row class="match-info">
-    <div>
-      <strong>Ciudad: </strong> {{matchFootball.lugar}}
-    </div>
-  </ion-row>    
-  
-  <ion-row class="match-info">
-    <div>
-      <strong>Estadio: </strong>{{matchFootball.estadio}}
-    </div>
-  </ion-row>    
-  
-  <div *ngIf="showActionButtons()">
-    <ion-row class="row-button">
-      <ion-button color="danger" expand="block" class="btn-match">Sintonizar encuentro</ion-button>
+  <div class="bottom">
+    <ion-toolbar color="translucent">
+      <ion-buttons slot="end">
+        <ion-button (click)="close()">
+          <ion-icon class="exit" name="close-outline" color="danger"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+   
+    
+    </ion-toolbar>
+    <ion-row>
+      <div class="tournament-of-match">{{matchFootball.id_torneo.nombre}}</div>
     </ion-row>
     
-    <ion-row class="row-button">
-      <ion-button color="danger" class="btn-match">
-        <ion-icon name="notifications-outline"></ion-icon>
-        <span>Agregar Recordatorio</span>
-      </ion-button>
+    <ion-row>
+      <ion-col>
+        <div class="team-modal" (click)="navigate(matchFootball.id_equipo_local.id)">
+          <div class="shield-place">
+            <img src="{{matchFootball.id_equipo_local.imagen}}" alt="" class="team-shield">
+          </div>
+          <h4>{{matchFootball.id_equipo_local.equipo}}</h4>
+        </div>        
+      </ion-col>
+      <ion-col>
+        <div *ngIf="seccion==globalConstantes.ESTADO_PARTIDO_POR_JUGAR" class="score-modal">
+          VS
+        </div>
+        <div *ngIf="seccion==globalConstantes.ESTADO_PARTIDO_DISPUTADO" class="score-modal">
+          {{matchFootball.ptos_equipo_local}} - {{matchFootball.ptos_equipo_visitante}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="team-modal" (click)="navigate(matchFootball.id_equipo_visitante.id)">
+          <div class="shield-place">
+            <img src="{{matchFootball.id_equipo_visitante.imagen}}" alt="" class="team-shield">
+          </div>
+          <h4>{{matchFootball.id_equipo_visitante.equipo}}</h4>
+        </div>
+      </ion-col>
     </ion-row>
+    
+    <ion-row class="match-info">
+      <div><strong>Fecha y Hora del partido: </strong></div>
+      <div>{{getFormatedDate(matchFootball.fecha_evento)}} -  {{matchFootball.hora_inicio}}</div>
+    </ion-row>    
+    
+    <ion-row class="match-info">
+      <div>
+        <strong>Ciudad: </strong> {{matchFootball.lugar}}
+      </div>
+    </ion-row>    
+    
+    <ion-row class="match-info">
+      <div>
+        <strong>Estadio: </strong>{{matchFootball.estadio}}
+      </div>
+    </ion-row>    
+    
+    <div *ngIf="showActionButtons()">
+      <ion-row class="row-button">
+        <ion-button expand="block" class="btn-match">
+          <i class="icon fa-solid fa-radio"></i>
+          <span>Sintonizar encuentro</span>
+        </ion-button>
+      </ion-row>
+      
+      <ion-row class="row-button">
+        <ion-button class="btn-match">
+          <ion-icon class="icon" name="notifications-outline"></ion-icon>
+          <span>Agregar Recordatorio</span>
+        </ion-button>
+      </ion-row>
+    </div>  
   </div>
-
+</div>
+  

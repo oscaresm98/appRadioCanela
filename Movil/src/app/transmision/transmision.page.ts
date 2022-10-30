@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { StreamingService } from 'app/services/streaming.service';
 import { Streaming } from 'app/shared/streaming';
@@ -44,15 +44,21 @@ export class TransmisionPage implements OnInit, OnDestroy {
   }
 
   sanatize(iframeStr: string) {
+    //console.log("CURENT STREAM: ",this.currentStream)
+    //return this.getUrlVideo(iframeStr,platform)
     return this.dom.bypassSecurityTrustResourceUrl(iframeStr);
   }
 
   getUrlVideo(url: string, platform: string) {
     let newUrl = '';
-
     switch (platform.toLowerCase()) {
       case 'facebook':
+        //newUrl=url;
         newUrl = getUrlFacebookVideo(url);
+        break;
+      case 'youtube':
+        newUrl= url + '?showinfo=0&enablejsapi=1&origin=http://localhost:9000'
+        console.log(newUrl)
         break;
       default:
         break;

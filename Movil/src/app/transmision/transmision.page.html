@@ -1,10 +1,11 @@
 
-<ion-content class="content" [fullscreen]="true">
+<ion-content  class="content" >
   <div class="image-container">
     <ion-img class="logo" src="assets/images/Logo.png"></ion-img>
   </div>
+  <app-menu></app-menu>
   <app-toolbar></app-toolbar>
-
+<div id="principal">
   <swiper [config]="swiperConfig" (slideChange)="changePlatform($event)">
     <ng-template swiperSlide *ngFor="let platform of platforms">
       <div class="platform-option">{{platform}}</div>
@@ -43,6 +44,9 @@
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" 
         allowFullScreen="true"></iframe>
     </div>
+
   </div>  
+</div>
+  
 
 </ion-content>

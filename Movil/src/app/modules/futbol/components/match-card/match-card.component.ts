@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import Constantes from 'app/modules/util/constantes';
 import { FootballGame } from 'app/shared/football';
 
 @Component({
@@ -8,8 +9,9 @@ import { FootballGame } from 'app/shared/football';
 })
 export class MatchCardComponent implements OnInit {
   @Input() matchFootball: FootballGame;
+  @Input() seccion:string;
   @Output() selectMatch: EventEmitter<FootballGame> = new EventEmitter();
-
+  public globalConstantes = Constantes;
   constructor() {}
 
   ngOnInit() {}
