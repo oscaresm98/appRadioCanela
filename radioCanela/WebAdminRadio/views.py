@@ -736,7 +736,7 @@ def programas(request):
 @login_required
 def agregar_programa(request):
     list_emisoras = Emisora.objects.filter(estado=True)
-    list_locutores = Locutor.objects.filter(estado=True)
+    list_locutores = Locutor.objects.filter(estado=True).order_by('nombre')
     context = {'title': 'Agregar Programa', 'emisoras': list_emisoras, 'locutores': list_locutores}
     
     if request.POST:
