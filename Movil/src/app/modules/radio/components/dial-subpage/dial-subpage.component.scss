@@ -8,15 +8,7 @@
     justify-content: center;
     align-items: center;
 }
-hr {
-    margin: 0;
-    margin-left: 2vw;
-    margin-right: 2vw;
-    height: 1vw;
-    width: 30vw;
-    background-color: white;
-    background: var(--radio-color);
-  }
+
 #logo {
     width: 80%;
     height: 20%;
@@ -26,41 +18,16 @@ hr {
     width: 100%;
     //padding-top: 1rem;
 }
-.play-pause-radio{
-    --background: var(--radio-color);
-    --background-hover: #f0553a;
-    --background-activated: #e0735f;
-    --background-focused: #e3978a;
-    --border-radius: 50%;
-    width: 10vw;
-    height: 10vw;
-}
-.play,.pause{
-    font-size: 5vw;
-}
-.heart-button{
-    height: 10vw;
-    width: 10vw;
-    border-radius: 50%;
-    --background: none;
-    --background-hover: var(--radio-color);
-    --background-activated: var(--radio-color);
-    --background-focused: none;
-    outline: none;
+
+
+.sticky-bottom{
+    position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: green;
+  border: 2px solid #4CAF50;
 }
 
-.player{
-    margin: 0;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20vw;
-    border:solid var(--radio-color);
-    max-width: 70vw;
-    height: 15vw;
-}
 .tarjeta,.card-description{
     width: 35vw;
 }

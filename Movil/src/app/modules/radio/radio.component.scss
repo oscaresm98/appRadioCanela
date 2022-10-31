@@ -1,6 +1,13 @@
 *{
     font-family: libreBaskerville;
 }
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 ion-content {
     --color: white;
 }
@@ -20,4 +27,55 @@ app-dial-subpage {
 
 .segment-radio-table-container {
     padding: 1rem 0;
+}
+.player{
+
+    margin: 0;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20vw;
+    border:solid var(--radio-color);
+    max-width: 70vw;
+    height: 15vw;
+}
+.play-pause-radio{
+    --background: var(--radio-color);
+    --background-hover: #f0553a;
+    --background-activated: #e0735f;
+    --background-focused: #e3978a;
+    --border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+}
+.play,.pause{
+    font-size: 5vw;
+}
+.white{
+    color: white;
+}
+hr {
+    margin: 0;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    height: 1vw;
+    width: 30vw;
+    background-color: white;
+    opacity: 1;
+    background: var(--radio-color);
+  }
+  .heart-button{
+    height: 10vw;
+    width: 10vw;
+    border-radius: 50%;
+    --background: none;
+    --background-hover: var(--radio-color);
+    --background-activated: var(--radio-color);
+    --background-focused: none;
+    outline: none;
+}
+.heart{
+    font-size: 10vw;
 }

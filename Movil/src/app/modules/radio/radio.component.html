@@ -1,8 +1,34 @@
-<swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
-  <ng-template swiperSlide *ngFor="let station of stations; let i = index">
-    <app-dial-subpage #radioStation 
-      [station]="station"
-      [playerIndex]="i"  
-    ></app-dial-subpage>
-  </ng-template>    
-</swiper>
+<div class="content">
+  <swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
+    <ng-template swiperSlide *ngFor="let station of stations; let i = index">
+      <app-dial-subpage #radioStation 
+        [station]="station"
+        [playerIndex]="i"  
+      ></app-dial-subpage>
+    </ng-template>    
+  </swiper>
+
+  <div class="programacion">
+    
+    <app-programacion></app-programacion>
+  </div>
+  <div class="sticky-bottom">
+    <div class="white">pato: {{currentStation.frecuencia_dial}}</div>
+    <div class="player">
+      
+      <ion-button class="play-pause-radio" shape="circle" #buttonRadio id="play-pause-radio" (click)="playPauseRadio()">
+        <div>
+          <ion-icon class="play" *ngIf="!isPlaying" name="play"></ion-icon>
+          <ion-icon class="pause" *ngIf="isPlaying" name="pause"></ion-icon>
+        </div>
+      </ion-button>
+      <hr>
+      <ion-button class="heart-button">
+        <div>
+          <ion-icon class="heart" name="heart-outline"></ion-icon>
+        </div>    
+      </ion-button>
+    </div>
+  </div>
+</div>
+

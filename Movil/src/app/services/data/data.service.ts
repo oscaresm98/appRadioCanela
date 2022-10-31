@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginForm } from 'app/shared/login-form';
+import { ProgramPerDia } from 'app/shared/program';
 import { RegisterForm } from 'app/shared/register-form';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
@@ -13,6 +14,7 @@ export class DataService {
 
   url = ""
   private URL_NOTICIA= environment.REMOTE_BASE_URL + environment.NOTICIA_URL;
+
   private noticias:any[];
 
   constructor(private http: HttpClient) { }
@@ -22,14 +24,15 @@ export class DataService {
   }
   
 
-  public getPrograma(){
-    return this.http.get('https://gruporadios.pythonanywhere.com/api/segmentos/')
-  }
+  public getProgramaRadioPerDay(idEmisora:number,dia:string){
+    return this.http.get<ProgramPerDia[]>(
+      environment.REMOTE_BASE_URL+'api/emisora/'+idEmisora+'/dia/'+dia+'/programas');  
+    }
 
   public getLocutoresPrograma(programa_id:number){
     return this.http.get('https://gruporadios.pythonanywhere.com/api/'+ 'segmentos/'+programa_id.toString()+'/locutores')
   }
-
+  
   public getSegmentOfRadio(){
     return this.http.get('https://gruporadios.pythonanywhere.com/api/emisora/5/programas')
   }

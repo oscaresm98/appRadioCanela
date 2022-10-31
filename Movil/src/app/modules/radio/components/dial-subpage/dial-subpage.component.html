@@ -1,5 +1,5 @@
-<div class="content ion-text-center div-slide">
-  <h3>Estas escuchando {{station.frecuencia_dial}}</h3>
+<div class="content relative ion-text-center div-slide">
+  <h3>Emisora: {{station.frecuencia_dial}}</h3>
 
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
@@ -11,8 +11,8 @@
               <img class="programa-image" src="assets/images/cantera.jpg">
             </ion-card>
 
-            <ion-button class="like-button" (click)="like()">
-              <div>
+            <ion-button class="like-button" >
+              <div (click)="like()">
                 <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
                 <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
               </div>
@@ -34,19 +34,6 @@
 
     </ion-row>
   </ion-grid>
-  <div class="player">
-    <ion-button class="play-pause-radio" shape="circle" #buttonRadio id="play-pause-radio" (click)="playPauseRadio()">
-      <div>
-        <ion-icon class="play" *ngIf="!isPlaying" name="play"></ion-icon>
-        <ion-icon class="pause" *ngIf="isPlaying" name="pause"></ion-icon>
-      </div>
-    </ion-button>
-    <hr>
-    <ion-button class="heart-button">
-      <div>
-        <ion-icon class="heart" name="heart-outline"></ion-icon>
-      </div>    
-    </ion-button>
-  </div>
+  
 
 </div>

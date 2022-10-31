@@ -1,5 +1,6 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { RadioService } from 'app/services/radio/radio.service';
 import { StationService } from 'app/services/radio/station.service';
 
 import { Station } from 'app/shared/station';
@@ -15,12 +16,12 @@ import { DialSubpageComponent } from './components/dial-subpage/dial-subpage.com
 export class RadioComponent implements OnInit, AfterContentChecked {
   // Configuracion y componente deslizador
   @ViewChild('mySwiper') mySwiper: SwiperComponent;
-  @ViewChildren('radioStation') radioStations: QueryList<DialSubpageComponent>;
+  //@ViewChildren('radioStation') radioStations: QueryList<DialSubpageComponent>;
 
   swiperConfig: SwiperOptions = { 
     lazy: { checkInView: true }, 
     pagination: false ,
-    spaceBetween:-100};
+    spaceBetween:-120};
 
   // Arreglo y observable para manejar los datos de las emisoras
   stations: Station[] = [];
@@ -32,7 +33,9 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   constructor(
     private stationService: StationService,
     private changeDetector: ChangeDetectorRef,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public radioService: RadioService,
+    private alertCtrl: AlertController
   ) { }
 
   async ngOnInit() {
@@ -63,11 +66,13 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   async changeStation(event: any) {
     const elem: Swiper = event[0];
 
-    this.radioStations.get(elem.previousIndex).destroyRadio();
+    //this.radioStations.get(elem.previousIndex).destroyRadio();
+
 
     this.currIndex = elem.activeIndex;
-
-    this.currentStation = this.radioStations.get(this.currIndex).station;
+    console.log("EVENTO SWIPER: ",event)
+    this.currentStation = this.stations[this.currIndex];
+    this.destroyRadio();
     this.changeDetector.detectChanges();
   }
 
@@ -87,5 +92,60 @@ export class RadioComponent implements OnInit, AfterContentChecked {
 
     await loadingModal.present();
     return loadingModal;
+  }
+  // Emisora methods
+  isPlaying = false;
+  
+  playPauseRadio() {
+    if(!this.radioService.radioPlayer) {
+      this.showLoading(); // Mostramos la senal de cargando
+      this.radioService.setRadioPlayer(
+        this.currentStation.url_streaming,
+        () => this.loadingCtrl.dismiss(),
+        () => {
+          this.showAlert(); // Mostramos una alerta
+          this.isPlaying = false;
+          this.radioService.radioPlayer = undefined;
+        }
+      );
+    }
+
+    if(!this.isPlaying) {
+      this.radioService.playRadio(this.currentStation.frecuencia_dial);
+      this.isPlaying = true;
+    }
+    else {
+      this.radioService.pauseRadio();
+      this.isPlaying = false;
+    }
+
+  }
+
+  /**
+   * Mostrar ventana emegente de cargando cuando se inicia la radio
+   */
+  async showLoading() {
+    const load = await this.loadingCtrl.create({
+      message: 'Cargando...',
+      spinner:'bubbles',
+    });
+    load.present();
+  }
+
+  /**
+   * Mostrar alerta cuando hay un error al cargar la radio
+   */
+  async showAlert() {
+    const alert = await this.alertCtrl.create({
+      message: 'Error al cargar la transmision. Por favor intentelo mas tarde',
+      buttons: ['OK'],
+      mode: 'ios'
+    });
+    alert.present();
+  }
+
+  destroyRadio() {
+    this.isPlaying = false;
+    this.radioService.destroyRadio();
   }
 }

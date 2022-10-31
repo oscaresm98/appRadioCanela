@@ -46,6 +46,7 @@ export class ProgrammingPage implements OnInit {
   }
 
   private loadData(id:number) {
+    /*
     this.data.getPrograma().subscribe(res => {
       this.Programas = Object.values(res)
       for (let i = 0; i < this.Programas.length; i++) {
@@ -59,6 +60,7 @@ export class ProgrammingPage implements OnInit {
         this.listo  =true
       })
     })
+    */
   }
 
 }

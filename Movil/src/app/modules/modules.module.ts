@@ -15,6 +15,7 @@ import { PartidosComponent } from './futbol/components/partidos/partidos.compone
 import { ModalFootbalComponent } from './futbol/components/modal-footbal/modal-footbal.component';
 import { TipsComponent } from './tips/tips.component';
 import { SpecificNewComponent } from './noticias/components/specific-new/specific-new.component';
+import { ProgramacionComponent } from './components/programacion/programacion.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SpecificNewComponent } from './noticias/components/specific-new/specifi
     ModalFootbalComponent,
     TipsComponent,
     SpecificNewComponent,
-    MatchCardComponent
+    MatchCardComponent,
+    ProgramacionComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,9 @@ import { SpecificNewComponent } from './noticias/components/specific-new/specifi
     IonicModule,
     FormsModule,
     SwiperModule,
+  ],
+  exports:[
+    ProgramacionComponent
   ]
 })
 export class ModulesModule { }

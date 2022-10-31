@@ -1,3 +1,22 @@
-<p>
-  programacion works!
-</p>
+<div class="content">
+  <div class="title-programacion">
+    <h2>Programación</h2>
+  </div>
+  <div class="info d-flex flex-row w-90">
+    <div class="horario mr-10vw">
+      <span class="orange-color">Horario</span>
+      <div class="d-flex flex-column my-2" *ngFor="let programaPD of programacion">
+        <span>{{hourFormat(programaPD.hora_inicio)}} - {{hourFormat(programaPD.hora_fin)}}</span>
+        <span class="orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</span>
+      </div>
+    </div>
+    <div  class="programacion">
+      <span class="orange-color">Programacion</span>
+      <div class="d-flex flex-column my-2" *ngFor="let programaPD of programacion;">
+        <span>{{programaPD.programa[0].nombre}}</span>
+        <span class="orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</span>
+      </div>
+    </div>
+  </div>
+</div>
+
