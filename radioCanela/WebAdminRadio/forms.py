@@ -336,7 +336,8 @@ class PodcastForm(forms.ModelForm):
             'descripcion',
             'audio',
             'fecha',
-            'emisora'
+            'emisora',
+            'imagen',
         ]
 
 # class GaleriaForm(forms.ModelForm):

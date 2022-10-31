@@ -665,7 +665,7 @@ class NoticiaTipo(generics.ListAPIView):
         tipo = self.kwargs['tipo']
         return NoticiasTips.objects.filter(tipo=tipo.capitalize(), estado=True)
 
-@api_view(['GET'])
+@api_view(['GET',"POST"])
 def ListPodcasts(request):
     try:
         podcast = Podcast.objects.filter(estado=True)
@@ -675,8 +675,14 @@ def ListPodcasts(request):
     if request.method == 'GET':
         serializer = PodcastSerializer(podcast, many=True)
         return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = PodcastSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def Emisora_Podcast_list(request, id_emisora):
     try:
         podcast = Podcast.objects.filter(estado=True,id_emisora=id_emisora)
@@ -686,6 +692,12 @@ def Emisora_Podcast_list(request, id_emisora):
     if request.method == 'GET':
         serializer = PodcastSerializer(podcast, many=True)
         return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = PodcastSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
     # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
