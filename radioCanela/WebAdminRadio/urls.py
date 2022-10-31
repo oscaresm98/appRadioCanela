@@ -66,5 +66,6 @@ urlpatterns = [
     path('transmision/agregar', views.agregar_transmision, name = 'agregar_transmision'), #Muestra la pantalla para agregar transmision.
     path('transmision/<int:id_transmision>/editar', views.modificar_transmision, name = 'editar_transmision'), # Muestra la pantalla para editar una de la transmision.
     path('transmision/<int:id_transmision>/eliminar', views.borrar_transmision, name="borrar_transmision"), # URL para borrar un transmision
-    
+
+    path('podcasts',views.podcasts,name='podcasts'),# Pagina principal donde se muestran los podcasts
 ]

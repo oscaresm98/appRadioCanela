@@ -1217,3 +1217,11 @@ def borrar_transmision(request, id_transmision):
     delete_transmision.delete()
     messages.success(request, 'La Transmision ha sido eliminada con exito')
     return redirect('transmision')
+
+def podcasts(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Podcast',
+        'emisoras': list_emisoras,
+    }
+    return render(request, 'webAdminRadio/podcasts.html', context)
