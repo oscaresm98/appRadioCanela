@@ -44,8 +44,7 @@ def administrador(request):
 #@has_permission_decorator('emisoras')
 def usuarios(request):
     #listaUsuarios= Usuario.objects.filter(activo=True)
-    listaUsuarios= Usuario.objects.all()
-    context = {'title': 'Usuarios', 'usuarios':listaUsuarios}
+    context = {'title': 'Usuarios'}
     #return render(request,"webAdminRadio/prueba.html")
     return render(request, 'webAdminRadio/usuarios.html', context)
 

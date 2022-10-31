@@ -8,7 +8,7 @@ function getSegmentos(emisora) {
         "destroy": true,
         "ajax": {
             "method": "GET",
-            "url": "/api/emisora"+ emisora +"/podcasts",
+            "url": "/api/emisora/"+ emisora +"/podcasts",
             "dataSrc": "",
             "error": function(xhr, status, error) {
                 console.log("readyState: " + xhr.readyState);
