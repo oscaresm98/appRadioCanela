@@ -2,63 +2,66 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUsuario } from 'app/shared/usuario.interface';
 import { environment } from 'environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private URL_USER=environment.REMOTE_BASE_URL +environment.USER_URL;
-  private URL_AUTH= environment.REMOTE_BASE_URL + environment.AUTH_URL;
-  private URL_USERDATA=environment.REMOTE_BASE_URL + environment.USERDATA_URL;
-  private userData:any={};
-  private token:string="";
+  private URL_AUTH = environment.REMOTE_BASE_URL + environment.AUTH_URL;
+  private URL_USERDATA = environment.REMOTE_BASE_URL + environment.USERDATA_URL;
+  private URL_REGISTER = environment.REMOTE_BASE_URL + environment.REGISTER_URL;
+  private URL_LOGOUT= environment.REMOTE_BASE_URL + environment.LOGOUT_URL;
 
-  gteToken(){
+  private userData: any = {};
+  private token: string = "";
+
+  gteToken() {
     return this.token;
   }
 
-  constructor(private http: HttpClient) { }
-
-  public postLogin(username:string,password:string){
-    const body:any={
-      username:username,
-      password:password
-    }
-
-    return new Promise((resolve)=>{
-      this.http.post(this.URL_AUTH,body).subscribe({
-        next:(res:any)=>{
-          if (res != null) {
-            console.log("Obteniendo token usuario: ",res);
-            this.token=res.token;
-            //this.getUserData();
-            const data = { resCode: 0 };
-            resolve(data);
-          }
-        },
-        error: (err) => {
-          console.log(err);
-          let e;
-          e = 'Error al intentar cargar los datos del usuario';
-          const data = { resCode: -1, error: e };
-          resolve(data);
-        },
-      })
-    });
-    
-  }
+  constructor(private http: HttpClient,
+    private storage: Storage,) { }
   
-  public createUser(user:IUsuario){
-    const body:any={
-      ...user,
-      slug: user.username
+  public postLogin(username: string, password: string) {
+    const body: any = {
+      username_email: username,
+      password: password
     }
-    return new Promise((resolve)=>{
-      this.http.post(this.URL_USER,body).subscribe({
-        next:(res:any)=>{
+    return new Promise((resolve) => {
+      this.http.post(this.URL_AUTH, body, { withCredentials: true }).subscribe({
+        next: async (res: any) => {
           if (res != null) {
-            console.log("Post usuario usuario: ",res);
+            this.token = res.jwt;
+            this.storeUserToken(this.token);
+            await this.storage.set('socialLogin', 'false');
+            this.getUserData();
+            const data = { resCode: 0 };
+            resolve(data);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          let e;
+          e = 'Error al intentar cargar los datos del usuario';
+          const data = { resCode: -1, error: e };
+          resolve(data);
+        },
+      })
+    });
+
+  }
+
+  public createUser(user: IUsuario) {
+    const body: any = {
+      ...user,
+    }
+    return new Promise((resolve) => {
+      this.http.post(this.URL_REGISTER, body).subscribe({
+        next: (res: any) => {
+          if (res != null) {
+            console.log("Post usuario usuario: ", res);
             const data = { resCode: 0 };
             resolve(data);
           }
@@ -73,16 +76,32 @@ export class AuthService {
       })
     });
   }
-  private getUserData(){
-    const params={
-      token:this.token
-    };
-    return new Promise((resolve)=>{
-      this.http.get(this.URL_USERDATA,{params}).subscribe({
-        next:(res:any)=>{
+  logoutRequest(){
+    return new Promise((resolve) => {
+      this.http.post(this.URL_LOGOUT, { withCredentials: true }).subscribe({
+        next: (res: any) => {
           if (res != null) {
-            console.log("Obteniendo  usuario: ",res);
-            //this.token=res.token;
+            const data = { resCode: 0 };
+            resolve(data);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          let e;
+          e = 'Error al intentar hacer el logout';
+          const data = { resCode: -1, error: e };
+          resolve(data);
+        },
+      })
+    });
+  }
+  private getUserData() {
+    return new Promise((resolve) => {
+      this.http.get(this.URL_USERDATA, { withCredentials: true }).subscribe({
+        next: (res: any) => {
+          if (res != null) {
+            console.log("Obteniendo  usuario: ", res);
+            this.userData=res;
             const data = { resCode: 0 };
             resolve(data);
           }
@@ -96,5 +115,8 @@ export class AuthService {
         },
       })
     });
+  }
+  private async storeUserToken(token: string) {
+    await this.storage.set('jwt', token);
   }
 }

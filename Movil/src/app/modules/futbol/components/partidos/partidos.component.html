@@ -16,7 +16,7 @@
   </div>
   
 
-  <ion-list class="flex transparent">
+  <ion-list class="transparent">
     <app-match-card [seccion]="seccion" *ngFor="let match of matchesView" [matchFootball]="match" (selectMatch)="openModal($event)"></app-match-card>
   </ion-list>
 

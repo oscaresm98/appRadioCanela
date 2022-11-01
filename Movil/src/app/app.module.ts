@@ -20,7 +20,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
-
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    IonicStorageModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

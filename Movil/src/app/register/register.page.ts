@@ -98,6 +98,12 @@ export class RegisterPage implements OnInit {
       this.authService.createUser(user).then(
         async (data:any)=>{
           if (data.resCode == 0) {
+            const alert = await this.alertController.create({
+              header: 'Registro exitoso!',
+              message: 'La cuenta ha sido creada exitosamente. Ingrese sus nuevaas credenciales.',
+              buttons: ['OK'],
+            });
+            await alert.present();
             console.log("Ingreso perfecto");
             this.router.navigate(['/login']);
           } else {
@@ -110,7 +116,14 @@ export class RegisterPage implements OnInit {
             console.log("ERROR!!!!!")
           }
         }
-        );
+        ).catch(async (error)=>{
+          const alert = await this.alertController.create({
+            header: 'Oops!',
+            message: error,
+            buttons: ['OK'],
+          });
+          await alert.present();
+        });
       
     }
   }

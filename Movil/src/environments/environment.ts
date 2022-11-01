@@ -14,9 +14,10 @@ export const environment = {
   },
   REMOTE_BASE_URL: 'https://gruporadios.pythonanywhere.com',
   TOKEN_URL: '/api_generate_token/',
-  AUTH_URL:'/login/',
-  REGISTER_URL:'/registro/',
-  USERDATA_URL: '/user/',
+  AUTH_URL:'/api/login/',
+  REGISTER_URL:'/api/registro/',
+  LOGOUT_URL: '/api/logout/',
+  USERDATA_URL: '/api/user/',
   NOTICIA_URL: '/api/noticias/',
   USER_URL: '/api/usuarios/',
 };

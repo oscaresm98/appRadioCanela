@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list class="list">
       <ion-menu-toggle>
-        <ion-item class="item" [routerLink]="['/principal/home']">
+        <ion-item class="item" [routerLink]="['/principal/home']" routerDirection="root" routerLinkActive="active-item">
           <ion-icon name="home" slot="start"></ion-icon>
           <span class="item-text" slot="start">Inicio</span>
         </ion-item>
@@ -14,7 +14,7 @@
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item class="item" (click)="go()" [routerLink]="['/principal/partidos']">
+        <ion-item class="item" (click)="go()" [routerLink]="['/principal/partidos']" routerDirection="root" routerLinkActive="active-item">
           <ion-icon name="football-outline"></ion-icon>
           <span class="item-text">Partidos</span>
         </ion-item>
@@ -33,13 +33,13 @@
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item class="item" [routerLink]="['/principal/tips']">
+        <ion-item class="item" [routerLink]="['/principal/tips']" routerDirection="root" routerLinkActive="active-item">
           <ion-icon name="clipboard-outline"></ion-icon>
           <span class="item-text">Tips</span>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item [routerLink]="['/information']" class="item">
+        <ion-item [routerLink]="['/information']" class="item" routerDirection="root" routerLinkActive="active-item">
           <ion-icon name="call-outline"></ion-icon>
           <span class="item-text">Contáctenos</span>
         </ion-item>

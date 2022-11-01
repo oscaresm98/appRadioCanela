@@ -9,7 +9,6 @@ import { TransmisionPageRoutingModule } from './transmision-routing.module';
 import { TransmisionPage } from './transmision.page';
 import { SwiperModule } from 'swiper/angular';
 import { PrincipalPageModule } from 'app/principal/principal.module';
-import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     SwiperModule,
     TransmisionPageRoutingModule,
     PrincipalPageModule,
-    YouTubePlayerModule
   ],
   declarations: [TransmisionPage],
 })
