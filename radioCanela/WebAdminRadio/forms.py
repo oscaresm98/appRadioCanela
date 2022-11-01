@@ -336,9 +336,17 @@ class PodcastForm(forms.ModelForm):
             'descripcion',
             'audio',
             'fecha',
-            'emisora',
+            'id_emisora',
             'imagen',
         ]
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'id_emisora': 'emisora',
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(PodcastForm, self).add_prefix(field_name)
+
+
 
 # class GaleriaForm(forms.ModelForm):
 

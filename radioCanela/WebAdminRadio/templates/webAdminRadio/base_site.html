@@ -51,10 +51,11 @@
             </li>
             {% comment %} <li>
                 <a class="action" href="{% url 'webadminradio:galeria' %}"><i class="fas fa-images"></i>Galeria</a>
-            </li>
+            </li>{% endcomment %}
             <li>
-                <a class="action" href="{% url 'webadminradio:podcasts' %}"><i class="fas fa-volume-up"></i>Podcasts</a>
+                <a class="action" href="{% url 'podcasts' %}"><i class="fas fa-volume-up"></i>Podcasts</a>
             </li>
+            {% comment %}
             <li>
                 <a class="action" href="{% url 'webadminradio:sugerencias' %}"><i class="fas fa-edit"></i>Sugerencias</a>
             </li> {% endcomment %}

@@ -28,7 +28,7 @@
     </div>
     {% endif %}
     <h4><b>Información de Podcast</b></h4>
-    <form id="addSegmento" class="mt-5" method="POST" action="{% url 'agregar_transmision' %}" enctype="multipart/form-data">
+    <form id="addSegmento" class="mt-5" method="POST" action="{% url 'agregar_podcasts' %}" enctype="multipart/form-data">
         {% csrf_token %}
 
         <!-- Imagen del podcast -->
@@ -48,7 +48,7 @@
                 <label for="emisoraSelect">Emisora</label>
             </div>
             <div class="col-9">
-                <select id="emisoraSelect" class="form-select form-control" name="id_emisora" oninvalid="this.setCustomValidity('Seleccione una radio de la lista')" oninput="this.setCustomValidity('')" required>
+                <select id="emisoraSelect" class="form-select form-control" name="emisora" oninvalid="this.setCustomValidity('Seleccione una emisora de la lista')" oninput="this.setCustomValidity('')" required>
                     <option value="" selected disabled>Seleccione la emisora</option>
                     {% for emisora in emisoras %}
                         <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre }} {{ emisora.frecuencia_dial }}</option>
@@ -63,7 +63,7 @@
                 <label for="nombreInput">Título</label>
             </div>
             <div class="col-9">
-                <input required name="titulo" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título de la transmisión" maxlength=150>
+                <input required name="nombre" id="nombreInput" type="text" class="form-control" placeholder="Ingrese el título del podcast" maxlength=150>
             </div>
         </div>
 
@@ -73,7 +73,7 @@
                 <label for="descInput">Descripción</label>
             </div>
             <div class="col-9">
-                <textarea class="form-control" id="descInput" name="descripcion" rows="3" placeholder="Ingrese una breve descripción" oninvalid="this.setCustomValidity('Ingrese una descripcion del segmento')" oninput="this.setCustomValidity('')" maxlength="250" required></textarea>
+                <textarea class="form-control" id="descInput" name="descripcion" rows="3" placeholder="Ingrese una breve descripción" oninvalid="this.setCustomValidity('Ingrese una descripcion del podcast')" oninput="this.setCustomValidity('')" maxlength="250" required></textarea>
             </div>
         </div>
 
