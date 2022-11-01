@@ -68,4 +68,5 @@ urlpatterns = [
     path('transmision/<int:id_transmision>/eliminar', views.borrar_transmision, name="borrar_transmision"), # URL para borrar un transmision
 
     path('podcasts',views.podcasts,name='podcasts'),# Pagina principal donde se muestran los podcasts
+    path('podcasts/agregar',views.agregar_podcasts,name='agregar_podcasts'),#Muestra la pantalla para agregar podcasts
 ]

@@ -44,8 +44,7 @@ def administrador(request):
 #@has_permission_decorator('emisoras')
 def usuarios(request):
     #listaUsuarios= Usuario.objects.filter(activo=True)
-    listaUsuarios= Usuario.objects.all()
-    context = {'title': 'Usuarios', 'usuarios':listaUsuarios}
+    context = {'title': 'Usuarios'}
     #return render(request,"webAdminRadio/prueba.html")
     return render(request, 'webAdminRadio/usuarios.html', context)
 
@@ -737,7 +736,7 @@ def programas(request):
 @login_required
 def agregar_programa(request):
     list_emisoras = Emisora.objects.filter(estado=True)
-    list_locutores = Locutor.objects.filter(estado=True)
+    list_locutores = Locutor.objects.filter(estado=True).order_by('nombre')
     context = {'title': 'Agregar Programa', 'emisoras': list_emisoras, 'locutores': list_locutores}
     
     if request.POST:
@@ -1218,6 +1217,7 @@ def borrar_transmision(request, id_transmision):
     messages.success(request, 'La Transmision ha sido eliminada con exito')
     return redirect('transmision')
 
+@login_required
 def podcasts(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -1225,3 +1225,33 @@ def podcasts(request):
         'emisoras': list_emisoras,
     }
     return render(request, 'webAdminRadio/podcasts.html', context)
+
+@login_required
+def agregar_podcasts(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Podcast',
+        'emisoras': list_emisoras
+        }
+    if request.POST:
+        podcasts_form = PodcastForm(request.POST)
+        if podcasts_form.is_valid():
+            podcasts_form.save()
+            podcst = Podcast.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(podcst.id), 'imagenes/')
+            podcst.imagen = url
+            podcst.save()
+            context['success'] = '¡El registro se ha sido creado con éxito!'
+        else:
+            context['error'] = podcasts_form.errors
+    return render(request, 'webAdminRadio/agregar_podcast.html', context)
+
+
+@login_required
+def borrar_podcast(request, id_podcast):
+    delete_podcasts = Podcast.objects.get(id=id_podcast)
+    delete_podcasts.estado = False
+    delete_podcasts.delete()
+    messages.success(request, 'El podcast ha sido eliminado con exito')
+    return redirect('podcasts')
+

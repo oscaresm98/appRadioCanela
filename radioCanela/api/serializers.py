@@ -58,8 +58,10 @@ class EmisoraSerializer(serializers.ModelSerializer):
 
 # Usuario  
 class UsuarioSerializer(serializers.ModelSerializer):
+    nombreRol = serializers.CharField(source='rol')
+    
     class Meta:
-        fields = '__all__'
+        fields = ['id', 'foto', 'fechaNacimiento', 'email', 'nombreRol', 'date_joined', 'first_name', 'last_name', 'activo']
         model = models.Usuario
 
 class UsuarioMovilSerializer(serializers.ModelSerializer):
