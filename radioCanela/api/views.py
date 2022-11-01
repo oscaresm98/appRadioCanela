@@ -386,13 +386,14 @@ class UserView(APIView):
         print(request.COOKIES)
 
         token = request.COOKIES.get('jwt')
+        print(request.COOKIES)
         print(token)
 
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
