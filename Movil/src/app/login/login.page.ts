@@ -28,13 +28,12 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
+  omitir(){
+    this.authService.setGuest(true);
+  }
 
   onLogin(form: any) {
     if (this.loginForm.valid ) {
-      /*
-      this.data.postLogin(form).subscribe(res => {
-        console.log(res);
-      });*/
       this.authService.postLogin(form.email,form.password).then(
         async (data:any)=>{
           if (data.resCode == 0) {

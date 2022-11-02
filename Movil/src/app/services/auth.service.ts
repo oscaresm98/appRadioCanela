@@ -12,48 +12,32 @@ export class AuthService {
   private URL_AUTH = environment.REMOTE_BASE_URL + environment.AUTH_URL;
   private URL_USERDATA = environment.REMOTE_BASE_URL + environment.USERDATA_URL;
   private URL_REGISTER = environment.REMOTE_BASE_URL + environment.REGISTER_URL;
-  private URL_LOGOUT= environment.REMOTE_BASE_URL + environment.LOGOUT_URL;
+  private URL_LOGOUT = environment.REMOTE_BASE_URL + environment.LOGOUT_URL;
 
   private userData: any = {};
   private token: string = "";
+  private isAuth: boolean = false;
+  private isGuest: boolean = false;
 
-  gteToken() {
+  getUserJson() {
+    return this.userData;
+  }
+  getToken() {
     return this.token;
   }
-
+  getIsAuth() {
+    return this.isAuth;
+  }
+  getIsGuest() {
+    return this.isGuest;
+  }
+  setGuest(isGuest: boolean) {
+    this.isGuest = isGuest;
+  }
   constructor(private http: HttpClient,
     private storage: Storage,) { }
-  
-  public postLogin(username: string, password: string) {
-    const body: any = {
-      username_email: username,
-      password: password
-    }
-    return new Promise((resolve) => {
-      this.http.post(this.URL_AUTH, body, { withCredentials: true }).subscribe({
-        next: async (res: any) => {
-          if (res != null) {
-            this.token = res.jwt;
-            this.storeUserToken(this.token);
-            await this.storage.set('socialLogin', 'false');
-            this.getUserData();
-            const data = { resCode: 0 };
-            resolve(data);
-          }
-        },
-        error: (err) => {
-          console.log(err);
-          let e;
-          e = 'Error al intentar cargar los datos del usuario';
-          const data = { resCode: -1, error: e };
-          resolve(data);
-        },
-      })
-    });
 
-  }
-
-  public createUser(user: IUsuario) {
+  createUser(user: IUsuario) {
     const body: any = {
       ...user,
     }
@@ -76,13 +60,46 @@ export class AuthService {
       })
     });
   }
-  logoutRequest(){
+
+  postLogin(username: string, password: string) {
+    const body: any = {
+      username_email: username,
+      password: password
+    }
+    return new Promise((resolve) => {
+      this.http.post(this.URL_AUTH, body, { withCredentials: true }).subscribe({
+        next: async (res: any) => {
+          if (res != null) {
+            this.token = res.jwt;
+            this.storeUserToken(this.token);
+            await this.storage.set('socialLogin', 'false');
+            this.getUserData();
+            const data = { resCode: 0 };
+            resolve(data);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          let e;
+          e = 'Error al intentar cargar los datos del usuario';
+          const data = { resCode: -1, error: e };
+          resolve(data);
+          this.isAuth = false;
+        },
+      })
+    });
+
+  }
+
+
+  logoutRequest() {
     return new Promise((resolve) => {
       this.http.post(this.URL_LOGOUT, { withCredentials: true }).subscribe({
         next: (res: any) => {
           if (res != null) {
             const data = { resCode: 0 };
             resolve(data);
+            this.isAuth = false;
           }
         },
         error: (err) => {
@@ -101,8 +118,9 @@ export class AuthService {
         next: (res: any) => {
           if (res != null) {
             console.log("Obteniendo  usuario: ", res);
-            this.userData=res;
+            this.userData = res;
             const data = { resCode: 0 };
+            this.isAuth = true;
             resolve(data);
           }
         },
@@ -112,6 +130,7 @@ export class AuthService {
           e = 'Error al intentar cargar los datos del usuario';
           const data = { resCode: -1, error: e };
           resolve(data);
+          this.isAuth = false;
         },
       })
     });

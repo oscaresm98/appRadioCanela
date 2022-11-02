@@ -17,24 +17,32 @@ export class PopOverComponent implements OnInit {
 
   ngOnInit() { }
   logout() {
-    this.authService.logoutRequest().then(
-      async (data: any) => {
-        if (data.resCode == 0) {
-          this.router.navigate(['/login']);
-          this.popCtrl.dismiss({
-            'fromPopUp': "Cerar session"
-          })
-        } else {
-          const alert = await this.alertController.create({
-            header: 'Oops!',
-            message: 'problema al cerrar sesion, revise su conexión.',
-            buttons: ['OK'],
-          });
-          await alert.present();
+    if(this.authService.getIsGuest()){
+      this.authService.setGuest(false);
+      this.popCtrl.dismiss({
+        'fromPopUp': "Cerar session"
+      })
+      this.router.navigate(['/login']);
+    }
+    else{
+      this.authService.logoutRequest().then(
+        async (data: any) => {
+          if (data.resCode == 0) {
+            this.router.navigate(['/login']);
+            this.popCtrl.dismiss({
+              'fromPopUp': "Cerar session"
+            })
+          } else {
+            const alert = await this.alertController.create({
+              header: 'Oops!',
+              message: 'problema al cerrar sesion, revise su conexión.',
+              buttons: ['OK'],
+            });
+            await alert.present();
+          }
         }
-      }
-    );
-
-
+      );
+    }
+    
   }
 }
