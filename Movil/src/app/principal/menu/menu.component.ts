@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -7,14 +7,19 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-
+  @Input() menuId:string='fisrt';
+  @Input() contentId:string='principal';
+  paneEnabled:boolean=true;
   constructor(private menuCtrl:MenuController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
   go(){
     if(this.menuCtrl.isOpen()){
       
     };
   }
+
+
 
 }

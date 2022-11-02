@@ -1,44 +1,47 @@
-<div class="title-noticias">
-  <h2>Noticias</h2>
-</div>
-<div class="card-container">
-  <div class="card-content" *ngFor="let news of newsList; let i = index;">
-    <div class="tarjeta" >
-      <div class="image-container" [routerLink]="['/principal/noticias',news.id]">
-        <img class="image" src="{{news.imagen}}">
-      </div>
-      <div class="info" [routerLink]="['/principal/noticias',news.id]">
-        <p class="title truncate">{{news.titulo}}</p>
 
-        <p class="truncate">
-          {{news.descripcion}}
-        </p>
-      </div>
-      <ion-button class="like-button" (click)="like()">
-        <div>
-          <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
-          <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
-        </div>
-      </ion-button>
-    </div>
-    <div class="card-footer">
-      <ion-button class="footer-buttons">
-        <ion-icon name="cloud-upload-outline"></ion-icon>
-        <span>{{ news.fecha_subida | date:'dd/MM/YYYY HH:mm' }}</span>
-      </ion-button>
-      <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
-        <ion-icon name="share-social-outline"></ion-icon>
-        <span color="medium">
-          {{interactionMaganer(news.compartidos)}}
-        </span>
-      </ion-button>
-
-    </div>
+<div>
+  <div class="title-noticias">
+    <h2>Noticias</h2>
   </div>
-
+  <div class="card-container">
+    <div class="card-content" *ngFor="let news of newsList; let i = index;">
+      <div class="tarjeta" >
+        <div class="image-container" [routerLink]="['/principal/noticias',news.id]">
+          <img class="image" src="{{news.imagen}}">
+        </div>
+        <div class="info" [routerLink]="['/principal/noticias',news.id]">
+          <p class="title truncate">{{news.titulo}}</p>
+  
+          <p class="truncate">
+            {{news.descripcion}}
+          </p>
+        </div>
+        <ion-button class="like-button" (click)="like()">
+          <div>
+            <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
+            <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
+          </div>
+        </ion-button>
+      </div>
+      <div class="card-footer">
+        <ion-button class="footer-buttons">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          <span>{{ news.fecha_subida | date:'dd/MM/YYYY HH:mm' }}</span>
+        </ion-button>
+        <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
+          <ion-icon name="share-social-outline"></ion-icon>
+          <span color="medium">
+            {{interactionMaganer(news.compartidos)}}
+          </span>
+        </ion-button>
+  
+      </div>
+    </div>
+  
+  </div>
+  
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines-small" loadingText="Cargando más noticias...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </div>
-
-<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-  <ion-infinite-scroll-content loadingSpinner="lines-small" loadingText="Cargando más noticias...">
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>

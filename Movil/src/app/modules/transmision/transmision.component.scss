@@ -1,0 +1,132 @@
+.content{
+    --background: black;
+    --color: white;
+}
+.white{
+    color: white;
+}
+.image-container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.live-header{
+    width: 90vw;
+    padding: 2vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgb(127, 127, 127,0.25) 0px 18px 36px -18px inset, inset 0 -10px 10px -10px rgba(127, 127, 127, 0.25);
+    border-radius: 10vw;
+    margin-bottom: 10px;
+}
+.live,.titulo-stream{
+    color:var(--radio-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+.titulo-stream{
+    color: white;
+    margin-left: 5vw;
+}
+.live-text,.stream-text{
+    margin: 0;
+}
+.center{
+    font-size: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#punto{
+    font-size: 20vw;
+}
+.logo {
+    width: 40vw;
+}
+swiper {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+div.line-break {
+    width: 100%;
+    height: 2px;
+    background-color: red;
+    margin-bottom: 1rem;
+}
+
+.stream {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-bottom: 1rem;
+}
+
+.stream h2 {
+    width: 100%;
+}
+
+.display-stream {
+    height: 20vh;
+}
+
+#loading-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    justify-content: center;
+}
+
+#loading-div ion-spinner {
+    transform: scale(2);
+}
+
+#loading-div span {
+    margin-top: 2rem;
+}
+
+iframe {
+    height: 100%;
+    background-image: url('../../../assets/icon/loading.gif');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.platform-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem !important;    
+}
+
+.embed-stream {
+    width: 100%;
+    height: 100%;
+}
+
+.stream-info-div {
+    padding: 2rem;
+}
+
+.stream-info-div > p {
+    text-align: justify;
+}
+
+.carousel-publicidad {
+    margin: 1.5rem 0rem;
+    img{
+        max-width: 80%;
+    }
+}
+
+.divider{
+    margin: 2vh;
+    border-bottom: 1px solid #33507f;
+}

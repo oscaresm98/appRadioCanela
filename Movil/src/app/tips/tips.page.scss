@@ -3,7 +3,17 @@
     --background: #000;
 }
 .body{
-    --background: black;
+    background: black;
+}
+.cabecera{
+    --color: white;
+    --height: 500rem;
+    --background:green;
+}
+.contenido{
+    --color: white;
+    --height: 800rem;
+    --background:blue;
 }
 
 

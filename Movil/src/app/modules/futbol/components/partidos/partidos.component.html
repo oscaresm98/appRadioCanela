@@ -20,7 +20,7 @@
     <app-match-card [seccion]="seccion" *ngFor="let match of matchesView" [matchFootball]="match" (selectMatch)="openModal($event)"></app-match-card>
   </ion-list>
 
-  <div id="no-games" *ngIf="matchesView.length === 0">
+  <div class="white" id="no-games " *ngIf="matchesView.length === 0">
     <h3>No hay partidos para mostrar</h3>
   </div>
   

@@ -7,7 +7,20 @@
 .logo {
     width: 40vw;
 }
-.principal{
-    --background: black;
-    
+
+.transparent{
+    --background: transparent;
+
+}
+.overflow{
+    overflow: scroll;
+}
+.router{
+    height: auto;
+}
+.alto{
+    height: auto;
+}
+.padding-t{
+    padding-top: 20rem;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { NotificationComponent } from '../notification/notification.component';
 import { PopOverComponent } from '../pop-over/pop-over.component';
@@ -9,7 +9,7 @@ import { PopOverComponent } from '../pop-over/pop-over.component';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-
+  @Input() menuId:string='first';
   constructor(private popCtrl:PopoverController,
     private menuCtrl:MenuController) { }
 
@@ -27,6 +27,7 @@ export class ToolbarComponent implements OnInit {
     return await popover.present();
   }
   toggleMenu(){
+    //this.menuCtrl.enable(true,this.menuId);
     this.menuCtrl.toggle();
     
   }

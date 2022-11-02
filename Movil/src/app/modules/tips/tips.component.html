@@ -1,67 +1,41 @@
-<ion-toolbar class="contenedor-pildora">
-  <ion-title>Tips</ion-title>
-</ion-toolbar>
-<ion-grid full>
-  <ion-row>
-    <ion-col size="12">
-      <ion-item class="transparent " lines="none" *ngFor="let tip of tipsList; let i = index;" >
-        <ion-card class="card" button="true">
-          <ion-card-header [routerLink] = "['/tips',tip.id]">
-            <ion-img [routerLink] = "['/tips',tip.id]" src="{{tip.imagen}}"></ion-img>
-            <ion-row>
-              <ion-col size="12">
-                <ion-card-title class="truncate titulo" color="secondary">{{tip.titulo}}</ion-card-title>
-                <ion-card-subtitle> 
-                  <ion-text color="medium">
-                    {{tip.fecha_subida}}
-                  </ion-text> 
-                </ion-card-subtitle>
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-          
-          <ion-card-content>
-            
-            
-            <ion-row  class="ion-justify-content-between">
-                
-              <ion-col size="auto" class="ion-justify-content-center">
-                <ion-row class="ion-justify-content-center">
-                  <ion-button class="buttonNews">
-                    <ion-icon slot="icon-only" ios="heart" md="heart-sharp" color="primary"></ion-icon>
-                   
-                    <ion-text color="primary">
-                      {{interactionMaganer(tip.likes)}}
-                    </ion-text>
-                  </ion-button>
-                </ion-row>
-                
-              </ion-col>
-
-              <ion-col size="auto" class="ion-justify-content-center">
-                <ion-row class="ion-justify-content-around">
-                  <ion-button class="buttonNews" (click)="sShare(tip.titulo, tip.descripcion, tip.imagen)">
-                    <ion-icon slot="icon-only" ios="arrow-redo" md="arrow-redo-sharp" color="primary"></ion-icon>
-                    <ion-text color="primary">
-                      {{interactionMaganer(tip.compartidos)}}
-                    </ion-text>
-                  </ion-button>  
-                </ion-row>                    
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-item>
-
-      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content
-          loadingSpinner="lines-small"
-          loadingText="Cargando más noticias...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ion-col>
-  </ion-row>
-
-
-
-</ion-grid>
+<div>
+  <div class="title-tips">
+    <h2>Tips</h2>
+  </div>
+  <div class="card-container">
+    <div class="card-content" *ngFor="let tip of tipsList; let i = index;">
+      <div class="tarjeta" >
+        <div class="image-container" [routerLink] = "['/tips',tip.id]">
+          <img class="image" src="{{tip.imagen}}">
+        </div>
+        <div class="info" [routerLink] = "['/tips',tip.id]">
+          <p class="title truncate">{{tip.titulo}}</p>
+  
+          <p class="truncate">
+            {{tip.descripcion}}
+          </p>
+        </div>
+        <ion-button class="like-button" (click)="like()">
+          <div>
+            <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
+            <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
+          </div>
+        </ion-button>
+      </div>
+      <div class="card-footer">
+        <ion-button class="footer-buttons">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          <span>{{ tip.fecha_subida | date:'dd/MM/YYYY HH:mm' }}</span>
+        </ion-button>
+        <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
+          <ion-icon name="share-social-outline"></ion-icon>
+          <span color="medium">
+            {{interactionMaganer(tip.compartidos)}}
+          </span>
+        </ion-button>
+  
+      </div>
+    </div>
+  
+  </div>
+</div>

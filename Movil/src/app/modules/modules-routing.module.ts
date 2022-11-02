@@ -8,6 +8,7 @@ import { SpecificNewComponent } from './noticias/components/specific-new/specifi
 import { NoticiasComponent } from './noticias/noticias.component';
 import { RadioComponent } from './radio/radio.component';
 import { TipsComponent } from './tips/tips.component';
+import { TransmisionComponent } from './transmision/transmision.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
       {
         path: 'tips',
         component: TipsComponent
+      },
+      {
+        path: 'transmision',
+        component: TransmisionComponent
       },
       
     ]

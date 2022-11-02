@@ -3,7 +3,7 @@
   <div class="image-container">
     <ion-img class="logo" src="assets/images/Logo.png"></ion-img>
   </div>
-  <app-menu></app-menu>
+  <app-menu [menuId]="third" [contentId]="tertiary"></app-menu>
   <app-toolbar></app-toolbar>
 <div id="principal">
   <swiper [config]="swiperConfig" (slideChange)="changePlatform($event)">

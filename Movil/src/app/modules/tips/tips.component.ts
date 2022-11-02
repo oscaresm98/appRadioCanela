@@ -19,10 +19,13 @@ export class TipsComponent implements OnInit {
   ngOnInit() {
     this.data.getTips().subscribe(e => {
       this.allTipsList = e;
+      console.log("TIPS LIST: ",this.allTipsList)
       this.allTLength = this.allTipsList.length;
       for (let i = 0; i < this.allTLength && i < 10; i++) {
         this.tipsList.push(this.allTipsList.pop());
       }
+      console.log("TIPS LIST: ",this.tipsList)
+
     });
   }
 
