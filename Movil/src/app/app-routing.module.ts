@@ -52,7 +52,6 @@ const routes: Routes = [
     path: 'information',
     loadChildren: () => import('./information/information.module').then( m => m.InformationPageModule)
   },
-  
   {
     path: 'tips',
     loadChildren: () => import('./tips/tips.module').then( m => m.TipsPageModule)

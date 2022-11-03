@@ -1,14 +1,24 @@
 *{
     font-family: libreBaskerville;
     
-  }
-  .image-container {
-    display: flex;
-
-    padding-left: 2w;
-    padding-right: 2vw;
-    padding: 2vw;
-    justify-content: center;
+}
+p {
+  margin-bottom: 0.5rem;
+}
+.fs-date {
+  font-size: 0.8rem;
+}
+.medium-c {
+  color: #92949c;
+}
+.image-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 2w;
+  padding-right: 2vw;
+  padding: 2vw;
+  justify-content: center;
+  align-items: center;
 }
 .truncate {
     display: -webkit-box;
@@ -21,24 +31,25 @@
     justify-content: center;
     align-items: center;
     background: black;
-    color: var(--text-color1);
+    color: var(--radio-color);
     border-radius: 10vw;
     height: 10vw;
     margin-bottom: 2vw;
-    box-shadow: rgba(124, 124, 124, 0.3) 0px 30px 60px -12px inset, rgba(124, 124, 124, 0.3) 0px 18px 36px -18px inset;
+    box-shadow: inset 0px 0px 110px 9px rgba(66,66,66,0.41);
 }
 .title{
     color: var(--radio-color);
     font-weight: bold;
+    text-align: center;
   }
 .image{
     display: inline-block;
     //object-position: center;
     object-fit: cover;
     overflow: hidden;
-    width: 30vw;
-    height: 30vw;
-    border-radius: 20vw;
+    width: 25vw;
+    height: 25vw;
+    border-radius: 1rem;
   }
   .info{
     max-width: 55vw;
@@ -67,7 +78,7 @@
 .tarjeta{
   position: relative;
   padding-right: 2vw;
-  border-radius: 10vw;
+  border-radius: 1rem;
   margin-bottom: 2vw;
   //width: 90vw;
   color: white;
@@ -75,7 +86,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(124, 124, 124, 0.3) 0px 18px 36px -18px inset;
+  box-shadow: inset 0px 0px 110px 9px rgba(66,66,66,0.41);
 
 }
 .like-button{

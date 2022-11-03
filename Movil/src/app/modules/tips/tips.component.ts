@@ -19,13 +19,10 @@ export class TipsComponent implements OnInit {
   ngOnInit() {
     this.data.getTips().subscribe(e => {
       this.allTipsList = e;
-      console.log("TIPS LIST: ",this.allTipsList)
       this.allTLength = this.allTipsList.length;
       for (let i = 0; i < this.allTLength && i < 10; i++) {
         this.tipsList.push(this.allTipsList.pop());
       }
-      console.log("TIPS LIST: ",this.tipsList)
-
     });
   }
 
@@ -69,5 +66,13 @@ export class TipsComponent implements OnInit {
     };
     this.socialSharing.shareWithOptions(options);
   }
+  handleRefresh(event) {
+    setTimeout(() => {
+      this.allTipsList = [];
+      this.tipsList = [];
+      this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  };
 
 }

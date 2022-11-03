@@ -14,9 +14,11 @@ import { MatchCardComponent } from './futbol/components/match-card/match-card.co
 import { PartidosComponent } from './futbol/components/partidos/partidos.component';
 import { ModalFootbalComponent } from './futbol/components/modal-footbal/modal-footbal.component';
 import { TipsComponent } from './tips/tips.component';
+import { SpecificTipComponent } from './specific-tip/specific-tip.component';
 import { SpecificNewComponent } from './noticias/components/specific-new/specific-new.component';
 import { ProgramacionComponent } from './components/programacion/programacion.component';
 import { TransmisionComponent } from './transmision/transmision.component';
+import { GaleriaComponent } from './galeria/galeria.component';
 
 
 @NgModule({
@@ -30,10 +32,12 @@ import { TransmisionComponent } from './transmision/transmision.component';
     PartidosComponent,
     ModalFootbalComponent,
     TipsComponent,
+    SpecificTipComponent,
     SpecificNewComponent,
     MatchCardComponent,
     ProgramacionComponent,
-    TransmisionComponent
+    TransmisionComponent,
+    GaleriaComponent
   ],
   imports: [
     CommonModule,

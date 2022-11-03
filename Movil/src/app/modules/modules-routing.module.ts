@@ -8,7 +8,9 @@ import { SpecificNewComponent } from './noticias/components/specific-new/specifi
 import { NoticiasComponent } from './noticias/noticias.component';
 import { RadioComponent } from './radio/radio.component';
 import { TipsComponent } from './tips/tips.component';
+import { SpecificTipComponent } from './specific-tip/specific-tip.component';
 import { TransmisionComponent } from './transmision/transmision.component';
+import { GaleriaComponent } from './galeria/galeria.component';
 
 const routes: Routes = [
   {
@@ -19,7 +21,6 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         redirectTo: 'home',
-    
       },
       {
         path: 'home',
@@ -54,10 +55,17 @@ const routes: Routes = [
         component: TipsComponent
       },
       {
+        path: 'tips/:id',
+        component: SpecificTipComponent
+      },
+      {
         path: 'transmision',
         component: TransmisionComponent
       },
-      
+      {
+        path: 'galeria',
+        component: GaleriaComponent
+      },
     ]
     }
 ];

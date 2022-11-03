@@ -1,0 +1,38 @@
+<div>
+  <div class="title-tips">
+    <h2>TIPS</h2>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12 text-center">
+      <h3 class="titleTips">{{tips.titulo}}</h3>
+    </div>
+    <div class="col-12 text-center">
+      <ion-img class="image" [src]="tips.imagen"></ion-img>
+    </div>
+    <div class="col-6 text-start">
+      <ion-button class="footer-buttons">
+        <ion-icon name="heart"></ion-icon>
+        <ion-text color="medium">
+          {{interactionMaganer(tips.likes)}}
+        </ion-text>
+      </ion-button>
+    </div>
+    <div class="col-6 text-end">
+      <ion-button class="footer-buttons" (click)="sShare(tips.titulo, tips.descripcion, tips.imagen)">
+        <ion-icon name="arrow-redo"></ion-icon>
+        <ion-text color="medium">
+          {{interactionMaganer(tips.compartidos)}}
+        </ion-text>
+      </ion-button>
+    </div>
+    <div class="col-12 ion-text-start ion-margin-horizontal">
+      <ion-card-subtitle> 
+        <ion-text color="medium">Subido el: {{tips.fecha_subida | date:'dd/MM/YYYY '}}</ion-text> 
+      </ion-card-subtitle>
+      <p class="contentTips text-white">
+        {{tips.descripcion}}
+       </p>
+    </div>
+  </div>
+</div>
+
