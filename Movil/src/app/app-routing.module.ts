@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from './core/guards/login.guard';
 import { LogoutGuard } from './core/guards/logout.guard';
+import { SplashComponent } from './splash/splash.component';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login', pathMatch: 'full'
+  { path: 'splash',
+    component: SplashComponent
   },
   {
     path: 'login',
@@ -53,14 +53,6 @@ const routes: Routes = [
     loadChildren: () => import('./information/information.module').then( m => m.InformationPageModule)
   },
   {
-    path: 'tips',
-    loadChildren: () => import('./tips/tips.module').then( m => m.TipsPageModule)
-  },
-  {
-    path: 'tips/:id',
-    loadChildren: () => import('./specific-tip/specific-tip.module').then( m => m.SpecificTipPageModule)
-  },
-  {
     path: 'principal',
     loadChildren: () => import('./principal/principal.module').then( m => m.PrincipalPageModule),
     canActivate:[LoginGuard]
@@ -69,11 +61,9 @@ const routes: Routes = [
     path: 'transmision',
     loadChildren: () => import('./transmision/transmision.module').then( m => m.TransmisionPageModule)
   },
-
-
-
-
-
+  { path: '**',
+    redirectTo:'splash'
+  }
 ];
 
 

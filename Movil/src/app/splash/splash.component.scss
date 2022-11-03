@@ -1,0 +1,17 @@
+
+.container {
+    background: rgb(21,24,26);
+    background: linear-gradient(0deg, rgba(21,24,26,1) 0%, rgba(66,66,66,1) 46%, rgba(21,24,26,1) 100%);
+}
+
+.full {
+	min-height: 100vh;
+}
+
+.titulo {
+	color: var(--radio-color);
+}
+
+.v-align {
+	padding: 30vh 0;
+}
