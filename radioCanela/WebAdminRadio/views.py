@@ -1248,6 +1248,23 @@ def agregar_podcasts(request):
 
 
 @login_required
+def editar_podcast(request, id_podcast):
+    edit_podcast = Podcast.objects.get(id=id_podcast)
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Editar Podcast',
+        'emisoras': list_emisoras,
+    }
+    if request.POST:
+        podcast_form = PodcastForm(request.POST, instance=edit_podcast)
+        if podcast_form.is_valid():
+            podcast_form.save()
+            context['success'] = '¡El registro ha sido modificado con éxito!'
+        else:
+            context['error'] = podcast_form.errors
+    return render(request, 'webAdminRadio/editar_podcast.html', context)
+
+@login_required
 def borrar_podcast(request, id_podcast):
     delete_podcasts = Podcast.objects.get(id=id_podcast)
     delete_podcasts.estado = False

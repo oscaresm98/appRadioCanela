@@ -69,4 +69,5 @@ urlpatterns = [
 
     path('podcasts',views.podcasts,name='podcasts'),# Pagina principal donde se muestran los podcasts
     path('podcasts/agregar',views.agregar_podcasts,name='agregar_podcasts'),#Muestra la pantalla para agregar podcasts
+    path('podcasts/<int:id_podcast>/editar',views.editar_podcast,name='editar_podcasts'),#Muestra la pantalla para editar podcast
 ]
