@@ -30,7 +30,8 @@ ToolbarComponent,
   exports:[
     MenuComponent,
     ToolbarComponent,
-      SlidesComponent
+      SlidesComponent,
+    BannerComponent
   ]
 })
 export class PrincipalPageModule {}

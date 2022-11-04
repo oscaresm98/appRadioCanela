@@ -20,6 +20,7 @@ export const environment = {
   USERDATA_URL: '/api/user/',
   NOTICIA_URL: '/api/noticias/',
   USER_URL: '/api/usuarios/',
+  RADIO_URL: '/api/radios/'
 };
 export const URL = 'https://gruporadios.pythonanywhere.com';
 /*

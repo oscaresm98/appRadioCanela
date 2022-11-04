@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'app/services/data/data.service';
+import { IPublicidad } from 'app/shared/publicidad.interface';
 
 interface Image {
   src: string;
@@ -12,6 +14,7 @@ interface Image {
 })
 export class BannerComponent implements OnInit {
   images = [];
+  publicidades:IPublicidad[];
   slideOpts = {
     speed: 400,
     loop:true,
@@ -21,7 +24,7 @@ export class BannerComponent implements OnInit {
     allowTouchMove: false
   };
 
-  constructor() {
+  constructor(private dataService:DataService) {
     var img1: Image = {
       src: 'https://www.constantcontact.com/blog/wp-content/uploads/2021/04/img_60785f595c714-600x168.jpg',
       alt: 'placeholder1',
@@ -35,5 +38,8 @@ export class BannerComponent implements OnInit {
     this.images.push(img1, img2);
     
   }
-  ngOnInit() { }
+  ngOnInit() {
+    this.publicidades=this.dataService.getPublicidad();
+   }
+  
 }

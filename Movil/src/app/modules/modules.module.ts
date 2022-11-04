@@ -19,6 +19,7 @@ import { SpecificNewComponent } from './noticias/components/specific-new/specifi
 import { ProgramacionComponent } from './components/programacion/programacion.component';
 import { TransmisionComponent } from './transmision/transmision.component';
 import { GaleriaComponent } from './galeria/galeria.component';
+import { PrincipalPageModule } from 'app/principal/principal.module';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { GaleriaComponent } from './galeria/galeria.component';
     IonicModule,
     FormsModule,
     SwiperModule,
+    PrincipalPageModule
   ],
   exports:[
     ProgramacionComponent

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { RadioService } from 'app/services/radio/radio.service';
+import { RadioService } from 'app/services/radio/radio.player.service';
 
 import { Station } from 'app/shared/station';
 

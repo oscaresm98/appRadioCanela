@@ -1,7 +1,10 @@
 {
   "name": "radioForever",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      
+    },
+    "cordova": {}
   },
   "type": "angular"
 }

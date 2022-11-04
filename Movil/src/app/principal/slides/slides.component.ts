@@ -20,22 +20,8 @@ export class SlidesComponent implements OnInit {
     allowTouchMove: false
   };
   ngOnInit() {
-    this.dataService.obtenerNoticias().then(
-      async (data:any)=>{
-        if (data.resCode == 0) {
-          this.noticias=data.resData;
-          console.log("NOTICIAS EXITOSAS: ",this.noticias)
-          setTimeout(function () {
-            console.log("YA PASO 5 SEGUNDOS")
-            this.loading=false;
-        }, 5000);
-        
-        } else {
-          console.log("ERROR AL OBTEBER NOCTICIAS")
-          this.loading=true;
-        }
-      }
-      );
-    }
+    this.noticias=this.dataService.getSlidesNoticias();
+  console.log("Noticias slides: ",this.noticias)  
+  }
 
 }

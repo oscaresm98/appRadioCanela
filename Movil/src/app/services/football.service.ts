@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { FootballGame } from 'app/shared/football';
 import { environment } from 'environments/environment.prod';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { URL } from '../../environments/environment';
 
 @Injectable({
@@ -23,11 +23,11 @@ export class FootballService {
 
 
   getAllGamesPlayed(): Observable<FootballGame[]> {
-    return this.http.get<FootballGame[]>(this.gamesPlayedURL);
+    return this.http.get<FootballGame[]>(this.gamesPlayedURL).pipe( take(1) );
   }
 
   getAllGamesToPlay() {
-    return this.http.get<FootballGame[]>(this.gamesToPlayURL);
+    return this.http.get<FootballGame[]>(this.gamesToPlayURL).pipe( take(1) );
   }
 
   getTeamInfo(idTeam: number) {

@@ -1,6 +1,6 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { RadioService } from 'app/services/radio/radio.service';
+import { RadioService } from 'app/services/radio/radio.player.service';
 import { StationService } from 'app/services/radio/station.service';
 
 import { Station } from 'app/shared/station';
@@ -27,7 +27,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   stations: Station[] = [];
 
   // Emisora e indice actual
-  currentStation: Station = { id: -1, radio: null, frecuencia_dial: '', url_streaming: '' };
+  currentStation: Station;
   private currIndex = 0;
 
   constructor(
@@ -72,6 +72,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     this.currIndex = elem.activeIndex;
     console.log("EVENTO SWIPER: ",event)
     this.currentStation = this.stations[this.currIndex];
+    console.log("Nueva station---:",this.currentStation)
     this.destroyRadio();
     this.changeDetector.detectChanges();
   }

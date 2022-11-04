@@ -1,3 +1,5 @@
+<app-slides></app-slides>
+<app-banner></app-banner>
 <div class="content">
   <swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
     <ng-template swiperSlide *ngFor="let station of stations; let i = index">
@@ -10,7 +12,7 @@
 
   <div class="programacion">
     
-    <app-programacion></app-programacion>
+    <app-programacion [emisora]="currentStation"></app-programacion>
   </div>
   <div class="sticky-bottom">
     <div class="player">
