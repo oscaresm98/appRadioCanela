@@ -1,3 +1,7 @@
+*{
+    font-family: libreBaskerville;
+
+  }
 .body{
     --background: black;
 }
@@ -62,9 +66,10 @@
 }
 .text-descripcion{
     font-size: 4vw;
-    color: #434443;
+    color: var(--text-color1);
 }
 .contacto{
+    
     width: 90vw;
     margin: 0 auto;
     display: grid;
@@ -73,7 +78,7 @@
     align-content: center;
 }
 .contact-info{
-    color: #434443;
+    color:var(--text-color1);
     display: flex;
     flex-direction: row;
     //justify-content: center;
@@ -92,4 +97,14 @@
 }
 .social-media{
     --color: #F69238;
+}
+.social-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fila{
+    display: flex;
+    flex-direction: row;
+
 }

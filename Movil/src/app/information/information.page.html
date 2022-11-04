@@ -44,25 +44,17 @@
       <ion-img class="image-mapa" src="assets/images/mapa_radio.png"></ion-img>
     </div>
   </div>
-  <ion-grid>
-    <ion-row class="ion-justify-content-between">
-      <ion-col size="3">
-        <ion-button class="social-media" shape="circle" fill="clear"  >
-          <ion-icon name="logo-facebook"></ion-icon>
-        </ion-button>
-      </ion-col>
-
-      <ion-col size="3">
-        <ion-button class="social-media" shape="circle" fill="clear"  >
-          <ion-icon name="logo-google"></ion-icon>
-        </ion-button>
-      </ion-col>
-
-      <ion-col size="3">
-        <ion-button class="social-media" shape="circle" fill="clear">
-          <ion-icon name="logo-apple"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div  class="social-footer">
+    <div class="fila">
+      <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithFacebook()">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-button>
+      <ion-button class="social-media margin-booth" shape="circle" fill="clear"  (click)="signInWithGoogle()">
+        <ion-icon name="logo-google"></ion-icon>
+      </ion-button>
+      <ion-button class="social-media" shape="circle" fill="clear"  (click)="signInWithApple()">
+        <ion-icon name="logo-apple"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
