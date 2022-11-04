@@ -44,7 +44,7 @@
                 <select name="dia" id="emisoraSelect" class="form-select w-75">
                     <option selected disabled>--</option>
                     {% for emisora in emisoras %}
-                        <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre }}</option>
+                        <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre}} {{emisora.frecuencia_dial}}</option>
                     {% endfor %}
                 </select>
             </div>
