@@ -21,7 +21,6 @@ export class SlidesComponent implements OnInit {
   };
   ngOnInit() {
     this.noticias=this.dataService.getSlidesNoticias();
-  console.log("Noticias slides: ",this.noticias)  
   }
 
 }

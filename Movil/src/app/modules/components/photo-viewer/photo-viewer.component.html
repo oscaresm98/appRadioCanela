@@ -1,0 +1,34 @@
+<div class="bg-dark">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+  
+  <div>
+    <ion-row class="ion-align-items-center fullRow">
+      <ion-col size="auto">
+        <ion-img class="" [src]="file.download_url"></ion-img>
+      </ion-col>
+    </ion-row>
+  </div>
+  
+  <ion-footer>
+    <ion-toolbar>
+      <ion-text slot="start">
+        <h4><b>Titulo Generico</b></h4>
+        <!-- <h4><b>  Titulo Generico{{file.titulo}}</b></h4> -->
+      </ion-text>
+      <ion-button slot="end" fill="clear" color="light">
+        <ion-text>
+          12k
+        </ion-text>
+        <ion-icon slot="icon-only" ios="heart" md="heart-sharp"></ion-icon>
+      </ion-button>
+  
+    </ion-toolbar>
+  </ion-footer>
+</div>
