@@ -1,5 +1,6 @@
 *{
     font-family: libreBaskerville;
+    color: var(--text-color1);
 }
 .content{
     display: flex;
@@ -7,9 +8,13 @@
     justify-content: center;
     align-items: center;
 }
-
-ion-content {
-    --color: white;
+.emisoras{
+    padding: 3vw;
+    border-radius: 8vw;
+    box-shadow: rgba(124, 124, 124, 0.3) 0px 30px 60px -12px inset, rgba(124, 124, 124, 0.3) 0px 18px 36px -18px inset;
+}
+.color-radio{
+    color: var(--radio-color);
 }
 .page-waves {
     --background: transparent;

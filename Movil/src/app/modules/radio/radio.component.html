@@ -1,6 +1,16 @@
-<app-slides></app-slides>
+
 <app-banner></app-banner>
 <div class="content">
+  <div class="emisoras w-90 d-flex flex-row justify-content-evenly">
+    <span>{{getLeft()}}
+    </span>
+    <div class="d-flex align-items-center color-radio">
+      <ion-icon *ngIf="hasPrevious()" name="chevron-back-outline"></ion-icon>
+      {{currentStation?.ciudad}}
+      <ion-icon *ngIf="hasNext()" name="chevron-forward-outline"></ion-icon>
+    </div>
+    <span>{{getRigth()}}</span>
+  </div>
   <swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
     <ng-template swiperSlide *ngFor="let station of stations; let i = index">
       <app-dial-subpage #radioStation 
@@ -9,10 +19,13 @@
       ></app-dial-subpage>
     </ng-template>    
   </swiper>
-
+  <div class="d-flex flex-column align-items-center">
+    <span class="color-radio">Harta Pelota</span>
+    <span class="color-radio">21:50 - 22:50</span>
+  </div>
   <div class="programacion">
     
-    <app-programacion [emisora]="currentStation"></app-programacion>
+    <app-programacion></app-programacion>
   </div>
   <div class="sticky-bottom">
     <div class="player">

@@ -19,7 +19,8 @@ import { SpecificNewComponent } from './noticias/components/specific-new/specifi
 import { ProgramacionComponent } from './components/programacion/programacion.component';
 import { TransmisionComponent } from './transmision/transmision.component';
 import { GaleriaComponent } from './galeria/galeria.component';
-import { PrincipalPageModule } from 'app/principal/principal.module';
+import { BannerComponent } from './components/banner/banner.component';
+import { SlidesComponent } from './components/slides/slides.component';
 
 
 @NgModule({
@@ -38,7 +39,9 @@ import { PrincipalPageModule } from 'app/principal/principal.module';
     MatchCardComponent,
     ProgramacionComponent,
     TransmisionComponent,
-    GaleriaComponent
+    GaleriaComponent,
+    BannerComponent,
+    SlidesComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,6 @@ import { PrincipalPageModule } from 'app/principal/principal.module';
     IonicModule,
     FormsModule,
     SwiperModule,
-    PrincipalPageModule
   ],
   exports:[
     ProgramacionComponent

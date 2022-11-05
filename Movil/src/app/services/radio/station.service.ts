@@ -40,6 +40,8 @@ export class StationService {
         nombre: data.id_radio.nombre,
         imagen: data.id_radio.logotipo,
       },
+      ciudad:data.ciudad,
+      provincia: data.provincia
     } as Station;
   }
 

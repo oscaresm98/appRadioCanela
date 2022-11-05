@@ -11,7 +11,6 @@ import { RadioDataService } from '../radio/radio.data.service';
 @Injectable({
   providedIn: 'root'
 })
-
 export class DataService {
 
   url = ""
@@ -138,4 +137,3 @@ export class DataService {
     return this.http.get('https://picsum.photos/v2/list?page=2&limit=100');
   }
 }
-

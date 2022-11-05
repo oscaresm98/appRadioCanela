@@ -7,23 +7,23 @@
     <ion-grid class="w-90">
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col>
-          <span class="orange-color">Horario</span>
+          <div class="d-flex justify-content-center orange-color">
+            Horario
+          </div>
         </ion-col>
         <ion-col>
-          <span class="orange-color">Programacion</span>
+          <div class="d-flex justify-content-center orange-color">Programación</div>
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-center ion-align-items-center" 
       *ngFor="let programaPD of programacion;">
       <ion-col>
-          <span>{{hourFormat(programaPD.hora_inicio)}} - {{hourFormat(programaPD.hora_fin)}}</span>
-          <br>
-          <span class="orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</span>
+          <div class="d-flex justify-content-center">{{hourFormat(programaPD.hora_inicio)}} - {{hourFormat(programaPD.hora_fin)}}</div>
+          <div class="d-flex justify-content-center orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</div>
         </ion-col>
         <ion-col>
-          <span>{{programaPD.programa[0].nombre}}</span>
-          <br>
-          <span class="orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</span>
+          <div class="d-flex justify-content-center">{{programaPD.programa[0].nombre}}</div>
+          <div class="d-flex justify-content-center orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</div>
         </ion-col>
       </ion-row>
     </ion-grid>

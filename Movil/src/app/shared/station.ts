@@ -4,6 +4,8 @@ export interface Station {
     radio: Radio;
     frecuencia_dial: string;
     url_streaming: string;
+    ciudad:         string;
+    provincia:      string
 }
 
 

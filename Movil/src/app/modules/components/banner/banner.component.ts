@@ -25,21 +25,32 @@ export class BannerComponent implements OnInit {
   };
 
   constructor(private dataService:DataService) {
-    var img1: Image = {
-      src: 'https://www.constantcontact.com/blog/wp-content/uploads/2021/04/img_60785f595c714-600x168.jpg',
-      alt: 'placeholder1',
-    };
-
-    var img2: Image = {
-      src: 'https://www.constantcontact.com/blog/wp-content/uploads/2021/04/img_60785f6151f0a-600x153.jpg',
-      alt: 'placeholder2',
-    };
-
-    this.images.push(img1, img2);
+    
     
   }
   ngOnInit() {
     this.publicidades=this.dataService.getPublicidad();
+    const publicidad1:IPublicidad={
+      id: -1,
+      titulo: 'default',
+      cliente: 'none',
+      descripcion: 'default',
+      imagen: 'https://www.constantcontact.com/blog/wp-content/uploads/2021/04/img_60785f595c714-600x168.jpg',
+      url: '',
+      fecha_inicio: '',
+      fecha_fin: ''
+    }
+    const publicidad2:IPublicidad={
+      id: -1,
+      titulo: 'default',
+      cliente: 'none',
+      descripcion: 'default',
+      imagen: 'https://www.constantcontact.com/blog/wp-content/uploads/2021/04/img_60785f6151f0a-600x153.jpg',
+      url: '',
+      fecha_inicio: '',
+      fecha_fin: ''
+    }
+    this.publicidades.push(publicidad1,publicidad2);
    }
   
 }

@@ -9,8 +9,6 @@ import { PrincipalPageRoutingModule } from './principal-routing.module';
 import { PrincipalPage } from './principal.page';
 import { MenuComponent } from './menu/menu.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { SlidesComponent } from './slides/slides.component';
-import { BannerComponent } from './banner/banner.component';
 
 
 @NgModule({
@@ -24,14 +22,12 @@ import { BannerComponent } from './banner/banner.component';
     PrincipalPage,
   MenuComponent,
 ToolbarComponent,
-  SlidesComponent,
-  BannerComponent
+
 ],
   exports:[
     MenuComponent,
     ToolbarComponent,
-      SlidesComponent,
-    BannerComponent
+
   ]
 })
 export class PrincipalPageModule {}

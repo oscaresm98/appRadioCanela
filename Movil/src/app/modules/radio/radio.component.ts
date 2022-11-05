@@ -21,7 +21,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   swiperConfig: SwiperOptions = { 
     lazy: { checkInView: true }, 
     pagination: false ,
-    spaceBetween:-120};
+    spaceBetween:-170};
 
   // Arreglo y observable para manejar los datos de las emisoras
   stations: Station[] = [];
@@ -45,8 +45,6 @@ export class RadioComponent implements OnInit, AfterContentChecked {
       resp => {
         this.stations = resp as Station[];
         this.currentStation = this.stations[0];
-        console.log("---Lsit: ", this.stations)
-        console.log("----CURRENT STATION: ", this.currentStation)
         loading.dismiss();
       },
       error => loading.dismiss()
@@ -72,9 +70,26 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     this.currIndex = elem.activeIndex;
     console.log("EVENTO SWIPER: ",event)
     this.currentStation = this.stations[this.currIndex];
-    console.log("Nueva station---:",this.currentStation)
     this.destroyRadio();
     this.changeDetector.detectChanges();
+  }
+  hasPrevious(){
+    if(this.currIndex==0) return false;
+    return true
+  }
+  hasNext(){
+    if(this.currIndex==this.stations.length-1) return false;
+    return true
+  }
+  getLeft(){
+    if(this.currentStation==null) return '';
+    else if(this.currIndex==0) return this.currentStation.frecuencia_dial;
+    return this.stations[this.currIndex-1].ciudad;
+  }
+  getRigth(){
+    if(this.currentStation==null) return '';
+    else if(this.currIndex==this.stations.length-1) return this.currentStation.frecuencia_dial;
+    return this.stations[this.currIndex+1].ciudad;
   }
 
   /**
