@@ -8,6 +8,7 @@
 .logo {
     width: 40vw;
 }
+
 .image{
     width: 90vw;
     box-shadow: 0 2vw 0px 0px #F69238
@@ -85,8 +86,9 @@
     align-items: center;
 
 }
+
+
 .contact-info ion-icon{
-    
     font-size: 7vw;
     color: #F69238;
     margin-right: 2vw;
@@ -97,6 +99,9 @@
 }
 .social-media{
     --color: #F69238;
+}
+.social-media ion-icon{
+    font-size: 10vw;
 }
 .social-footer{
     display: flex;
