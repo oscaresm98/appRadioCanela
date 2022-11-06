@@ -71,6 +71,10 @@ class Programa(models.Model):
     # Esta función retorna todo 
     def get_emisora(self):
         return SegmentoEmisora.objects.filter(segmento=self.pk).values('emisora')
+    
+    # Esta función retorna todo 
+    def get_locutores(self):
+        return Locutor.objects.filter(pk__in=SegmentoLocutor.objects.filter(id_segmento=self.pk).values('id_locutor')).values('id', 'nombre', 'imagen')
 
 
 class Radio(models.Model):

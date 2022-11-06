@@ -180,7 +180,7 @@ class ListProgramasDia(generics.ListAPIView):
         em = self.kwargs['id_emisora']
         d = self.kwargs['dia']
         programas = Programa.objects.filter(pk__in=SegmentoEmisora.objects.filter(emisora=em).values('segmento'), estado=True)
-        return Horario.objects.filter(id_programa__in=programas, estado=True, dia=d.capitalize())
+        return Horario.objects.filter(id_programa__in=programas, estado=True, dia=d.capitalize()).order_by('hora_inicio')
     
 
 
@@ -318,7 +318,7 @@ def radio_detalle(request,pk):
 
 # api que obtiene las emisoras de una radio
 class ListRadioEmisoras(generics.ListAPIView):
-    serializer_class = serializers.EmisoraPartidoSerializer
+    serializer_class = serializers.EmisoraRadioSerializer
     
     def get_queryset(self):
         radio = self.kwargs['id_radio']

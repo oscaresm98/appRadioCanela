@@ -56,6 +56,13 @@ class EmisoraSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = models.Emisora
 
+class EmisoraRadioSerializer(serializers.ModelSerializer):
+    radio = serializers.CharField(source='id_radio.nombre')
+
+    class Meta:
+        fields = [ 'id', 'frecuencia_dial', 'tipo_frecuencia', 'url_streaming', 'direccion', 'ciudad', 'provincia', 'radio' ]
+        model = models.Emisora
+
 # Usuario  
 class UsuarioSerializer(serializers.ModelSerializer):
     nombreRol = serializers.CharField(source='rol')
