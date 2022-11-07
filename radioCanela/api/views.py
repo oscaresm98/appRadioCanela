@@ -700,8 +700,26 @@ def Emisora_Podcast_list(request, id_emisora):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET','PUT'])
+def podcast_Detalle(request,id_podcast):
+    try:
+        podcast = Podcast.objects.filter(estado=True,id=id_podcast)
+    except Podcast.DoesNotExist:
+        return Response({'Error': 'El podcast no existe'}, status=status.HTTP_400_NOT_FOUND)
 
-    # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
+    if request.method == 'GET':
+        serializer = PodcastSerializer(podcast, many=True)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = PodcastSerializer(podcast, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+        # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer
 #     queryset = Usuario.objects.filter(is_active=True)

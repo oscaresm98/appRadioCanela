@@ -61,6 +61,7 @@ urlpatterns = [
 
     path('podcasts', views.ListPodcasts,name='podcast-list'),
     path('emisora/<int:id_emisora>/podcasts', views.Emisora_Podcast_list,name='list_emisora_podcast'),
+    path('podcasts/<int:id_podcast>',views.podcast_Detalle,name='podcast_Detalle'),
     # path('podcastsemisora', views.ListPodcastsEmisora.as_view()),
     
     
