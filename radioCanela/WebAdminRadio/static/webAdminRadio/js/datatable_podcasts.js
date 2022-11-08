@@ -25,13 +25,15 @@ function getSegmentos(emisora) {
             { data: "fecha"},
             { data: "audio"},
             { data: "activo"},
-            { data: "id"}
+            { data: "id"},
         ],
         columnDefs: [
             { width: 10, targets: 0},
             { width: 200, targets: 1},
             { width: 250, targets: 2},
             { width: 150, targets: 3, render: function(data) {
+                console.log("DATA: ",data)
+                if(data==null) return "null"
                 return `${data.slice(0,10)}`;
             }},
             { width: 250, targets: 4},
