@@ -37,10 +37,10 @@
                 <img class="rounded-4" id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
             </div>
             <div class="form-file input-group w-50">
-                <input type="file" name="archivo" class="custom-file-input form-control" id="imgSegmento" aria-label="Upload" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese un escudo valido)" oninput="this.setCustomValidity('')" required>
+                <input type="file" name="archivo" class="custom-file-input form-control" id="imgSegmento" aria-label="Upload" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese una imagen valida)" oninput="this.setCustomValidity('')" required>
                 <input type="hidden" name="imagen" id="imagen">
-                <button type="button" id="btnImagen" class="btn btn-primary rounded-2"><i class="fas fa-upload"></i></button>
-                <div class="error"></div>
+{% comment %}                 <button type="button" id="btnImagen" class="btn btn-primary rounded-2"><i class="fas fa-upload"></i></button>
+ {% endcomment %}                <div class="error"></div>
             </div>
         </div>
 

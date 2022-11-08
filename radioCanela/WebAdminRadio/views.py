@@ -929,7 +929,6 @@ def agregar_Locutor(request):
     context = {'title': 'Agregar Locutor'}
     if request.POST:
         locutor_form = LocutorForm(request.POST)
-        print(locutor_form)
         if not locutor_form.is_valid():
             context['error'] = locutor_form.errors
             return render(request, 'webAdminRadio/agregar_locutor.html', context)
@@ -944,6 +943,12 @@ def agregar_Locutor(request):
                 return render(request, 'webAdminRadio/agregar_locutor.html', context)
         
         locutor_form.save()
+        
+        locutor = Locutor.objects.order_by('-id')[0]
+        url = agregarImagen(request, str(locutor.id), 'imagenes/')
+        locutor.imagen = url
+        locutor.save()
+
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
             RedSocialLocutor.objects.create(
@@ -980,6 +985,12 @@ def editar_locutor(request, id_locutor):
                 return render(request, 'webAdminRadio/editar_locutor.html', context)
         
         locutor_form.save()
+        
+        if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+            url = agregarImagen(request, str(edit_locutor.id), 'imagenes/')
+            edit_locutor.imagen=url
+            edit_locutor.save()
+
         red_social.delete()
         for i in range(len(request.POST.getlist('red_social_nombre'))):
             id = comprobarRedSocial(request.POST.getlist('red_social_nombre')[i])
