@@ -79,5 +79,5 @@ export class NoticiasComponent implements OnInit {
     };
     this.socialSharing.shareWithOptions(options);
   }
-
+  
 }

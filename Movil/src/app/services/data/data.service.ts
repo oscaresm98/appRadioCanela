@@ -36,10 +36,10 @@ export class DataService {
   public getProgramaRadioPerDay(idEmisora: number, dia: string) {
     return new Promise((resolve) => {
       this.http.get<ProgramPerDia[]>(
-        environment.REMOTE_BASE_URL + '/api/emisora/' + idEmisora + '/dia/' + dia + '/programas')
-        .pipe(take(1)).subscribe({
+        environment.REMOTE_BASE_URL + '/api/emisora/' + idEmisora + '/dia/' + dia + '/programas').subscribe({
           next: (res: any) => {
             if (res != null) {
+              console.log("Respuesta rpgrama: ",res)
               const data = { resCode: 0,resData:res };
               resolve(data);
             }

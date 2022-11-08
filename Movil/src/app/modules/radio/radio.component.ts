@@ -1,7 +1,9 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { DataService } from 'app/services/data/data.service';
 import { RadioService } from 'app/services/radio/radio.player.service';
 import { StationService } from 'app/services/radio/station.service';
+import { ProgramPerDia } from 'app/shared/program';
 
 import { Station } from 'app/shared/station';
 import Swiper, { SwiperOptions } from 'swiper';
@@ -30,12 +32,16 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   currentStation: Station;
   private currIndex = 0;
 
+  //programacion
+  programacion:ProgramPerDia[];
+
   constructor(
     private stationService: StationService,
     private changeDetector: ChangeDetectorRef,
     private loadingCtrl: LoadingController,
     public radioService: RadioService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private dataService: DataService
   ) { }
 
   async ngOnInit() {
@@ -45,11 +51,12 @@ export class RadioComponent implements OnInit, AfterContentChecked {
       resp => {
         this.stations = resp as Station[];
         this.currentStation = this.stations[0];
+        this.getProgramaRadio();
         loading.dismiss();
       },
       error => loading.dismiss()
     );
-
+    
     this.loadingCtrl.dismiss();
   }
 
@@ -69,6 +76,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
 
     this.currIndex = elem.activeIndex;
     console.log("EVENTO SWIPER: ",event)
+    this.getProgramaRadio();
     this.currentStation = this.stations[this.currIndex];
     this.destroyRadio();
     this.changeDetector.detectChanges();
@@ -163,5 +171,41 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   destroyRadio() {
     this.isPlaying = false;
     this.radioService.destroyRadio();
+  }
+  private getProgramaRadio(){
+    const loading=this.showLoadingData();
+    const today=this.getToday();
+    const idEmisora=this.currentStation.id;
+    this.dataService.getProgramaRadioPerDay(idEmisora,today).then(
+      (data:any)=>{
+        if (data.resCode == 0) {
+          this.programacion=data.resData;
+          console.log("Id: ",idEmisora," ",today)
+          console.log("Raadio: ",this.currentStation.ciudad," ",this.programacion)
+        } else {
+          console.log("ERROR AL OBTEBER NOCTICIAS")
+        }
+        this.loadingCtrl.dismiss();
+      }
+      );
+  }
+  private getToday(){
+    const date:Date=new Date();
+    switch(date.getDay()){
+      case 1:
+        return 'Lunes';
+      case 2:
+        return 'Martes';
+      case 3:
+        return 'Miércoles'
+      case 4:
+        return 'Jueves';
+      case 5:
+        return 'Viernes';
+      case 6:
+        return 'Sábado';
+      case 7:
+        return 'Domingo';
+    }
   }
 }

@@ -22,7 +22,7 @@
           <div class="d-flex justify-content-center orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</div>
         </ion-col>
         <ion-col>
-          <div class="d-flex justify-content-center">{{programaPD.programa[0].nombre}}</div>
+          <div class="div-center d-flex justify-content-center">{{programaPD.programa[0].nombre | titlecase}}</div>
           <div class="d-flex justify-content-center orange-color" *ngIf="isItPlaying(programaPD)">En Emisión</div>
         </ion-col>
       </ion-row>
