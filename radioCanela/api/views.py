@@ -608,7 +608,7 @@ def Locutor_detalle(request,pk):
         return Response({'Error': 'Locutor no existe'}, status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'GET':
-        serializers = LocutoresSerializer(locutor) 
+        serializers = LocutoresDetalleSerializer(locutor) 
         return Response(serializers.data) 
       
     elif request.method == 'PUT':       

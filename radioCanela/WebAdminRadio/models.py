@@ -38,6 +38,10 @@ class Locutor(models.Model):
     fecha_nacimiento = models.DateField(db_column='fecha_Nacimiento', blank=True, null=True)  # Field name made lowercase.
     estado = models.BooleanField(default=True)
 
+    def get_redes_sociales_locutor(self):
+        return RedSocialLocutor.objects.filter(id_locutor=self.id)
+
+
 
 class Notificacion(models.Model):
     titulo = models.CharField(max_length=100)

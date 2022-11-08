@@ -194,15 +194,24 @@ class SegementoLocutorSerializer(serializers.ModelSerializer):
         fields = ['id','nombre','descripcion','imagen']
         model = models.Locutor
 
-class LocutoresSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Locutor
-        fields= ('id', "nombre", 'imagen', "descripcion", "fecha_nacimiento", "estado")
-
 class RedSocialLocutorSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.RedSocialLocutor
+
+class LocutoresSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields= '__all__'
+        model = models.Locutor
+
+class LocutoresDetalleSerializer(serializers.ModelSerializer):
+    redes_sociales = RedSocialLocutorSerializer(source='get_redes_sociales_locutor', many=True)
+
+    class Meta:
+        fields= '__all__'
+        extra_fields = [ 'redes_sociales' ]
+        model = models.Locutor
 
 # Trabsmisiones con plataformas
 class TransmisionesSerializerFull(serializers.ModelSerializer):
