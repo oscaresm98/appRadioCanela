@@ -1260,20 +1260,27 @@ def agregar_podcasts(request):
 
 @login_required
 def editar_podcast(request, id_podcast):
-    edit_podcast = Podcast.objects.get(id=id_podcast)
     list_emisoras = Emisora.objects.filter(estado=True)
-    context = {
-        'title': 'Editar Podcast',
-        'emisoras': list_emisoras,
-    }
+    podcast_edit = Podcast.objects.get(pk=id_podcast)
+    context = { "title": "Editar Podcast", 
+               'emisoras': list_emisoras,
+               "podcast": podcast_edit }
+
     if request.POST:
-        podcast_form = PodcastForm(request.POST, instance=edit_podcast)
+        podcast_form = PodcastForm(request.POST, instance=podcast_edit)
         if podcast_form.is_valid():
             podcast_form.save()
-            context['success'] = '¡El registro ha sido modificado con éxito!'
+            if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+                podcst = Podcast.objects.order_by('-id')[0]
+                url = agregarImagen(request, str(podcst.id), 'imagenes/')
+                podcst.imagen = url
+                podcst.save()
+            context['success'] = '¡Se ha guardado los cambios!'
         else:
             context['error'] = podcast_form.errors
+
     return render(request, 'webAdminRadio/editar_podcast.html', context)
+
 
 @login_required
 def borrar_podcast(request, id_podcast):
