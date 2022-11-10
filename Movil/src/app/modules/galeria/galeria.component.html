@@ -12,7 +12,8 @@
 
     <ion-row class="outter-lines ion-padding-horizontal">
       <ion-col size="12" class="ion-padding-bottom">
-        <swiper [config]="swiperConfig" [navigation]="false">
+        <swiper [config]="swiperConfig" [navigation]="false" [grabCursor]="true"
+        [centeredSlides]="true">
           <ng-template swiperSlide *ngFor="let fileMoreLiked of carouselImageList">
             <!-- <div (click)="openModal(fileMoreLiked)" style="cursor: pointer;" class="post-item bg-image"
               [style.backgroundImage]=" 'url(' + fileMoreLiked.download_url + ')' ">
