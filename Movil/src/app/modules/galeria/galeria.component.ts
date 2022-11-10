@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { PhotoViewerComponent } from 'app/modules/Components/photo-viewer/photo-viewer.component';
 import { DataService } from 'app/services/data/data.service';
 import { ImageFile } from 'app/shared/media';
 import { SwiperOptions } from 'swiper';
+import SwiperCore, {
+  Pagination,
+  EffectCoverflow
+} from 'swiper';
+
+SwiperCore.use([Pagination, EffectCoverflow]);
 
 @Component({
   selector: 'app-galeria',
@@ -14,8 +20,10 @@ export class GaleriaComponent implements OnInit {
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
   swiperConfig: SwiperOptions = {
     lazy: { checkInView:true },
-    slidesPerView: 2,
-    spaceBetween: 10,
+    slidesPerView: 3,
+    spaceBetween: 3,
+    effect: 'coverflow',
+    pagination: true
     //loop: true,
   };
   allImagesList: any = [];
@@ -42,7 +50,7 @@ export class GaleriaComponent implements OnInit {
       const modal =  await this.modalCtrl.create({
         component: PhotoViewerComponent,
         componentProps: { file: event},
-        cssClass: ['modal-viewer'],
+        cssClass: ['modal-viewer bg-transparente'],
       });
       return await modal.present();
     }

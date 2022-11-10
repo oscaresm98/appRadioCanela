@@ -1,9 +1,6 @@
 *{
     font-family: libreBaskerville;
 }
-ion-modal {
-    --background: transparent !important;
-}
 .post-grid {
     ion-row {
       --ion-grid-column-padding: 1px;
@@ -14,7 +11,7 @@ ion-modal {
       height: 0;
       padding-top: 100%;
     }
-  }
+}
   
 .bg-image {
 height: 120px;

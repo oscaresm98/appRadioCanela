@@ -77,6 +77,23 @@ body {
     margin-top: 3vh
 }
 
+// Modal PhotoViewer
+
+.bg-transparente {
+    --background: transparent !important;
+}
+.modal-viewer {
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --width: 90%;
+    --height: 50%;
+}
+.swiper-pagination-bullet{
+    background: var(--swiper-pagination-bullet-inactive-color, #f39627);
+}
+.swiper-pagination-bullet-active {
+    background: var(--swiper-pagination-color, #eb591f);
+}
 /* Modal Match */
 
 .modal-match {

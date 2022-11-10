@@ -12,11 +12,13 @@
 
     <ion-row class="outter-lines ion-padding-horizontal">
       <ion-col size="12" class="ion-padding-bottom">
-        <swiper [config]="swiperConfig" [navigation]="true">
+        <swiper [config]="swiperConfig" [navigation]="false" [grabCursor]="true"
+        [centeredSlides]="true">
           <ng-template swiperSlide *ngFor="let fileMoreLiked of carouselImageList">
-            <div (click)="openModal(fileMoreLiked)" style="cursor: pointer;" class="post-item bg-image"
+            <!-- <div (click)="openModal(fileMoreLiked)" style="cursor: pointer;" class="post-item bg-image"
               [style.backgroundImage]=" 'url(' + fileMoreLiked.download_url + ')' ">
-            </div>
+            </div> -->
+            <img (click)="openModal(fileMoreLiked)" class="post-item bg-image" src="{{fileMoreLiked.download_url}}" alt="imagen">
           </ng-template>
         </swiper>
       </ion-col>
@@ -32,7 +34,7 @@
               </div>
             </ion-col>
             <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-              <ion-infinite-scroll-content loadingSpinner="lines-small" loadingText="Cargando más noticias...">
+              <ion-infinite-scroll-content loadingSpinner="lines-small" loadingText="Cargando más imagenes...">
               </ion-infinite-scroll-content>
             </ion-infinite-scroll>
           </ion-row>
