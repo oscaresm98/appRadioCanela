@@ -3,6 +3,7 @@
 }
 .titleNews {
     font-weight: bold;
+    color: var(--radio-color);
 }
 .image-container{
   display: flex;
@@ -44,12 +45,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: black;
   color: var(--text-color1);
   border-radius: 10vw;
   height: 10vw;
   margin-bottom: 2vw;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(124, 124, 124, 0.3) 0px 18px 36px -18px inset;
 }
 .contentNews {
     text-align: justify;
@@ -69,3 +68,7 @@
 }
 
 p { white-space: pre-wrap;}
+.info{
+  border-radius: 10vw;
+  width: 90vw;
+}

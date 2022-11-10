@@ -1,15 +1,18 @@
 <app-slides></app-slides>
 <app-banner></app-banner>
 <div>
-  <div class="title-tips">
-    <h2 class="fs-6">TIPS</h2>
+  <div class="d-flex align-items-center flex-column">
+    <div class="title-tips rectangule-shadow">
+      <h2 class="fs-6">TIPS</h2>
+    </div>
   </div>
+  
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="card-container mt-4">
-    <div class="card-content" *ngFor="let tip of tipsList; let i = index;">
-      <div class="tarjeta w-100">
+    <div class="card-content " *ngFor="let tip of tipsList; let i = index;">
+      <div class="tarjeta w-100 rectangule-shadow">
         <div class="row w-100 align-items-center">
           <div class="col-6 text-start">
             <div class="image-container" [routerLink]="['/principal/tips',tip.id]">

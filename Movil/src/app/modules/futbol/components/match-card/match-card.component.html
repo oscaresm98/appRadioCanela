@@ -1,6 +1,6 @@
 
 <ion-card  class="match" (click)="selected()">
-  <ion-card-content class="tarjeta" >
+  <ion-card-content class="tarjeta rectangule-shadow" >
     <ion-row>
       <div class="mt-3 tournament-of-match">
         <strong>{{matchFootball.id_torneo.nombre}}</strong>
@@ -16,10 +16,10 @@
         </div>        
       </ion-col>
       <ion-col>
-        <div *ngIf="seccion==globalConstantes.ESTADO_PARTIDO_POR_JUGAR" class="score">
+        <div *ngIf="seccion===globalConstantes.ESTADO_PARTIDO_POR_JUGAR" class="score">
           VS
         </div>
-        <div *ngIf="seccion==globalConstantes.ESTADO_PARTIDO_DISPUTADO" class="score">
+        <div *ngIf="seccion===globalConstantes.ESTADO_PARTIDO_DISPUTADO" class="score">
           {{matchFootball.ptos_equipo_local}} - {{matchFootball.ptos_equipo_visitante}}
         </div>
       </ion-col>

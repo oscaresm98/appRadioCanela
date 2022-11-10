@@ -39,7 +39,7 @@
 } */
 :root{
     --radio-color:#F69238;
-    --background-app:black;
+    --background-app:#151619;
     --font-app: libreBaskerville;
     --text-color1:white;
 }
@@ -48,7 +48,7 @@
 
 html,
 body {
-  --background-color: black;
+  
   
   // margin: 0px;
 }
@@ -56,21 +56,7 @@ body {
     font-family: libreBaskerville;
     src: url(assets/fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf) format('truetype');
 }
-.input{
-    border-radius: 10px;
-    border: 1.5px solid #000000 !important;
-    padding: 0.8vh;
-    width: 100%;
-}
 
-input:focus {
-    outline: none;
-}
-
-.input-group {
-    text-align: left !important;
-    margin: 1rem 0rem;
-}
 
 .text-danger {
     color: red;
@@ -113,4 +99,13 @@ input:focus {
 .ion-page{
     overflow:scroll;
     justify-content: start;
+}
+
+.shadow-container{
+    background: #0F0F12;
+    background: linear-gradient(135deg, rgba(15,15,18,1) 0%, rgba(15,15,18,1) 50%, rgba(217,217,217,0.23) 100%);
+}
+.rectangule-shadow{
+    background: rgb(15,15,18);
+background: linear-gradient(176deg, rgba(15,15,18,1) 0%, rgba(15,15,18,1) 50%, rgba(217,217,217,0.23) 100%);
 }

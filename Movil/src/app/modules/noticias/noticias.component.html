@@ -1,12 +1,15 @@
 <app-slides></app-slides>
 <app-banner></app-banner>
-<div>
-  <div class="title-noticias">
-    <h2>Noticias</h2>
+<div class="">
+  <div class="d-flex align-items-center flex-column">
+    <div class="title-noticias rectangule-shadow">
+      <h2>Noticias</h2>
+    </div>
   </div>
-  <div class="card-container">
-    <div class="card-content" *ngFor="let news of newsList; let i = index;">
-      <div class="tarjeta" >
+  
+  <div class="tarjeta-container">
+    <div class="tarjeta-content ms-2" *ngFor="let news of newsList; let i = index;">
+      <div class="tarjeta rectangule-shadow" >
         <div class="image-container" [routerLink]="['/principal/noticias',news.id]">
           <img class="image" src="{{news.imagen}}">
         </div>
@@ -24,7 +27,7 @@
           </div>
         </ion-button>
       </div>
-      <div class="card-footer">
+      <div class="tarjeta-footer mb-3">
         <ion-button class="footer-buttons">
           <ion-icon name="cloud-upload-outline"></ion-icon>
           <span>{{ news.fecha_subida | date:'dd/MM/YYYY HH:mm' }}</span>

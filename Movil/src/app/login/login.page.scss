@@ -57,8 +57,8 @@ ion-icon {
     font-size: 8vw;
     float: right;
     color: var(--text-color1);
-    bottom: 7vw;
-    right: -33vw;
+    bottom: 9vw;
+    right: -28vw;
     //margin-right: 15px;
     //margin-top: -31px;
     position: relative;
@@ -71,7 +71,11 @@ ion-icon {
     width: 90vw;
     box-shadow: 0 2vw 0px 0px #F69238
 }
+.text-inicio{
+    margin-left: 4vw;
+}
 .text-inicio,.text-ingresar{
+    
     font-size: large;
     color: #F69238;
 }
@@ -82,21 +86,21 @@ ion-icon {
     align-items: center;
 }
 
-.input{
-    
+.entrada{
+    padding-left: 2rem;
     font-weight: bold;
     height: 10vw;
     border-radius: 20vw;
-    color: white;
-    opacity: 1;
-    background-color: black;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(124, 124, 124, 0.3) 0px 18px 36px -18px inset;
+    border: none;
+    width: 70vw;
+    //background-color: black;
 }
-.input::placeholder{
+.entrada::placeholder{
+    
     color: var(--text-color1);
-    opacity: 0.7;
+    opacity: 0.3;
 }
-.input-group{
+.entrada-group{
     position: relative;
     display: flex;
     justify-content: center;
@@ -110,6 +114,7 @@ ion-icon {
 .social-media{
     --color: #F69238;
 }
+
 .go-out, .go-out a{
     color: var(--text-color1);
     margin-bottom: 2vw;
@@ -118,4 +123,8 @@ ion-icon {
     justify-content: space-between;
     //color: #434444;
     font-weight: bold;
+}
+.go-out{
+    margin-top: 5vw;
+    margin-bottom: 5vw;
 }

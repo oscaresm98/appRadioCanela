@@ -17,7 +17,6 @@
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgb(127, 127, 127,0.25) 0px 18px 36px -18px inset, inset 0 -10px 10px -10px rgba(127, 127, 127, 0.25);
     border-radius: 10vw;
     margin-bottom: 10px;
 }
@@ -31,6 +30,12 @@
 .titulo-stream{
     color: white;
     margin-left: 5vw;
+}
+.live-text{
+    font-size: small;
+}
+.stream-text{
+    font-size: medium;
 }
 .live-text,.stream-text{
     margin: 0;

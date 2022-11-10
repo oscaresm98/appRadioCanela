@@ -30,12 +30,12 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: black;
     color: var(--radio-color);
     border-radius: 10vw;
     height: 10vw;
     margin-bottom: 2vw;
-    box-shadow: inset 0px 0px 110px 9px rgba(66,66,66,0.41);
+    width: 90vw;
+
 }
 .title{
     color: var(--radio-color);
@@ -86,7 +86,6 @@ p {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0px 0px 110px 9px rgba(66,66,66,0.41);
 
 }
 .like-button{

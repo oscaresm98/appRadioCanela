@@ -5,11 +5,12 @@
     <ion-img class="futbol-image" [src]="'../../assets/images/futbol_radio.jpg'"></ion-img>
   </div>
 
-  <ion-grid>
+  <ion-grid class="mt-2">
+    <span class="text-inicio">INICIO DE SESIÓN</span>
     <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
       
       <ion-col class="ion-margin-bottom" sizeXs="10" sizeSm="4">
-        <span class="text-inicio">INICIO DE SESIÓN</span>
+        
         <form method="post" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
 
           <!-- <ion-item class="formField" lines="none">
@@ -22,20 +23,20 @@
               <ion-input class="input" type="password" required></ion-input>
             </ion-item> -->
 
-          <div class="input-group">
+          <div class="entrada-group mb-3">
             <label *ngIf="errorControl.email.errors?.required && loginForm.get('email').touched" style="color:red ;"
               for="inputPrivacy">Usuario/Correo es requerido</label>
-            <input placeholder="Usuario/Correo" class="input" type="email" id="inputEmail" formControlName="email" required>
+            <input placeholder="Usuario/Correo" class="rectangule-shadow entrada" type="email" id="inputEmail" formControlName="email" required>
             <!--
             <small *ngIf="loginForm.get('email').errors?.['email']" style="color:red ;">E-mail inválido.</small>
             -->
           </div>
 
-          <div class="input-group">
+          <div class="entrada-group ">
 
             <label *ngIf="errorControl.password.errors?.required && loginForm.get('password').touched"
               style="color:red ;">Contraseña es requerida</label>
-            <input placeholder="Contraseña" class="input input-icons" [type]="showPassword ? 'text' : 'password'" id="inputPassword"
+            <input placeholder="Contraseña" class="rectangule-shadow entrada input-icons" [type]="showPassword ? 'text' : 'password'" id="inputPassword"
               formControlName="password" required>
             <ion-icon class="errspan" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="showHide()">
             </ion-icon>
