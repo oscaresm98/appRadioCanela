@@ -7,26 +7,9 @@
     </div>
   </div>
   
-  <div class="tarjeta-container">
+  <div class="tarjeta-container mt-2">
     <div class="tarjeta-content ms-2" *ngFor="let news of newsList; let i = index;">
-      <div class="tarjeta rectangule-shadow" >
-        <div class="image-container" [routerLink]="['/principal/noticias',news.id]">
-          <img class="image" src="{{news.imagen}}">
-        </div>
-        <div class="info" [routerLink]="['/principal/noticias',news.id]">
-          <p class="title truncate">{{news.titulo}}</p>
-  
-          <p class="truncate">
-            {{news.descripcion}}
-          </p>
-        </div>
-        <ion-button class="like-button" (click)="like()">
-          <div>
-            <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
-            <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
-          </div>
-        </ion-button>
-      </div>
+      <app-noticia-card [news]="news"></app-noticia-card>
       <div class="tarjeta-footer mb-3">
         <ion-button class="footer-buttons">
           <ion-icon name="cloud-upload-outline"></ion-icon>

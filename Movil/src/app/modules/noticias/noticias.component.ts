@@ -25,7 +25,6 @@ export class NoticiasComponent implements OnInit {
         this.newsList.push(this.allNewsList.pop())
       }
     });
-    
   }
   public interactionMaganer(interactions:number){
     let interactionsText;

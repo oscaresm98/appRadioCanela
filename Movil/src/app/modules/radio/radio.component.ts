@@ -33,7 +33,8 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   private currIndex = 0;
 
   //programacion
-  programacion:ProgramPerDia[];
+  programaciones: ProgramPerDia[][]=[];
+  currentProgramacion:ProgramPerDia[]=[];
 
   constructor(
     private stationService: StationService,
@@ -51,7 +52,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
       resp => {
         this.stations = resp as Station[];
         this.currentStation = this.stations[0];
-        this.getProgramaRadio();
+        this.getAllProgramsRadio();
         loading.dismiss();
       },
       error => loading.dismiss()
@@ -76,8 +77,9 @@ export class RadioComponent implements OnInit, AfterContentChecked {
 
     this.currIndex = elem.activeIndex;
     console.log("EVENTO SWIPER: ",event)
-    this.getProgramaRadio();
+    
     this.currentStation = this.stations[this.currIndex];
+    this.currentProgramacion=this.programaciones[this.currIndex];
     this.destroyRadio();
     this.changeDetector.detectChanges();
   }
@@ -98,6 +100,21 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     if(this.currentStation==null) return '';
     else if(this.currIndex==this.stations.length-1) return this.currentStation.frecuencia_dial;
     return this.stations[this.currIndex+1].ciudad;
+  }
+  hourFormat(hora:string){
+    let list=hora.split(":")
+    return list[0]+':'+list[1];
+  }
+  getOnLiveProgramName(){
+    if(this.currentProgramacion==null) return "default";
+    if(this.currentProgramacion.length<1) return "default";
+    return this.currentProgramacion[0].programa[0].nombre;
+  }
+  getOnLiveProgramHour(){
+    if(this.currentProgramacion==null) return "00:00";
+    if(this.currentProgramacion.length<1) return "00:00";
+    return this.hourFormat(this.currentProgramacion[0].hora_inicio)+":"+
+      this.hourFormat(this.currentProgramacion[0].hora_fin);
   }
 
   /**
@@ -172,16 +189,22 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     this.isPlaying = false;
     this.radioService.destroyRadio();
   }
-  private getProgramaRadio(){
+  private async getAllProgramsRadio(){
+    for( let emisora of this.stations){
+      await this.getProgramaRadio(emisora.id);
+    }
+  }
+  private async getProgramaRadio(idEmisora: number){
     const loading=this.showLoadingData();
     const today=this.getToday();
-    const idEmisora=this.currentStation.id;
-    this.dataService.getProgramaRadioPerDay(idEmisora,today).then(
+    //const idEmisora=this.currentStation.id;
+    await this.dataService.getProgramaRadioPerDay(idEmisora,today).then(
       (data:any)=>{
         if (data.resCode == 0) {
-          this.programacion=data.resData;
+          //this.programacion=data.resData;
+          this.programaciones.push(data.resCode as ProgramPerDia[])
           console.log("Id: ",idEmisora," ",today)
-          console.log("Raadio: ",this.currentStation.ciudad," ",this.programacion)
+          console.log("Raadio: ",this.currentStation.ciudad," ",data.resCode)
         } else {
           console.log("ERROR AL OBTEBER NOCTICIAS")
         }
@@ -208,4 +231,5 @@ export class RadioComponent implements OnInit, AfterContentChecked {
         return 'Domingo';
     }
   }
+  hola(){}
 }

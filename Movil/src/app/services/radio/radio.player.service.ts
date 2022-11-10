@@ -37,7 +37,7 @@ export class RadioService {
 
   playRadio(dial: string) {
     this.radioPlayer?.play();
-    this.backgroundService.start('App Radio Forever', `Estas escuchando ${dial}`, 'drawable/fsicon');
+    this.backgroundService.start('App Radio Redonda', `Estas escuchando ${dial}`, 'drawable/fsicon');
   }
 
   pauseRadio(){

@@ -3,26 +3,41 @@
   
 }
 .image-container {
-    display: flex;
+  display: flex;
 
-    padding-left: 2w;
-    padding-right: 2vw;
-    padding: 2vw;
-    justify-content: center;
+  padding-left: 2w;
+  padding-right: 2vw;
+  padding: 2vw;
+  justify-content: center;
 }
 .image{
-  display: inline-block;
-  //object-position: center;
-  object-fit: cover;
-  overflow: hidden;
-  width: 28vw;
-  height: 28vw;
-  border-radius: 20vw;
+display: inline-block;
+//object-position: center;
+object-fit: cover;
+overflow: hidden;
+width: 28vw;
+height: 28vw;
+border-radius: 20vw;
 }
-.logo {
-    width: 40vw;
-}
-.truncate {
+.tarjeta-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+  }
+  .tarjeta{
+    position: relative;
+    padding-right: 5vw;
+    border-radius: 10vw;
+  
+    //width: 90vw;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .truncate {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -37,53 +52,17 @@
   .info{
     max-width: 55vw;
   }
-  .title-noticias{
-    width: 90vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--text-color1);
-    border-radius: 10vw;
-    height: 10vw;
-    margin-bottom: 2vw;
-}
-.item{
-    --background: transparent;
-    
-}
-.limit{
-  --max-width: 90vw;
-  overflow: hidden;
-}
-.col-limit{
-  overflow: hidden;
-  max-width: 10vw;
-}
-.tarjeta-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-}
-.tarjeta{
-  position: relative;
-  padding-right: 5vw;
-  border-radius: 10vw;
-
-  //width: 90vw;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
+  .descripcion{
+    font-size: small;
+  }
+  
 .like-button{
   --display: flex;
   --align-items: center;
   --justify-content: center;
   position: absolute;
   right: -5vw;
- bottom: 37vw;
+ bottom: 8rem;
  --border-radius: 70%;
  --border-radius: 70%;
   --background: var(--radio-color);

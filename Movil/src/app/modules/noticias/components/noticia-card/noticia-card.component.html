@@ -1,0 +1,18 @@
+<div class="tarjeta rectangule-shadow" >
+  <div class="image-container" [routerLink]="['/principal/noticias',news.id]">
+    <img class="image" src="{{news.imagen}}">
+  </div>
+  <div class="info" [routerLink]="['/principal/noticias',news.id]">
+    <p class="title truncate">{{news.titulo}}</p>
+
+    <p class="truncate descripcion">
+      {{news.descripcion}}
+    </p>
+  </div>
+  <ion-button class="like-button" (click)="like()">
+    <div>
+      <ion-icon *ngIf="!isLiking" class="heart" name="heart-outline"></ion-icon>
+      <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
+    </div>
+  </ion-button>
+</div>

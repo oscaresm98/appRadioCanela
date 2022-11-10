@@ -19,11 +19,6 @@ ion-slides {
 
 }
 
-:host ::ng-deep ion-slides {
-    --bullet-background: yellow !important;
-    --bullet-background-active: rebeccapurple !important;
-}
-
 .slide {
     position: relative;
 }

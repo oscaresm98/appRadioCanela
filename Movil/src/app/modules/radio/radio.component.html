@@ -20,12 +20,12 @@
     </ng-template>    
   </swiper>
   <div class="d-flex flex-column align-items-center">
-    <span class="color-radio">Harta Pelota</span>
-    <span class="color-radio">21:50 - 22:50</span>
+    <span class="color-radio">{{getOnLiveProgramName()}}</span>
+    <span class="color-radio">{{getOnLiveProgramHour()}}</span>
   </div>
   <div class="programacion">
     
-    <app-programacion [programacion]="programacion"></app-programacion>
+    <app-programacion [programacion]="currentProgramacion"></app-programacion>
   </div>
   <div class="sticky-bottom">
     <div class="player">

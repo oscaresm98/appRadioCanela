@@ -21,6 +21,7 @@ import { TransmisionComponent } from './transmision/transmision.component';
 import { GaleriaComponent } from './galeria/galeria.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { SlidesComponent } from './components/slides/slides.component';
+import { NoticiaCardComponent } from './noticias/components/noticia-card/noticia-card.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { SlidesComponent } from './components/slides/slides.component';
     TransmisionComponent,
     GaleriaComponent,
     BannerComponent,
-    SlidesComponent
+    SlidesComponent,
+    NoticiaCardComponent
   ],
   imports: [
     CommonModule,
