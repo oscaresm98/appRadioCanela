@@ -22,6 +22,7 @@ import { GaleriaComponent } from './galeria/galeria.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { SlidesComponent } from './components/slides/slides.component';
 import { NoticiaCardComponent } from './noticias/components/noticia-card/noticia-card.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NoticiaCardComponent } from './noticias/components/noticia-card/noticia
     GaleriaComponent,
     BannerComponent,
     SlidesComponent,
-    NoticiaCardComponent
+    NoticiaCardComponent,
+    MyAccountComponent
   ],
   imports: [
     CommonModule,

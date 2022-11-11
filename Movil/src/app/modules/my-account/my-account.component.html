@@ -1,0 +1,174 @@
+
+<div class="mt-3">
+  <div class="title-account">
+    <h2 class="fs-6">M&iacute; Cuenta</h2>
+  </div>
+
+  
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <div class="userImage">
+          <img class="rounded-circle imagen" src="https://doortudoor.com/wp-content/uploads/2021/04/default-profile-icon.png">
+        </div>
+      </ion-row>
+  
+  
+      <ion-row class="ion-justify-content-center ion-align-items-center ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-center">
+            <ion-label class="primary-c fw-bold">{{profile.username}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row class="ion-justify-content-start ion-align-items-start  ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-start pildora" >
+            <ion-row class="w-100">
+                <ion-input class="text-light" value="{{profile.first_name}}"></ion-input>
+            </ion-row>
+          </ion-item>
+          <ion-item  lines="none" class="altura">
+            <ion-row class="textDescription"  >  
+                <ion-label class="primary-c">Nombres</ion-label>
+            </ion-row>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row class="ion-justify-content-start ion-align-items-start  ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-start pildora" >
+            <ion-row class="w-100">
+                <ion-input class="text-light" value="{{profile.last_name}}"></ion-input>
+            </ion-row>
+          </ion-item>
+          <ion-item  lines="none" class="altura">
+            <ion-row class="textDescription"  >  
+                <ion-label class="primary-c">Apellidos</ion-label>
+            </ion-row>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-start ion-align-items-start  ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-start pildora" >
+            <ion-row class="w-100">
+                <ion-input class="text-light" value="{{profile.email}}"></ion-input>
+            </ion-row>
+          </ion-item>
+          <ion-item  lines="none" class="altura">
+            <ion-row class="textDescription"  >  
+                <ion-label class="primary-c">Correo electrónico</ion-label>
+            </ion-row>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row class="ion-justify-content-start ion-align-items-start  ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-start pildora" >
+            <ion-row class="w-100">
+              
+                <ion-input class="text-light" value="{{profile.phone}}"></ion-input>
+              
+            </ion-row>
+           
+          </ion-item>
+          <ion-item  lines="none" class="altura">
+            <ion-row class="textDescription"  >  
+                <ion-label class="primary-c">Número de teléfono</ion-label>
+            </ion-row>
+           
+          </ion-item>
+         
+  
+        </ion-col>
+      </ion-row>
+  
+      <ion-row class="ion-justify-content-start ion-align-items-start ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-start pildora" >
+            <ion-row class="w-100">
+              
+                <ion-input class="text-light" value="{{profile.cedula}}"></ion-input>
+              
+            </ion-row>
+           
+          </ion-item>
+          <ion-item  lines="none" class="altura">
+            <ion-row class="textDescription"  >  
+                <ion-label class="primary-c">Número de cédula</ion-label>
+            </ion-row>
+           
+          </ion-item>
+         
+  
+        </ion-col>
+      </ion-row>
+  
+      <ion-row class="ion-justify-content-start ion-align-items-start  ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-start pildora" >
+            <ion-row class="w-100">
+              
+                <ion-input class="text-light" value="{{profile.date_birth}}"></ion-input>
+              
+            </ion-row>
+           
+          </ion-item>
+          <ion-item  lines="none" class="altura">
+            <ion-row class="textDescription"  >  
+                <ion-label class="primary-c">Fecha de nacimiento</ion-label>
+            </ion-row>
+           
+          </ion-item>
+         
+  
+        </ion-col>
+      </ion-row>
+  
+      <ion-row class="ion-justify-content-start ion-align-items-start ">
+        <ion-col size="11" class="ion-margin-horizontal " >
+          <ion-item lines="none" class="ion-text-start pildora" >
+            <ion-row class="w-100">
+              
+                <ion-input class="text-light" value="{{profile.gender}}"></ion-input>
+              
+            </ion-row>
+           
+          </ion-item>
+          <ion-item  lines="none" class="altura">
+            <ion-row class="textDescription"  >  
+                <ion-label class="primary-c">Sexo</ion-label>
+            </ion-row>
+           
+          </ion-item>
+         
+  
+        </ion-col>
+      </ion-row>
+  
+      <br>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="10" class="ion-margin-horizontal " >
+          <ion-button class="boton" routerLink="/changePassword" expand="block">
+             
+            <span style="text-transform: none;"  class="textButton ion-text-wrap ">Cambiar contraseña</span>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center ">
+        <ion-col size="10" class="ion-margin-horizontal " >
+          <ion-button class="boton" routerLink="/deleteAccount" expand="block">
+             
+            <span style="text-transform: none;"  class="textButton ion-text-wrap ">Eliminar cuenta</span>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+  
+  
+    </ion-grid>
+  
+</div>
