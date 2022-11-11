@@ -9,8 +9,6 @@ export class NoticiaCardComponent implements OnInit {
   @Input() news:any;
   isLiking:boolean=false;
 
-  constructor() { }
-
   ngOnInit() {}
   like(){
     this.isLiking=!this.isLiking;

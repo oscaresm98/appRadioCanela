@@ -13,14 +13,16 @@
   </div>
   <swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
     <ng-template swiperSlide *ngFor="let station of stations; let i = index">
+      
       <app-dial-subpage #radioStation 
         [station]="station"
         [playerIndex]="i"  
       ></app-dial-subpage>
+      
     </ng-template>    
   </swiper>
   <div class="d-flex flex-column align-items-center">
-    <span class="color-radio">{{getOnLiveProgramName()}}</span>
+    <span class="color-radio">{{getOnLiveProgramName() | titlecase}}</span>
     <span class="color-radio">{{getOnLiveProgramHour()}}</span>
   </div>
   <div class="programacion">
@@ -38,9 +40,10 @@
       </ion-button>
       <hr>
       <ion-button class="heart-button">
-        <div>
-          <ion-icon class="heart" name="heart-outline"></ion-icon>
-        </div>    
+        <div (click)="like()">
+          <ion-icon *ngIf="!isLiking[currIndex]" class="heart" name="heart-outline"></ion-icon>
+          <ion-icon *ngIf="isLiking[currIndex]" class="heart" name="heart"></ion-icon>
+        </div> 
       </ion-button>
     </div>
   </div>

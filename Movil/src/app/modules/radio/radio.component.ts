@@ -30,11 +30,13 @@ export class RadioComponent implements OnInit, AfterContentChecked {
 
   // Emisora e indice actual
   currentStation: Station;
-  private currIndex = 0;
+   currIndex = 0;
 
   //programacion
   programaciones: ProgramPerDia[][]=[];
   currentProgramacion:ProgramPerDia[]=[];
+  //likes
+  isLiking:boolean[]=[];
 
   constructor(
     private stationService: StationService,
@@ -49,15 +51,17 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     const loading = await this.showLoadingData();
 
     this.stationService.getStationsInfo().subscribe(
-      resp => {
+      async resp => {
         this.stations = resp as Station[];
         this.currentStation = this.stations[0];
-        this.getAllProgramsRadio();
+        await this.getAllProgramsRadio();
+        console.log("Terminar lista programcion: ",this.programaciones)
+        this.currentProgramacion=this.programaciones[0];
+        this.fillLikesList(this.stations.length);
         loading.dismiss();
       },
       error => loading.dismiss()
     );
-    
     this.loadingCtrl.dismiss();
   }
 
@@ -82,6 +86,10 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     this.currentProgramacion=this.programaciones[this.currIndex];
     this.destroyRadio();
     this.changeDetector.detectChanges();
+  }
+  like(){
+    const index=this.currIndex;
+    this.isLiking[index]=!this.isLiking[index];
   }
   hasPrevious(){
     if(this.currIndex==0) return false;
@@ -108,12 +116,13 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   getOnLiveProgramName(){
     if(this.currentProgramacion==null) return "default";
     if(this.currentProgramacion.length<1) return "default";
+    console.log("Current programacion: ",this.currentProgramacion);
     return this.currentProgramacion[0].programa[0].nombre;
   }
   getOnLiveProgramHour(){
     if(this.currentProgramacion==null) return "00:00";
     if(this.currentProgramacion.length<1) return "00:00";
-    return this.hourFormat(this.currentProgramacion[0].hora_inicio)+":"+
+    return this.hourFormat(this.currentProgramacion[0].hora_inicio)+" - "+
       this.hourFormat(this.currentProgramacion[0].hora_fin);
   }
 
@@ -191,20 +200,20 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   }
   private async getAllProgramsRadio(){
     for( let emisora of this.stations){
-      await this.getProgramaRadio(emisora.id);
+      await this.getProgramaRadio(emisora);
     }
   }
-  private async getProgramaRadio(idEmisora: number){
+  private async getProgramaRadio(emisora: Station){
     const loading=this.showLoadingData();
     const today=this.getToday();
     //const idEmisora=this.currentStation.id;
-    await this.dataService.getProgramaRadioPerDay(idEmisora,today).then(
+    await this.dataService.getProgramaRadioPerDay(emisora.id,today).then(
       (data:any)=>{
         if (data.resCode == 0) {
           //this.programacion=data.resData;
-          this.programaciones.push(data.resCode as ProgramPerDia[])
-          console.log("Id: ",idEmisora," ",today)
-          console.log("Raadio: ",this.currentStation.ciudad," ",data.resCode)
+          this.programaciones.push(data.resData)
+          console.log("Id: ",emisora.id," ",today)
+          console.log("Raadio: ",emisora.ciudad," ",data.resData)
         } else {
           console.log("ERROR AL OBTEBER NOCTICIAS")
         }
@@ -231,5 +240,9 @@ export class RadioComponent implements OnInit, AfterContentChecked {
         return 'Domingo';
     }
   }
-  hola(){}
+  private fillLikesList(len:number){
+    for(let i=0;i<len;i++){
+      this.isLiking.push(false);
+    }
+  }
 }
