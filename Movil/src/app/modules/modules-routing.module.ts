@@ -11,6 +11,7 @@ import { TipsComponent } from './tips/tips.component';
 import { SpecificTipComponent } from './specific-tip/specific-tip.component';
 import { TransmisionComponent } from './transmision/transmision.component';
 import { GaleriaComponent } from './galeria/galeria.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,10 @@ const routes: Routes = [
       {
         path: 'galeria',
         component: GaleriaComponent
+      },
+      {
+        path: 'my-account',
+        component: MyAccountComponent
       },
     ]
     }

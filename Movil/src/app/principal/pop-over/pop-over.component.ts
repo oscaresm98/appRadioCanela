@@ -43,6 +43,11 @@ export class PopOverComponent implements OnInit {
         }
       );
     }
-    
+  }
+  navigateToMyAccount(){
+    this.router.navigate(['/principal/my-account']);
+    this.popCtrl.dismiss({
+      'fromPopUp': "Mi Cuenta"
+    })
   }
 }

@@ -1,0 +1,58 @@
+* {
+    font-family: libreBaskerville;
+}
+ion-item {
+    --background: transparent;
+}
+.textName {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.textDescription {
+    font-weight: bold;
+    margin-top: -15px;
+    
+}
+.altura {
+    height: 1.7rem !important;
+}
+.userImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 0.2rem solid var(--radio-color);
+}
+.imagen {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+    overflow: hidden;
+}
+.primary-c {
+    color: var(--radio-color)
+}
+.medium-c {
+    color: #92949c;
+}
+.title-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    color: var(--radio-color);
+    border-radius: 10vw;
+    height: 10vw;
+    margin-bottom: 2vw;
+    box-shadow: inset 0px 0px 110px 9px rgba(66,66,66,0.41);
+}
+.pildora {
+    border-radius: 10vw;
+    box-shadow: inset 0px 0px 110px 9px rgba(66,66,66,0.41);
+}
+.boton {
+    border-radius: 10vw !important;
+    --background: var(--radio-color);
+    color: white
+}
