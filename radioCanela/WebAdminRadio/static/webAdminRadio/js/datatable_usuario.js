@@ -14,23 +14,21 @@ $('#data_table').DataTable({
         },
     
     },
-
-
-    
     "columns": [
         { data: "id"},
         { data: "foto"},
         { data: "first_name"},
+        { data: "username"},
         { data: "fechaNacimiento"},
         { data: "email"},
-        { data: "nombreRol"},
+        { data: "roles"},
         { data: "date_joined"},
         { data: "activo"},
         { data: "id"}
     ],
     columnDefs: [
         { width: 10, className: "text-center", targets: 0},
-        { width: 200, targets: 1, render: function(data) {
+        { width: 100, targets: 1, render: function(data) {
             var image = '';
             if (data == null){
                 image = `<img src="/static/webAdminRadio/images/generic_avatar.png" width="100%">`;
@@ -39,18 +37,27 @@ $('#data_table').DataTable({
             }
             return image;
         }},
-        { width: 200, targets: 2},
+        { width: 100, targets: 2},
         { width: 40, targets: 3},
-        { width: 200, targets: 4},
-        { width: 50, targets: 5},
-        { width: 40, targets: 6, render: function(data) {
+        { width: 40, targets: 4},
+        { width: 150, targets: 5},
+        { width: 100, targets: 6, render: function(data){
+            let lista = ``;
+            Array.from(data).forEach(rol => {
+                lista += `<li>${rol}</li>`
+            });
+            if(lista === ``)
+                return 'No hay roles asignados';
+
+            return `<ul>${lista}</ul>`;
+        }},
+        { width: 40, targets: 7, render: function(data) {
             return `${data.slice(0,10)}`;
         }},
-        { width: 100, targets: 7},
-        { width: 100, className: "text-center", targets: 8, render: function(data){
-            return `<a href="/usuarios/editar` + data +`" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
-                    <a href="#" onclick="showWarning(` + data + `)" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>
-                    `
+        { width: 50, targets: 8},
+        { width: 100, targets: 9, className: "text-center", render: function(data){
+            return `<a href="/usuarios/editar/${data}" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
+                    <a href="#" onclick="showWarning(${data})" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>`
         }},
     ],
 });

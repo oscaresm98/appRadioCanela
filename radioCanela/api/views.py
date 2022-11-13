@@ -10,7 +10,9 @@ from rest_auth.social_serializers import TwitterLoginSerializer
 from api.serializers import *
 from django.http import HttpResponse, JsonResponse
 from WebAdminRadio import models
-from accounts.models import Usuario
+
+from accounts.models import Usuario, RolGroup
+
 from . import serializers
 from rest_framework import mixins
 from django.http import Http404
@@ -27,6 +29,9 @@ from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+
+
+from django.contrib.auth.models import Group
 
 from django.urls import path
 from . import views
@@ -337,6 +342,11 @@ def usuarioList(request):
         except Usuario.DoesNotExist:
             return Response({'Error': 'El usuario no existe'}, status=status.HTTP_400_NOT_FOUND)
 
+# Servicio para obtener informacion de los roles
+class ListRoles(generics.ListAPIView):
+    serializer_class = serializers.RolGroupSerializer
+    queryset = RolGroup.objects.all()
+
 # Servicio para registro de un nuevo usuario
 class RegisterView(APIView):
     def post(self, request):
@@ -350,12 +360,6 @@ class LoginView(APIView):
     def post(self, request):
         username_email = request.data['username_email']
         password = request.data['password']
-
-        # try:
-        #     username_email = request.data['username']
-        # except KeyError:
-        #     username_email = request.data['email']
-
         user = Usuario.objects.filter(Q(username=username_email) | Q(email=username_email)).first()
 
         if user is None:
@@ -383,12 +387,8 @@ class LoginView(APIView):
 # Servicio para obtener los datos del usuario autentificado
 class UserView(APIView):
     def get(self, request):
-        print(request.COOKIES)
-
         token = request.COOKIES.get('jwt')
-        print(request.COOKIES)
-        print(token)
-
+        
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
 

@@ -20,12 +20,12 @@
         </div>
     {% endif %}
     {% if success %}
-    <div id="componente_modal_info">
-            <modal-info v-if="showModal" url_redirect="{% url 'emisoras' %}">
-                <h3 slot="header">Información</h3>
-                <p slot="body">{{success}}</p>
-            </modal-info>
-    </div>
+        <div id="componente_modal_info">
+                <modal-info v-if="showModal" url_redirect="{% url 'emisoras' %}">
+                    <h3 slot="header">Información</h3>
+                    <p slot="body">{{success}}</p>
+                </modal-info>
+        </div>
     {% endif %}
     <h4><b>Información de la emisora</b></h4>
     <form id="addSegmento" method="POST" action="{% url 'agregar_emisora' %}" enctype="multipart/form-data">

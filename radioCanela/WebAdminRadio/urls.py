@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .custom_views import roles_views, usuarios_views
 
 urlpatterns = [
     path('', views.administrador, name='administrador'),  # Muestra la pantalla principal /webadmin/
@@ -27,15 +28,22 @@ urlpatterns = [
     path('partidos/<int:id_partido>/editar', views.editar_partido, name='editar_partido'), # URL para editar un partido
     path('partidos/<int:id_partido>/eliminar', views.eliminar_partido, name='eliminar_partido'), # URL para agregar un partido
 
-    path('usuarios',views.usuarios,name="lista_usuarios"),
-    path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
-    path('usuarios/editar/<int:id_usuario>', views.editar_usuario, name='editar_usuario'),
-    path('usuarios/<int:id_usuario>/eliminar',views.borrar_usuario,name='eliminar_usuario'),
-    
-    path('roles',views.roles,name="lista_roles"),
-    path('roles/agregar',views.agregar_rol,name="agregar_rol"),
-    path('roles/editar/<int:id_rol>',views.editar_rol,name="editar_rol"),
-    path('roles/<int:id_rol>/eliminar',views.borrar_rol,name="eliminar_rol"),
+    # path('usuarios',views.usuarios,name="lista_usuarios"),
+    # path('usuarios/agregar', views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
+    # path('usuarios/editar/<int:id_usuario>', views.editar_usuario, name='editar_usuario'),
+    # path('usuarios/<int:id_usuario>/eliminar',views.borrar_usuario,name='eliminar_usuario'),
+
+    path('usuarios',usuarios_views.usuarios,name="lista_usuarios"),
+    path('usuarios/agregar', usuarios_views.agregar_usuario, name='agregar_usuario'), # Form para agregar un usuario nuevo
+    path('usuarios/editar/<int:id_usuario>', usuarios_views.editar_usuario, name='editar_usuario'),
+    path('usuarios/<int:id_usuario>/eliminar',usuarios_views.borrar_usuario,name='eliminar_usuario'),
+
+    # CAMBIO
+    path('roles', roles_views.roles, name="lista_roles"),
+    path('roles/agregar', roles_views.agregar_roles, name="agregar_rol"),
+    path('roles/<int:id_rol>/editar',roles_views.editar_rol,name="editar_rol"),
+    path('roles/<int:id_rol>/eliminar',roles_views.borrar_rol,name="eliminar_rol"),
+
     
     path('programas', views.programas, name='programas'), # Página principal donde se muestran los programas
     path('programas/agregar', views.agregar_programa, name="agregar_programa"), # Muestra la pantalla para agregar programa

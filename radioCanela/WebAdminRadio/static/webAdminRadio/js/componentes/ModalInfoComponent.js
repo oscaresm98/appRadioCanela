@@ -26,27 +26,26 @@ const modalInfo=  {
     <div id="modal-template">
         <transition name="modal">
             <div class="modal-mask">
-            <div class="modal-wrapper">
-                <div class="modal-container">
+                <div class="modal-wrapper">
+                    <div class="modal-container">
+                        <div class="modal-header">
+                            <slot name="header">
+                            default header
+                            </slot>
+                        </div>
 
-                <div class="modal-header">
-                    <slot name="header">
-                    default header
-                    </slot>
-                </div>
+                        <div class="modal-body">
+                            <slot name="body">
+                            </slot>
+                        </div>
 
-                <div class="modal-body">
-                    <slot name="body">
-                    </slot>
+                        <div class="modal-footer">
+                            <button class="modal-default-button btn btn-primary btn-sm" @click="redirectToPage">
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="modal-footer">
-                    <button class="modal-default-button btn btn-primary btn-sm" @click="redirectToPage">
-                        Aceptar
-                    </button>
-                </div>
-                </div>
-            </div>
             </div>
         </transition>
     </div>
@@ -54,12 +53,12 @@ const modalInfo=  {
   }
   
   /* Variable contenedora de la instancia del componente telefono*/
-  var contenedorModalInfo = new Vue({
-  el: '#componente_modal_info',
-  data: {
-    showModal: true
-  },
-  components:{
-    'modal-info':modalInfo
-  }
+var contenedorModalInfo = new Vue({
+    el: '#componente_modal_info',
+    data: {
+        showModal: true
+    },
+    components:{
+        'modal-info':modalInfo
+    }
 })

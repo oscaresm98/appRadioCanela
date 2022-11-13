@@ -3,7 +3,8 @@ from dataclasses import fields
 from pyexpat import model
 from rest_framework import serializers
 from WebAdminRadio import models
-from accounts.models import Usuario,Rol
+from accounts.models import Usuario, Rol, RolGroup
+from django.contrib.auth.models import Group
 from rest_framework.validators import UniqueValidator
 
 from rolepermissions.roles import assign_role
@@ -65,20 +66,41 @@ class EmisoraRadioSerializer(serializers.ModelSerializer):
 
 # Usuario  
 class UsuarioSerializer(serializers.ModelSerializer):
-    nombreRol = serializers.CharField(source='rol')
+    roles = serializers.StringRelatedField(source='groups', many=True)
+    activo = serializers.BooleanField(source='is_active')
     
     class Meta:
-        fields = ['id', 'foto', 'fechaNacimiento', 'email', 'nombreRol', 'date_joined', 'first_name', 'last_name', 'activo']
+        fields = [
+            'id', 
+            'foto', 
+            'username', 
+            'fechaNacimiento', 
+            'email', 
+            'groups', 
+            'roles', 
+            'date_joined', 
+            'first_name', 
+            'last_name', 
+            'activo' # Se creo un alias para referenciar el campo is_active
+        ]
         model = models.Usuario
 
 class UsuarioMovilSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['id', 'first_name', 'last_name', 'password', 'username','email']
+        fields = [
+            'id', 
+            'first_name', 
+            'last_name', 
+            'password', 
+            'username',
+            'email'
+        ]
         extra_kwargs = {
             'password': {'write_only': True},
             'email': { 'validators': [UniqueValidator(queryset=Usuario.objects.all())] }
         }
+    
     def create(self, validated_data):
         password = validated_data.pop('password', None)
         user = self.Meta.model(**validated_data)
@@ -90,8 +112,26 @@ class UsuarioMovilSerializer(serializers.ModelSerializer):
 class UsuarioMovilDatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['id', 'first_name', 'last_name', 'password', 'username', 'email', 
-            'telefono', 'fechaNacimiento', 'cedula', 'sexo']
+        fields = [
+            'id', 
+            'first_name', 
+            'last_name', 
+            'password', 
+            'username', 
+            'email', 
+            'telefono', 
+            'fechaNacimiento', 
+            'cedula', 
+            'sexo'
+        ]
+
+
+# Grupos de permisos
+class RolGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = RolGroup
+
 
 # Torneo
 class TorneosSerializer(serializers.ModelSerializer):

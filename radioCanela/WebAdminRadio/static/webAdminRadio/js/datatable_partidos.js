@@ -1,31 +1,3 @@
-// var minDate, maxDate;
- 
-//
-// $.fn.dataTable.ext.search.push(
-//     function( settings, data, dataIndex ) {
-//         var min = minDate.val();
-//         var max = maxDate.val();
-
-//         // if(max){
-//         //     max.setDate(max.getDate()+1);
-//         //     console.log(max);
-//         // }        
-
-//         let fechaPrev =  moment(data[3], 'DD/MM/YYYY');
-//         var date = fechaPrev.toDate();
-        
-//         if (
-//             ( min === null && max === null ) ||
-//             ( min === null && date <= max ) ||
-//             ( min <= date   && max === null ) ||
-//             ( min <= date   && date <= max )
-//         ) {
-//             return true;
-//         }
-//         return false;
-//     }
-// );
-
 var table = $('#data_table').DataTable({
     "destroy": true,
     "ajax": {
@@ -75,16 +47,3 @@ var table = $('#data_table').DataTable({
         }},
     ],
 });
-
-//
-// minDate = new DateTime($('#min'), {
-//     format: 'DD/MM/YYYY'
-// });
-// maxDate = new DateTime($('#max'), {
-//     format: 'DD/MM/YYYY'
-// });
-
-// // Refilter the table
-// $('#min, #max').on('change', function () {
-//     table.draw();
-// });

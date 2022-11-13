@@ -30,7 +30,9 @@ urlpatterns = [
     path('user/', views.UserView.as_view(),name='usuario-view'),
     path('logout/', views.LogoutView.as_view(),name='logout-view'),
     
-    path('roles/', views.rolesList,name='roles-list'),
+    # path('roles/', views.rolesList,name='roles-list'),
+    path('roles/', views.ListRoles.as_view(), name='roles-list'),
+    
     path('permisos/', views.permisosList,name='permisos-list'),
 
     path('torneos/', views.torneosList,name='torneos-list'),

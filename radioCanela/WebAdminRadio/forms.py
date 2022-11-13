@@ -1,7 +1,13 @@
 from django import forms
-from .models import *
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import Group
+
+
+from .models import *
+from accounts.models import *
+
 
 # field_name_mapping es el diccionario con los names que estarán en los forms,
 # que no deben ser iguales a los campos de los modelos
@@ -59,10 +65,10 @@ class UsuarioForm(forms.ModelForm):
                 'cedula',
                 'fechaNacimiento',
                 'telefono',
-                'rol',
+                # 'rol',
                 'descripcion',
                 'foto',
-                'activo'
+                #'activo'
         ]
         def add_prefix(self, field_name):
             field_name_mapping = {
@@ -154,6 +160,7 @@ class NoticiaForm(forms.ModelForm):
             'descripcion',
             'activo',
         ]
+
     # Esta función define el atributo 'name' con el valor del diccionario
     def add_prefix(self, field_name):
         field_name_mapping = {
@@ -175,7 +182,36 @@ class TransmisionForm(forms.ModelForm):
             'estado',
         ]
 
+class RolGroupForm(forms.ModelForm):
+    class Meta:
+        model = RolGroup
+        fields = '__all__'
 
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'permissions': 'permisos'
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(RolGroupForm, self).add_prefix(field_name)
+
+
+class UsuarioAdminForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = '__all__'
+        exclude = ('password', 'date_joined', 'slug', 'metodo_ingreso', 'foto')
+
+    # Sobreescritura del metodo para aceptar los campos que envia el formulario
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'first_name': 'nombre',
+            'last_name': 'apellido',
+            'fechaNacimiento': 'fechaNac',
+            'groups': 'roles',
+            'is_active': 'activo'
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(UsuarioAdminForm, self).add_prefix(field_name)
 
 
 # class FrecuenciaForm(forms.ModelForm):

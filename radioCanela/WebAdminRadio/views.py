@@ -10,6 +10,8 @@ import pyrebase
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 
+from django.contrib.auth.decorators import permission_required
+
 # configuración de firebase
 firebaseConfig = {
     "apiKey": "AIzaSyDr3NaNXjIt0IJQSPsQw-jZ2fJPVv-uGKs",
@@ -26,8 +28,10 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 # Definiendo el storage
 storage = firebase.storage()
 
-# Funcion para agregar archivo a Firebase Storage, retorna el URL donde se se guardo el archivo
 def agregarImagen(request, nombre, carpeta):
+    """
+    Funcion para agregar archivo a Firebase Storage, retorna el URL donde se se guardo el archivo  
+    """
     img = request.FILES['archivo']
     destino = carpeta + nombre + img.name # Ej. si carpeta="imagenes/", nombre = "img" y img.name="redonda.jpg" -> destino="imagenes/imgredonda.jpg"
     storage.child(destino).put(img) # al storage se sube el archivo img en la carpeta imagenes con el nombre imgredonda.jpg
@@ -41,7 +45,7 @@ def administrador(request):
     return render(request, 'webAdminRadio/administrador.html', {'title': 'Administrador'})
 
 @login_required
-#@has_permission_decorator('emisoras')
+@permission_required('accounts.view_usuario', raise_exception=True)
 def usuarios(request):
     #listaUsuarios= Usuario.objects.filter(activo=True)
     context = {'title': 'Usuarios'}
@@ -271,13 +275,6 @@ def editar_usuario(request,id_usuario):
             context['error'] = user_form.errors
     return render(request,"webAdminRadio/editar_usuario.html",context)
 
-@login_required
-def borrar_rol(request, id_rol):
-    delete_rol = Rol.objects.get(id=id_rol)
-    delete_rol.activo = False
-    delete_rol.delete()
-    messages.success(request, 'El Rol ha sido eliminado')
-    return redirect('lista_roles')
 
 @login_required
 def borrar_usuario(request, id_usuario):

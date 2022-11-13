@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.authtoken import views;
+from rest_framework.authtoken import views
+from django.views.generic import TemplateView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('', include('WebAdminRadio.urls')),
     path('', include('accounts.urls')),
     path('', include('django.contrib.auth.urls')),
-    path('api_generate_token/',views.obtain_auth_token)
+    path('api_generate_token/',views.obtain_auth_token),
+    path('permiso-no-autorizado/', TemplateView.as_view(template_name='accounts/error.html')), # Pagina para mostrar que un usuario no esta autorizado
 ]
