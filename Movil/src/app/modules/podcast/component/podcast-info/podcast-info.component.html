@@ -1,0 +1,68 @@
+<div class="background" *ngIf="description" (click)="openModal()">
+  <ion-text color="light">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <span class="name"> {{podcast.nombre}} </span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center fullRow">
+        <ion-col size="3">
+          <ion-avatar>
+            <img src="{{podcast.imagen}}" alt="{{podcast.nombre}}">
+          </ion-avatar>
+        </ion-col>
+
+        <ion-col>
+          <ion-row>
+            <ion-col>
+              <span class="ion-text-justify"> {{podcast.descripcion}}</span>
+            </ion-col>
+          </ion-row>
+      
+          <ion-row class="tiny">
+            <ion-col size="6">
+              <span class="author"> {{podcast.autores}} </span>
+            </ion-col>
+            
+            <ion-col size="6" class="ion-text-end">
+              <span> {{date}} </span>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-text>
+</div>
+
+
+<div class="background" *ngIf="!description" (click)="openModal()">
+  <ion-text color="light">
+    <ion-grid>
+      <ion-row class="ion-align-items-center fullRow">
+        <ion-col size="3">
+          <ion-avatar>
+            <img src="{{podcast.imagen}}" alt="{{podcast.nombre}}">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="9">
+          <ion-row>
+            <ion-col size="12">
+              <span class="name"> {{podcast.nombre}} </span>
+            </ion-col>
+          </ion-row>
+      
+          <ion-row class="tiny">
+            <ion-col size="6">
+              <span class="author"> {{podcast.autores}} </span>
+            </ion-col>
+            
+            <ion-col size="6" class="ion-text-end">
+              <span> {{date}} </span>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-text>
+</div>

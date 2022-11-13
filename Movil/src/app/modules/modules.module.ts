@@ -23,6 +23,10 @@ import { BannerComponent } from './components/banner/banner.component';
 import { SlidesComponent } from './components/slides/slides.component';
 import { NoticiaCardComponent } from './noticias/components/noticia-card/noticia-card.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { PodcastComponent} from './podcast/podcast.component';
+import {PodcastBarComponent} from './podcast/component/podcast-bar/podcast-bar.component';
+import {PodcastInfoComponent} from './podcast/component/podcast-info/podcast-info.component';
+import {PlayerComponent} from './podcast/component/player/player.component';
 
 
 @NgModule({
@@ -45,7 +49,11 @@ import { MyAccountComponent } from './my-account/my-account.component';
     BannerComponent,
     SlidesComponent,
     NoticiaCardComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    PodcastComponent,
+    PodcastBarComponent,
+    PodcastInfoComponent,
+    PlayerComponent,
   ],
   imports: [
     CommonModule,

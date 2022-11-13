@@ -1,0 +1,45 @@
+.page-waves {
+    --background: transparent;
+    background-image: url('/src/assets/images/logo_radio.png'), linear-gradient(to bottom, rgb(245, 110, 0),var(--radio-color));    
+    background-repeat: no-repeat;
+    background-position-y: 15%;
+    background-size: contain;
+    margin: auto; 
+}
+.avatar{
+    background-color: var(--ion-color-light);
+    padding: 1.5vh;
+
+    ion-avatar {
+        --border-radius: 0px;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+ion-col {
+    padding: 0px;
+}
+
+.tiny {
+    font-style: italic !important;
+    font-size: medium !important;
+}
+
+.name {
+    font-size: 3.5vh;
+}
+
+.play-pause {
+    ion-button {
+        height: 100%;
+        ion-icon {
+            font-size: 64px ;
+            line-height: 64px;
+        }
+    }
+}
+
+    ion-col {
+        margin: auto;
+    }

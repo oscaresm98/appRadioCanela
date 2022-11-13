@@ -1,0 +1,39 @@
+*{
+    font-family: libreBaskerville;
+    color: black;
+    font-weight: 500;
+}
+
+.background {
+    background-color: var(--radio-color);
+    padding: 1.5vh;
+    border-radius: 10px;
+
+    .name {
+        font-weight: bold;
+        font-size: 2.5vh;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width:inherit;
+    }
+
+    .tiny {
+        font-size: small;
+        
+    
+        .author{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width:inherit;
+        }
+    }
+    
+    ion-avatar {
+        --border-radius: 4px;
+    }
+}
+
+
+

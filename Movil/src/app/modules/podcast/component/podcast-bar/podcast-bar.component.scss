@@ -1,0 +1,34 @@
+ion-avatar {
+    --border-radius: 4px;
+    width: 5.5vh;
+    height: 5.5vh;
+    margin: 0.5vh;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 0.5vh;
+    background: var(--radio-color);
+
+    .progress {
+        background: var(--ion-color-danger);
+        height: 0.5vh;
+    }
+}
+
+.name {
+    font-size: 2.5vh;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:inherit;
+}
+
+.author {
+    font-size: small;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:inherit;
+}
