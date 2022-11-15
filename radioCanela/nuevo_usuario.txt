@@ -1,2 +1,0 @@
-usuario = JoanGG
-contrasena = joangg
