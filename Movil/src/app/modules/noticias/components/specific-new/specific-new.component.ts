@@ -58,4 +58,36 @@ export class SpecificNewComponent implements OnInit {
     };
     this.socialSharing.shareWithOptions(options);
   }
+  getFecha(fecha:string){
+    const date=new Date(fecha);
+    return date.getDate() +" "+ this.getMonth(date.getMonth())
+  }
+  private getMonth(mes:number){
+    switch(mes){
+      case 0:
+        return "Ene.";
+      case 1:
+        return "Feb.";
+      case 2:
+        return "Marzo";
+      case 3:
+        return "Abr.";
+      case 4:
+        return "Mayo"
+      case 5:
+        return "Jun."
+      case 6:
+        return "Jul."
+      case 7:
+        return "Ag."
+      case 8:
+        return "Sept."
+      case 9:
+        return "Oct."
+      case 10:
+        return "Nov."
+      case 11:
+        return "Dic."
+    }
+  }
 }

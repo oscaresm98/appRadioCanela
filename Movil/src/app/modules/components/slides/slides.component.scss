@@ -18,7 +18,12 @@ ion-slides {
     --bullet-background-active: orange !important;
 
 }
-
+ion-skeleton-text {
+    --background-rgb: 217,217,217;
+    width: 90vw;
+    height: 40vw;
+    border-radius: 5vw;
+}
 .slide {
     position: relative;
 }
@@ -49,13 +54,4 @@ ion-slides {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.skeleton{
-    width: 86vw;
-    height: 40vw;
-    border-radius: 30vw;
-    
-}
-.text-skeleton{
-    border-radius: 5vw;
 }

@@ -14,7 +14,7 @@ interface Image {
 })
 export class BannerComponent implements OnInit {
   images = [];
-  publicidades:IPublicidad[];
+  publicidades:IPublicidad[]=[];
   slideOpts = {
     speed: 400,
     loop:true,
@@ -28,8 +28,9 @@ export class BannerComponent implements OnInit {
     
     
   }
-  ngOnInit() {
-    this.publicidades=this.dataService.getPublicidad();
+  async ngOnInit() {
+    this.publicidades= this.dataService.getPublicidad();
+    console.log("")
     const publicidad1:IPublicidad={
       id: -1,
       titulo: 'default',

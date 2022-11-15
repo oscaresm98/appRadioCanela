@@ -15,8 +15,8 @@ display: inline-block;
 //object-position: center;
 object-fit: cover;
 overflow: hidden;
-width: 28vw;
-height: 28vw;
+width: 25vw;
+height: 25vw;
 border-radius: 20vw;
 }
 .tarjeta-container{
@@ -44,16 +44,18 @@ border-radius: 20vw;
     overflow: hidden;
   }
   .title{
+    font-size: small;
     color: var(--radio-color);
     font-weight: bold;
   }
 
 
   .info{
-    max-width: 55vw;
+    max-width: 50vw;
+    padding-right: 2vw;
   }
   .descripcion{
-    font-size: small;
+    font-size: x-small;
   }
   
 .like-button{
@@ -62,7 +64,7 @@ border-radius: 20vw;
   --justify-content: center;
   position: absolute;
   right: -5vw;
- bottom: 8rem;
+  top: 0vw;
  --border-radius: 70%;
  --border-radius: 70%;
   --background: var(--radio-color);
@@ -90,4 +92,9 @@ border-radius: 20vw;
   --background-activated: transparent;
   --background-focused: none;
   color: var(--radio-color);
+}
+.tarjeta-footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

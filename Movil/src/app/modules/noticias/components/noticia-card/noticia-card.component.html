@@ -2,7 +2,7 @@
   <div class="image-container" [routerLink]="['/principal/noticias',news.id]">
     <img class="image" src="{{news.imagen}}">
   </div>
-  <div class="info" [routerLink]="['/principal/noticias',news.id]">
+  <div class="info text-center" [routerLink]="['/principal/noticias',news.id]">
     <p class="title truncate">{{news.titulo}}</p>
 
     <p class="truncate descripcion">
@@ -15,4 +15,21 @@
       <ion-icon *ngIf="isLiking" class="heart" name="heart"></ion-icon>
     </div>
   </ion-button>
+</div>
+<div class="tarjeta-footer mb-3">
+  <ion-button class="footer-buttons">
+    <ion-icon name="cloud-upload-outline"></ion-icon>
+    <span>{{ getFecha(news.fecha_subida)}}</span>
+  </ion-button>
+  <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
+    
+    <ion-icon name="share-social-outline"></ion-icon>
+    <span color="medium">Compartir</span>
+    <!--
+    <span color="medium">
+      {{interactionMaganer(news.compartidos)}}
+    </span>
+    -->
+  </ion-button>
+
 </div>

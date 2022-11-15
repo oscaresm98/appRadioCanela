@@ -1,34 +1,44 @@
-<div class="title-noticias rectangule-shadow">
-  <h2>Noticias</h2>
+<div>
+  <div class="title-noticias rectangule-shadow">
+    <h2>Noticias</h2>
+  </div>
+  <div class="d-flex flex-column align-items-center text-center">
+    <div class="w-90">
+      <span class="titleNews">{{news.titulo}}</span>
+    </div>
+    
+  </div>
+  <div class="image-container">
+    <img class="image" src="{{news.imagen}}" imageViewer>
+  </div>  
+  <div class="center">
+    <ion-button class="footer-buttons">
+      <ion-icon lass="radio-color" name="cloud-upload-outline"></ion-icon>
+      <span class="radio-color">{{ getFecha(news.fecha_subida)}}</span>
+    </ion-button>
+    <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
+      <ion-icon lass="radio-color" name="share-social-outline"></ion-icon>
+      <span>Compartir</span>
+      <!--
+      <span class="radio-color" color="medium">
+        {{interactionMaganer(news.compartidos)}}
+      </span>
+      -->
+    </ion-button>
+  </div>
+  
+    <ion-grid class="text-white info rectangule-shadow" >
+      <ion-row>
+        <ion-col size="12">
+          <div class="ion-text-start ion-margin-horizontal" >
+           <p class="contentNews">
+            {{news.descripcion}}
+           </p>
+           
+          </div>
+        </ion-col>
+        
+      </ion-row>
+  
+    </ion-grid>
 </div>
-<div class="image-container">
-  <img class="image" src="{{news.imagen}}" imageViewer>
-</div>  
-<div class="center">
-  <ion-button class="footer-buttons">
-    <ion-icon lass="radio-color" name="cloud-upload-outline"></ion-icon>
-    <span class="radio-color">{{ news.fecha_subida | date:'dd/MM/YYYY HH:mm' }}</span>
-  </ion-button>
-  <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
-    <ion-icon lass="radio-color" name="share-social-outline"></ion-icon>
-    <span class="radio-color" color="medium">
-      {{interactionMaganer(news.compartidos)}}
-    </span>
-  </ion-button>
-</div>
-
-  <ion-grid class="text-white info rectangule-shadow" >
-    <ion-row>
-      <ion-col size="12">
-        <div class="ion-text-start ion-margin-horizontal" >
-          <h1 class="titleNews">{{news.titulo}}</h1>
-         <p class="contentNews">
-          {{news.descripcion}}
-         </p>
-         
-        </div>
-      </ion-col>
-      
-    </ion-row>
-
-  </ion-grid>

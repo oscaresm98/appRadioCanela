@@ -1,10 +1,11 @@
 
-<ion-slides [options]="slideOpts"  pager="true">
-  <ion-slide *ngIf="false">
-    <ion-thumbnail class="skeleton" slot="start">
-      <ion-skeleton-text class="text-skeleton"  [animated]="true"></ion-skeleton-text>
-    </ion-thumbnail>
+<ion-slides *ngIf="loading">
+  <ion-slide >
+    <ion-skeleton-text class="skeleton" [animated]="true" ></ion-skeleton-text>
   </ion-slide>
+</ion-slides>
+<ion-slides *ngIf="!loading" [options]="slideOpts"  pager="true">
+  
   <ion-slide  class="slide" *ngFor="let noticia of noticias">
     <div class="image-container">
       <img class="image" src="{{noticia.imagen}}">

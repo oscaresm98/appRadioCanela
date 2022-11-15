@@ -15,12 +15,10 @@ export class AppComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     await this.storage.create();
     await this.obtenerRadio();
-    await this.obtenerSlideNoticias();
+    
     await this.getPublicidad();
   }
-  private obtenerSlideNoticias(){
-    this.dataService.obtenerSlidesNoticias();
-  }
+  
   private getPublicidad(){
     this.dataService.obtenerPublicidad();
   }
