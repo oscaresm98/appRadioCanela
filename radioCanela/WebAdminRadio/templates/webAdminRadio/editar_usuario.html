@@ -157,7 +157,7 @@
                     <option value="" disabled>Seleccione un rol</option>
                     {% for rol in roles %}
                         <option value="{{ rol.id }}"
-                            {% if rol.id in usuario.groups %}
+                            {% if rol.id in permisos_id %}
                                 selected
                             {% endif %}
                         > {{ rol.name }} </option>

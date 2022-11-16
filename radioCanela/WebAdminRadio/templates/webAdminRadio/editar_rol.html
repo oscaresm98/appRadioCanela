@@ -63,18 +63,32 @@
 
         {% for nombre_grupo, permisos in grupos.items %}
             <div class="my-4 px-4">
-                <div class="h4 pb-2 mb-4 text-dark border-bottom border-danger">
-                    {{nombre_grupo}}
+                <div class="h4 pb-2 mb-4 text-dark border-bottom border-danger d-flex justify-content-between">
+                    <span>{{nombre_grupo}}</span>
+                    <div>
+                        <button type="button" class="btn btn-danger" 
+                            onclick="quitarPermisosSeccion('{{nombre_grupo}}')"
+                            data-bs-toggle="tooltip" data-bs-placement="top" 
+                            title="Quitar todos los permisos de la seccion">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                        <button type="button" class="btn btn-success" 
+                            onclick="asignarPermisosSeccion('{{nombre_grupo}}')"
+                            data-bs-toggle="tooltip" data-bs-placement="top" 
+                            title="Asignar todos los permisos de la seccion">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="row">
                     {% for permiso in permisos %}
                         <div class="mx-4 form-check form-check-inline col-2">
-                            <input  name='permisos' class="form-check-input" value="{{ permiso.id }}"
+                            <input  name='permisos' class="form-check-input {{nombre_grupo}}-checkbox" value="{{ permiso.id }}"
                                 {% if permiso.id in permisos_asignados %}
                                     checked
                                 {% endif %}
-                                type="checkbox" id="inlineCheckbox1">
-                            <label class="form-check-label" for="inlineCheckbox1">{{ permiso | obtener_tipo_permiso }}</label>
+                                type="checkbox" id="{{ permiso.id }}-check">
+                            <label class="form-check-label" for="{{ permiso.id }}-check">{{ permiso | obtener_tipo_permiso }}</label>
                         </div>
                     {% endfor %}
                 </div>
@@ -90,4 +104,5 @@
 {% block page_script %}
     <script src="{% static 'webAdminRadio/js/img_preview.js' %}"></script>
     <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/roles.js' %}"></script>
 {% endblock %}

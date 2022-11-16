@@ -1,6 +1,6 @@
 from pickle import TRUE
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from WebAdminRadio.models import *
 from WebAdminRadio.forms import *
 from django.contrib import messages
@@ -9,8 +9,6 @@ import json
 import pyrebase
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
-
-from django.contrib.auth.decorators import permission_required
 
 # configuración de firebase
 firebaseConfig = {
@@ -286,7 +284,7 @@ def borrar_usuario(request, id_usuario):
 
 
 @login_required
-#@has_permission_decorator('emisoras')
+@permission_required('WebAdminRadio.view_emisora', login_url='/permiso-no-autorizado')
 def emisoras(request):
     listaRadios= Radio.objects.filter(estado=True)
     listaEmisoras = Emisora.objects.filter(estado=True)
@@ -294,6 +292,7 @@ def emisoras(request):
     return render(request, 'webAdminRadio/emisoras.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.view_emisora', login_url='/permiso-no-autorizado')
 def agregar_radio(request):
     context = {'title': 'Agregar Radio'}
     if request.POST:
@@ -319,7 +318,7 @@ def agregar_radio(request):
 
 
 @login_required
-# @has_permission_decorator('add_emisora')
+@permission_required('WebAdminRadio.add_emisora', login_url='/permiso-no-autorizado')
 def agregar_emisora(request):
     listaRadios= Radio.objects.filter(estado=True)
     context = {'title': 'Agregar Emisora', 'radios': listaRadios}
@@ -371,6 +370,7 @@ def agregar_emisora(request):
     return render(request, 'webAdminRadio/agregar_emisora.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.delete_emisora', login_url='/permiso-no-autorizado')
 def borrar_emisora(request, id_emisora):
     delete_emisora = Emisora.objects.get(id=id_emisora)
     delete_emisora.estado = False
@@ -379,6 +379,7 @@ def borrar_emisora(request, id_emisora):
     return redirect('emisoras')
 
 @login_required
+@permission_required('WebAdminRadio.delete_emisora', login_url='/permiso-no-autorizado')
 def borrar_radio(request, id_radio):
     delete_radio = Radio.objects.get(id=id_radio)
     delete_radio.estado = False
@@ -388,6 +389,7 @@ def borrar_radio(request, id_radio):
 
 
 @login_required
+@permission_required('WebAdminRadio.change_emisora', login_url='/permiso-no-autorizado')
 def editar_emisora(request,id_emisora):
     edit_emisora = Emisora.objects.get(id=id_emisora, estado=True)
     lisRadios = Radio.objects.filter(estado=True)
@@ -452,12 +454,14 @@ def editar_emisora(request,id_emisora):
 # Equipos
 
 @login_required
+@permission_required('WebAdminRadio.view_equipo', login_url='/permiso-no-autorizado')
 def equipos(request):
     context = {'title': 'Equipos'}
     return render(request, 'webAdminRadio/equipos.html', context)
 
 
 @login_required
+@permission_required('WebAdminRadio.add_equipo', login_url='/permiso-no-autorizado')
 def agregar_equipo(request):
     context = {'title': 'Agregar Equipo'}
     if request.POST:
@@ -507,6 +511,7 @@ def comprobarRedSocial (nom):
         return RedSocial.objects.get(nombre=nom)
 
 @login_required
+@permission_required('WebAdminRadio.view_equipo', login_url='/permiso-no-autorizado')
 def ver_equipo(request, id_equipo):
     equipo = Equipo.objects.get(id=id_equipo)
     redSociaEquipo = RedSocialEquipo.objects.filter(id_equipo=id_equipo)        
@@ -518,6 +523,7 @@ def ver_equipo(request, id_equipo):
     return render(request, 'webAdminRadio/ver_equipo.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.delete_equipo', login_url='/permiso-no-autorizado')
 def borrar_equipo(request, id_equipo):
     delete_equipo = Equipo.objects.get(id=id_equipo)
     delete_equipo.estado = False
@@ -526,6 +532,7 @@ def borrar_equipo(request, id_equipo):
     return redirect('equipos')
 
 @login_required
+@permission_required('WebAdminRadio.change_equipo', login_url='/permiso-no-autorizado')
 def modificar_equipo(request, id_equipo):
     edit_equipo = Equipo.objects.get(id=id_equipo)
     red_social = RedSocialEquipo.objects.filter(id_equipo=id_equipo)
@@ -578,12 +585,14 @@ def modificar_equipo(request, id_equipo):
 #Torneos
 
 @login_required
+@permission_required('WebAdminRadio.view_torneo', login_url='/permiso-no-autorizado')
 def torneos(request):
     list_torneos = Torneo.objects.all()
     context = { "title": "Torneos", "torneos": list_torneos }
     return render(request, 'webAdminRadio/torneos.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.add_torneo', login_url='/permiso-no-autorizado')
 def agregar_torneo(request):
     context = { "title": "Agregar Torneo" }
 
@@ -598,6 +607,7 @@ def agregar_torneo(request):
     return render(request, 'webAdminRadio/agregar_torneos.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.change_torneo', login_url='/permiso-no-autorizado')
 def modificar_torneo(request, id_torneo):
     torneo_modificacion = Torneo.objects.get(pk=id_torneo)
     context = { "title": "Editar Torneo", "torneo": torneo_modificacion }
@@ -613,6 +623,7 @@ def modificar_torneo(request, id_torneo):
     return render(request, 'webAdminRadio/editar_torneos.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.delete_torneo', login_url='/permiso-no-autorizado')
 def eliminar_torneo(request, id_torneo):
     torneo_borrar = Torneo.objects.get(id=id_torneo)
     torneo_borrar.estado = False
@@ -623,17 +634,20 @@ def eliminar_torneo(request, id_torneo):
 # Partidos
 
 @login_required
+@permission_required('WebAdminRadio.view_partidotransmision', login_url='/permiso-no-autorizado')
 def partidos(request):
     context = {'title': 'Partidos'}
     return render(request, 'webAdminRadio/partidos.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.view_partidotransmision', login_url='/permiso-no-autorizado')
 def ver_partido(request, id_partido):
     partido = PartidoTransmision.objects.get(pk=id_partido)
     context = {'title': 'Informacion del partido', 'partido': partido}
     return render(request, 'webAdminRadio/ver_partido.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.add_partidotransmision', login_url='/permiso-no-autorizado')
 def agregar_partido(request):
     lista_equipos = Equipo.objects.filter(estado=True)
     lista_torneos = Torneo.objects.filter(estado=True)
@@ -668,6 +682,7 @@ def agregar_partido(request):
     return render(request, 'webAdminRadio/agregar_partidos.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.change_partidotransmision', login_url='/permiso-no-autorizado')
 def editar_partido(request, id_partido):
     lista_equipos = Equipo.objects.filter(estado=True)
     lista_torneos = Torneo.objects.filter(estado=True)
@@ -713,6 +728,7 @@ def editar_partido(request, id_partido):
     return render(request, 'webAdminRadio/editar_partidos.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.delete_partidotransmision', login_url='/permiso-no-autorizado')
 def eliminar_partido(request, id_partido):
     partido_borrar = PartidoTransmision.objects.get(id=id_partido)
     partido_borrar.estado = False
@@ -724,6 +740,7 @@ def eliminar_partido(request, id_partido):
 # Programas
 
 @login_required
+@permission_required('WebAdminRadio.view_programa', login_url='/permiso-no-autorizado')
 def programas(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {'title': 'Programas', 'emisoras': list_emisoras}
@@ -731,6 +748,7 @@ def programas(request):
 
 
 @login_required
+@permission_required('WebAdminRadio.add_programa', login_url='/permiso-no-autorizado')
 def agregar_programa(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     list_locutores = Locutor.objects.filter(estado=True).order_by('nombre')
@@ -799,6 +817,7 @@ def agregarHorario(lista, context, request):
             break
 
 @login_required
+@permission_required('WebAdminRadio.view_programa', login_url='/permiso-no-autorizado')
 def ver_programa(request, id_programa):
     programa = Programa.objects.get(id=id_programa)
     segmentoEmisora = SegmentoEmisora.objects.get(segmento=id_programa)
@@ -813,6 +832,7 @@ def ver_programa(request, id_programa):
     return render(request, 'webAdminRadio/ver_programa.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.change_programa', login_url='/permiso-no-autorizado')
 def modificar_programa(request, id_programa):
     edit_segmento = Programa.objects.get(id=id_programa, estado=True)
     horarios = Horario.objects.filter(id_programa=id_programa)
@@ -892,6 +912,7 @@ def modificarHorario(lista, context, request):
             break
 
 @login_required
+@permission_required('WebAdminRadio.delete_programa', login_url='/permiso-no-autorizado')
 def borrar_programa(request, id_programa):
     delete_segmento = Programa.objects.get(id=id_programa)
     delete_segmento.estado = False
@@ -902,11 +923,13 @@ def borrar_programa(request, id_programa):
 
 # Locutores
 @login_required
+@permission_required('WebAdminRadio.view_locutor', login_url='/permiso-no-autorizado')
 def locutores(request):
     context = {'title': 'Locutores'}
     return render(request, 'webAdminRadio/locutores.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.view_locutor', login_url='/permiso-no-autorizado')
 def ver_locutor(request, id_locutor):
     locutor = Locutor.objects.get(pk=id_locutor)
     redSocialLocutor = RedSocialLocutor.objects.filter(id_locutor=id_locutor)
@@ -914,6 +937,7 @@ def ver_locutor(request, id_locutor):
     return render(request, 'webAdminRadio/ver_locutor.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.delete_locutor', login_url='/permiso-no-autorizado')
 def eliminar_locutor(request, id_locutor):
     delete_locutor = Locutor.objects.get(id=id_locutor)
     delete_locutor.estado = False
@@ -922,6 +946,7 @@ def eliminar_locutor(request, id_locutor):
     return redirect('locutores')
 
 @login_required
+@permission_required('WebAdminRadio.add_locutor', login_url='/permiso-no-autorizado')
 def agregar_Locutor(request):
     context = {'title': 'Agregar Locutor'}
     if request.POST:
@@ -958,6 +983,7 @@ def agregar_Locutor(request):
     return render(request, 'webAdminRadio/agregar_locutor.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.change_locutor', login_url='/permiso-no-autorizado')
 def editar_locutor(request, id_locutor):
     edit_locutor = Locutor.objects.get(id=id_locutor)
     red_social = RedSocialLocutor.objects.filter(id_locutor=id_locutor)
@@ -1007,6 +1033,7 @@ def editar_locutor(request, id_locutor):
 
 # Publicidad
 @login_required
+@permission_required('WebAdminRadio.view_publicidad', login_url='/permiso-no-autorizado')
 def publicidad(request):
     list_radios = Radio.objects.filter(estado=True)
     list_programas = Programa.objects.filter(estado=True)
@@ -1018,6 +1045,17 @@ def publicidad(request):
     return render(request, 'webAdminRadio/publicidad.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.view_publicidad', login_url='/permiso-no-autorizado')
+def ver_publicidad(request, id_publicidad):
+    publicidad = Publicidad.objects.get(id=id_publicidad)
+    context = {
+        'title': "Informacion de la publicidad",
+        'publicidad':publicidad,
+    }
+    return render(request, 'webAdminRadio/ver_publicidad.html', context)
+
+@login_required
+@permission_required('WebAdminRadio.add_publicidad', login_url='/permiso-no-autorizado')
 def agregar_publicidad(request):
     list_radios = Radio.objects.filter(estado=True)
     context = {
@@ -1039,15 +1077,7 @@ def agregar_publicidad(request):
     return render(request, 'webAdminRadio/agregar_publicidad.html', context)
 
 @login_required
-def ver_publicidad(request, id_publicidad):
-    publicidad = Publicidad.objects.get(id=id_publicidad)
-    context = {
-        'title': "Informacion de la publicidad",
-        'publicidad':publicidad,
-    }
-    return render(request, 'webAdminRadio/ver_publicidad.html', context)
-
-@login_required
+@permission_required('WebAdminRadio.change_publicidad', login_url='/permiso-no-autorizado')
 def modificar_publicidad(request, id_publicidad):
     edit_publicidad = Publicidad.objects.get(id=id_publicidad)
     list_radios = Radio.objects.all()
@@ -1075,6 +1105,7 @@ def modificar_publicidad(request, id_publicidad):
 
 
 @login_required
+@permission_required('WebAdminRadio.delete_publicidad', login_url='/permiso-no-autorizado')
 def borrar_publicidad(request, id_publicidad):
     delete_publicidad = Publicidad.objects.get(id=id_publicidad)
     delete_publicidad.estado = False
@@ -1084,6 +1115,7 @@ def borrar_publicidad(request, id_publicidad):
 
 # Noticia
 @login_required
+@permission_required('WebAdminRadio.view_noticiastips', login_url='/permiso-no-autorizado')
 def noticia(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -1094,6 +1126,7 @@ def noticia(request):
 
 
 @login_required
+@permission_required('WebAdminRadio.add_noticiastips', login_url='/permiso-no-autorizado')
 def agregar_noticia(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -1115,6 +1148,7 @@ def agregar_noticia(request):
     return render(request, 'webAdminRadio/agregar_noticia.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.view_noticiastips', login_url='/permiso-no-autorizado')
 def ver_noticia(request, id_noticia):
     noticia = NoticiasTips.objects.get(id=id_noticia)
     context = {
@@ -1124,6 +1158,7 @@ def ver_noticia(request, id_noticia):
     return render(request, 'webAdminRadio/ver_noticia.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.change_noticiastips', login_url='/permiso-no-autorizado')
 def modificar_noticia(request, id_noticia):
     edit_noticia = NoticiasTips.objects.get(id=id_noticia)
     list_emisoras = Emisora.objects.filter(estado=True)
@@ -1148,6 +1183,7 @@ def modificar_noticia(request, id_noticia):
     return render(request, 'webAdminRadio/editar_noticia.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.delete_noticiastips', login_url='/permiso-no-autorizado')
 def borrar_noticia(request, id_noticia):
     delete_noticia = NoticiasTips.objects.get(id=id_noticia)
     delete_noticia.estado = False
@@ -1158,6 +1194,7 @@ def borrar_noticia(request, id_noticia):
 
 # Streaming
 @login_required
+@permission_required('WebAdminRadio.view_transmision', login_url='/permiso-no-autorizado')
 def transmision(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -1168,6 +1205,7 @@ def transmision(request):
 
 
 @login_required
+@permission_required('WebAdminRadio.add_transmision', login_url='/permiso-no-autorizado')
 def agregar_transmision(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -1192,6 +1230,7 @@ def agregar_transmision(request):
 
 
 @login_required
+@permission_required('WebAdminRadio.change_transmision', login_url='/permiso-no-autorizado')
 def modificar_transmision(request, id_transmision):
     edit_transmision = Transmision.objects.get(id=id_transmision)
     list_emisoras = Emisora.objects.filter(estado=True)
@@ -1218,6 +1257,7 @@ def modificar_transmision(request, id_transmision):
 
 
 @login_required
+@permission_required('WebAdminRadio.delete_transmision', login_url='/permiso-no-autorizado')
 def borrar_transmision(request, id_transmision):
     delete_transmision = Transmision.objects.get(id=id_transmision)
     delete_transmision.estado = False
@@ -1226,6 +1266,7 @@ def borrar_transmision(request, id_transmision):
     return redirect('transmision')
 
 @login_required
+@permission_required('WebAdminRadio.view_podcast', login_url='/permiso-no-autorizado')
 def podcasts(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -1235,6 +1276,7 @@ def podcasts(request):
     return render(request, 'webAdminRadio/podcasts.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.add_podcast', login_url='/permiso-no-autorizado')
 def agregar_podcasts(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -1256,6 +1298,7 @@ def agregar_podcasts(request):
 
 
 @login_required
+@permission_required('WebAdminRadio.change_podcast', login_url='/permiso-no-autorizado')
 def editar_podcast(request, id_podcast):
     list_emisoras = Emisora.objects.filter(estado=True)
     podcast_edit = Podcast.objects.get(pk=id_podcast)
@@ -1280,6 +1323,7 @@ def editar_podcast(request, id_podcast):
 
 
 @login_required
+@permission_required('WebAdminRadio.delete_podcast', login_url='/permiso-no-autorizado')
 def borrar_podcast(request, id_podcast):
     delete_podcasts = Podcast.objects.get(id=id_podcast)
     delete_podcasts.estado = False

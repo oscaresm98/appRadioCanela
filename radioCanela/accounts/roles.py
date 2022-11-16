@@ -9,7 +9,7 @@ def obtener_permisos_modelo(modelo):
     Devuelve los permisos asociados a un modelo
     """
     id_contenido = ContentType.objects.get_for_model(modelo)
-    return Permission.objects.filter(content_type=id_contenido)
+    return Permission.objects.filter(content_type=id_contenido).order_by('-codename')
 
 def obtener_permisos():
     """

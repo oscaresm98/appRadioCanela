@@ -65,6 +65,7 @@ def editar_usuario(request: HttpRequest, id_usuario):
         'title': 'Editar Usuario', 
         'roles': roles,
         'usuario': usuario_editar,
+        'permisos_id': usuario_editar.groups.all().values_list('id', flat=True)
     }
     
     if request.POST:
