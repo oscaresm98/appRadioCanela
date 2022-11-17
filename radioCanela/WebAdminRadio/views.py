@@ -10,6 +10,8 @@ import pyrebase
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 
+import datetime
+
 # configuración de firebase
 firebaseConfig = {
     "apiKey": "AIzaSyDr3NaNXjIt0IJQSPsQw-jZ2fJPVv-uGKs",
@@ -1336,3 +1338,103 @@ def galeria(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {'title': 'Galeria', 'emisoras': list_emisoras}
     return render(request, 'webAdminRadio/galeria.html', context)
+
+@login_required
+def ver_multimedia(request, id_multimedia):
+    multimedia = VideoImagen.objects.get(id=id_multimedia)
+    context = {
+        'title': "Información del video/imagen",
+        'multimedia': multimedia,
+    }
+    return render(request, 'webAdminRadio/ver_galeria.html', context)
+
+@login_required
+def agregar_galeria(request):
+    lista_emisoras = Emisora.objects.filter(estado=True)
+    context = {'title': 'Agregar archivo a la galeria', 'emisoras': lista_emisoras}
+    
+    if request.POST:
+        emisora_id = request.POST['emisora']
+        galeria = Galeria.objects.filter(id_emisora = emisora_id)
+
+        # Crea una galeria asociada a una emisora, si es que esta no existe
+        if not galeria:
+            galeriaForm = GaleriaForm({
+                'id_emisora': emisora_id,
+                'nombre': 'emisora ' + emisora_id,
+            })
+            if galeriaForm.is_valid():
+                galeria = galeriaForm.save()
+            else:
+                context['error'] = galeriaForm.errors
+
+        tipo = ''
+        archivo = request.FILES['archivo']
+        if '.mp4' in archivo.name:
+            tipo = 'video'
+        else:
+            tipo = 'imagen'
+
+        multimedia_form = ImagenVideoForm({
+            'fecha_creacion': datetime.datetime.now(),
+            'titulo': request.POST['titulo'],
+            'descripcion': request.POST['descripcion'],
+            'likes': 0,
+            'tipo': tipo,
+            'id_galeria': galeria[0].id,
+            'estado': True
+        })
+
+        if not multimedia_form.is_valid():
+            context['error'] = multimedia_form.errors
+            return render(request, 'webAdminRadio/agregar_galeria.html', context)
+        
+        multimedia_form.save()
+
+        if tipo == 'imagen':
+            multimedia = VideoImagen.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(multimedia.id), 'imagenes/')
+            multimedia.url = url
+            multimedia.save()
+        if tipo == 'video':
+            multimedia = VideoImagen.objects.order_by('-id')[0]
+            url = agregarImagen(request, str(multimedia.id), 'videos/')
+            multimedia.url = url
+            multimedia.save()
+        context['success'] = '¡El registro se ha sido creado con éxito!'
+
+    return render(request, 'webAdminRadio/agregar_galeria.html', context)
+
+@login_required
+def editar_galeria(request, id_multimedia):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    multimedia = VideoImagen.objects.get(pk=id_multimedia)
+    context = { "title": "Editar información de archivo multimedia", 
+               'emisoras': list_emisoras,
+               "multimedia": multimedia }
+
+    if request.POST:
+        multimedia_form = ImagenVideoForm({
+            'fecha_creacion': multimedia.fecha_creacion,
+            'titulo':request.POST['titulo'],
+            'descripcion':request.POST['descripcion'],
+            'likes':multimedia.likes,
+            'tipo':multimedia.tipo,
+            'id_galeria':multimedia.id_galeria,
+            'estado':multimedia.estado
+        }, instance=multimedia)
+        if multimedia_form.is_valid():
+            multimedia_form.save()
+            context['success'] = '¡Se ha guardado los cambios!'
+        else:
+            context['error'] = multimedia_form.errors
+
+    return render(request, 'webAdminRadio/editar_galeria.html', context)
+
+@login_required
+def borrar_multimedia(request, id_multimedia):
+    delete_multimedia = VideoImagen.objects.get(id=id_multimedia)
+    delete_multimedia.estado = False
+    delete_multimedia.delete()
+    messages.success(request, 'El archivo multimedia se ha sido eliminado con exito')
+    return redirect('galeria')

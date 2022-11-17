@@ -81,4 +81,8 @@ urlpatterns = [
     path('podcasts/<int:id_podcast>/eliminar',views.borrar_podcast,name='borrar_podcast'),#Muestra la pantalla para editar podcast
 
     path('galeria',views.galeria,name='galeria'),# Pagina principal donde se muestran la galeria
+    path('galeria/agregar',views.agregar_galeria,name='agregar_galeria'),# Pantalla para agregar imagenes y videos a la galeria.
+    path('galeria/<int:id_multimedia>',views.ver_multimedia,name='ver_multimedia'),# Pantalla para ver informacion especifica de una imagen o video de la galería.
+    path('galeria/<int:id_multimedia>/editar',views.editar_galeria,name='editar_galeria'),# Pantalla para editar informacion de una imagen o video de la galería.
+    path('galeria/<int:id_multimedia>/eliminar',views.borrar_multimedia,name='borrar_multimedia'),# URL para eliminar una imagen d ela galería.
 ]

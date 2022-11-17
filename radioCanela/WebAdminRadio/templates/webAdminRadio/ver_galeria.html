@@ -1,0 +1,58 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% comment %} {% load webadmin_tags %} {% endcomment %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/galeria.css' %}">
+{% endblock %}
+{% block content %}
+    <h2><b>{{ multimedia.titulo }}</b></h2>
+    
+
+    {% if 'video' in multimedia.url %}
+        <div class="img-container">
+            <video class="shield" id="preview" src="{{ multimedia.url }}" controls>
+        </div>
+    {% else %}
+        <div class="img-container">
+            <img class="shield" id="preview" src="{{ multimedia.url }}">
+        </div>
+    {% endif %}
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Título:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ multimedia.titulo }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Descripción:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ multimedia.descripcion }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Likes:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ multimedia.likes }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">fecha de subida:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ multimedia.fecha_creacion }}</label>
+        </div>
+    </div>
+
+
+{% endblock %}

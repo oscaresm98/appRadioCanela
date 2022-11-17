@@ -382,6 +382,30 @@ class PodcastForm(forms.ModelForm):
         field_name = field_name_mapping.get(field_name, field_name)
         return super(PodcastForm, self).add_prefix(field_name)
 
+class GaleriaForm(forms.ModelForm):
+    class Meta:
+        model = Galeria
+        fields = [
+            'id_emisora',
+            'nombre',
+            'descripcion',
+            'imagen'
+        ]
+
+
+
+class ImagenVideoForm(forms.ModelForm):
+    class Meta:
+        model = VideoImagen
+        fields = [
+            'fecha_creacion',
+            'titulo',
+            'descripcion',
+            'likes',
+            'tipo',
+            'id_galeria',
+            'estado'
+        ]
 
 
 # class GaleriaForm(forms.ModelForm):

@@ -1,0 +1,21 @@
+.img-container {
+    text-align: center;
+    margin-bottom: 1rem;
+
+}
+
+.shield {
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 1rem;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.label {
+    font-size: 1.25rem;
+}

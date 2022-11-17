@@ -31,8 +31,8 @@ function getGaleria(emisora) {
             { width: 10, className: "text-center", targets: 0},
             { width: 200, className: "text-center", targets: 1, render: function(data) {
                 var image = '';
-                if (data == null){
-                    image = `<img src="/static/webAdminRadio/images/generic_avatar.png" width="100%">`;
+                if (data.includes('video')){
+                    image = '<video src="'+ data +'#t=1" width="100%">';
                 } else {
                     image = '<img src="' + data + '" width="100%" height: 50%">';
                 }
@@ -45,8 +45,8 @@ function getGaleria(emisora) {
             }},
             { width: 250, className: "text-center", targets: 5},
             { width: 150, className: "text-center", targets: 6, render: function(data){
-                return `<a href="/programas/` + data + `" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye mx-auto"></i></a>
-                        <a href="/programas/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
+                return `<a href="/galeria/` + data + `" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye mx-auto"></i></a>
+                        <a href="/galeria/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
                         <a href="#" onclick="showWarning(` + data + `)" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>
                         `
             }},
