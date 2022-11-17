@@ -3,7 +3,7 @@ from django.conf import settings
 from smtplib import SMTPException
 
 
-def enviar_email(titulo:str, contenido:dict, destinatarios:list):
+def enviar_email(titulo:str, contenido:dict, destinatarios:list, tipo: str):
     correo = EmailMessage(
         subject=titulo,
         body=contenido,
@@ -11,7 +11,8 @@ def enviar_email(titulo:str, contenido:dict, destinatarios:list):
         to=destinatarios
     )
 
-    correo.content_subtype = 'html' # Actualizamos que el cuerpo del correo es en formato HTML
+    correo.content_subtype = tipo
+    # correo.content_subtype = 'html' # Actualizamos que el cuerpo del correo es en formato HTML
 
     try:
         correo.send(fail_silently=False)

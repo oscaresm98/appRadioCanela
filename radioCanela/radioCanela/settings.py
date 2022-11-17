@@ -179,3 +179,10 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/login/'
+
+# CAMBIAR SI ES NECESARIO
+EMAIL_HOST = 'mail.laradioredonda.ec'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'app@laradioredonda.ec'
+EMAIL_HOST_PASSWORD = 'Canela2022.'
