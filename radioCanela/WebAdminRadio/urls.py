@@ -79,4 +79,6 @@ urlpatterns = [
     path('podcasts/agregar',views.agregar_podcasts,name='agregar_podcasts'),#Muestra la pantalla para agregar podcasts
     path('podcasts/<int:id_podcast>/editar',views.editar_podcast,name='editar_podcast'),#Muestra la pantalla para editar podcast
     path('podcasts/<int:id_podcast>/eliminar',views.borrar_podcast,name='borrar_podcast'),#Muestra la pantalla para editar podcast
+
+    path('galeria',views.galeria,name='galeria'),# Pagina principal donde se muestran la galeria
 ]

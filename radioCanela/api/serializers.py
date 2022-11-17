@@ -294,6 +294,25 @@ class PodcastEmisoraSerializer(serializers.ModelSerializer):
         )
         model = models.Podcast
 
+class GaleriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.Galeria
+
+class VideoImagenSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id', 'titulo', 'fecha_creacion', 'descripcion', 'url', 'likes', 'tipo')
+        model = models.VideoImagen  
+
+class GaleriaDetalleSerializer(serializers.ModelSerializer):
+    imagenes_videos = VideoImagenSerializer(source='get_imagenes_videos_galeria', many=True)
+
+    class Meta:
+        fields= '__all__'
+        extra_fields = [ 'imagenes_videos' ]
+        model = models.Galeria
+   
+
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
 

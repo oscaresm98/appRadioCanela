@@ -169,6 +169,8 @@ class Galeria(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     estado = models.BooleanField(default=True)
 
+    def get_imagenes_videos_galeria(self):
+        return VideoImagen.objects.filter(id_galeria=self.id)
 
 class Hilochat(models.Model):
     id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora')

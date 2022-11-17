@@ -1287,3 +1287,8 @@ def borrar_podcast(request, id_podcast):
     messages.success(request, 'El podcast ha sido eliminado con exito')
     return redirect('podcasts')
 
+@login_required
+def galeria(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {'title': 'Galeria', 'emisoras': list_emisoras}
+    return render(request, 'webAdminRadio/galeria.html', context)

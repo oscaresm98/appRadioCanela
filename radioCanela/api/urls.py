@@ -66,6 +66,9 @@ urlpatterns = [
     path('podcasts/<int:id_podcast>',views.podcast_Detalle,name='podcast_Detalle'),
     # path('podcastsemisora', views.ListPodcastsEmisora.as_view()),
     
+    path('galerias', views.GaleriaList, name='galeria-list'),
+    path('emisora/<int:id_emisora>/galeria', views.Galeria_detalle, name='galeria_detalle'),
+    path('multimedia', views.ImagenesVideosList, name='videos_imagenes')
     
     #path('radio/', views.ListEmisora.as_view()),
 

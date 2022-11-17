@@ -717,9 +717,75 @@ def podcast_Detalle(request,id_podcast):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'POST', 'DELETE'])
+def GaleriaList(request):
+    try:
+        galeria = Galeria.objects.filter(estado=True)
+    except Galeria.DoesNotExist:
+        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = GaleriaSerializer(galeria, many=True)
+        return Response(serializer.data)
+        
+    elif request.method == 'POST':
+        serializer = GaleriaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        galeria.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'PUT','DELETE'])
+def Galeria_detalle(request,id_emisora): 
+    try: 
+        galeria = Galeria.objects.get(id_emisora=id_emisora)
+        multimedia = VideoImagen.objects.filter(id_galeria=galeria.id)
+    except Galeria.DoesNotExist:
+        return Response({'Error': 'Galeria no existe'}, status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializers = VideoImagenSerializer(multimedia, many=True)
+        return Response(serializers.data) 
+      
+    elif request.method == 'PUT':       
+        serializer = GaleriaSerializer(galeria, data=request.data)    
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+     
+    elif request.method == 'DELETE':
+        galeria.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST', 'DELETE'])
+def ImagenesVideosList(request):
+    try:
+        multimedia = VideoImagen.objects.filter(estado=True)
+    except VideoImagen.DoesNotExist:
+        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_400_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = VideoImagenSerializer(multimedia, many=True)
+        return Response(serializer.data)
+        
+    elif request.method == 'POST':
+        serializer = VideoImagenSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        multimedia.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-        # class ListUsuarios(generics.ListAPIView, HasRoleMixin):
+# class ListUsuarios(generics.ListAPIView, HasRoleMixin):
 #     allowed_roles = 'Locutor'
 #     serializer_class = serializers.UsuarioSerializer
 #     queryset = Usuario.objects.filter(is_active=True)
