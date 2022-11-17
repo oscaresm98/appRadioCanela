@@ -59,11 +59,10 @@ def agregar_usuario(request: HttpRequest):
             usuario.foto=url
             password = Usuario.objects.make_random_password()
             usuario.set_password(password)
-            usuario.save()
 
-            _enviar_email_usuario(usuario.username, password, [usuario.email, ])
+            # _enviar_email_usuario(usuario.username, password, [usuario.email, ])            
+            usuario.save()            
             
-
             context['success'] = '¡El usuario se ha registrado!'
             return render(request,"webAdminRadio/agregar_usuario.html", context)
             

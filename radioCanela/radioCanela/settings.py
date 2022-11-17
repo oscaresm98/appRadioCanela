@@ -181,8 +181,8 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/login/'
 
 # CAMBIAR SI ES NECESARIO
-EMAIL_HOST = 'mail.laradioredonda.ec'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'app@laradioredonda.ec'
-EMAIL_HOST_PASSWORD = 'Canela2022.'
+# EMAIL_HOST = 'mail.laradioredonda.ec'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'app@laradioredonda.ec'
+# EMAIL_HOST_PASSWORD = 'contrasena'
