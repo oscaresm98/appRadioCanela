@@ -60,7 +60,7 @@ def agregar_usuario(request: HttpRequest):
             password = Usuario.objects.make_random_password()
             usuario.set_password(password)
 
-            # _enviar_email_usuario(usuario.username, password, [usuario.email, ])            
+            _enviar_email_usuario(usuario.username, password, [usuario.email, ])            
             usuario.save()            
             
             context['success'] = '¡El usuario se ha registrado!'
