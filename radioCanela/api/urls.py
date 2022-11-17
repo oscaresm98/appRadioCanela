@@ -68,6 +68,8 @@ urlpatterns = [
     
     path('galerias', views.GaleriaList, name='galeria-list'),
     path('emisora/<int:id_emisora>/galeria', views.Galeria_detalle, name='galeria_detalle'),
+    path('emisora/<int:id_emisora>/galeria/imagenes', views.GaleriaImagenes_detalle, name='galeriaImagenes_detalle'),
+    path('emisora/<int:id_emisora>/galeria/videos', views.GaleriaVideos_detalle, name='galeriaVideos_detalle'),
     path('multimedia', views.ImagenesVideosList, name='videos_imagenes')
     
     #path('radio/', views.ListEmisora.as_view()),

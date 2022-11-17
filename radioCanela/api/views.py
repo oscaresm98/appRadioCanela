@@ -762,6 +762,30 @@ def Galeria_detalle(request,id_emisora):
         galeria.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET'])
+def GaleriaImagenes_detalle(request,id_emisora): 
+    try: 
+        galeria = Galeria.objects.get(id_emisora=id_emisora)
+        multimedia = VideoImagen.objects.filter(id_galeria=galeria.id, tipo='imagen')
+    except Galeria.DoesNotExist:
+        return Response({'Error': 'Galeria no existe'}, status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializers = VideoImagenSerializer(multimedia, many=True)
+        return Response(serializers.data) 
+
+@api_view(['GET'])
+def GaleriaVideos_detalle(request,id_emisora): 
+    try: 
+        galeria = Galeria.objects.get(id_emisora=id_emisora)
+        multimedia = VideoImagen.objects.filter(id_galeria=galeria.id, tipo='video')
+    except Galeria.DoesNotExist:
+        return Response({'Error': 'Galeria no existe'}, status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializers = VideoImagenSerializer(multimedia, many=True)
+        return Response(serializers.data) 
+
 @api_view(['GET', 'POST', 'DELETE'])
 def ImagenesVideosList(request):
     try:
