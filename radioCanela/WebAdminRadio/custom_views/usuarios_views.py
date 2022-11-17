@@ -5,14 +5,24 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, permission_required
 
+from django.template.loader import render_to_string
+
 from accounts.models import *
 
 from WebAdminRadio.views import agregarImagen
 from WebAdminRadio.forms import RolGroupForm, UsuarioAdminForm
 
+from WebAdminRadio.emails import enviar_email
 
-def _enviar_email():
-    pass
+
+def _enviar_email_usuario(usuario, password, destinatarios):
+    """
+
+    """
+    titulo = 'BIENVENIDO AL ADMINSITRADOR DE LA RADIO'
+    context = { 'usuario':usuario, 'password':password }
+    template = render_to_string('extras/correo.html', context)
+    enviar_email(titulo,template, destinatarios, 'html')
 
 @login_required()
 @permission_required('accounts.view_usuario', login_url='/permiso-no-autorizado')
@@ -47,7 +57,12 @@ def agregar_usuario(request: HttpRequest):
             usuario = user_form.save()
             url = agregarImagen(request, str(usuario.id), 'imagenes/')
             usuario.foto=url
-            usuario.save()
+            password = Usuario.objects.make_random_password()
+            usuario.set_password(password)
+
+            # _enviar_email_usuario(usuario.username, password, [usuario.email, ])            
+            usuario.save()            
+            
             context['success'] = '¡El usuario se ha registrado!'
             return render(request,"webAdminRadio/agregar_usuario.html", context)
             
@@ -65,6 +80,7 @@ def editar_usuario(request: HttpRequest, id_usuario):
         'title': 'Editar Usuario', 
         'roles': roles,
         'usuario': usuario_editar,
+        'permisos_id': usuario_editar.groups.all().values_list('id', flat=True)
     }
     
     if request.POST:

@@ -21,3 +21,7 @@ def obtener_tipo_permiso(value: Permission):
         return 'Borrar'
 
     return accion
+
+@register.simple_tag
+def tiene_permiso(usuario: Usuario, nombre_codigo: str):
+    return usuario.has_perm(nombre_codigo)

@@ -11,7 +11,7 @@ from WebAdminRadio.forms import RolGroupForm
 import accounts.roles as funciones_rol
 
 @login_required()
-@permission_required('accounts.view_group', login_url='/permiso-no-autorizado')
+@permission_required('auth.view_group', login_url='/permiso-no-autorizado')
 def roles(request):
     """
     Devuelve la pagina con la lista de roles
@@ -21,7 +21,7 @@ def roles(request):
     return render(request, 'webAdminRadio/roles.html', context)
 
 @login_required()
-@permission_required('accounts.add_group')
+@permission_required('auth.add_group', login_url='/permiso-no-autorizado')
 def agregar_roles(request: HttpRequest):
     """
     Maneja el formulario para poder crear un nuevo rol
@@ -46,7 +46,7 @@ def agregar_roles(request: HttpRequest):
     return render(request, 'webAdminRadio/agregar_rol.html', context)
 
 @login_required()
-@permission_required('accounts.change_group', login_url='/permiso-no-autorizado')
+@permission_required('auth.change_group', login_url='/permiso-no-autorizado')
 def editar_rol(request: HttpRequest, id_rol):
     """
     
@@ -77,7 +77,7 @@ def editar_rol(request: HttpRequest, id_rol):
     return render(request, 'webAdminRadio/editar_rol.html', context)
 
 @login_required()
-@permission_required('accounts.delete_group')
+@permission_required('auth.delete_group')
 def borrar_rol(request, id_rol):
     """
     
