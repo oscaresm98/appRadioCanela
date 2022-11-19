@@ -1,8 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.radioRedonda',
-  appName: 'Radio Redonda',
+  //appId: 'io.ionic.radioRedonda',
+  appId: 'com.radioRedonda.deeplinks',
+  appName: 'Radio la Redonda',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {

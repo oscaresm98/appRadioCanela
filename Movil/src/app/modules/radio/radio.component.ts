@@ -58,6 +58,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
         console.log("Terminar lista programcion: ",this.programaciones)
         this.currentProgramacion=this.programaciones[0];
         this.fillLikesList(this.stations.length);
+        console.log("EMISORAS: ",this.stations)
         loading.dismiss();
       },
       error => loading.dismiss()
