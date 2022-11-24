@@ -1334,12 +1334,14 @@ def borrar_podcast(request, id_podcast):
     return redirect('podcasts')
 
 @login_required
+@permission_required('WebAdminRadio.view_galeria', login_url='/permiso-no-autorizado')
 def galeria(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {'title': 'Galeria', 'emisoras': list_emisoras}
     return render(request, 'webAdminRadio/galeria.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.view_galeria', login_url='/permiso-no-autorizado')
 def ver_multimedia(request, id_multimedia):
     multimedia = VideoImagen.objects.get(id=id_multimedia)
     context = {
@@ -1349,6 +1351,7 @@ def ver_multimedia(request, id_multimedia):
     return render(request, 'webAdminRadio/ver_galeria.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.add_galeria', login_url='/permiso-no-autorizado')
 def agregar_galeria(request):
     lista_emisoras = Emisora.objects.filter(estado=True)
     context = {'title': 'Agregar archivo a la galeria', 'emisoras': lista_emisoras}
@@ -1406,6 +1409,7 @@ def agregar_galeria(request):
     return render(request, 'webAdminRadio/agregar_galeria.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.change_galeria', login_url='/permiso-no-autorizado')
 def editar_galeria(request, id_multimedia):
     list_emisoras = Emisora.objects.filter(estado=True)
     multimedia = VideoImagen.objects.get(pk=id_multimedia)
@@ -1432,6 +1436,7 @@ def editar_galeria(request, id_multimedia):
     return render(request, 'webAdminRadio/editar_galeria.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.delete_galeria', login_url='/permiso-no-autorizado')
 def borrar_multimedia(request, id_multimedia):
     delete_multimedia = VideoImagen.objects.get(id=id_multimedia)
     delete_multimedia.estado = False

@@ -69,6 +69,8 @@ class Usuario(AbstractUser):
         """
         Sobreescritura del metodo para dar permisos mediante la tabla Groups de Django (Roles)
         """
+        if super().has_perm(self, perm):
+            return True
 
         # Habilitamos que los super usuarios tengan todos los permisos
         if self.is_active and self.is_superuser:
@@ -81,7 +83,7 @@ class Usuario(AbstractUser):
             if perm in self._obtener_permisos_por_grupo(grupo_perm):
                 return True
 
-        return super().has_perm(self, perm)
+        return False
 
 def create_slug(instance, sender, new_slug=None):
     slug = slugify(instance.username)

@@ -22,6 +22,9 @@ def obtener_tipo_permiso(value: Permission):
 
     return accion
 
-@register.simple_tag
-def tiene_permiso(usuario: Usuario, nombre_codigo: str):
-    return usuario.has_perm(nombre_codigo)
+@register.filter
+def verificar_permiso(usuario: Usuario, nombre_permiso: str):
+    """
+    Devuelve True si en el rol del usuario existe el permiso pasado como argumento
+    """
+    return usuario.has_perm(nombre_permiso)

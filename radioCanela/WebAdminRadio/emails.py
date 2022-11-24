@@ -11,8 +11,7 @@ def enviar_email(titulo:str, contenido:dict, destinatarios:list, tipo: str):
         to=destinatarios
     )
 
-    correo.content_subtype = tipo
-    # correo.content_subtype = 'html' # Actualizamos que el cuerpo del correo es en formato HTML
+    correo.content_subtype = tipo # Actualizamos en que formato va a esta el cuerpo del correo
 
     try:
         correo.send(fail_silently=False)
