@@ -24,7 +24,7 @@ def _enviar_email_usuario(usuario, password, destinatarios):
     template = render_to_string('extras/correo.html', context)
     enviar_email(titulo,template, destinatarios, 'html')
 
-@login_required()
+@login_required
 @permission_required('accounts.view_usuario', login_url='/permiso-no-autorizado')
 def usuarios(request: HttpRequest):
     """
@@ -34,7 +34,8 @@ def usuarios(request: HttpRequest):
     context = {'title': 'Usuarios'}
     return render(request, 'webAdminRadio/usuarios.html', context)
 
-
+@login_required
+@permission_required('accounts.add_usuario', login_url='/permiso-no-autorizado')
 def agregar_usuario(request: HttpRequest):
     """
     
@@ -68,6 +69,8 @@ def agregar_usuario(request: HttpRequest):
             
     return render(request,"webAdminRadio/agregar_usuario.html", context)
 
+@login_required
+@permission_required('accounts.change_usuario', login_url='/permiso-no-autorizado')
 def editar_usuario(request: HttpRequest, id_usuario):
     """
     Metodo para editar la informacion de un usuario
@@ -101,6 +104,8 @@ def editar_usuario(request: HttpRequest, id_usuario):
 
     return render(request,"webAdminRadio/editar_usuario.html", context)
 
+@login_required
+@permission_required('accounts.delete_usuario', login_url='/permiso-no-autorizado')
 def borrar_usuario(request: HttpRequest, id_usuario):
     """
     Metodo para borrar al usuario en la base de datos

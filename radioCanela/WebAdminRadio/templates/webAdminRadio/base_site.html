@@ -1,8 +1,13 @@
 {% extends 'webAdminRadio/base.html' %}
+
 {% load static %}
+
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/base_site.css' %}">
 {% endblock %}
+
+{% load accounts_tags %}
+
 {% block navigation %}
 <div class="wrapper">
     <!-- Sidebar -->
@@ -12,24 +17,42 @@
         </div>
         <ul class="list-unstyled components">
             <p>Menú</p>
+
             <li class="">
                 <a class="action" href="{% url 'administrador' %}"><i class="fas fa-home fa-fw"></i><span></span>Principal</a>
             </li>
+            
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_emisora" %}
             <li >
                 <a class="action" href="{% url 'emisoras' %}"><i class="fas fa-broadcast-tower"></i>Emisoras</a>
             </li>
+            {% endif %}
+            
+            {% if request.user|verificar_permiso:"accounts.view_usuario" %}
             <li>
                 <a class="action" href="{% url 'lista_usuarios' %}"><i class="fas fa-user-friends"></i>Usuarios</a>
             </li>
+            {% endif %}
+
+            {% if request.user|verificar_permiso:"auth.view_group" %}
             <li>
                 <a class="action" href="{% url 'lista_roles' %}"><i class="fa-solid fa-users-gear"></i></i>Roles</a>
             </li>
+            {% endif %}
+
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_programa" %}
             <li>
                 <a class="action" href="{% url 'programas' %}"><i class="fas fa-microphone"></i>Programas</a>
             </li>
+            {% endif %}
+            
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_locutor" %}
             <li>
                 <a class="action" href="{% url 'locutores' %}"><i class="fas fa-headset"></i>Locutores</a>
-            {% comment %}</li>
+            </li>
+            {% endif %}
+
+            {% comment %}
              <li>
                 <a class="action" href="{% url 'webadminradio:concursos' %}"><i class="fas fa-award"></i>Concursos</a>
             </li>
@@ -37,34 +60,61 @@
                 <a class="action" href="{% url 'webadminradio:encuestas' %}"><i class="fas fa-clipboard-list"></i>Encuestas</a>
             </li>
             {% endcomment %}
+
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_torneo" %}
             <li>
                 <a class="action" href="{% url 'torneos' %}"><i class="fas fa-trophy"></i>Torneos</a>
             </li>
+            {% endif %}
+
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_equipo" %}
             <li>
                 <a class="action" href="{% url 'equipos' %}"><i class="fas fa-futbol"></i>Equipos</a>
             </li>
+            {% endif %}
+
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_partidotransmision" %}
             <li>
                 <a class="action" href="{% url 'partidos' %}"><i class="fas fa-futbol"></i>Partidos</a>
             </li>
+            {% endif %}
+
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_transmision" %}
             <li>
                 <a class="action" href="{% url 'transmision' %}"><i class="fas fa-rss"></i>Transmisiones</a>
             </li>
+            {% endif %}
+            
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_galeria" %}
             <li>
                 <a class="action" href="{% url 'galeria' %}"><i class="fas fa-images"></i>Galeria</a>
             </li>
+            {% endif %}
+            
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_podcast" %}
             <li>
                 <a class="action" href="{% url 'podcasts' %}"><i class="fas fa-volume-up"></i>Podcasts</a>
             </li>
+            {% endif %}
+
             {% comment %}
             <li>
                 <a class="action" href="{% url 'webadminradio:sugerencias' %}"><i class="fas fa-edit"></i>Sugerencias</a>
-            </li> {% endcomment %}
+            </li>
+            {% endcomment %}
+            
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_noticiastips" %}
             <li>
                 <a class="action" href="{% url 'noticia' %}"><i class="fas fa-newspaper"></i>Noticias/Tips</a>
             </li>
+            {% endif %}
+
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_publicidad" %}
             <li>
                 <a class="action" href="{% url 'publicidad' %}"><i class="fas fa-ad"></i>Publicidad</a>
             </li>
+            {% endif %}
+            
             {% comment %} <li>
                 <a class="action" href="#"><i class="fas fa-file-alt"></i>Reportes</a>
             </li> {% endcomment %}

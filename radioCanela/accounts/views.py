@@ -13,7 +13,6 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-
         print(user)
 
         if user is not None:
