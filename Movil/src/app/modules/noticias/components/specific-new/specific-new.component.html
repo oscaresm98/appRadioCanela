@@ -13,12 +13,10 @@
   </div>  
   <div class="center">
     <ion-button class="footer-buttons">
-      <ion-icon lass="radio-color" name="cloud-upload-outline"></ion-icon>
       <span class="radio-color">{{ getFecha(news.fecha_subida)}}</span>
     </ion-button>
     <ion-button class="footer-buttons" (click)="sShare(news.titulo, news.descripcion, news.imagen)">
       <ion-icon lass="radio-color" name="share-social-outline"></ion-icon>
-      <span>Compartir</span>
       <!--
       <span class="radio-color" color="medium">
         {{interactionMaganer(news.compartidos)}}
@@ -42,3 +40,4 @@
   
     </ion-grid>
 </div>
+<app-footer></app-footer>

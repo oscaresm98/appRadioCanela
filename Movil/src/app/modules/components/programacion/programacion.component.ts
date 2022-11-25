@@ -23,7 +23,8 @@ export class ProgramacionComponent implements OnInit,OnChanges {
   }
   isItPlaying(programa:ProgramPerDia){
     if(this.programacion.length<0) return false;
-    if(programa==this.programacion[0]){
+    const program=this.getProgramaOnLive()
+    if(programa==program){
       return true
     }
     return false;
@@ -31,5 +32,13 @@ export class ProgramacionComponent implements OnInit,OnChanges {
   hourFormat(hora:string){
     let list=hora.split(":")
     return list[0]+':'+list[1];
+  }
+  private getProgramaOnLive():ProgramPerDia{
+    const date=new Date();
+    const time=date.getHours()+":"+date.getMinutes()
+    const programa=this.programacion.find(programa=>this.hourFormat(programa.hora_inicio)<=time 
+    && this.hourFormat(programa.hora_fin)>=time)
+    if(programa==null) return this.programacion[0];
+    return programa;
   }
 }

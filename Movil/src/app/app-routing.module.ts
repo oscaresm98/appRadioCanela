@@ -57,13 +57,12 @@ const routes: Routes = [
     loadChildren: () => import('./principal/principal.module').then( m => m.PrincipalPageModule),
     canActivate:[LoginGuard]
   },
-  {
-    path: 'transmision',
-    loadChildren: () => import('./transmision/transmision.module').then( m => m.TransmisionPageModule)
-  },
   { path: '**',
     redirectTo:'splash'
   },
+  
+
+
 ];
 
 

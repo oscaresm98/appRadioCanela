@@ -99,7 +99,11 @@ export class AuthService {
           if (res != null) {
             const data = { resCode: 0 };
             resolve(data);
+            this.userData=null;
+            this.isGuest=false;
+            this.token=null;
             this.isAuth = false;
+            this.clearStorage();
           }
         },
         error: (err) => {
@@ -137,5 +141,8 @@ export class AuthService {
   }
   private async storeUserToken(token: string) {
     await this.storage.set('jwt', token);
+  }
+  private async clearStorage(){
+    await this.storage.clear()
   }
 }

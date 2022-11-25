@@ -13,11 +13,37 @@
   </div>
   <swiper #mySwiper [config]="swiperConfig" (slideChange)="changeStation($event)">
     <ng-template swiperSlide *ngFor="let station of stations; let i = index">
+      <!--IMAGEN PROGRAMA-->
+      <div class="content relative ion-text-center div-slide">
+        <ion-grid>
+          <ion-row class="ion-justify-content-center ion-align-items-center">
+            <ion-grid>
+              <ion-row class="ion-justify-content-center ion-align-items-center">
+                <div class="relative">
+                  <span>{{i}}</span>
+                  <ion-card class="tarjeta">
+                    
+                    <img class="programa-image" src="{{getOnLiveProgramImage(i)}}">
+                  </ion-card>
+                  
+                </div>
+              </ion-row>
+              <ion-row class="ion-justify-content-center ion-align-items-center">
+                <div class="card-description">
+                  <ion-row class="ion-justify-content-center ion-align-items-center">
+                    
+                  </ion-row>
+                  <ion-row class="ion-justify-content-center ion-align-items-center">
+                    
+                  </ion-row>
+                </div>
+              </ion-row>
+            </ion-grid>
       
-      <app-dial-subpage #radioStation 
-        [station]="station"
-        [playerIndex]="i"  
-      ></app-dial-subpage>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <!--FIN IMAGEN PROGRAMA-->
       
     </ng-template>    
   </swiper>
@@ -48,4 +74,3 @@
     </div>
   </div>
 </div>
-

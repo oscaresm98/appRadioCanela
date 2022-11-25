@@ -4,16 +4,15 @@
     <ion-skeleton-text class="skeleton" [animated]="true" ></ion-skeleton-text>
   </ion-slide>
 </ion-slides>
-<ion-slides *ngIf="!loading" [options]="slideOpts"  pager="true">
-  
-  <ion-slide  class="slide" *ngFor="let noticia of noticias">
+<ion-slides  #slides  *ngIf="!loading" [options]="slideOpts" pager="true">
+  {{setSlider(slides)}}
+  <ion-slide   class="slide" *ngFor="let noticia of noticias">
     <div class="image-container">
-      <img class="image" src="{{noticia.imagen}}">
+      <ion-img class="image " src="{{noticia.imagen}}"></ion-img>
     </div>
     <div class="information">
       <span class="tipo">{{noticia.tipo}}</span>
       <span class="title">{{noticia.titulo}}</span>
-      <span class="description">{{noticia.descripcion}}</span>
     </div>
   </ion-slide>
   
@@ -28,3 +27,20 @@
     </div>
   </ion-slide>
 </ion-slides>
+
+<!--
+<swiper #mySwiper [config]="swiperConfig">
+  <ng-template swiperSlide *ngFor="let noticia of noticias">
+    
+    <div>
+      <div class="image-container">
+        <ion-img class="image " src="{{noticia.imagen}}"></ion-img>
+      </div>
+      <div class="information">
+        <span class="tipo">{{noticia.tipo}}</span>
+        <span class="title">{{noticia.titulo}}</span>
+      </div>
+    </div>
+  </ng-template>    
+</swiper>
+-->

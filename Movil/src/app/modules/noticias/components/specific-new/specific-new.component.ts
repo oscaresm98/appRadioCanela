@@ -60,7 +60,7 @@ export class SpecificNewComponent implements OnInit {
   }
   getFecha(fecha:string){
     const date=new Date(fecha);
-    return date.getDate() +" "+ this.getMonth(date.getMonth())
+    return date.getDate() +" "+ this.getMonth(date.getMonth())+" "+date.getFullYear()
   }
   private getMonth(mes:number){
     switch(mes){

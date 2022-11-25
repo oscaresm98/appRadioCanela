@@ -1,7 +1,10 @@
 
 <ion-menu class="menu" side="start" menuId="first" contentId="principal">
-  <ion-content>
     <ion-list class="list">
+      <ion-item>
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <span class="item-text" >{{username}}</span>
+      </ion-item>
       <ion-menu-toggle>
         <ion-item class="item" [routerLink]="['/principal/home']" routerDirection="root" routerLinkActive="active-item">
           <ion-icon name="home" slot="start"></ion-icon>
@@ -47,5 +50,4 @@
       </ion-menu-toggle>
       
     </ion-list>
-  </ion-content>
 </ion-menu>

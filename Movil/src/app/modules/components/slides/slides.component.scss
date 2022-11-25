@@ -1,9 +1,21 @@
-*{
+* {
     font-family: libreBaskerville;
 }
+
 .image {
     width: 90vw;
     max-height: 40vw;
+    min-height: 40vw;
+
+    position: relative;
+    background: rgb(217, 217, 217);
+    background-size: 800px 104px;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+
     border-radius: 5vw;
     display: inline-block;
     object-position: center;
@@ -18,18 +30,20 @@ ion-slides {
     --bullet-background-active: orange !important;
 
 }
+
 ion-skeleton-text {
-    --background-rgb: 217,217,217;
+    --background-rgb: 217, 217, 217;
     width: 90vw;
     height: 40vw;
     border-radius: 5vw;
 }
+
 .slide {
     position: relative;
 }
 
 .information {
-    color:white;
+    color: white;
     position: absolute;
     max-width: 85vw;
     bottom: 11vw;
@@ -55,3 +69,25 @@ ion-skeleton-text {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.esqueleto {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: black;
+    }
+
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
+}
+@keyframes shimmer {
+    0%{
+        background-position: -400px 0px;
+    }
+    100%{
+        background-position: 400px 0px; 
+    }
+  }

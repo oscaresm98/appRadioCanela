@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
         async (data:any)=>{
           if (data.resCode == 0) {
             console.log("Ingreso perfecto");
-            this.router.navigate(['/principal']);
+            this.router.navigate(['/principal/home']);
           } else {
             const alert = await this.alertController.create({
               header: 'Oops!',
@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
             console.log("ERROR!!!!!")
           }
         }
-        );
+        ).catch(err=> console.log(err));
 
       
     }

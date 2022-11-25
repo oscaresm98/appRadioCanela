@@ -1,5 +1,6 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertService } from 'app/services/alert.service';
 import { DataService } from 'app/services/data/data.service';
 import { RadioService } from 'app/services/radio/radio.player.service';
 import { StationService } from 'app/services/radio/station.service';
@@ -33,7 +34,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
    currIndex = 0;
 
   //programacion
-  programaciones: ProgramPerDia[][]=[];
+  programacionesAllRadios: ProgramPerDia[][]=[];
   currentProgramacion:ProgramPerDia[]=[];
   //likes
   isLiking:boolean[]=[];
@@ -44,25 +45,27 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     private loadingCtrl: LoadingController,
     public radioService: RadioService,
     private alertCtrl: AlertController,
-    private dataService: DataService
+    private dataService: DataService,
+    private alertService: AlertService
   ) { }
 
   async ngOnInit() {
     const loading = await this.showLoadingData();
-
-    this.stationService.getStationsInfo().subscribe(
-      async resp => {
-        this.stations = resp as Station[];
-        this.currentStation = this.stations[0];
+    this.stationService.getEmisoras().then(
+      async (data:any)=>{
+        if (data.resCode == 0) {
+          this.stations=data.resData;
+          this.currentStation = this.stations[0];
         await this.getAllProgramsRadio();
-        console.log("Terminar lista programcion: ",this.programaciones)
-        this.currentProgramacion=this.programaciones[0];
+        this.currentProgramacion=this.programacionesAllRadios[0];
         this.fillLikesList(this.stations.length);
-        console.log("EMISORAS: ",this.stations)
         loading.dismiss();
-      },
-      error => loading.dismiss()
-    );
+        } else {
+          this.alertService.displayErrorMessage('Error al cargar las emisoras.')
+        }
+      }
+    )
+    
     this.loadingCtrl.dismiss();
   }
 
@@ -84,7 +87,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     console.log("EVENTO SWIPER: ",event)
     
     this.currentStation = this.stations[this.currIndex];
-    this.currentProgramacion=this.programaciones[this.currIndex];
+    this.currentProgramacion=this.programacionesAllRadios[this.currIndex];
     this.destroyRadio();
     this.changeDetector.detectChanges();
   }
@@ -117,15 +120,24 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   getOnLiveProgramName(){
     if(this.currentProgramacion==null) return "default";
     if(this.currentProgramacion.length<1) return "default";
-    console.log("Current programacion: ",this.currentProgramacion);
-    return this.currentProgramacion[0].programa[0].nombre;
+    const programa=this.getProgramaOnLive(this.currentProgramacion);
+    return programa.programa[0].nombre;
   }
   getOnLiveProgramHour(){
     if(this.currentProgramacion==null) return "00:00";
     if(this.currentProgramacion.length<1) return "00:00";
-    return this.hourFormat(this.currentProgramacion[0].hora_inicio)+" - "+
-      this.hourFormat(this.currentProgramacion[0].hora_fin);
+    const programa=this.getProgramaOnLive(this.currentProgramacion);
+    return this.hourFormat(programa.hora_inicio)+" - "+
+      this.hourFormat(programa.hora_fin);
   }
+  getOnLiveProgramImage(index:number){
+    if(this.programacionesAllRadios==null) return "assets/images/cantera.jpg";
+    if(this.programacionesAllRadios.length<1) return "assets/images/cantera.jpg";
+    console.log("LISTA PROGRAMACIONES: ",this.programacionesAllRadios)
+    const programa=this.getProgramaOnLive(this.programacionesAllRadios[index]);
+    return programa.programa[0].imagen;
+  }
+
 
   /**
    * Funcion que carga una imagen por defecto
@@ -212,7 +224,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
       (data:any)=>{
         if (data.resCode == 0) {
           //this.programacion=data.resData;
-          this.programaciones.push(data.resData)
+          this.programacionesAllRadios.push(data.resData)
           console.log("Id: ",emisora.id," ",today)
           console.log("Raadio: ",emisora.ciudad," ",data.resData)
         } else {
@@ -245,5 +257,13 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     for(let i=0;i<len;i++){
       this.isLiking.push(false);
     }
+  }
+   private getProgramaOnLive(listaProgramacion:ProgramPerDia[]){
+    const date=new Date();
+    const time=date.getHours()+":"+date.getMinutes()
+    const programa=listaProgramacion.find(programa=>this.hourFormat(programa.hora_inicio)<=time 
+    && this.hourFormat(programa.hora_fin)>=time)
+    if(programa==null) return listaProgramacion[0];
+    return programa;
   }
 }

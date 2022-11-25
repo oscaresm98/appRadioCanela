@@ -47,3 +47,13 @@ ion-menu {
 .item-text {
     font-weight: 600;
 }
+ion-icon{
+    height: 7vw;
+    width: 7vw;
+}
+ion-list{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-evenly;
+}

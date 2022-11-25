@@ -27,6 +27,7 @@ import { PodcastComponent} from './podcast/podcast.component';
 import {PodcastBarComponent} from './podcast/component/podcast-bar/podcast-bar.component';
 import {PodcastInfoComponent} from './podcast/component/podcast-info/podcast-info.component';
 import {PlayerComponent} from './podcast/component/player/player.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {PlayerComponent} from './podcast/component/player/player.component';
     PodcastBarComponent,
     PodcastInfoComponent,
     PlayerComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

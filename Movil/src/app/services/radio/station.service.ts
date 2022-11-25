@@ -7,42 +7,39 @@ import { Station } from 'app/shared/station';
 import { map } from 'rxjs/operators';
 
 import { URL } from '../../../environments/environment';
+import { RadioDataService } from './radio.data.service';
+import { environment } from 'environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class StationService {
-  private url = URL + '/api/emisoras/';
 
-  constructor( private http: HttpClient ) {}
+  constructor( private http: HttpClient,
+    private radioService:RadioDataService ) {}
 
-  /**
-   * Funcion que devuelve los datos necesarios para cada emisora
-   *
-   * @returns un Observable de un array de objetos de tipo Station el cual contiene los datos necesarios para la transmision
-   */
-  getStationsInfo() {
-    return this.http.get(this.url).pipe(
-      map((res: any) => (res as any[]).map(this.getDataEachStation))
-    );
-  }
 
-  /**
-   * Obtiene la informacion necesaria de el objeto que se pasa en el parametro
-   *
-   * @param data Objeto de tipo <any> con datos de la API
-   * @returns un objeto Station que se usara en el componente
-   */
-  private getDataEachStation(data: any): Station {
-    return {
-      id: data.id,
-      frecuencia_dial: `${data.frecuencia_dial} ${data.tipo_frecuencia}`,
-      url_streaming: data.url_streaming,
-      radio : {
-        nombre: data.id_radio.nombre,
-        imagen: data.id_radio.logotipo,
-      },
-      ciudad:data.ciudad,
-      provincia: data.provincia
-    } as Station;
-  }
+    getEmisoras() {
+      const idRadio=this.radioService.getRadioRedondaData().id
+      console.log("RADIO ID STATIONS: ",idRadio)
+      const url=URL+'/api/radio/'+idRadio+'/emisoras'
+      
+    return new Promise((resolve) => {
+      this.http.get<Station>(url, { withCredentials: true }).subscribe({
+        next: (res: any) => {
+          if (res != null) {
+            console.log("EMISORAAS RADIO REDONDA: ",res)
+            const data = { resCode: 0, resData:res };
+            resolve(data);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          let e;
+          e = 'Error al intentar cargar los datos del usuario';
+          const data = { resCode: -1, error: e };
+          resolve(data)
+        },
+      })
+    });
+    }
 
 }
