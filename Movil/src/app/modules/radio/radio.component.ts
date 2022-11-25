@@ -118,13 +118,13 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     return list[0]+':'+list[1];
   }
   getOnLiveProgramName(){
-    if(this.currentProgramacion==null) return "default";
+    if(this.currentProgramacion==null || this.currentProgramacion==null) return "default";
     if(this.currentProgramacion.length<1) return "default";
     const programa=this.getProgramaOnLive(this.currentProgramacion);
     return programa.programa[0].nombre;
   }
   getOnLiveProgramHour(){
-    if(this.currentProgramacion==null) return "00:00";
+    if(this.currentProgramacion==null || this.currentProgramacion==null) return "00:00";
     if(this.currentProgramacion.length<1) return "00:00";
     const programa=this.getProgramaOnLive(this.currentProgramacion);
     return this.hourFormat(programa.hora_inicio)+" - "+
@@ -134,7 +134,11 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     if(this.programacionesAllRadios==null) return "assets/images/cantera.jpg";
     if(this.programacionesAllRadios.length<1) return "assets/images/cantera.jpg";
     console.log("LISTA PROGRAMACIONES: ",this.programacionesAllRadios)
+    console.log('INDEX: ',index)
+    console.log()
     const programa=this.getProgramaOnLive(this.programacionesAllRadios[index]);
+    console.log("PROGRAMAAA: ",programa)
+    if(programa==null) return "assets/images/cantera.jpg";
     return programa.programa[0].imagen;
   }
 
@@ -259,6 +263,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
     }
   }
    private getProgramaOnLive(listaProgramacion:ProgramPerDia[]){
+    if(listaProgramacion==null) return null;
     const date=new Date();
     const time=date.getHours()+":"+date.getMinutes()
     const programa=listaProgramacion.find(programa=>this.hourFormat(programa.hora_inicio)<=time 
