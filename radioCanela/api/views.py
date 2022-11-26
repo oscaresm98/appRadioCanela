@@ -51,7 +51,7 @@ import datetime
 from django.utils import timezone
 
 from django.db.models import Q
-from .pagination import PartidosPagination 
+from .pagination import PartidosPagination, NoticiasPagination
 
 #from WebAdminRadio.models import *
 # Create your views here.
@@ -378,7 +378,8 @@ class LoginView(APIView):
 
         response = Response()
 
-        response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True)
+        # response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True)
+        response.set_cookie(key='jwt', value=token, samesite='None', httponly=True)
         response.data = {
             'jwt': token
         }
@@ -409,6 +410,43 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+
+# Servicio para actualizar usuario
+class UpdateProfileView(generics.UpdateAPIView):
+    def put(self, request, *args, **kwargs):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+        user = Usuario.objects.get(id=payload['id'])
+        serializer = UsuarioMovilUpdateSerializer(user, data=request.data, context={'id': user.id})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Servicio para cambiar password a usuario
+class ChangePasswordView(generics.UpdateAPIView):
+    def put(self, request, *args, **kwargs):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+        user = Usuario.objects.get(id=payload['id'])
+        serializer = ChangePasswordSerializer(user, data=request.data, context={'id': user.id})
+        if serializer.is_valid():
+            serializer.save()
+            response = Response()
+            response.data = {
+            'message': 'success'}
+            return response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Roles
 @api_view(['GET', 'POST','DELETE','PUT'])
@@ -637,10 +675,12 @@ class ListPublicidad(generics.ListAPIView):
 # GET de todas las noticias
 class NoticiasList(generics.ListAPIView):
     queryset = NoticiasTips.objects.filter(estado=True)
+    pagination_class = NoticiasPagination
     serializer_class = serializers.NoticiaSerializer
 
 # lista de las noticias de una emisora
 class ListNoticia(generics.ListAPIView):
+    pagination_class = NoticiasPagination
     serializer_class = serializers.NoticiaSerializer
     
     def get_queryset(self):
@@ -650,6 +690,7 @@ class ListNoticia(generics.ListAPIView):
 
 # lista de las noticias por id
 class Noticia_detalle(generics.ListAPIView):
+    pagination_class = NoticiasPagination
     serializer_class = serializers.NoticiaSerializer
     
     def get_queryset(self):
@@ -659,6 +700,7 @@ class Noticia_detalle(generics.ListAPIView):
 
 # lista de las noticias por tipo
 class NoticiaTipo(generics.ListAPIView):
+    pagination_class = NoticiasPagination
     serializer_class = serializers.NoticiaSerializer
     
     def get_queryset(self):

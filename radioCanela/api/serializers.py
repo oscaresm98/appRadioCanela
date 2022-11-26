@@ -125,6 +125,71 @@ class UsuarioMovilDatosSerializer(serializers.ModelSerializer):
             'sexo'
         ]
 
+class UsuarioMovilUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = [
+            'id', 
+            'first_name', 
+            'last_name', 
+            'username', 
+            'email', 
+            'telefono', 
+            'fechaNacimiento', 
+            'cedula', 
+            'sexo'
+        ]
+    def validate_email(self, value):
+        user = self.context['id']
+        if Usuario.objects.exclude(pk=user).filter(email=value).exists():
+            raise serializers.ValidationError({"email": "This email is already in use."})
+        return value
+
+    def validate_username(self, value):
+        user = self.context['id']
+        if Usuario.objects.exclude(pk=user).filter(username=value).exists():
+            raise serializers.ValidationError({"username": "This username is already in use."})
+        return value
+    
+    def update(self, instance, validated_data):
+        user = self.context['id']
+        if user != instance.pk:
+            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
+        instance.first_name = validated_data['first_name']
+        instance.last_name = validated_data['last_name']
+        instance.email = validated_data['email']
+        instance.username = validated_data['username']
+        instance.telefono = validated_data['telefono']
+        instance.fechaNacimiento = validated_data['fechaNacimiento']
+        instance.cedula = validated_data['cedula']
+        instance.sexo = validated_data['sexo']
+        instance.save()
+        return instance
+
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+    old_password = serializers.CharField(write_only=True, required=True)
+    class Meta:
+        model = Usuario
+        fields = ('old_password', 'password', 'password2')
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+        return attrs
+    def validate_old_password(self, value):
+        user = Usuario.objects.get(pk=self.context['id'])
+        if not user.check_password(value):
+            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+        return value
+
+    def update(self, instance, validated_data):
+        instance.set_password(validated_data['password'])
+        instance.save()
+        return instance
 
 # Grupos de permisos
 class RolGroupSerializer(serializers.ModelSerializer):

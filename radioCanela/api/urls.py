@@ -29,6 +29,8 @@ urlpatterns = [
     path('social_login/', account_api_views.SocialLoginView.as_view(), name='social-login-view'),
     path('user/', views.UserView.as_view(),name='usuario-view'),
     path('logout/', views.LogoutView.as_view(),name='logout-view'),
+    path('update_profile/', views.UpdateProfileView.as_view(),name='update-view'),
+    path('change_password/', views.ChangePasswordView.as_view(), name='change_password_view'),
     
     # path('roles/', views.rolesList,name='roles-list'),
     path('roles/', views.ListRoles.as_view(), name='roles-list'),
