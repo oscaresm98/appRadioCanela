@@ -37,6 +37,15 @@ def agregarImagen(request, nombre, carpeta):
     storage.child(destino).put(img) # al storage se sube el archivo img en la carpeta imagenes con el nombre imgredonda.jpg
     return storage.child(destino).get_url(None)
 
+def agregarAudio(request, nombre, carpeta):
+    """
+    Funcion para agregar archivo a Firebase Storage, retorna el URL donde se se guardo el archivo  
+    """
+    audio = request.FILES['archivo']
+    destino = carpeta + nombre + audio.name # Ej. si carpeta="imagenes/", nombre = "img" y img.name="redonda.jpg" -> destino="imagenes/imgredonda.jpg"
+    storage.child(destino).put(audio) # al storage se sube el archivo img en la carpeta imagenes con el nombre imgredonda.jpg
+    return storage.child(destino).get_url(None)
+
 # Create your views here.
 
 
@@ -1290,8 +1299,11 @@ def agregar_podcasts(request):
         if podcasts_form.is_valid():
             podcasts_form.save()
             podcst = Podcast.objects.order_by('-id')[0]
-            url = agregarImagen(request, str(podcst.id), 'imagenes/')
-            podcst.imagen = url
+            urlImg = agregarImagen(request, str(podcst.id), 'imagenes/')
+            urlAudio = agregarAudio(request, str(podcst.id), 'audio/')
+            podcst.fecha = datetime.datetime.now()
+            podcst.imagen = urlImg
+            podcst.audio = urlAudio
             podcst.save()
             context['success'] = '¡El registro se ha sido creado con éxito!'
         else:

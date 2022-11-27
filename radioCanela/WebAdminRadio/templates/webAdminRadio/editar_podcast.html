@@ -92,7 +92,8 @@
                 <label for="urlInput">URL</label>
             </div>
             <div class="col-9">
-                <input required name="url" value="{{ podcast.url }}" id="urlInput" type="url" class="form-control" placeholder="Ingrese una URL" maxlength=150>
+                <!-- <input required name="url" value="{{ podcast.url }}" id="urlInput" type="url" class="form-control" placeholder="Ingrese una URL" maxlength=150> -->
+                <input type="file" name="archivo" class="custom-file-input form-control" id="audioSegmento" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept=".mp3, .flac, .aac," oninvalid="this.setCustomValidity('Ingrese un archivo valido)" oninput="this.setCustomValidity('')" required>
             </div>
         </div>
 
