@@ -28,6 +28,7 @@ import {PodcastBarComponent} from './podcast/component/podcast-bar/podcast-bar.c
 import {PodcastInfoComponent} from './podcast/component/podcast-info/podcast-info.component';
 import {PlayerComponent} from './podcast/component/player/player.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { EmisoraInfoComponent } from './emisora-info/emisora-info.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { FooterComponent } from './components/footer/footer.component';
     PodcastBarComponent,
     PodcastInfoComponent,
     PlayerComponent,
-    FooterComponent
+    FooterComponent,
+    EmisoraInfoComponent
   ],
   imports: [
     CommonModule,

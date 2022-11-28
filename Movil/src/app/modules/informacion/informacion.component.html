@@ -1,64 +1,72 @@
-<div class="image-container">
-  <ion-img class="logo" src="assets/images/Logo.png"></ion-img>
-  <ion-img class="image" src="assets/images/futbol_radio.jpg"></ion-img>
-  <div class="emisora-name">
-    <span class="text-emisora">GUAYAQUIL 99.3 FM</span>
-    <ion-button class="go">
-      <i class="icon fa-regular fa-circle-right"></i>
-    </ion-button>
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <div class="my-3">
+    <img class="imagen" src="assets/images/futbol_radio.jpg" alt="">
   </div>
-</div>
-<div class="descripcion">
-  <span class="title-descripcion">Descripción:</span>
-  <span class="text-descripcion">
-    Lorem ipsum dolor sit amet,
-    consectetuer adipiscing elit, sed diam
-    nonummy nibh euismod tincidunt ut
-    laoreet dolore magna aliquam erat
-    volutpat. Ut wisi enim ad minim veniam,
-    quis nostrud exerci tation ullamcorper
-    suscipit lobortis nisl ut aliquip ex ea
-    commodo consequat.
-  </span>
-</div>
-<div class="contacto">
-  <div class="informacion">
-    <div class="contact-info">
-      <ion-icon name="mail-outline"></ion-icon>
-      <span>www.radiocanela.com</span>
-    </div>
-    <div class="contact-info">
-      <ion-icon name="call"></ion-icon>
-      <span>0989999999</span>
-    </div>
-    <div class="contact-info">
-      <ion-icon name="location"></ion-icon>
-      <span>Urdesa Central</span>
-    </div>
-  </div>
-  <div class="mapa">
-    <ion-img class="image-mapa" src="assets/images/mapa_radio.png"></ion-img>
-  </div>
-</div>
-<ion-grid>
-  <ion-row class="ion-justify-content-between">
-    <ion-col size="3">
-      <ion-button class="social-media" shape="circle" fill="clear"  >
-        <ion-icon name="logo-facebook"></ion-icon>
+  
+    <div class="emisora-name rectangule-shadow">
+      <span class="text-emisora">GUAYAQUIL 99.3 FM</span>
+      <ion-button class="go">
+        <i class="icon fa-regular fa-circle-right"></i>
       </ion-button>
-    </ion-col>
-
-    <ion-col size="3">
-      <ion-button class="social-media" shape="circle" fill="clear"  >
-        <ion-icon name="logo-google"></ion-icon>
-      </ion-button>
-    </ion-col>
-
-    <ion-col size="3">
-      <ion-button class="social-media" shape="circle" fill="clear">
-        <ion-icon name="logo-apple"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-</ion-grid>
-<app-footer></app-footer>
+    </div>
+    <div class="descripcion">
+      <span class="title-descripcion">Descripción:</span>
+      <span class="text-descripcion">
+        Lorem ipsum dolor sit amet,
+        consectetuer adipiscing elit, sed diam
+        nonummy nibh euismod tincidunt ut
+        laoreet dolore magna aliquam erat
+        volutpat. Ut wisi enim ad minim veniam,
+        quis nostrud exerci tation ullamcorper
+        suscipit lobortis nisl ut aliquip ex ea
+        commodo consequat.
+      </span>
+    </div>
+    <div class="contacto">
+      <div class="informacion">
+        <div class="my-2 contact-info">
+          <ion-icon name="mail-outline"></ion-icon>
+          <span>www.radiocanela.com</span>
+        </div>
+        <div class="my-2 contact-info">
+          <ion-icon name="call"></ion-icon>
+          <span>0989999999</span>
+        </div>
+        <div class="my-2 contact-info">
+          <ion-icon name="location"></ion-icon>
+          <span>Urdesa Central</span>
+        </div>
+      </div>
+      <div class="mapa">
+        <a href="https://www.google.com/maps/place/Radio+Canela/@-0.2012862,-78.487235,17z/data=!3m1!4b1!4m5!3m4!1s0x91d59a72b0deacb3:0x9cc5a8b955dcce53!8m2!3d-0.2013234!4d-78.4850592">
+          <img class="image-mapa" src="assets/images/mapa_radio.png">
+        </a>
+      </div>
+    </div>
+    <div  class="social-footer">
+      <div class="fila">
+        
+        <a href="https://www.facebook.com/LaRadioRedondaEc">
+          <ion-button class="social-media" shape="circle" fill="clear" >
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+        </a>
+        <a href="https://www.instagram.com/laradioredonda/?hl=en">
+          <ion-button class="social-media" shape="circle" fill="clear" >
+            <ion-icon name="logo-instagram"></ion-icon>
+          </ion-button>
+        </a>
+        <a href="https://twitter.com/laradioredonda">
+          <ion-button class="social-media margin-booth" shape="circle" fill="clear"  >
+            <ion-icon name="logo-twitter"></ion-icon>      
+          </ion-button>
+        </a>
+        
+        
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <hr>
+    </div>
+  <app-footer></app-footer>
+</div>
