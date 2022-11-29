@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     color: var(--text-color1);
-    border-radius: 10vw;
+    border-radius: 5vw;
     height: 10vw;
     margin-bottom: 2vw;
 }
@@ -25,9 +25,9 @@
 .programa-nombre{
     font-size: small;
 }
-.border-inferior{
+.border-superior{
 
-    border-bottom: solid rgb(217, 217, 217,0.3) 2px ;
+    border-top: solid rgb(217, 217, 217,0.3) 2px ;
 }
 .circular{
     border-radius: 10vw;

@@ -1,10 +1,10 @@
 <div class="content">
-  <div class="title-programacion rectangule-shadow">
+  <div class="title-programacion soft-shadow mb-3">
     <h2>Programación</h2>
   </div>
 
   <div class="d-flex justify-content-center align-content-center">
-    <ion-grid class="w-90 circular shadow-container">
+    <ion-grid class="w-90 circular soft-shadow">
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col>
           <div class="d-flex justify-content-center orange-color">
@@ -15,7 +15,7 @@
           <div class="d-flex justify-content-center orange-color">Programación</div>
         </ion-col>
       </ion-row>
-      <ion-row class="border-inferior ion-justify-content-center ion-align-items-center" 
+      <ion-row class="border-superior ion-justify-content-center ion-align-items-center" 
       *ngFor="let programaPD of programacion;">
       <ion-col>
           <div class="d-flex justify-content-center">{{hourFormat(programaPD.hora_inicio)}} - {{hourFormat(programaPD.hora_fin)}}</div>

@@ -6,9 +6,15 @@ import { SplashComponent } from './splash/splash.component';
 
 
 const routes: Routes = [
+  /*
   { path: 'splash',
     component: SplashComponent
   },
+  */
+  { path: '', 
+  redirectTo: 'login', 
+  pathMatch: 'full' 
+},
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
@@ -58,7 +64,7 @@ const routes: Routes = [
     canActivate:[LoginGuard]
   },
   { path: '**',
-    redirectTo:'splash'
+    redirectTo:'login'
   },
   
 

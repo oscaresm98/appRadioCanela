@@ -1,7 +1,7 @@
 
 <ion-slides *ngIf="loading">
   <ion-slide >
-    <ion-skeleton-text class="skeleton" [animated]="true" ></ion-skeleton-text>
+    <ion-skeleton-text class="skeleton mb-5" [animated]="true" ></ion-skeleton-text>
   </ion-slide>
 </ion-slides>
 <ion-slides  #slides  *ngIf="!loading" [options]="slideOpts" pager="true">
