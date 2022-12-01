@@ -139,31 +139,18 @@ def programaList(request):
         return Response(status=status.HTTP_204_NO_CONTENT)
  
 #Se maneja los programas por id  
-@api_view(['GET', 'PUT','DELETE'])
+@api_view(['GET'])
 def programa_detalle(request,pk):
     try:
         programa = Programa.objects.get(id=pk)
     except Programa.DoesNotExist: 
-        return Response({'Error': 'La emisora no existe'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Error': 'El programa no existe'}, status=status.HTTP_404_NOT_FOUND)
         
     #GET: Vista en la que se obtiene una emisora por id 
     if request.method == 'GET':
-        serializers = ProgramaSerializer(programa) 
+        serializers = ProgramaSerializerFull(programa) 
         return Response(serializers.data) 
-        
-    
-    #PUT: Edita la informacion de una emisora por id     
-    elif request.method == 'PUT':
-        serializer = ProgramaSerializer(programa, data=request.data)
-        if serializer.is_valid():   
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-        
-    #DELETE: Eliminar la emisora por id
-    elif request.method == 'DELETE':
-        programa.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT) 
+
 
 @api_view(['GET', 'POST','DELETE'])
 def programaLocutorList(request,pk):
