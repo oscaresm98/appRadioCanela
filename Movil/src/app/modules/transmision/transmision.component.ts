@@ -4,6 +4,7 @@ import { StreamingService } from 'app/services/streaming.service';
 import { Streaming } from 'app/shared/streaming';
 import { getUrlFacebookVideo } from 'app/shared/utils';
 import Swiper, { SwiperOptions } from 'swiper';
+import { SwiperComponent } from 'swiper/angular';
 
 @Component({
   selector: 'app-transmision',
@@ -12,8 +13,8 @@ import Swiper, { SwiperOptions } from 'swiper';
 })
 export class TransmisionComponent implements OnInit , OnDestroy {
   @ViewChild('loadingDiv') loadingDiv: ElementRef;
-  swiperConfig: SwiperOptions = { lazy: { checkInView:true }, navigation: true };
-
+  swiperConfig: SwiperOptions = { lazy: { checkInView:true } };
+  @ViewChild(SwiperComponent) swiper: SwiperComponent;
   platforms: string[];
   streamings: Streaming[];
   currentStream: Streaming;
@@ -31,7 +32,12 @@ export class TransmisionComponent implements OnInit , OnDestroy {
   ngOnDestroy(): void {
     // throw new Error('Method not implemented.');
   }
-
+  swipePrev() {
+    this.swiper.swiperRef.slidePrev();
+  }
+  swipeNext() {
+    this.swiper.swiperRef.slideNext();
+  }
   async changePlatform(event: any) {
     const elem: Swiper = event[0];
     this.currIndex = elem.activeIndex;
@@ -69,5 +75,13 @@ export class TransmisionComponent implements OnInit , OnDestroy {
     // console.log(this.loading.nativeElement.classList);
     this.loadingDiv.nativeElement.style.display = 'none';
   }
-
+  hasPrevious(){
+    if(this.currIndex>0) return true;
+    return false;
+  }
+  hasNext(){
+    if(this.streamings==null) return false
+    if(this.currIndex<this.streamings.length-1) return true;
+    return false;
+  }
 }
