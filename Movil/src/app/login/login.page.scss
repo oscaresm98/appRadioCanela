@@ -108,7 +108,7 @@ ion-icon {
     flex-direction: column;
 }
 .button-ingresar{
-    --background: #F69238 !important;
+    --background: var(--radio-color) !important;
     --color:#434443
 }
 .social-media{

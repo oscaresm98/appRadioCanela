@@ -13,7 +13,7 @@ import { TransmisionComponent } from './transmision/transmision.component';
 import { GaleriaComponent } from './galeria/galeria.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { PodcastComponent } from './podcast/podcast.component';
-import { EmisoraInfoComponent } from './emisora-info/emisora-info.component';
+import { ProgramaInfoComponent } from './programa-info/programa-info.component';
 
 const routes: Routes = [
   {
@@ -78,8 +78,8 @@ const routes: Routes = [
         component: PodcastComponent
       },
       {
-        path: 'emisora-info',
-        component: EmisoraInfoComponent
+        path: 'programa-info',
+        component: ProgramaInfoComponent
       },
 
     ]

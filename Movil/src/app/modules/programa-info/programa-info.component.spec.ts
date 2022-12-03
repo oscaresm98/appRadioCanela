@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { EmisoraInfoComponent } from './emisora-info.component';
+import { ProgramaInfoComponent } from './programa-info.component';
 
-describe('EmisoraInfoComponent', () => {
-  let component: EmisoraInfoComponent;
-  let fixture: ComponentFixture<EmisoraInfoComponent>;
+describe('ProgramaInfoComponent', () => {
+  let component: ProgramaInfoComponent;
+  let fixture: ComponentFixture<ProgramaInfoComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmisoraInfoComponent ],
+      declarations: [ ProgramaInfoComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EmisoraInfoComponent);
+    fixture = TestBed.createComponent(ProgramaInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,18 +1,19 @@
 <app-banner></app-banner>
 <div>
-<swiper [config]="swiperConfig" (slideChange)="changePlatform($event)">
-  <ng-template swiperSlide *ngFor="let platform of platforms">
-    <div class="w-12 d-flex align-items-center justifiy-items-space-between">
-      <ion-button [disabled]="!hasPrevious()" (click)="swipePrev()">
-        <ion-icon  name="chevron-back-outline"></ion-icon>
-      </ion-button>
-    </div>
-    <div class=" white platform-option">{{platform}}</div>
-    <ion-button [disabled]="!hasNext()" (click)="swipeNext()">
+  <div class="d-flex  ">
+    <ion-button class=" ms-4 button-navigation" [disabled]="!hasPrevious()" (click)="swipePrev()">
+      <ion-icon  name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <swiper [config]="swiperConfig" (slideChange)="changePlatform($event)">
+      <ng-template swiperSlide *ngFor="let platform of platforms">
+        <div class=" white platform-option">{{platform}}</div>
+      </ng-template>
+    </swiper>
+    <ion-button class="me-4 button-navigation"  [disabled]="!hasNext()" (click)="swipeNext()">
       <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-button>
-  </ng-template>
-</swiper>
+  </div>
+
 
 <div class="stream">
   <div class="live-header rectangule-shadow">
@@ -46,8 +47,8 @@
       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" 
       allowFullScreen="true"></iframe>
   </div>
-  <div class="d-flex flex-column align-items-center">
-    <span class="title-descripcion">Descripcion Streaming</span>
+  <div class="mt-2 d-flex flex-column align-items-center">
+    <span class="title-descripcion">{{currentStream.subtitulo}}</span>
     <div class="descripcion soft-shadow">
       <span class="text-descripcion">
         Lorem ipsum dolor sit amet,
