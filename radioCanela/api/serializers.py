@@ -671,22 +671,11 @@ class GaleriaDetalleSerializer(serializers.ModelSerializer):
 #         model = models.Segmento
 #         fields = ('id', 'nombre', 'imagen','idEmisora','descripcion','emisora')
 
-# class EncuestaSerializer(serializers.ModelSerializer):
-#     respuestas = serializers.ReadOnlyField(source="get_respuestas")
-    
-#     class Meta:
-#         model = models.Encuesta
-#         fields = (
-#             'id',
-#             'titulo',
-#             'pregunta',
-#             'dia_inicio',
-#             'hora_inicio',
-#             'dia_fin',
-#             'hora_fin',
-#             'respuestas',
-#             'activo'
-#         )
+class EncuestaSerializer(serializers.ModelSerializer):
+    respuestas = serializers.ReadOnlyField(source="get_respuestas")
+    class Meta:
+        model = models.Encuesta
+        fields= '__all__'
 
 # class RespuestaEncuestaSerializer(serializers.ModelSerializer):
     
@@ -720,10 +709,11 @@ class GaleriaDetalleSerializer(serializers.ModelSerializer):
 
 # class ResultadoEncuestaSerializer(serializers.ModelSerializer):
 #     respuestas = serializers.ReadOnlyField(source="get_respuestas")
-
 #     class Meta:
 #         model = models.ResultadosEncuesta
 #         fields = '__all__'
+
+
 # # class ResultadosRespuestaSerializer(serializers.ModelSerializer):
     
 # #     class Meta:

@@ -72,20 +72,20 @@ urlpatterns = [
     path('emisora/<int:id_emisora>/galeria', views.Galeria_detalle, name='galeria_detalle'),
     path('emisora/<int:id_emisora>/galeria/imagenes', views.GaleriaImagenes_detalle, name='galeriaImagenes_detalle'),
     path('emisora/<int:id_emisora>/galeria/videos', views.GaleriaVideos_detalle, name='galeriaVideos_detalle'),
-    path('multimedia', views.ImagenesVideosList, name='videos_imagenes')
+    path('multimedia', views.ImagenesVideosList, name='videos_imagenes'),
     
     #path('radio/', views.ListEmisora.as_view()),
 
     # path('emisoras/', views.ListEmisora.as_view()),
     
     # path('encuestasradio/', views.ListEncuestas.as_view()),
-    # path('encuestas/', views.ListEncuestasActivas.as_view()),
+    path('encuestas/', views.EncuestaListActivas,name='encuesta-list'),
     # path('voto/', views.CreateVoto.as_view()),
     # path('voto/<int:pk>/borrar', views.DeleteVoto.as_view()),
     # path('votaciones/', views.ListVotaciones.as_view()),
     # path('votacionesuser/<int:id_usuario>', views.ListVotacionesUsuario.as_view()),
     # path('votaciones/<int:id_encuesta>', views.ListVotacionesEncuesta.as_view()),
-    # path('encuestas/<int:id_encuesta>/resultados', views.ListResultadosEncuesta.as_view()),
+    # path('encuestas/<int:id_encuesta>/resultados', views.ResultadosEncuestaList.as_view(),name='encuesta-resultados'),
     # path('segmento/<int:id_segmento>/publicidad', views.ListPublicidad.as_view(), name="list_segmento_publicidad"),
     # path('emisora/<int:id_emisora>/segmentos', views.ListEmisoraSegmentos.as_view(), name="list_emisora_segmentos"),
     # path('emisora/<int:id_emisora>/segmento/<int:id_segmento>', views.ListEmisoraSegmento.as_view(), name="list_emisora_segmento"),

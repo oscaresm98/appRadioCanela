@@ -856,22 +856,30 @@ class ListEmisoraTrasmisiones(generics.ListAPIView):
         em = self.kwargs['id_emisora']
         return Transmision.objects.filter(id_emisora=em)
 
+@api_view(['GET', 'POST', 'DELETE'])
+def EncuestaListActivas(request):  # servicio para web, retorna encuestas activas
+    try:
+        fecha = datetime.datetime.now().date()
+        hora = datetime.datetime.now().time()
+        encuestas = Encuesta.objects.filter(estado=True)
+    except Encuesta.DoesNotExist:
+        return Response({'Error': 'La encuesta no esta activa o existe'}, status=status.HTTP_400_NOT_FOUND)
 
-# class ListEncuestasActivas(generics.ListAPIView):  # servicio para web, retorna encuestas activas
-#     serializer_class = serializers.EncuestaSerializer
-#     fecha = datetime.datetime.now().date()
-#     hora = datetime.datetime.now().time()
-#     encuestas = models.Encuesta.objects.all()
-#     for encuesta in encuestas:
-#         if encuesta.dia_fin < fecha:
-#             encuesta.activo = 'F'
-#             encuesta.save()
-#         elif (encuesta.dia_fin == fecha) and (encuesta.hora_fin < hora):
-#             encuesta.activo = 'F'
-#             encuesta.save()
-#     q = models.Encuesta.objects.filter(dia_fin__gt=fecha)
-#     query = models.Encuesta.objects.filter(dia_fin=fecha).filter(hora_fin__gte=hora)
-#     queryset = q.union(query)
+    if request.method == 'GET':
+        serializer = EncuestaSerializer(encuestas, many=True)
+        return Response(serializer.data)
+        
+    elif request.method == 'POST':
+        serializer = EncuestaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        encuestas.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 # class ListEncuestas(generics.ListAPIView):  # servicio para apps y admin (actualiza estado en vista), retorna encuestas con estado
