@@ -856,11 +856,10 @@ class ListEmisoraTrasmisiones(generics.ListAPIView):
         em = self.kwargs['id_emisora']
         return Transmision.objects.filter(id_emisora=em)
 
+#Servicio para web, retorna encuestas activas
 @api_view(['GET', 'POST', 'DELETE'])
-def EncuestaListActivas(request):  # servicio para web, retorna encuestas activas
+def EncuestaListActivas(request):  
     try:
-        fecha = datetime.datetime.now().date()
-        hora = datetime.datetime.now().time()
         encuestas = Encuesta.objects.filter(estado=True)
     except Encuesta.DoesNotExist:
         return Response({'Error': 'La encuesta no esta activa o existe'}, status=status.HTTP_400_NOT_FOUND)
@@ -880,7 +879,54 @@ def EncuestaListActivas(request):  # servicio para web, retorna encuestas activa
         encuestas.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+#Servicio retorna Preguntas segun encuesta
+@api_view(['GET', 'POST', 'DELETE'])
+def PreguntaEcuestas(request,id_encuesta):
+    try: 
+        pregunta = Pregunta.objects.filter(id_encuesta=id_encuesta)
+    except Encuesta.DoesNotExist:
+        return Response({'Error': 'La pregunta no existe'}, status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializers = PreguntaSerializer(pregunta, many=True)
+        return Response(serializers.data) 
 
+    elif request.method == 'POST':
+        serializer = PreguntaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        pregunta.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST', 'DELETE'])
+def OpcionesPreguntas(request,id_encuesta,id_pregunta):
+    try: 
+        pregunta = Pregunta.objects.filter(id_encuesta=id_encuesta)
+        opcionesPregunta = OpcionPregunta.objects.filter(pregunta_id=id_pregunta)
+    except Pregunta.DoesNotExist:
+        return Response({'Error': 'La pregunta no existe'}, status=status.HTTP_404_NOT_FOUND)
+    except OpcionPregunta.DoesNotExist:
+        return Response({'Error': 'La respuesta no existe'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializers = OpcionPreguntaSerializer(opcionesPregunta, many=True)
+        return Response(serializers.data) 
+
+    elif request.method == 'POST':
+        serializer = OpcionPreguntaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        opcionesPregunta.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
 
 # class ListEncuestas(generics.ListAPIView):  # servicio para apps y admin (actualiza estado en vista), retorna encuestas con estado
 #     serializer_class = serializers.EncuestaSerializer

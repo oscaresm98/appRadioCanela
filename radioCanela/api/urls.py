@@ -80,6 +80,8 @@ urlpatterns = [
     
     # path('encuestasradio/', views.ListEncuestas.as_view()),
     path('encuestas/', views.EncuestaListActivas,name='encuesta-list'),
+    path('encuestas/<int:id_encuesta>/pregunta',views.PreguntaEcuestas,name='encuesta-pregunta'),
+    path('encuestas/<int:id_encuesta>/pregunta/<int:id_pregunta>/opcion',views.OpcionesPreguntas,name='pregunta-opciones'),
     # path('voto/', views.CreateVoto.as_view()),
     # path('voto/<int:pk>/borrar', views.DeleteVoto.as_view()),
     # path('votaciones/', views.ListVotaciones.as_view()),

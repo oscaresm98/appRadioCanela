@@ -677,6 +677,19 @@ class EncuestaSerializer(serializers.ModelSerializer):
         model = models.Encuesta
         fields= '__all__'
 
+
+class PreguntaSerializer(serializers.ModelSerializer):
+     
+     class Meta:
+        fields= '__all__'
+        model = models.Pregunta
+
+class OpcionPreguntaSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.OpcionPregunta
+
+
 # class RespuestaEncuestaSerializer(serializers.ModelSerializer):
     
 #     class Meta:
