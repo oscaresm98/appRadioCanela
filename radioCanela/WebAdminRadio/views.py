@@ -1455,3 +1455,14 @@ def borrar_multimedia(request, id_multimedia):
     delete_multimedia.delete()
     messages.success(request, 'El archivo multimedia se ha sido eliminado con exito')
     return redirect('galeria')
+
+
+@login_required
+#@permission_required('WebAdminRadio.view_encuesta', login_url='/permiso-no-autorizado')
+def encuesta(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Encuestas',
+        'emisoras': list_emisoras,
+    }
+    return render(request, 'webAdminRadio/encuestas.html', context)

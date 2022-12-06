@@ -856,6 +856,28 @@ class ListEmisoraTrasmisiones(generics.ListAPIView):
         em = self.kwargs['id_emisora']
         return Transmision.objects.filter(id_emisora=em)
 
+@api_view(['GET', 'POST', 'DELETE'])
+def EncuestaEmisora(request,id_emisora):  
+    try:
+        encuestas = Encuesta.objects.filter(id_emisora=id_emisora)
+    except Encuesta.DoesNotExist:
+        return Response({'Error': 'La encuesta no esta activa o existe'}, status=status.HTTP_400_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = EncuestaSerializer(encuestas, many=True)
+        return Response(serializer.data)
+        
+    elif request.method == 'POST':
+        serializer = EncuestaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        encuestas.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 #Servicio para web, retorna encuestas activas
 @api_view(['GET', 'POST', 'DELETE'])
 def EncuestaListActivas(request):  

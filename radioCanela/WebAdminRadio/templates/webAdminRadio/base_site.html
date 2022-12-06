@@ -56,10 +56,13 @@
              <li>
                 <a class="action" href="{% url 'webadminradio:concursos' %}"><i class="fas fa-award"></i>Concursos</a>
             </li>
-            <li>
-                <a class="action" href="{% url 'webadminradio:encuestas' %}"><i class="fas fa-clipboard-list"></i>Encuestas</a>
-            </li>
             {% endcomment %}
+
+            
+            <li>
+                <a class="action" href="{% url 'encuestas' %}"><i class="fa-solid fa-square-poll-vertical"></i>Encuestas</a>
+            </li>
+            
 
             {% if request.user|verificar_permiso:"WebAdminRadio.view_torneo" %}
             <li>

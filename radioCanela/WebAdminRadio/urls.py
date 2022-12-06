@@ -85,4 +85,6 @@ urlpatterns = [
     path('galeria/<int:id_multimedia>',views.ver_multimedia,name='ver_multimedia'),# Pantalla para ver informacion especifica de una imagen o video de la galería.
     path('galeria/<int:id_multimedia>/editar',views.editar_galeria,name='editar_galeria'),# Pantalla para editar informacion de una imagen o video de la galería.
     path('galeria/<int:id_multimedia>/eliminar',views.borrar_multimedia,name='borrar_multimedia'),# URL para eliminar una imagen d ela galería.
+
+    path('encuestas',views.encuesta,name='encuestas'),#Pagina principal de encuestas
 ]

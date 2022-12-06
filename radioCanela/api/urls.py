@@ -78,7 +78,7 @@ urlpatterns = [
 
     # path('emisoras/', views.ListEmisora.as_view()),
     
-    # path('encuestasradio/', views.ListEncuestas.as_view()),
+    path('emisora/<int:id_emisora>/encuestas',views.EncuestaEmisora,name='encuesta-emisora'),
     path('encuestas/', views.EncuestaListActivas,name='encuesta-list'),
     path('encuestas/<int:id_encuesta>/pregunta',views.PreguntaEcuestas,name='encuesta-pregunta'),
     path('encuestas/<int:id_encuesta>/pregunta/<int:id_pregunta>/opcion',views.OpcionesPreguntas,name='pregunta-opciones'),
