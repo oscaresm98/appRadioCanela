@@ -87,4 +87,5 @@ urlpatterns = [
     path('galeria/<int:id_multimedia>/eliminar',views.borrar_multimedia,name='borrar_multimedia'),# URL para eliminar una imagen d ela galería.
 
     path('encuestas',views.encuesta,name='encuestas'),#Pagina principal de encuestas
+    path('encuestas/agregar',views.agregar_encuesta,name='agregar_encuesta'),#Pantalla para agregar encuestas
 ]

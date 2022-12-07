@@ -1466,3 +1466,24 @@ def encuesta(request):
         'emisoras': list_emisoras,
     }
     return render(request, 'webAdminRadio/encuestas.html', context)
+
+def agregar_encuesta(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Agregar Encuesta',
+        'emisoras': list_emisoras
+        }
+    if request.POST:
+        encuesta_form = EncuestaForm(request.POST)
+        if encuesta_form.is_valid():
+            encuesta_form.save()
+            print("Imagen",encuesta.imagen)
+            if(encuesta_form.Imagen!=None):
+                encst = Encuesta.objects.order_by('-id')[0]
+                urlImg = agregarImagen(request, str(encst.id), 'imagenes/')
+                encst.imagen = urlImg
+                encst.save()
+            context['success'] = '¡El registro se ha sido creado con éxito!'
+        else:
+            context['error'] = encuesta_form.errors
+    return render(request, 'webAdminRadio/agregar_encuesta.html', context)

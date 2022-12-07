@@ -408,6 +408,22 @@ class ImagenVideoForm(forms.ModelForm):
         ]
 
 
+class EncuestaForm(forms.ModelForm):
+    class Meta:
+        models = Encuesta
+        fields = [
+            'titulo',
+            'descripcion',
+            'imagen',
+            'hora_inicio',
+            'dia_inicio',
+            'hora_fin',
+            'dia_fin',
+            'estado',
+            'id_emisora',
+        ]
+
+
 # class GaleriaForm(forms.ModelForm):
 
 #     class Meta:
