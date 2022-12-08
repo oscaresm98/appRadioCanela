@@ -1,0 +1,31 @@
+{% extends 'webAdminRadio/base_site.html' %}
+
+{% load static %}
+
+{% block page_style %}
+    <style>
+        #titulo-section { display: none; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container d-flex flex-column justify-content-center h-100 my-4" id="panel-acceso">
+        <img src="{% static 'accounts/images/prohibido.png' %}" alt="prohibido" width="300px" height="300px" class="align-self-center my-4">            
+        <div class="align-self-center text-center fs-3 my-4">
+            <span>No tienes los permisos necesarios para acceder a esta secci&oacute;n. Por favor cont&aacute;ctese con el administrador.</span>
+            <div class="my-3 d-flex justify-content-center">
+                <button id="btn-volver" type="button" class="mx-2 btn btn-primary btn-lg">Volver</button>
+                <a href="/" class="mx-2 btn btn-outline-success btn-lg">Ir a la p&aacute;gina inicial</a>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+
+{% block page_script %}
+    <script>
+        document.getElementById('btn-volver').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.history.back();
+        });
+    </script>
+{% endblock %}

@@ -1458,6 +1458,33 @@ def borrar_multimedia(request, id_multimedia):
 
 
 @login_required
+def ver_politicas_privacidad(request):
+    politicas = PoliticasPriv.objects.order_by('-fecha_creado', '-id').first()
+    context = { 
+        'title': 'Políticas de Privacidad',
+        'politicas': politicas
+    }
+    return render(request, 'webAdminRadio/politica_privacidad.html', context)
+
+@login_required
+def editar_politicas_privacidad(request):
+    politicas = PoliticasPriv.objects.order_by('-fecha_creado', '-id').first()
+    context = { 
+        'title': 'Actualizar Políticas',
+        'politicas': politicas
+    }
+    
+    if request.POST:    
+        politicas_form = PoliticasPrivacidadForm(request.POST)
+        if politicas_form.is_valid():
+            politicas_form.save()
+            context['success'] = '¡Se ha guardado los cambios!'
+        else:
+            context['error'] = politicas_form.errors
+
+    return render(request, 'webAdminRadio/editar_politicas_privacidad.html', context)
+
+@login_required
 #@permission_required('WebAdminRadio.view_encuesta', login_url='/permiso-no-autorizado')
 def encuesta(request):
     list_emisoras = Emisora.objects.filter(estado=True)

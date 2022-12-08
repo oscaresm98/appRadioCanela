@@ -14,8 +14,9 @@ from WebAdminRadio import models
 from accounts.models import Usuario, RolGroup
 
 from . import serializers
-from rest_framework import mixins
+from rest_framework import mixins, viewsets
 from django.http import Http404
+
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
@@ -855,6 +856,23 @@ class ListEmisoraTrasmisiones(generics.ListAPIView):
     def get_queryset(self):
         em = self.kwargs['id_emisora']
         return Transmision.objects.filter(id_emisora=em)
+
+
+# class PoliticasDetail(generics.RetrieveAPIView):
+#     serializer_class = serializers.PoliticasPrivacidadSerializer
+#     queryset = PoliticasPriv.objects.order_by('-fecha_creado').first()
+
+class ListPoliticas(generics.ListAPIView):
+    serializer_class = serializers.PoliticasPrivacidadSerializer
+    
+    def get_queryset(self):
+        return PoliticasPriv.objects.order_by('-fecha_creado')
+
+@api_view(['GET'])
+def politicas_privacidad_vigente(request):
+    politicas_actual = PoliticasPriv.objects.order_by('fecha_creado').first()
+    serializer = serializers.PoliticasPrivacidadSerializer(politicas_actual)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST', 'DELETE'])
 def EncuestaEmisora(request,id_emisora):  

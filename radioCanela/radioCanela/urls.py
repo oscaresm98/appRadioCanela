@@ -25,5 +25,5 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('django.contrib.auth.urls')),
     path('api_generate_token/',views.obtain_auth_token),
-    path('permiso-no-autorizado/', TemplateView.as_view(template_name='accounts/error.html')), # Pagina para mostrar que un usuario no esta autorizado
+    path('permiso-no-autorizado/', TemplateView.as_view(template_name='webAdminRadio/acceso_no_autorizado.html')), # Pagina para mostrar que un usuario no esta autorizado
 ]

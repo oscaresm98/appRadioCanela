@@ -73,6 +73,11 @@ urlpatterns = [
     path('emisora/<int:id_emisora>/galeria/imagenes', views.GaleriaImagenes_detalle, name='galeriaImagenes_detalle'),
     path('emisora/<int:id_emisora>/galeria/videos', views.GaleriaVideos_detalle, name='galeriaVideos_detalle'),
     path('multimedia', views.ImagenesVideosList, name='videos_imagenes'),
+    # path('multimedia', views.ImagenesVideosList, name='videos_imagenes'),
+
+    path('politicas', views.ListPoliticas.as_view(), name='politicas'),
+    path('politica_vigente', views.politicas_privacidad_vigente, name='politica_vigente'),
+
     
     #path('radio/', views.ListEmisora.as_view()),
 
@@ -82,6 +87,7 @@ urlpatterns = [
     path('encuestas/', views.EncuestaListActivas,name='encuesta-list'),
     path('encuestas/<int:id_encuesta>/pregunta',views.PreguntaEcuestas,name='encuesta-pregunta'),
     path('encuestas/<int:id_encuesta>/pregunta/<int:id_pregunta>/opcion',views.OpcionesPreguntas,name='pregunta-opciones'),
+    
     # path('voto/', views.CreateVoto.as_view()),
     # path('voto/<int:pk>/borrar', views.DeleteVoto.as_view()),
     # path('votaciones/', views.ListVotaciones.as_view()),

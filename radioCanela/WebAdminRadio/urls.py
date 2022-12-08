@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .custom_views import roles_views, usuarios_views
+from .custom_views import roles_views, usuarios_views, encuestas_views
 
 urlpatterns = [
     path('', views.administrador, name='administrador'),  # Muestra la pantalla principal /webadmin/
@@ -86,6 +86,12 @@ urlpatterns = [
     path('galeria/<int:id_multimedia>/editar',views.editar_galeria,name='editar_galeria'),# Pantalla para editar informacion de una imagen o video de la galería.
     path('galeria/<int:id_multimedia>/eliminar',views.borrar_multimedia,name='borrar_multimedia'),# URL para eliminar una imagen d ela galería.
 
+    path('politicas_privacidad', views.ver_politicas_privacidad, name='politicas'),
+    path('politicas_privacidad/actualizar', views.editar_politicas_privacidad, name='editar_politicas'),
+
+    # path('encuestas', encuestas_views.encuestas, name='encuestas'),
+    path('encuestas/agregar', encuestas_views.agregar_encuesta, name='agregar_encuesta'),
+
     path('encuestas',views.encuesta,name='encuestas'),#Pagina principal de encuestas
-    path('encuestas/agregar',views.agregar_encuesta,name='agregar_encuesta'),#Pantalla para agregar encuestas
+    # path('encuestas/agregar',views.agregar_encuesta,name='agregar_encuesta'),#Pantalla para agregar encuestas
 ]

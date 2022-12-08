@@ -1,0 +1,71 @@
+{% extends 'webAdminRadio/base_site.html' %}
+
+{% load static %}
+
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/editar_equipo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/politicas_privacidad.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/custom_scroll.css' %}">
+{% endblock %}
+
+{% block agregar_button %}
+    <a href="{% url 'editar_politicas' %}" class="btn btn-primary btn-md ms-auto action" role="button"><i class="fas fa-pen mx-auto me-2"></i>Actualizar Politicas</a>
+{% endblock %}
+
+{% block content %}
+    <div class="mx-2">
+        <h2 class="my-3">{{ politicas.nombre|default:"Políticas Forever" }}</h2>
+
+        <div class="row my-2">
+            <h6>
+                Actualizado el:
+                <small class="text-muted ms-3">{{ politicas.fecha_creado|default:"No se ha agregado politicas de privacidad" }}</small>
+            </h6>
+        </div>
+
+        <div class="row my-2">
+            <h6>
+                Url del archivo:
+                <small class="text-muted ms-3">{{ politicas.url|default:"No se ha agregado politicas de privacidad" }}</small>
+            </h6>
+        </div>
+
+        <div id="contenido" class="my-4 p-4 custom-scroll">
+            {% if politicas %}
+                {{ politicas.contenido | safe }}
+            {% else %}
+                <h4>Ejemplo de pol&iacute;ticas de privacidad</h4>                
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

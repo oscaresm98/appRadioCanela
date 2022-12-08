@@ -3,7 +3,8 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/base_site.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/base_site.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/custom_scroll.css' %}">
 {% endblock %}
 
 {% load accounts_tags %}
@@ -11,7 +12,7 @@
 {% block navigation %}
 <div class="wrapper">
     <!-- Sidebar -->
-    <nav id="sidebar">
+    <nav id="sidebar" class="custom-scroll">
         <div class="sidebar-header">
             <img src="{% static 'webAdminRadio/images/placeholder.png' %}" >
         </div>
@@ -58,11 +59,11 @@
             </li>
             {% endcomment %}
 
-            
+            {% comment %}             
             <li>
                 <a class="action" href="{% url 'encuestas' %}"><i class="fa-solid fa-square-poll-vertical"></i>Encuestas</a>
             </li>
-            
+            {% endcomment %}
 
             {% if request.user|verificar_permiso:"WebAdminRadio.view_torneo" %}
             <li>
@@ -117,6 +118,14 @@
                 <a class="action" href="{% url 'publicidad' %}"><i class="fas fa-ad"></i>Publicidad</a>
             </li>
             {% endif %}
+
+            <li>
+                <a class="action" href="{% url 'politicas' %}"><i class="fa-regular fa-file-lines"></i>Politicas Priv.</a>
+            </li>
+
+            <li>
+                <a class="action" href="{% url 'encuestas' %}"><i class="fa-solid fa-square-poll-vertical"></i>Encuestas</a>
+            </li>
             
             {% comment %} <li>
                 <a class="action" href="#"><i class="fas fa-file-alt"></i>Reportes</a>
@@ -145,7 +154,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="navbar navbar-expand-lg navbar-light bg-light navbar-title px-2">
+        <div id="titulo-section" class="navbar navbar-expand-lg navbar-light bg-light navbar-title px-2">
             <h2><b>{{ title }}</b></h2>
             <!-- Bloque para el botón de agregar -->
             {% block agregar_button %}
@@ -162,12 +171,12 @@
 </div>
 {% endblock %}
 {% block script %}
-<script src="{% static 'webAdminRadio/js/navbar.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('li.active').removeClass('active');
-        $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
-      });
-</script>
+    <script src="{% static 'webAdminRadio/js/navbar.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('li.active').removeClass('active');
+            $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+        });
+    </script>
 {% endblock %}

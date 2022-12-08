@@ -1,0 +1,114 @@
+{% extends 'webAdminRadio/base_site.html' %}
+
+{% load static %}
+
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+{% endblock %}
+
+{% block head_scripts %}
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({ 
+            selector: '#contenido-politicas',
+            height : '700'
+        });
+    </script>
+{% endblock  %}
+
+{% block content %}
+
+    {% if error %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="">
+                <h3 slot="header">Error</h3>
+                <div slot="body">
+                    <p>Existen algunos errores en los siguientes campos:</p>
+                    {% for campo,e in error.items %}
+                        <h5>{{campo}}</h5>
+                        {{e}}
+                    {% endfor %}
+                </div>
+            </modal-info>
+        </div>
+    {% endif %}
+
+    {% if success %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="{% url 'politicas' %}">
+                <h3 slot="header">Información</h3>
+                <p slot="body">{{success}}</p>
+            </modal-info>
+        </div>
+    {% endif %}
+
+    <h4><b>Información</b></h4>
+
+    <form action="{% url 'editar_politicas' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group my-2">
+            <label for="nombre-politicas">Nombre: </label>
+            <input id="nombre-politicas" name="nombre" 
+                value="{{ politicas.nombre|default:"" }}" type="text" class="form-control" 
+                oninvalid="this.setCustomValidity('Ingrese una descripcion)" 
+                oninput="this.setCustomValidity('')" required>
+        </div>
+
+        <div class="form-group my-2">
+            <label for="url-politicas">Url del archivo: </label>
+            <input id="url-politicas" name="url" type="text" 
+                value="{{ politicas.url|default:"" }}"
+                class="form-control" oninvalid="this.setCustomValidity('Ingrese una descripcion)" 
+                oninput="this.setCustomValidity('')" required>
+        </div>
+
+        <div class="form-group my-2">
+            <label for="contenido-politicas">Contenido: </label>
+            <textarea id="contenido-politicas" name="contenido">
+                {% if politicas %}
+                    {{ politicas.contenido | safe }}
+                {% else %}
+                    <h4>Ejemplo de pol&iacute;ticas de privacidad</h4>                
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quaerat consequatur, exercitationem error amet omnis, non ducimus accusantium aspernatur mollitia molestiae provident cupiditate veritatis perspiciatis doloribus sunt laboriosam! Minima, eum.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate in, quae fugit deleniti, rerum corporis ipsum cumque totam culpa nam quidem, nesciunt natus nobis aliquam numquam est harum error saepe.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam rerum velit libero, fuga deleniti tempora ratione. Praesentium id magnam adipisci quasi dolores dicta natus, delectus dolorem consequuntur iste molestias!
+                    </p>
+                {% endif %}
+            </textarea>            
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg submit my-2"><i class="fas fa-plus-circle"></i>Actualizar Politicas</button>
+    </form>
+
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+{% endblock %}

@@ -376,6 +376,11 @@ class GaleriaDetalleSerializer(serializers.ModelSerializer):
         fields= '__all__'
         extra_fields = [ 'imagenes_videos' ]
         model = models.Galeria
+
+class PoliticasPrivacidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = "__all__"
+        model = models.PoliticasPriv
    
 
 # class EmisoraSerializer(serializers.ModelSerializer):

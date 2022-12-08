@@ -1,0 +1,11 @@
+#contenido {
+    width: 100%;
+    height: 70vh;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.info-politicas {
+    vertical-align: sub;
+}

@@ -126,7 +126,7 @@ a i, .submit i {
 /* Reglas para el contenido de la página */
 .panel {
     padding: 30px;
-    background-color: #EBEFF5;
+    background-color: #EBEFF5;    
 }
 
 .panel-body {
@@ -159,4 +159,3 @@ ul ul a {
     }
 
 }
-

@@ -214,6 +214,12 @@ class UsuarioAdminForm(forms.ModelForm):
         return super(UsuarioAdminForm, self).add_prefix(field_name)
 
 
+class PoliticasPrivacidadForm(forms.ModelForm):
+
+    class Meta:
+        model = PoliticasPriv
+        fields = ['nombre', 'url', 'contenido']
+
 # class FrecuenciaForm(forms.ModelForm):
 #     class Meta:
 #         model = Frecuencia
@@ -407,21 +413,54 @@ class ImagenVideoForm(forms.ModelForm):
             'estado'
         ]
 
-
 class EncuestaForm(forms.ModelForm):
     class Meta:
-        models = Encuesta
+        model = Encuesta
         fields = [
             'titulo',
             'descripcion',
-            'imagen',
-            'hora_inicio',
             'dia_inicio',
-            'hora_fin',
             'dia_fin',
-            'estado',
-            'id_emisora',
+            'id_emisora'
         ]
+    
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'id_emisora': 'emisora',
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(EncuestaForm, self).add_prefix(field_name)
+
+class PreguntaEncuestaForm(forms.ModelForm):
+    class Meta:
+        model = Pregunta
+        fields = [
+            'titulo',
+            'id_encuesta'
+        ]
+
+class OpcionPreguntaEncuestaForm(forms.ModelForm):
+    class Meta:
+        model = OpcionPregunta
+        fields = [
+            'enunciado',
+            'pregunta'
+        ]
+
+# class EncuestaForm(forms.ModelForm):
+#     class Meta:
+#         models = Encuesta
+#         fields = [
+#             'titulo',
+#             'descripcion',
+#             'imagen',
+#             'hora_inicio',
+#             'dia_inicio',
+#             'hora_fin',
+#             'dia_fin',
+#             'estado',
+#             'id_emisora',
+#         ]
 
 
 # class GaleriaForm(forms.ModelForm):

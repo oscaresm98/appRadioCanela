@@ -57,7 +57,8 @@ class Notificacion(models.Model):
 class PoliticasPriv(models.Model):
     nombre = models.CharField(max_length=30, blank=True, null=True)
     url = models.CharField(max_length=2080, blank=True, null=True)
-    fecha_creado = models.DateField(blank=True, null=True)
+    contenido = models.TextField(null=True)
+    fecha_creado = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     estado = models.BooleanField(default=True)
 
 
@@ -144,18 +145,25 @@ class Encuesta(models.Model):
     titulo = models.CharField(max_length=255)
     descripcion = models.TextField(blank=True, null=True)
     imagen = models.CharField(max_length=2080, blank=True, null=True)
+    
     hora_inicio = models.TimeField(blank=True, null=True)
-    dia_inicio = models.DateField(blank=True, null=True)
+    dia_inicio = models.DateTimeField(blank=True, null=True)
+    
     hora_fin = models.TimeField(blank=True, null=True)
-    dia_fin = models.DateField(blank=True, null=True)
+    dia_fin = models.DateTimeField(blank=True, null=True)
+    
     estado = models.BooleanField(default=True)
     id_emisora = models.ForeignKey(Radio, on_delete=models.CASCADE, db_column='id_emisora', blank=True, null=True)
 
 
 class Pregunta(models.Model):
     titulo = models.CharField(max_length=150)
-    id_encuesta = models.ForeignKey(Encuesta, on_delete=models.CASCADE, db_column='id_encuesta')
+    id_encuesta = models.ForeignKey(Encuesta, on_delete=models.CASCADE, db_column='id_encuesta', related_name='preguntas_set')
 
+class OpcionPregunta(models.Model):
+    pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE, related_name='opciones_set')
+    enunciado = models.TextField()
+    numero_votos = models.IntegerField(blank=True, null=True)
 
 class Favorito(models.Model):
     id_segmento = models.ForeignKey(Programa, on_delete=models.CASCADE, db_column='id_segmento')
@@ -212,13 +220,6 @@ class NoticiasTips(models.Model):
     def get_radio(self):
         return f"{self.id_emisora.id_radio.nombre} {self.id_emisora.frecuencia_dial}"
 
-
-class OpcionPregunta(models.Model):
-    pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE)
-    enunciado = models.TextField()
-    numero_votos = models.IntegerField(blank=True, null=True)
-
-
 class PartidoTransmision(models.Model):
     # id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora')
     id_torneo = models.ForeignKey(Torneo, on_delete=models.CASCADE, db_column='id_torneo')
@@ -245,6 +246,9 @@ class PartidoTransmision(models.Model):
     
     def get_equipo_visitante(self):
         return Equipo.objects.filter(id=self.id_equipo_visitante)
+
+
+
 
 class PartidoTransmisionEmisora(models.Model):
     id_partido = models.ForeignKey(PartidoTransmision, on_delete=models.CASCADE, db_column='id_partido')
