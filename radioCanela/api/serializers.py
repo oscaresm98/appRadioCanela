@@ -381,7 +381,6 @@ class PoliticasPrivacidadSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         model = models.PoliticasPriv
-   
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")
@@ -682,18 +681,37 @@ class EncuestaSerializer(serializers.ModelSerializer):
         model = models.Encuesta
         fields= '__all__'
 
-
-class PreguntaSerializer(serializers.ModelSerializer):
-     
-     class Meta:
-        fields= '__all__'
-        model = models.Pregunta
-
 class OpcionPreguntaSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = models.OpcionPregunta
 
+class PreguntaSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields= '__all__'
+        model = models.Pregunta
+
+
+class OpcionPreguntaAppSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = models.OpcionPregunta
+
+class PreguntaAppSerializer(serializers.ModelSerializer):
+    opciones = OpcionPreguntaAppSerializer(source='opciones_set', many=True)
+
+    class Meta:
+        fields = '__all__'
+        extra_fields = ['opciones']
+        model = models.Pregunta
+
+class EncuestaAppSerializer(serializers.ModelSerializer):
+    preguntas = PreguntaAppSerializer(source='preguntas_set', many=True)
+
+    class Meta:
+        model = models.Encuesta
+        extra_fields = ['preguntas']
+        fields= '__all__'
 
 # class RespuestaEncuestaSerializer(serializers.ModelSerializer):
     

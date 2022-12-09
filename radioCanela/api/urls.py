@@ -87,6 +87,9 @@ urlpatterns = [
     path('encuestas/', views.EncuestaListActivas,name='encuesta-list'),
     path('encuestas/<int:id_encuesta>/pregunta',views.PreguntaEcuestas,name='encuesta-pregunta'),
     path('encuestas/<int:id_encuesta>/pregunta/<int:id_pregunta>/opcion',views.OpcionesPreguntas,name='pregunta-opciones'),
+
+    path('encuestas_app/', views.ListEncuestaAppView.as_view(),name='encuesta-list'),
+
     
     # path('voto/', views.CreateVoto.as_view()),
     # path('voto/<int:pk>/borrar', views.DeleteVoto.as_view()),

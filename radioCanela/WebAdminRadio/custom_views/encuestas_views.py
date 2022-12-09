@@ -71,8 +71,12 @@ def _editar_preguntas_encuesta(encuesta: Encuesta, preguntas_diccionario: List[d
 
     return encuesta
 
-def encuestas(request: HttpRequest):
-    context = {'title': 'Encuestas'}
+def encuestas(request):
+    list_emisoras = Emisora.objects.filter(estado=True)
+    context = {
+        'title': 'Encuestas',
+        'emisoras': list_emisoras,
+    }
     return render(request, 'webAdminRadio/encuestas.html', context)
 
 # def agregar_encuesta(request: HttpRequest):
@@ -135,10 +139,10 @@ def agregar_encuesta(request: HttpRequest):
             context['error'] = encuesta_form.errors
 
             print('Errores encuesta: ', encuesta_form.errors)
-            return render(request, 'webAdminRadio/agregar_encuesta_preguntas.html', context)
+            return render(request, 'webAdminRadio/agregar_encuesta.html', context)
 
         nueva_encuesta = encuesta_form.save()
-        nueva_encuesta.imagen = agregarImagen(request, request, 'imagenes-encuesta/')
+        nueva_encuesta.imagen = agregarImagen(request, str(nueva_encuesta.id), 'imagenes-encuesta/')
         nueva_encuesta.save()
 
         resultado = _agregar_preguntas_encuesta(nueva_encuesta, preguntas)
@@ -147,11 +151,11 @@ def agregar_encuesta(request: HttpRequest):
 
         if isinstance(resultado, ErrorDict):
             context['error'] = resultado
-            return render(request, 'webAdminRadio/agregar_encuesta_preguntas.html', context)
+            return render(request, 'webAdminRadio/agregar_encuesta.html', context)
 
         context['success'] = 'Se agrego la encuesta con exito'
                 
-    return render(request, 'webAdminRadio/agregar_encuesta_preguntas.html', context)
+    return render(request, 'webAdminRadio/agregar_encuesta.html', context)
 
 # def editar_encuesta(request: HttpRequest, id_encuesta):
 #     encuesta_editar = Encuesta.objects.get(id=id_encuesta)

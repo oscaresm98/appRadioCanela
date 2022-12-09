@@ -966,7 +966,11 @@ def OpcionesPreguntas(request,id_encuesta,id_pregunta):
     elif request.method == 'DELETE':
         opcionesPregunta.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+
+class ListEncuestaAppView(generics.ListAPIView):
+    serializer_class = serializers.EncuestaAppSerializer
+    queryset = Encuesta.objects.filter(estado=True)
 
 # class ListEncuestas(generics.ListAPIView):  # servicio para apps y admin (actualiza estado en vista), retorna encuestas con estado
 #     serializer_class = serializers.EncuestaSerializer

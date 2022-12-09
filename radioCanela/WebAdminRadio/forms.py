@@ -434,10 +434,14 @@ class EncuestaForm(forms.ModelForm):
 class PreguntaEncuestaForm(forms.ModelForm):
     class Meta:
         model = Pregunta
-        fields = [
-            'titulo',
-            'id_encuesta'
-        ]
+        fields = '__all__'
+    
+    def add_prefix(self, field_name):
+        field_name_mapping = {
+            'tipo_pregunta': 'tipo',
+        }
+        field_name = field_name_mapping.get(field_name, field_name)
+        return super(PreguntaEncuestaForm, self).add_prefix(field_name)
 
 class OpcionPreguntaEncuestaForm(forms.ModelForm):
     class Meta:

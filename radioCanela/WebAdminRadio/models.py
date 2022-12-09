@@ -1,5 +1,7 @@
 from django.db import models
 from accounts.models import Usuario,Rol, Permisos
+
+from enum import Enum
 # Create your models here.
 
 class Auditoria(models.Model):
@@ -157,13 +159,23 @@ class Encuesta(models.Model):
 
 
 class Pregunta(models.Model):
+    tipo_pregunta = ( # Indica los tipos de preguntas que se aceptan en esta encuesta
+        ('opcion-multiple', 'OPCION MULTIPLE'),
+        ('opcion-unica', 'OPCION UNICA'),
+    )
+
     titulo = models.CharField(max_length=150)
     id_encuesta = models.ForeignKey(Encuesta, on_delete=models.CASCADE, db_column='id_encuesta', related_name='preguntas_set')
+    tipo_pregunta = models.CharField(max_length=50, choices=tipo_pregunta, null=True)
 
 class OpcionPregunta(models.Model):
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE, related_name='opciones_set')
-    enunciado = models.TextField()
-    numero_votos = models.IntegerField(blank=True, null=True)
+    enunciado = models.CharField(max_length=250)
+    numero_votos = models.IntegerField(blank=True, null=True, default=0)
+
+    def __str__(self):
+        return f'Encuesta - {self.pregunta.id_encuesta.titulo}. Pregunta - {self.pregunta.titulo}: Opcion {self.enunciado}'
+    
 
 class Favorito(models.Model):
     id_segmento = models.ForeignKey(Programa, on_delete=models.CASCADE, db_column='id_segmento')

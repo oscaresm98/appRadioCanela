@@ -89,9 +89,7 @@ urlpatterns = [
     path('politicas_privacidad', views.ver_politicas_privacidad, name='politicas'),
     path('politicas_privacidad/actualizar', views.editar_politicas_privacidad, name='editar_politicas'),
 
-    # path('encuestas', encuestas_views.encuestas, name='encuestas'),
-    path('encuestas/agregar', encuestas_views.agregar_encuesta, name='agregar_encuesta'),
+    path('encuestas', encuestas_views.encuestas, name='encuestas'),# Pagina principal de encuestas
+    path('encuestas/agregar', encuestas_views.agregar_encuesta, name='agregar_encuesta'), # Pantalla para agregar encuestas
 
-    path('encuestas',views.encuesta,name='encuestas'),#Pagina principal de encuestas
-    # path('encuestas/agregar',views.agregar_encuesta,name='agregar_encuesta'),#Pantalla para agregar encuestas
 ]

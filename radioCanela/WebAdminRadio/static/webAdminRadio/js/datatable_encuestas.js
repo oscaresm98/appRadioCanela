@@ -30,16 +30,27 @@ function getSegmentos(emisora) {
         ],
         columnDefs: [
             { width: 10, targets: 0},
-            { width: 180, targets: 1},
+            { 
+                width: 180, 
+                targets: 1, 
+                render: function(data){
+                    return data ? `<img src="${data}" width="100%"></img>` : '<img src="/static/webAdminRadio/images/redonda.jpg" width="100%">';
+                }
+            },
             { width: 150, targets: 2},
             { width: 250, targets: 3},
             { width: 150, targets: 4},
             { width: 150, targets: 5},
             { width: 100, targets: 6},
-            { width: 100, className: "text-center", targets: 7, render: function(data){
-                return `<a href="/encuestas/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
-                <a href="#" onclick="showWarning(` + data + `)" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>`
-            }},
+            { 
+                width: 100, 
+                className: "text-center", 
+                targets: 7, 
+                render: function(data){
+                    return `<a href="/encuestas/` + data + `/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
+                    <a href="#" onclick="showWarning(` + data + `)" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>`
+                }
+            },
         ],
     });
 }
