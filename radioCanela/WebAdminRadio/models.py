@@ -155,7 +155,11 @@ class Encuesta(models.Model):
     dia_fin = models.DateTimeField(blank=True, null=True)
     
     estado = models.BooleanField(default=True)
-    id_emisora = models.ForeignKey(Radio, on_delete=models.CASCADE, db_column='id_emisora', blank=True, null=True)
+    id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora', blank=True, null=True)
+
+    def __str__(self):
+        return f'Encuesta: {self.titulo} de la Emisora {self.id_emisora.id_radio.nombre} \
+                {self.id_emisora.frecuencia_dial} {self.id_emisora.tipo_frecuencia}'
 
 
 class Pregunta(models.Model):
@@ -167,6 +171,9 @@ class Pregunta(models.Model):
     titulo = models.CharField(max_length=150)
     id_encuesta = models.ForeignKey(Encuesta, on_delete=models.CASCADE, db_column='id_encuesta', related_name='preguntas_set')
     tipo_pregunta = models.CharField(max_length=50, choices=tipo_pregunta, null=True)
+
+    def __str__(self):
+        return f'Pregunta: {self.titulo} de la encuesta {self.id_encuesta.titulo}'
 
 class OpcionPregunta(models.Model):
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE, related_name='opciones_set')

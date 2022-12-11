@@ -972,6 +972,20 @@ class ListEncuestaAppView(generics.ListAPIView):
     serializer_class = serializers.EncuestaAppSerializer
     queryset = Encuesta.objects.filter(estado=True)
 
+class ListPreguntasEncuestaAdmin(generics.ListAPIView):
+    serializer_class = serializers.PreguntaAdminSerializer
+
+    def get_queryset(self):
+        encuesta = self.kwargs['id_encuesta']
+        return Pregunta.objects.filter(id_encuesta=encuesta)
+
+@api_view(['GET'])
+def encuesta_detalles(request, id_encuesta):
+    encuesta = Encuesta.objects.get(id=id_encuesta)
+    serializer = serializers.EncuestaAppSerializer(encuesta)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 # class ListEncuestas(generics.ListAPIView):  # servicio para apps y admin (actualiza estado en vista), retorna encuestas con estado
 #     serializer_class = serializers.EncuestaSerializer
 #     fecha = datetime.datetime.now().date()

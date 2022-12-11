@@ -83,12 +83,15 @@ urlpatterns = [
 
     # path('emisoras/', views.ListEmisora.as_view()),
     
-    path('emisora/<int:id_emisora>/encuestas',views.EncuestaEmisora,name='encuesta-emisora'),
-    path('encuestas/', views.EncuestaListActivas,name='encuesta-list'),
+    path('emisora/<int:id_emisora>/encuestas',views.EncuestaEmisora,name='encuesta-emisora'), # URL para obtener la encuestas de un emisora
+    
+    path('encuestas/', views.ListEncuestaAppView.as_view(),name='encuesta-list'), # URL para obtener todas las encuestas
+    path('encuestas/<int:id_encuesta>', views.encuesta_detalles, name='encuesta-detalle'), # URL para obtener la informacion de una encuestas mediante su id
+
     path('encuestas/<int:id_encuesta>/pregunta',views.PreguntaEcuestas,name='encuesta-pregunta'),
     path('encuestas/<int:id_encuesta>/pregunta/<int:id_pregunta>/opcion',views.OpcionesPreguntas,name='pregunta-opciones'),
 
-    path('encuestas_app/', views.ListEncuestaAppView.as_view(),name='encuesta-list'),
+    
 
     
     # path('voto/', views.CreateVoto.as_view()),

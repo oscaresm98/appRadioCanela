@@ -1,13 +1,3 @@
-function encuestaSubida(datos) {
-    const event = new CustomEvent('encuesta-subida', {
-        detail: {
-            datosFormulario: datos
-        }
-    });
-
-    document.dispatchEvent(event);
-}
-
 const app = new Vue({
     el: '#app',
     delimiters: ["[[","]]"],
@@ -46,6 +36,11 @@ const app = new Vue({
             this.preguntas.splice(indice, 1);
         },
 
+        actualizarPreguntas(url) {
+            fetch(url).then(res => res.json()).then(data => { this.preguntas = data })
+                .catch(console.error);
+        },
+
         agregarOpcionPregunta(indice) {
             this.preguntas[indice].opciones.push({ enunciado: null });
         },
@@ -56,8 +51,8 @@ const app = new Vue({
 
         imprimirJSON() {
             console.log(this.preguntas);
-            var parsedobj = JSON.parse(JSON.stringify(this.preguntas))
-            console.log(parsedobj)
+            var parsedobj = JSON.parse(JSON.stringify(this.preguntas));
+            console.log(parsedobj);
         },
 
         actualizarImagen(evento){

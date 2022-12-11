@@ -1,5 +1,5 @@
 from django import template
-from ..models import Programa, Horario, SegmentoEmisora, SegmentoLocutor, TelefonoEmisora
+from ..models import Programa, Horario, SegmentoEmisora, SegmentoLocutor, TelefonoEmisora, Encuesta, OpcionPregunta
 
 register = template.Library()
 
@@ -26,3 +26,11 @@ def get_cant_locutores(emisora):
     for segmento in list_segmentos:
         count += SegmentoLocutor.objects.filter(id_segmento=segmento.id).count()
     return count
+
+@register.simple_tag
+def obtener_usuarios_respondieron_encuesta(encuesta: Encuesta):
+    pass
+
+@register.simple_tag
+def obtener_porcentaje_respuesta_opcion(opcion: OpcionPregunta):
+    pass

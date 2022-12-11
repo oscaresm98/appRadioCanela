@@ -41,31 +41,40 @@
     <div id="app">
 
         <div class="w-100 d-flex justify-content-center mb-3">
-            <img id="imagen-encuesta" src="{% static 'webAdminRadio/images/generic_avatar.png' %}" class="img-fluid" alt="imagen de la encuesta">
+            {% if encuesta.imagen %}
+                <img id="imagen-encuesta" src="{{ encuesta.imagen }}" class="img-fluid" alt="imagen de la encuesta">
+            {% else %}
+                <img id="imagen-encuesta" src="{% static 'webAdminRadio/images/generic_avatar.png' %}" class="img-fluid" alt="imagen de la encuesta">
+            {% endif %}
         </div>
 
 
-        <form @submit="enviarFormulario" action="{% url 'agregar_encuesta' %}" method="post" enctype="multipart/form-data" id="formulario-encuesta">
+        <form @submit="enviarFormulario" action="{% url 'editar_encuesta' encuesta.id %}" method="post" enctype="multipart/form-data" id="formulario-encuesta">
             {% csrf_token %}
             <div class="row mb-3">
                 <label for="imagen" class="col-sm-2 col-form-label">Imagen de la Encuesta: </label>
                 <div class="col-sm-10">
-                    <input required type="file" class="form-control" id="imagen" name="archivo" v-on:change="actualizarImagen($event)">
+                    <input type="file" class="form-control" id="imagen" name="archivo" v-on:change="actualizarImagen($event)">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="nombre_encuesta" class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" id="nombre_encuesta" placeholder="Título de la encuesta" name="titulo" v-model="tituloEncuesta">
+                    <input required type="text" class="form-control" id="nombre_encuesta" name="titulo" value="{{ encuesta.titulo }}">
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Emisora: </label>
                 <div class="col-sm-10">
                     <select required name="emisora" class="form-select">                            
-                        <option disabled selected value="">Seleccione la emisora a la que pertenecer&aacute; la encuesta</option>
+                        <option disabled value="">Seleccione la emisora a la que pertenecer&aacute; la encuesta</option>
                         {% for emisora in emisoras %}
-                            <option value="{{emisora.id}}">{{ emisora.id_radio.nombre }} - {{ emisora.frecuencia_dial }} {{ emisora.tipo_frecuencia }}</option>
+                            <option value="{{ emisora.id }}" 
+                                {% if emisora.id == encuesta.id_emisora.id %} 
+                                    selected 
+                                {% endif %}>
+                                {{ emisora.id_radio.nombre }} - {{ emisora.frecuencia_dial }} {{ emisora.tipo_frecuencia }}
+                            </option>
                         {% endfor %}
                     </select>
                 </div>
@@ -73,19 +82,22 @@
             <div class="row mb-3">
                 <label for="fecha-hora-inicio" class="col-sm-2 col-form-label">Fecha y Hora Inicio: </label>
                 <div class="col-sm-10">
-                    <input required type="datetime-local" class="form-control" id="fecha-hora-inicio" name="dia_inicio" v-model="fechaInicio">
+                    <input required type="datetime-local" class="form-control" id="fecha-hora-inicio" name="dia_inicio"
+                        value="{{ encuesta.dia_inicio|date:'Y-m-d' }}T{{ encuesta.dia_inicio|time:'H:i' }}">
                 </div>                
             </div>
             <div class="row mb-3">
                 <label for="fecha-hora-fin" class="col-sm-2 col-form-label">Fecha y Hora Fin: </label>
                 <div class="col-sm-10">
-                    <input required type="datetime-local" class="form-control" id="fecha-hora-fin" name="dia_fin" v-model="fechaFin">
+                    <input required type="datetime-local" class="form-control" id="fecha-hora-fin" name="dia_fin"
+                        value="{{ encuesta.dia_fin|date:'Y-m-d' }}T{{ encuesta.dia_fin|time:'H:i' }}">
                 </div>                
             </div>
             <div class="row mb-3">
                 <label for="descripcion-encuesta" class="col-sm-2 col-form-label">Descripción: </label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="descripcion-encuesta" name="descripcion" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" id="descripcion-encuesta" name="descripcion" 
+                        cols="30" rows="10">{% if encuesta.descripcion %}{{ encuesta.descripcion }}{% endif %}</textarea>
                 </div>
             </div>
 
@@ -103,7 +115,7 @@
                         title="Eliminar pregunta">
                         <i class="fa-solid fa-xmark text-danger"></i>
                     </button>
-                </div>
+                </div>                
                 
                 <div class="row m-2">
                     <label class="col-sm-2 col-form-label">Pregunta: </label>
@@ -170,6 +182,7 @@
     <script src="{% static 'webAdminRadio/js/cookies.js' %}"></script>
     <script src="{% static 'webAdminRadio/js/componentes/EncuestasComponent.js' %}"></script>
     <script>
+        app.$data.preguntas = {{ preguntas|safe }}
         actualizarImagen('#imagen', '#imagen-encuesta');
     </script>
 {% endblock %}
