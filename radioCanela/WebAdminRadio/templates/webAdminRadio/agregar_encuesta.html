@@ -73,13 +73,13 @@
             <div class="row mb-3">
                 <label for="fecha-hora-inicio" class="col-sm-2 col-form-label">Fecha y Hora Inicio: </label>
                 <div class="col-sm-10">
-                    <input required type="datetime-local" class="form-control" id="fecha-hora-inicio" name="dia_inicio" v-model="fechaInicio">
+                    <input required type="datetime-local" class="form-control" id="fecha-hora-inicio" name="fecha_hora_inicio" v-model="fechaInicio">
                 </div>                
             </div>
             <div class="row mb-3">
                 <label for="fecha-hora-fin" class="col-sm-2 col-form-label">Fecha y Hora Fin: </label>
                 <div class="col-sm-10">
-                    <input required type="datetime-local" class="form-control" id="fecha-hora-fin" name="dia_fin" v-model="fechaFin">
+                    <input required type="datetime-local" class="form-control" id="fecha-hora-fin" name="fecha_hora_fin" v-model="fechaFin">
                 </div>                
             </div>
             <div class="row mb-3">
@@ -157,8 +157,9 @@
 
             <!-- -->
 
-            <button type="button" class="btn btn-primary me-md-2" v-on:click="imprimirJSON()">Imprimir</button>
-            <button type="submit" class="btn btn-primary me-md-2">Enviar</button>
+            {% comment %} <button type="button" class="btn btn-primary me-md-2" v-on:click="imprimirJSON()">Imprimir</button>
+            <button type="submit" class="btn btn-primary me-md-2">Enviar</button> {% endcomment %}
+            <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle" aria-hidden="true"></i>Agregar Encuesta</button>
         </form>        
     </div>
 

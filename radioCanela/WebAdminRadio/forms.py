@@ -419,8 +419,8 @@ class EncuestaForm(forms.ModelForm):
         fields = [
             'titulo',
             'descripcion',
-            'dia_inicio',
-            'dia_fin',
+            'fecha_hora_inicio',
+            'fecha_hora_fin',
             'id_emisora'
         ]
     

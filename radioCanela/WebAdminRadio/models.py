@@ -147,15 +147,11 @@ class Encuesta(models.Model):
     titulo = models.CharField(max_length=255)
     descripcion = models.TextField(blank=True, null=True)
     imagen = models.CharField(max_length=2080, blank=True, null=True)
-    
-    hora_inicio = models.TimeField(blank=True, null=True)
-    dia_inicio = models.DateTimeField(blank=True, null=True)
-    
-    hora_fin = models.TimeField(blank=True, null=True)
-    dia_fin = models.DateTimeField(blank=True, null=True)
-    
+    fecha_hora_inicio = models.DateTimeField(blank=True, null=True)
+    fecha_hora_fin = models.DateTimeField(blank=True, null=True)
     estado = models.BooleanField(default=True)
     id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora', blank=True, null=True)
+    usuarios_encuesta = models.ManyToManyField(Usuario, through='UsuarioEncuesta') # Campo que sirve para indicar los usuarios que respondieron la encuesta
 
     def __str__(self):
         return f'Encuesta: {self.titulo} de la Emisora {self.id_emisora.id_radio.nombre} \
@@ -175,6 +171,7 @@ class Pregunta(models.Model):
     def __str__(self):
         return f'Pregunta: {self.titulo} de la encuesta {self.id_encuesta.titulo}'
 
+
 class OpcionPregunta(models.Model):
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE, related_name='opciones_set')
     enunciado = models.CharField(max_length=250)
@@ -182,7 +179,19 @@ class OpcionPregunta(models.Model):
 
     def __str__(self):
         return f'Encuesta - {self.pregunta.id_encuesta.titulo}. Pregunta - {self.pregunta.titulo}: Opcion {self.enunciado}'
-    
+
+
+class UsuarioEncuesta(models.Model):
+    encuesta = models.ForeignKey(Encuesta, on_delete=models.CASCADE, db_column='encuesta')
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='usuario')
+    fecha = models.DateTimeField(blank=True, null=True)    
+
+
+class UsuarioDetalleEncuesta(models.Model):
+    usuario_encuesta = models.ForeignKey(UsuarioEncuesta, on_delete=models.CASCADE, related_name='usuarios_detalle_encuesta_set')
+    pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE, related_name='usuarios_detalle_encuesta_set')
+    opcion_pregunta = models.ForeignKey(OpcionPregunta, on_delete=models.CASCADE, related_name='usuarios_detalle_encuesta_set')
+
 
 class Favorito(models.Model):
     id_segmento = models.ForeignKey(Programa, on_delete=models.CASCADE, db_column='id_segmento')
@@ -377,13 +386,6 @@ class PlataformaTransmision(models.Model):
 class UsuarioConcursos(models.Model):
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
     id_concurso = models.ForeignKey(Concursos, on_delete=models.CASCADE, db_column='id_concurso')
-
-
-class UsuarioEncuesta(models.Model):
-    encuesta = models.ForeignKey(Encuesta, on_delete=models.CASCADE, db_column='encuesta')
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='usuario')
-    fecha = models.DateTimeField(blank=True, null=True)
-
 
 class UsuariosNotificacion(models.Model):
     id_notificacion = models.OneToOneField(Notificacion, on_delete=models.CASCADE, db_column='id_notificacion', primary_key=True)

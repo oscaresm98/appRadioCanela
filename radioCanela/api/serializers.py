@@ -7,6 +7,8 @@ from accounts.models import Usuario, Rol, RolGroup
 from django.contrib.auth.models import Group
 from rest_framework.validators import UniqueValidator
 
+from django.db.models import Q
+
 from rolepermissions.roles import assign_role
 
 class TimeSerializer(serializers.Serializer):
@@ -675,28 +677,22 @@ class PoliticasPrivacidadSerializer(serializers.ModelSerializer):
 #         model = models.Segmento
 #         fields = ('id', 'nombre', 'imagen','idEmisora','descripcion','emisora')
 
-class EncuestaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Encuesta
-        fields= '__all__'
-
-class OpcionPreguntaSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = models.OpcionPregunta
-
-class PreguntaSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields= '__all__'
-        model = models.Pregunta
-
+# Serializadores para las preguntas de las encuestas en el administrador
 
 class OpcionPreguntaAdminSerializer(serializers.ModelSerializer):
+    '''
+    Serializador para las opciones de las preguntas, que van a ser utilizadas para representar en el sistema Administrador
+    '''
+
     class Meta:
         fields = ['enunciado']
         model = models.OpcionPregunta
 
 class PreguntaAdminSerializer(serializers.ModelSerializer):
+    '''
+    Serializador para las preguntas de las encuestas, sirve para pasar como json
+    '''
+
     opciones = OpcionPreguntaAdminSerializer(source='opciones_set', many=True)
     tipo = serializers.CharField(source='tipo_pregunta')
 
@@ -708,6 +704,8 @@ class PreguntaAdminSerializer(serializers.ModelSerializer):
         ]
         model = models.Pregunta
 
+
+# Serializadores para los detalles de una encuesta que van a ser mostradas en las apps
 
 class OpcionPreguntaAppSerializer(serializers.ModelSerializer):
     class Meta:
@@ -722,7 +720,7 @@ class PreguntaAppSerializer(serializers.ModelSerializer):
         extra_fields = ['opciones']
         model = models.Pregunta
 
-class EncuestaAppSerializer(serializers.ModelSerializer):
+class EncuestaDetalleAppSerializer(serializers.ModelSerializer):
     preguntas = PreguntaAppSerializer(source='preguntas_set', many=True)
 
     class Meta:
@@ -730,7 +728,45 @@ class EncuestaAppSerializer(serializers.ModelSerializer):
         extra_fields = ['preguntas']
         fields= '__all__'
 
+class EncuestaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Encuesta
+        exclude = ['usuarios_encuesta']
 
+
+# 
+
+class EncuestaAppSerializer(serializers.ModelSerializer):
+    contestado = serializers.SerializerMethodField('_verificar_usuario_respuesta')
+
+    def _verificar_usuario_respuesta(self, obj):
+        '''
+        Verifica si en la tabla usuario encuesta hay un registro que tenga la id del usuario (id_usuario) y la id de la
+        encuesta (obj.id) la cual indica que el usuario ha respondido esta encuesta
+        '''
+
+        id_usuario = self.context.get('id_usuario')
+        if not id_usuario: # Si no hay una id de usuario se devuelve False por defecto
+            return False
+
+        resp = models.UsuarioEncuesta.objects.filter(Q(usuario=id_usuario) & Q(encuesta=obj.id)).exists()
+        return resp
+
+    class Meta:
+        model = models.Encuesta
+        exclude = ['usuarios_encuesta']
+
+
+# class ListEncuestaUsuarioAppSerializer(serializers.ModelSerializer):
+#     contestada = serializers.SerializerMethodField('get_usuario')
+
+#     def get_usuario(self, obj):
+#         id_usuario = self.context.get('user_id')
+#         return Usuario.objects.filter(id=id_usuario).exists()
+
+#     class Meta:
+#         model = models.Encuesta
+#         fields= '__all__'
 
 # class RespuestaEncuestaSerializer(serializers.ModelSerializer):
     

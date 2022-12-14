@@ -89,7 +89,7 @@ def agregar_encuesta(request: HttpRequest):
 
 def editar_encuesta(request: HttpRequest, id_encuesta):
     encuesta_editar = Encuesta.objects.get(id=id_encuesta)
-    print(json.dumps(PreguntaAdminSerializer(instance=encuesta_editar.preguntas_set.all(), many=True).data, indent=4))
+    # print(json.dumps(PreguntaAdminSerializer(instance=encuesta_editar.preguntas_set.all(), many=True).data, indent=4))
 
     context = {
         'title': 'Editar Encuesta',

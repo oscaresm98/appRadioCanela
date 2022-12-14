@@ -52,7 +52,7 @@ import datetime
 from django.utils import timezone
 
 from django.db.models import Q
-from .pagination import PartidosPagination, NoticiasPagination
+from .pagination import PartidosPagination, NoticiasPagination, EncuestaPagination
 
 #from WebAdminRadio.models import *
 # Create your views here.
@@ -366,11 +366,11 @@ class LoginView(APIView):
 
         response = Response()
 
-        response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True)
-        # response.set_cookie(key='jwt', value=token, samesite='None', httponly=True)
-        response.data = {
-            'jwt': token
-        }
+        response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True) # Activar esta linea cuando se prueba en el servidor
+        
+        # response.set_cookie(key='jwt', value=token) # Activar esta linea cuando se depura en local y se prueba con Postman
+
+        response.data = { 'jwt': token }
         return response
 
 # Servicio para obtener los datos del usuario autentificado
@@ -587,7 +587,7 @@ class ListPartidosJugados(generics.ListAPIView):
 
     def get_queryset(self):
         fecha_actual = datetime.datetime.now(tz=timezone.utc)
-        return PartidoTransmision.objects.filter(Q(fecha_evento__lt=fecha_actual))
+        return PartidoTransmision.objects.filter(Q(fecha_evento__lt=fecha_actual)).order_by('-fecha_evento')
 
 # Partidos por jugar
 class ListPartidosPorJugar(generics.ListAPIView):
@@ -596,7 +596,7 @@ class ListPartidosPorJugar(generics.ListAPIView):
 
     def get_queryset(self):
         fecha_actual = datetime.datetime.now(tz=timezone.utc)
-        return PartidoTransmision.objects.filter(Q(fecha_evento__gte=fecha_actual))
+        return PartidoTransmision.objects.filter(Q(fecha_evento__gte=fecha_actual)).order_by('-fecha_evento')
 
 # 
 # Vistas de API para locutores
@@ -846,7 +846,7 @@ def ImagenesVideosList(request):
 
 
 #
-# Trabsmisiones
+# Transmisiones
 #
 
 #Obtiene las transmisiones segun la emisora
@@ -858,9 +858,9 @@ class ListEmisoraTrasmisiones(generics.ListAPIView):
         return Transmision.objects.filter(id_emisora=em)
 
 
-# class PoliticasDetail(generics.RetrieveAPIView):
-#     serializer_class = serializers.PoliticasPrivacidadSerializer
-#     queryset = PoliticasPriv.objects.order_by('-fecha_creado').first()
+# 
+# Politicas de Privacidad
+#
 
 class ListPoliticas(generics.ListAPIView):
     serializer_class = serializers.PoliticasPrivacidadSerializer
@@ -870,6 +870,10 @@ class ListPoliticas(generics.ListAPIView):
 
 @api_view(['GET'])
 def politicas_privacidad_vigente(request):
+    """
+    Renderiza una API view para obtener los datos de la politica de privacidad vigente
+    """
+
     politicas_actual = PoliticasPriv.objects.order_by('fecha_creado').first()
     serializer = serializers.PoliticasPrivacidadSerializer(politicas_actual)
     return Response(serializer.data, status=status.HTTP_200_OK)
@@ -968,10 +972,6 @@ def OpcionesPreguntas(request,id_encuesta,id_pregunta):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ListEncuestaAppView(generics.ListAPIView):
-    serializer_class = serializers.EncuestaAppSerializer
-    queryset = Encuesta.objects.filter(estado=True)
-
 class ListPreguntasEncuestaAdmin(generics.ListAPIView):
     serializer_class = serializers.PreguntaAdminSerializer
 
@@ -982,8 +982,62 @@ class ListPreguntasEncuestaAdmin(generics.ListAPIView):
 @api_view(['GET'])
 def encuesta_detalles(request, id_encuesta):
     encuesta = Encuesta.objects.get(id=id_encuesta)
-    serializer = serializers.EncuestaAppSerializer(encuesta)
+    serializer = serializers.EncuestaDetalleAppSerializer(encuesta)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+def obtener_id_usuario_token(request):
+    token = request.COOKIES.get('jwt')
+    
+    if not token: # En el caso que en las cookies de la peticion no esta el token del usuario
+        print('NO HAY TOKEN')
+        return None
+
+    print(token)
+    payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+    return payload['id']
+
+
+class ListEncuestasDisponibles(generics.ListAPIView):
+    '''
+    Vista de API para obtener las encuestas disponibles
+    '''
+
+    # serializer_class = serializers.EncuestaSerializer
+    serializer_class = serializers.EncuestaAppSerializer
+    pagination_class = EncuestaPagination
+
+    def get_queryset(self):
+        fecha_hora_actual = datetime.datetime.now(tz=timezone.utc)
+        return Encuesta.objects.filter(Q(fecha_hora_fin__gt=fecha_hora_actual) & Q(estado=True)).order_by('-fecha_hora_inicio')
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        id_usuario = obtener_id_usuario_token(self.request)
+        context.update({ 'id_usuario': id_usuario })
+        return context
+
+    
+
+class ListEncuestasFinalizadas(generics.ListAPIView):
+    '''
+    Vista de API para obtener las encuestas finalizadas
+    '''
+
+    # serializer_class = serializers.EncuestaSerializer
+    serializer_class = serializers.EncuestaAppSerializer
+    pagination_class = EncuestaPagination
+
+    def get_queryset(self):
+        fecha_hora_actual = datetime.datetime.now(tz=timezone.utc)
+        return Encuesta.objects.filter(Q(fecha_hora_fin__lt=fecha_hora_actual) & Q(estado=True)).order_by('-fecha_hora_inicio')
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        id_usuario = obtener_id_usuario_token(self.request)
+        context.update({ 'id_usuario': id_usuario })
+        return context
+
 
 
 # class ListEncuestas(generics.ListAPIView):  # servicio para apps y admin (actualiza estado en vista), retorna encuestas con estado

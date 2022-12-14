@@ -23,8 +23,8 @@ function getSegmentos(emisora) {
             { data: "imagen"},
             { data: "titulo"},
             { data: "descripcion"},
-            { data: "dia_inicio"},
-            { data: "dia_fin"},
+            { data: "fecha_hora_inicio"},
+            { data: "fecha_hora_fin"},
             { data: "estado"},
             { data: "id"},
         ],
@@ -39,17 +39,44 @@ function getSegmentos(emisora) {
             },
             { width: 150, targets: 2},
             { width: 250, targets: 3},
-            { width: 150, targets: 4},
-            { width: 150, targets: 5},
-            { width: 100, targets: 6},
+            { 
+                width: 150, 
+                targets: 4,
+                render: function(data){
+                    return (new Date(data)).toLocaleString();
+                }
+            },
+            { 
+                width: 150, 
+                targets: 5,
+                render: function(data){
+                    return (new Date(data)).toLocaleString();
+                }
+            },
+            { 
+                width: 100, 
+                targets: 6,
+                render: function(data){
+                    return data ? 'Activo': 'No activo'
+                }
+            },
             { 
                 width: 200, 
                 className: "text-center", 
-                targets: 7, 
-                render: function(data){
-                    return `<a href="/encuestas/${data}" class="btn btn-primary btn-sm" role="button"><i class="fas fa-eye mx-auto"></i></a>
-                    <a href="/encuestas/${data}/editar" class="btn btn-success btn-sm" role="button"><i class="fas fa-pen mx-auto"></i></a>
-                    <a href="#" onclick="showWarning(${data})" class="btn btn-danger btn-sm" role="button"><i class="fas fa-times mx-auto"></i></a>`
+                targets: 7,
+                render: function(data, type, row){
+                    let permitirEdicion = (new Date(row.fecha_hora_inicio)) > (new Date());
+
+                    let botones = `
+                        <a href="/encuestas/${data}" class="btn btn-primary btn-sm me-1" role="button"><i class="fas fa-eye mx-auto"></i></a>
+                        <a href="/encuestas/${data}/editar" aria-disabled=${permitirEdicion}
+                            class="btn btn-sm me-1 ${permitirEdicion ? 'btn-success' : 'btn-secondary disabled'}"
+                            title="${permitirEdicion ? 'Editar': 'No se puede editar ya que ha sido publicado'}"
+                            role="button"><i class="fas fa-pen mx-auto"></i></a>
+                        <a href="#" onclick="showWarning(${data})" class="btn btn-danger btn-sm me-1" role="button"><i class="fas fa-times mx-auto"></i></a>
+                    `;
+
+                    return botones;
                 }
             },
         ],

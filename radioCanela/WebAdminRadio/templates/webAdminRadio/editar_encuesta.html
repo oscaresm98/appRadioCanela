@@ -82,15 +82,15 @@
             <div class="row mb-3">
                 <label for="fecha-hora-inicio" class="col-sm-2 col-form-label">Fecha y Hora Inicio: </label>
                 <div class="col-sm-10">
-                    <input required type="datetime-local" class="form-control" id="fecha-hora-inicio" name="dia_inicio"
-                        value="{{ encuesta.dia_inicio|date:'Y-m-d' }}T{{ encuesta.dia_inicio|time:'H:i' }}">
+                    <input required type="datetime-local" class="form-control" id="fecha-hora-inicio" name="fecha_hora_inicio"
+                        value="{{ encuesta.fecha_hora_inicio|date:'Y-m-d' }}T{{ encuesta.fecha_hora_inicio|time:'H:i' }}">
                 </div>                
             </div>
             <div class="row mb-3">
                 <label for="fecha-hora-fin" class="col-sm-2 col-form-label">Fecha y Hora Fin: </label>
                 <div class="col-sm-10">
-                    <input required type="datetime-local" class="form-control" id="fecha-hora-fin" name="dia_fin"
-                        value="{{ encuesta.dia_fin|date:'Y-m-d' }}T{{ encuesta.dia_fin|time:'H:i' }}">
+                    <input required type="datetime-local" class="form-control" id="fecha-hora-fin" name="fecha_hora_fin"
+                        value="{{ encuesta.fecha_hora_fin|date:'Y-m-d' }}T{{ encuesta.fecha_hora_fin|time:'H:i' }}">
                 </div>                
             </div>
             <div class="row mb-3">
@@ -169,8 +169,9 @@
 
             <!-- -->
 
-            <button type="button" class="btn btn-primary me-md-2" v-on:click="imprimirJSON()">Imprimir</button>
-            <button type="submit" class="btn btn-primary me-md-2">Enviar</button>
+            {% comment %} <button type="button" class="btn btn-primary me-md-2" v-on:click="imprimirJSON()">Imprimir</button>
+            <button type="submit" class="btn btn-primary me-md-2">Enviar</button> {% endcomment %}
+            <button type="submit" class="btn btn-primary btn-lg submit"><i class="fas fa-plus-circle" aria-hidden="true"></i>Guardar Cambios</button>
         </form>        
     </div>
 

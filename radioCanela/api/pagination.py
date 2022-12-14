@@ -8,3 +8,10 @@ class PartidosPagination(pagination.PageNumberPagination):
 class NoticiasPagination(pagination.PageNumberPagination):
     page_size_query_param = 'limite'
     page_query_param = 'pagina'
+
+class EncuestaPagination(pagination.PageNumberPagination):
+    '''
+    Paginacion para las encuestas
+    '''
+    page_size_query_param = 'cantidad_encuestas'
+    page_query_param = 'pagina'
