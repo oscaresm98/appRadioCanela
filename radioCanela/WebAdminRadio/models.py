@@ -1,7 +1,9 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import pre_save, post_save
+
 from accounts.models import Usuario,Rol, Permisos
 
-from enum import Enum
 # Create your models here.
 
 class Auditoria(models.Model):
@@ -153,6 +155,9 @@ class Encuesta(models.Model):
     id_emisora = models.ForeignKey(Emisora, on_delete=models.CASCADE, db_column='id_emisora', blank=True, null=True)
     usuarios_encuesta = models.ManyToManyField(Usuario, through='UsuarioEncuesta') # Campo que sirve para indicar los usuarios que respondieron la encuesta
 
+    def numero_total_usuarios_respondieron(self):
+        return self.usuarios_encuesta.all().count()
+
     def __str__(self):
         return f'Encuesta: {self.titulo} de la Emisora {self.id_emisora.id_radio.nombre} \
                 {self.id_emisora.frecuencia_dial} {self.id_emisora.tipo_frecuencia}'
@@ -169,7 +174,7 @@ class Pregunta(models.Model):
     tipo_pregunta = models.CharField(max_length=50, choices=tipo_pregunta, null=True)
 
     def __str__(self):
-        return f'Pregunta: {self.titulo} de la encuesta {self.id_encuesta.titulo}'
+        return f'ID:{self.id}. Pregunta: {self.titulo} de la encuesta {self.id_encuesta.titulo}'
 
 
 class OpcionPregunta(models.Model):
@@ -178,19 +183,29 @@ class OpcionPregunta(models.Model):
     numero_votos = models.IntegerField(blank=True, null=True, default=0)
 
     def __str__(self):
-        return f'Encuesta - {self.pregunta.id_encuesta.titulo}. Pregunta - {self.pregunta.titulo}: Opcion {self.enunciado}'
+        return f'ID:{self.id}. Encuesta - {self.pregunta.id_encuesta.titulo}. Pregunta - {self.pregunta.titulo}: Opcion {self.enunciado}'
 
 
 class UsuarioEncuesta(models.Model):
     encuesta = models.ForeignKey(Encuesta, on_delete=models.CASCADE, db_column='encuesta')
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='usuario')
-    fecha = models.DateTimeField(blank=True, null=True)    
+    fecha = models.DateTimeField(blank=True, null=True, auto_now=True)
 
 
 class UsuarioDetalleEncuesta(models.Model):
     usuario_encuesta = models.ForeignKey(UsuarioEncuesta, on_delete=models.CASCADE, related_name='usuarios_detalle_encuesta_set')
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE, related_name='usuarios_detalle_encuesta_set')
     opcion_pregunta = models.ForeignKey(OpcionPregunta, on_delete=models.CASCADE, related_name='usuarios_detalle_encuesta_set')
+
+@receiver(post_save, sender=UsuarioDetalleEncuesta)
+def _post_save_receiver(sender, instance, *args, **kwargs):
+    '''
+    Este metodo actualizara el número de votos de una pregunta a medida que se agregue un registro 
+    en la tabla UsuarioDetalleEncuesta
+    '''
+    opcion_pregunta = OpcionPregunta.objects.get(id=instance.opcion_pregunta.id)
+    opcion_pregunta.numero_votos += 1
+    opcion_pregunta.save()
 
 
 class Favorito(models.Model):

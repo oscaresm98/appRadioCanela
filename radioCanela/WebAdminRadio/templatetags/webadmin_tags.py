@@ -28,9 +28,6 @@ def get_cant_locutores(emisora):
     return count
 
 @register.simple_tag
-def obtener_usuarios_respondieron_encuesta(encuesta: Encuesta):
-    pass
-
-@register.simple_tag
-def obtener_porcentaje_respuesta_opcion(opcion: OpcionPregunta):
-    pass
+def obtener_porcentaje_respuesta_opcion(encuesta: Encuesta, opcion: OpcionPregunta):
+    resultado = (opcion.numero_votos / encuesta.numero_total_usuarios_respondieron()) * 100
+    return round(resultado, ndigits=2)

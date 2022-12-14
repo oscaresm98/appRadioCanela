@@ -366,9 +366,9 @@ class LoginView(APIView):
 
         response = Response()
 
-        response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True) # Activar esta linea cuando se prueba en el servidor
+        # response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True) # Activar esta linea cuando se prueba en el servidor
         
-        # response.set_cookie(key='jwt', value=token) # Activar esta linea cuando se depura en local y se prueba con Postman
+        response.set_cookie(key='jwt', value=token) # Activar esta linea cuando se depura en local y se prueba con Postman
 
         response.data = { 'jwt': token }
         return response
@@ -987,6 +987,10 @@ def encuesta_detalles(request, id_encuesta):
 
 
 def obtener_id_usuario_token(request):
+    '''
+    Metodo que obtiene el id del usuario mediante el token que se pasa por las cookies de la peticion
+    '''
+
     token = request.COOKIES.get('jwt')
     
     if not token: # En el caso que en las cookies de la peticion no esta el token del usuario
@@ -1038,6 +1042,22 @@ class ListEncuestasFinalizadas(generics.ListAPIView):
         context.update({ 'id_usuario': id_usuario })
         return context
 
+
+class EncuestaRespuesta(APIView):
+
+    def post(self, request):
+        id_usuario = obtener_id_usuario_token(request)
+        request.data['usuario'] = id_usuario
+        serializador = serializers.RespuestaEncuestaSerializer(data=request.data)
+
+        if serializador.is_valid():
+            usuario_encuesta = serializador.save()
+            return Response({ 
+                'mensaje': 'Registro de la respuesta exitosa',
+                'respuesta' : serializers.EncuestaDetalleAppSerializer(Encuesta.objects.get(id=request.data['id_encuesta'])).data
+            })
+
+        return Response({ 'error': 'No se pasaron valores correctos' })
 
 
 # class ListEncuestas(generics.ListAPIView):  # servicio para apps y admin (actualiza estado en vista), retorna encuestas con estado

@@ -83,7 +83,7 @@ urlpatterns = [
 
     path('encuestas_disponibles', views.ListEncuestasDisponibles.as_view(), name='encuestas-disponibles'),
     path('encuestas_finalizadas', views.ListEncuestasFinalizadas.as_view(), name='encuestas-finalizadas'),
-    
+    path('encuesta_responder', views.EncuestaRespuesta.as_view(), name='encuestas-responder'),
     
 
     

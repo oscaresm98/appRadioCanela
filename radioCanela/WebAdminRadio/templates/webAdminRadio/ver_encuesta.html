@@ -73,7 +73,7 @@
     <div class="row mb-3">
         <h5 class="ms-5">
             Lo han respondido:
-            <small class="text-muted ms-3">0 usuarios</small>
+            <small class="text-muted ms-3">{{ encuesta.numero_total_usuarios_respondieron }} usuarios</small>
         </h5>
     </div>
 
@@ -88,8 +88,8 @@
                         <div class="col-3">
                             <label class="label">{{ opcion.enunciado }}: </label>
                         </div>
-                        <div class="col">
-                            <label class="label">{{ opcion.numero_votos }} %</label>
+                        <div class="col">                            
+                            <label class="label">{% obtener_porcentaje_respuesta_opcion encuesta opcion %} %</label>
                         </div>
                     </div>
                 {% endfor %}

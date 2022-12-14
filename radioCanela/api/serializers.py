@@ -722,11 +722,12 @@ class PreguntaAppSerializer(serializers.ModelSerializer):
 
 class EncuestaDetalleAppSerializer(serializers.ModelSerializer):
     preguntas = PreguntaAppSerializer(source='preguntas_set', many=True)
+    usuarios_respondieron = serializers.ReadOnlyField(source='numero_total_usuarios_respondieron')
 
     class Meta:
         model = models.Encuesta
-        extra_fields = ['preguntas']
-        fields= '__all__'
+        extra_fields = ['preguntas']        
+        exclude = ['usuarios_encuesta']
 
 class EncuestaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -755,6 +756,39 @@ class EncuestaAppSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Encuesta
         exclude = ['usuarios_encuesta']
+
+
+
+class RespuestaPreguntaSerializer(serializers.Serializer):
+    id_pregunta= serializers.IntegerField()
+    respuestas = serializers.ListField(child = serializers.IntegerField())
+
+class RespuestaEncuestaSerializer(serializers.Serializer):
+    id_encuesta = serializers.IntegerField()
+    usuario = serializers.IntegerField()
+    preguntas = RespuestaPreguntaSerializer(many=True)
+
+    def create(self, validated_data):
+        preguntas_resp = validated_data.pop('preguntas')
+
+        usuario = Usuario.objects.get(id=validated_data['usuario'])
+        encuesta = models.Encuesta.objects.get(id=validated_data['id_encuesta'])
+
+        usuario_encuesta = models.UsuarioEncuesta.objects.create(
+            encuesta= encuesta,
+            usuario= usuario,
+        )
+
+        for pregunta_serializada in preguntas_resp:
+            respuestas_opcion = pregunta_serializada['respuestas']
+            for opcion in respuestas_opcion:
+                models.UsuarioDetalleEncuesta.objects.create(
+                    opcion_pregunta= models.OpcionPregunta.objects.get(id=opcion),
+                    pregunta= models.Pregunta.objects.get(id=pregunta_serializada['id_pregunta']),
+                    usuario_encuesta= usuario_encuesta
+                )
+
+        return usuario_encuesta
 
 
 # class ListEncuestaUsuarioAppSerializer(serializers.ModelSerializer):
