@@ -9,6 +9,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.forms.utils import ErrorDict
 
+from django.contrib.auth.decorators import login_required, permission_required
+
 from typing import List
 import json
 
@@ -39,6 +41,8 @@ def _agregar_preguntas_encuesta(encuesta: Encuesta, preguntas_diccionario: List[
 
     return encuesta
 
+@login_required()
+@permission_required('WebAdminRadio.view_encuesta', login_url='/permiso-no-autorizado')
 def encuestas(request):
     list_emisoras = Emisora.objects.filter(estado=True)
     context = {
@@ -47,6 +51,8 @@ def encuestas(request):
     }
     return render(request, 'webAdminRadio/encuestas.html', context)
 
+@login_required()
+@permission_required('WebAdminRadio.view_encuesta', login_url='/permiso-no-autorizado')
 def ver_encuesta(request: HttpRequest, id_encuesta):
     encuesta = Encuesta.objects.get(id=id_encuesta)
 
@@ -57,6 +63,8 @@ def ver_encuesta(request: HttpRequest, id_encuesta):
 
     return render(request, 'webAdminRadio/ver_encuesta.html', context)
 
+@login_required()
+@permission_required('WebAdminRadio.add_encuesta', login_url='/permiso-no-autorizado')
 def agregar_encuesta(request: HttpRequest):
     context = {
         'title': 'Agregar Encuesta',
@@ -86,7 +94,8 @@ def agregar_encuesta(request: HttpRequest):
                 
     return render(request, 'webAdminRadio/agregar_encuesta.html', context)
 
-
+@login_required()
+@permission_required('WebAdminRadio.change_encuesta', login_url='/permiso-no-autorizado')
 def editar_encuesta(request: HttpRequest, id_encuesta):
     encuesta_editar = Encuesta.objects.get(id=id_encuesta)
     # print(json.dumps(PreguntaAdminSerializer(instance=encuesta_editar.preguntas_set.all(), many=True).data, indent=4))
@@ -124,6 +133,8 @@ def editar_encuesta(request: HttpRequest, id_encuesta):
                 
     return render(request, 'webAdminRadio/editar_encuesta.html', context)
 
+@login_required()
+@permission_required('WebAdminRadio.delete_encuesta', login_url='/permiso-no-autorizado')
 def eliminar_encuesta(request: HttpRequest, id_encuesta):
     encuesta_eliminar = Encuesta.objects.get(id=id_encuesta)
     encuesta_eliminar.estado = False

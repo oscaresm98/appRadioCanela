@@ -30,7 +30,9 @@ def obtener_permisos():
         'Podcast': obtener_permisos_modelo(Podcast),
         'Noticias': obtener_permisos_modelo(NoticiasTips),
         'Publicidad': obtener_permisos_modelo(Publicidad),
-        'Galeria': obtener_permisos_modelo(Galeria)
+        'Galeria': obtener_permisos_modelo(Galeria),
+        'Encuesta': obtener_permisos_modelo(Encuesta),
+        'Políticas Privacidad': obtener_permisos_modelo(PoliticasPriv),
     }
 
     return diccionario_permisos

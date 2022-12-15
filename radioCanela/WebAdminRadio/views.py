@@ -1349,7 +1349,7 @@ def borrar_podcast(request, id_podcast):
 @permission_required('WebAdminRadio.view_galeria', login_url='/permiso-no-autorizado')
 def galeria(request):
     list_emisoras = Emisora.objects.filter(estado=True)
-    context = {'title': 'Galeria', 'emisoras': list_emisoras}
+    context = {'title': 'Galería', 'emisoras': list_emisoras}
     return render(request, 'webAdminRadio/galeria.html', context)
 
 @login_required
@@ -1366,7 +1366,7 @@ def ver_multimedia(request, id_multimedia):
 @permission_required('WebAdminRadio.add_galeria', login_url='/permiso-no-autorizado')
 def agregar_galeria(request):
     lista_emisoras = Emisora.objects.filter(estado=True)
-    context = {'title': 'Agregar archivo a la galeria', 'emisoras': lista_emisoras}
+    context = {'title': 'Agregar archivo a la galería', 'emisoras': lista_emisoras}
     
     if request.POST:
         emisora_id = request.POST['emisora']

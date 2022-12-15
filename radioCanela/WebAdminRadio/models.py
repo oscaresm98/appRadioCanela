@@ -1,6 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save, pre_delete
 
 from accounts.models import Usuario,Rol, Permisos
 
@@ -144,7 +144,6 @@ class Emisora(models.Model):
     provincia = models.CharField(max_length=30, blank=True, null=True)
     estado = models.BooleanField(default=True)
 
-
 class Encuesta(models.Model):
     titulo = models.CharField(max_length=255)
     descripcion = models.TextField(blank=True, null=True)
@@ -207,6 +206,17 @@ def _post_save_receiver(sender, instance, *args, **kwargs):
     opcion_pregunta.numero_votos += 1
     opcion_pregunta.save()
 
+@receiver(pre_delete, sender=UsuarioDetalleEncuesta)
+def _pre_delete_receiver(sender, instance, *args, **kwargs):
+    '''
+    Este metodo disminuira el número de votos de una pregunta a medida que se elimine un registro 
+    en la tabla UsuarioDetalleEncuesta
+    '''
+    opcion_pregunta = OpcionPregunta.objects.get(id=instance.opcion_pregunta.id)
+    if opcion_pregunta.numero_votos > 0:
+        opcion_pregunta.numero_votos -= 1
+    opcion_pregunta.save()
+    
 
 class Favorito(models.Model):
     id_segmento = models.ForeignKey(Programa, on_delete=models.CASCADE, db_column='id_segmento')

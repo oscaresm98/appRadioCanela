@@ -91,7 +91,7 @@
             
             {% if request.user|verificar_permiso:"WebAdminRadio.view_galeria" %}
             <li>
-                <a class="action" href="{% url 'galeria' %}"><i class="fas fa-images"></i>Galeria</a>
+                <a class="action" href="{% url 'galeria' %}"><i class="fas fa-images"></i>Galer&iacute;a</a>
             </li>
             {% endif %}
             
@@ -123,9 +123,11 @@
                 <a class="action" href="{% url 'politicas' %}"><i class="fa-regular fa-file-lines"></i>Pol&iacute;ticas Priv.</a>
             </li>
 
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_encuesta"  %}
             <li>
                 <a class="action" href="{% url 'encuestas' %}"><i class="fa-solid fa-square-poll-vertical"></i>Encuestas</a>
             </li>
+            {% endif %}            
             
             {% comment %} <li>
                 <a class="action" href="#"><i class="fas fa-file-alt"></i>Reportes</a>

@@ -67,12 +67,18 @@ function getSegmentos(emisora) {
                 render: function(data, type, row){
                     let permitirEdicion = (new Date(row.fecha_hora_inicio)) > (new Date());
 
+                    // let botones = `
+                    //     <a href="/encuestas/${data}" class="btn btn-primary btn-sm me-1" role="button"><i class="fas fa-eye mx-auto"></i></a>
+                    //     <a href="/encuestas/${data}/editar" aria-disabled=${permitirEdicion}
+                    //         class="btn btn-sm me-1 ${permitirEdicion ? 'btn-success' : 'btn-secondary disabled'}"
+                    //         title="${permitirEdicion ? 'Editar': 'No se puede editar ya que ha sido publicado'}"
+                    //         role="button"><i class="fas fa-pen mx-auto"></i></a>
+                    //     <a href="#" onclick="showWarning(${data})" class="btn btn-danger btn-sm me-1" role="button"><i class="fas fa-times mx-auto"></i></a>
+                    // `;
+
                     let botones = `
                         <a href="/encuestas/${data}" class="btn btn-primary btn-sm me-1" role="button"><i class="fas fa-eye mx-auto"></i></a>
-                        <a href="/encuestas/${data}/editar" aria-disabled=${permitirEdicion}
-                            class="btn btn-sm me-1 ${permitirEdicion ? 'btn-success' : 'btn-secondary disabled'}"
-                            title="${permitirEdicion ? 'Editar': 'No se puede editar ya que ha sido publicado'}"
-                            role="button"><i class="fas fa-pen mx-auto"></i></a>
+                        <a href="/encuestas/${data}/editar" class="btn btn-sm me-1 btn-success" title="Editar" role="button"><i class="fas fa-pen mx-auto"></i></a>
                         <a href="#" onclick="showWarning(${data})" class="btn btn-danger btn-sm me-1" role="button"><i class="fas fa-times mx-auto"></i></a>
                     `;
 

@@ -769,25 +769,29 @@ class RespuestaEncuestaSerializer(serializers.Serializer):
     preguntas = RespuestaPreguntaSerializer(many=True)
 
     def create(self, validated_data):
-        preguntas_resp = validated_data.pop('preguntas')
+        preguntas_datos = validated_data.pop('preguntas')
 
         usuario = Usuario.objects.get(id=validated_data['usuario'])
         encuesta = models.Encuesta.objects.get(id=validated_data['id_encuesta'])
 
-        usuario_encuesta = models.UsuarioEncuesta.objects.create(
-            encuesta= encuesta,
-            usuario= usuario,
-        )
+        usuario_encuesta = models.UsuarioEncuesta.objects.create(usuario=usuario, encuesta=encuesta)
 
-        for pregunta_serializada in preguntas_resp:
-            respuestas_opcion = pregunta_serializada['respuestas']
-            for opcion in respuestas_opcion:
-                models.UsuarioDetalleEncuesta.objects.create(
-                    opcion_pregunta= models.OpcionPregunta.objects.get(id=opcion),
-                    pregunta= models.Pregunta.objects.get(id=pregunta_serializada['id_pregunta']),
-                    usuario_encuesta= usuario_encuesta
+        for pregunta in preguntas_datos:
+            respuestas_usuario = pregunta['respuestas']
+
+            for respuesta in respuestas_usuario:
+                opcion = models.OpcionPregunta.objects.get(id=respuesta)
+
+                detalles = models.UsuarioDetalleEncuesta(
+                    opcion_pregunta= opcion,
+                    pregunta= encuesta.preguntas_set.get(id=pregunta['id_pregunta']),
+                    usuario_encuesta=usuario_encuesta
                 )
 
+                usuario_encuesta.usuarios_detalle_encuesta_set.add(detalles, bulk=False)
+
+        usuario_encuesta.save()
+        
         return usuario_encuesta
 
 
