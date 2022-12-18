@@ -119,9 +119,11 @@
             </li>
             {% endif %}
 
+            {% if request.user|verificar_permiso:"WebAdminRadio.view_politicaspriv"  %}
             <li>
                 <a class="action" href="{% url 'politicas' %}"><i class="fa-regular fa-file-lines"></i>Pol&iacute;ticas Priv.</a>
             </li>
+            {% endif %}            
 
             {% if request.user|verificar_permiso:"WebAdminRadio.view_encuesta"  %}
             <li>
