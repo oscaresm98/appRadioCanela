@@ -1217,6 +1217,7 @@ def borrar_multimedia(request, id_multimedia):
 
 
 @login_required
+@permission_required('WebAdminRadio.view_politicaspriv', login_url='/permiso-no-autorizado')
 def ver_politicas_privacidad(request):
     politicas = PoliticasPriv.objects.order_by('-fecha_creado', '-id').first()
     context = { 
@@ -1226,6 +1227,7 @@ def ver_politicas_privacidad(request):
     return render(request, 'webAdminRadio/politica_privacidad.html', context)
 
 @login_required
+@permission_required('WebAdminRadio.change_politicaspriv', login_url='/permiso-no-autorizado')
 def editar_politicas_privacidad(request):
     politicas = PoliticasPriv.objects.order_by('-fecha_creado', '-id').first()
     context = { 
