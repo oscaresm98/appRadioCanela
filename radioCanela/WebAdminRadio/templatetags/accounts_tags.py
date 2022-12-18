@@ -28,3 +28,13 @@ def verificar_permiso(usuario: Usuario, nombre_permiso: str):
     Devuelve True si en el rol del usuario existe el permiso pasado como argumento
     """
     return usuario.has_perm(nombre_permiso)
+
+@register.filter
+def cambiar_espacios_nombre_seccion(nombre_seccion: str):
+    '''
+    Esta funcion cambia los espacios que hay en el nombre de una seccion por '_'
+    Sirve para evitar malas asignaciones de nombres a inputs
+    '''
+    if ' ' in nombre_seccion:
+        return nombre_seccion.replace(' ', '_')
+    return nombre_seccion

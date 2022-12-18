@@ -16,14 +16,14 @@ import json
 
 
 def _agregar_preguntas_encuesta(encuesta: Encuesta, preguntas_diccionario: List[dict]):
-    """
-    
-    """
+    '''
+    Metodo que toma el diccionario de preguntas y lo mapea para crear nuevas preguntas con sus respectivas opciones.
+    '''
 
     for pregunta in preguntas_diccionario:
         pregunta['id_encuesta'] = encuesta.id # Actualizamos el id de la encuesta a la que pertenecera esta pregunta
         pregunta_form = PreguntaEncuestaForm(pregunta)
-        opciones: List[dict] = pregunta.get('opciones')
+        opciones: List[dict] = pregunta.get('opciones') # Obtenemos las opciones asociadas a esta pregunta
 
         if not pregunta_form.is_valid():
             return pregunta_form.errors
@@ -85,9 +85,9 @@ def agregar_encuesta(request: HttpRequest):
 
         resultado = _agregar_preguntas_encuesta(nueva_encuesta, preguntas)
 
-        if isinstance(resultado, ErrorDict):
+        if isinstance(resultado, ErrorDict): # Verificamos que el objeto sea un ErrorDict, en caso de serlo enviamos el diccionario de errores a la vista
             context['error'] = resultado
-            nueva_encuesta.delete()
+            nueva_encuesta.delete() # Borramos la encuesta  en caso de que hayan errores
             return render(request, 'webAdminRadio/agregar_encuesta.html', context)
 
         context['success'] = 'Se agregó la encuesta con éxito'
@@ -97,8 +97,10 @@ def agregar_encuesta(request: HttpRequest):
 @login_required()
 @permission_required('WebAdminRadio.change_encuesta', login_url='/permiso-no-autorizado')
 def editar_encuesta(request: HttpRequest, id_encuesta):
+    '''
+    Metodo que renderiza la vista de actualizar una encuesta
+    '''
     encuesta_editar = Encuesta.objects.get(id=id_encuesta)
-    # print(json.dumps(PreguntaAdminSerializer(instance=encuesta_editar.preguntas_set.all(), many=True).data, indent=4))
 
     context = {
         'title': 'Editar Encuesta',
@@ -123,7 +125,7 @@ def editar_encuesta(request: HttpRequest, id_encuesta):
 
         encuesta_editada.preguntas_set.all().delete() # Borramos las preguntas anteriores para insertar y actualizar nuevas
 
-        resultado = _agregar_preguntas_encuesta(encuesta_editada, preguntas)
+        resultado = _agregar_preguntas_encuesta(encuesta_editada, preguntas) # Agregamos nuevas preguntas y las enlazamos a la encuesta
 
         if isinstance(resultado, ErrorDict):
             context['error'] = resultado
@@ -136,6 +138,9 @@ def editar_encuesta(request: HttpRequest, id_encuesta):
 @login_required()
 @permission_required('WebAdminRadio.delete_encuesta', login_url='/permiso-no-autorizado')
 def eliminar_encuesta(request: HttpRequest, id_encuesta):
+    '''
+    Metodo que elimina una encuesta
+    '''
     encuesta_eliminar = Encuesta.objects.get(id=id_encuesta)
     encuesta_eliminar.estado = False
     encuesta_eliminar.delete()

@@ -39,7 +39,7 @@
         <div class="d-flex flex-column align-items-center mb-3">
             <div class="img-holder">
                 {% if podcast.imagen %}
-                    <img class="shield" id="preview" src="{{ podcast.imagen }}">
+                    <img class="img-fluid" alt="imagen del podcast" src="{{ podcast.imagen }}">
                 {% else %}
                     <img class="shield" id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
                 {% endif %}

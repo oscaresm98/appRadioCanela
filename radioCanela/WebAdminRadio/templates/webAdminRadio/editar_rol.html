@@ -67,13 +67,13 @@
                     <span>{{nombre_grupo}}</span>
                     <div>
                         <button type="button" class="btn btn-danger" 
-                            onclick="quitarPermisosSeccion('{{nombre_grupo}}')"
+                            onclick="quitarPermisosSeccion('{{ nombre_grupo | cambiar_espacios_nombre_seccion }}')"
                             data-bs-toggle="tooltip" data-bs-placement="top" 
                             title="Quitar todos los permisos de la seccion">
                             <i class="fa-solid fa-circle-xmark"></i>
                         </button>
                         <button type="button" class="btn btn-success" 
-                            onclick="asignarPermisosSeccion('{{nombre_grupo}}')"
+                            onclick="asignarPermisosSeccion('{{ nombre_grupo | cambiar_espacios_nombre_seccion }}')"
                             data-bs-toggle="tooltip" data-bs-placement="top" 
                             title="Asignar todos los permisos de la seccion">
                             <i class="fa-solid fa-check"></i>
@@ -83,7 +83,7 @@
                 <div class="row">
                     {% for permiso in permisos %}
                         <div class="mx-4 form-check form-check-inline col-2">
-                            <input  name='permisos' class="form-check-input {{nombre_grupo}}-checkbox" value="{{ permiso.id }}"
+                            <input  name='permisos' class="form-check-input {{ nombre_grupo | cambiar_espacios_nombre_seccion }}-checkbox" value="{{ permiso.id }}"
                                 {% if permiso.id in permisos_asignados %}
                                     checked
                                 {% endif %}
