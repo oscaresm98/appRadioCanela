@@ -38,13 +38,13 @@
     <div claas="container-fluid">
         <div class="row">
             <div class="col-auto">
-                <label for="emisoraSelect">Radios</label>
+                <label for="emisoraSelect">Emisoras: </label>
             </div>
             <div class="col-4">
                 <select name="dia" id="emisoraSelect" class="form-select w-75">
                     <option selected disabled>--</option>
                     {% for emisora in emisoras %}
-                        <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre}} {{emisora.frecuencia_dial}}</option>
+                        <option value="{{ emisora.id }}">{{ emisora.id_radio.nombre }} {{emisora.frecuencia_dial}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -80,7 +80,15 @@
             contenedorBorrar.$data.id = id;
             contenedorBorrar.$data.showModal = true;
         }
-
+    </script>
+    <script>
+        /*
+            Esta funcion remueve la opcion seleccionada antes de cambiar la pagina
+        */
+        window.onbeforeunload = function(e){
+            $('#emisoraSelect').prop('selectedIndex', 0);
+            return undefined;
+        };
     </script>
 
 {% endblock %}

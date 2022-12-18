@@ -1,5 +1,5 @@
 from django import template
-from ..models import Programa, Horario, SegmentoEmisora, SegmentoLocutor, TelefonoEmisora, Encuesta, OpcionPregunta
+from ..models import Programa, Horario, SegmentoEmisora, SegmentoLocutor, TelefonoEmisora, Encuesta, OpcionPregunta, Pregunta
 
 register = template.Library()
 
@@ -27,11 +27,17 @@ def get_cant_locutores(emisora):
         count += SegmentoLocutor.objects.filter(id_segmento=segmento.id).count()
     return count
 
+# Devuelve en decimales el resultado de los usuarios que respondieron a dicha opcion
 @register.simple_tag
-def obtener_porcentaje_respuesta_opcion(encuesta: Encuesta, opcion: OpcionPregunta):
+def obtener_resultado_opcion(encuesta: Encuesta, opcion: OpcionPregunta):
     total_usuarios = encuesta.numero_total_usuarios_respondieron()
     if total_usuarios == 0:
         return 0
 
-    resultado = (opcion.numero_votos / total_usuarios) * 100
+    resultado = opcion.numero_votos / total_usuarios
     return round(resultado, ndigits=2)
+
+@register.simple_tag
+def obtener_porcentaje(encuesta: Encuesta, opcion: OpcionPregunta):
+    resultado = obtener_resultado_opcion(encuesta, opcion)
+    return round((resultado * 100), ndigits=2)
