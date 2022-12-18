@@ -1,49 +1,51 @@
-<ion-content>
+
+  <app-banner></app-banner>
+  <ion-content>
+    <div *ngIf="listo">
   
-  <div *ngIf="listo">
-
-    <ion-grid>
-      <ion-row>
-        <ion-col class="mb">
-          <ion-text color="primary">
-            <span class="titulo">POPULARES </span>
-            <div class="bottom-bar-red"></div>
-          </ion-text>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="10">
-          <ion-row>
-            <app-podcast-info [podcast]=playlist[0] [description]="true" (click)="this.podcastService.start(playlist[0])" ></app-podcast-info>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col class="mb">
-          <ion-text color="primary">
-            <span class="titulo"> RECIENTES </span>
-            <div class="bottom-bar-blue"></div>
-          </ion-text>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="11">
-          <div class="outter-lines">
-            <ion-row class="ion-justify-content-center">
-              <ion-col button size="11" class="ion-margin-bottom" *ngFor="let podcast of playlist">
-                  <app-podcast-info [podcast]="podcast" [description]="false" (click)="this.podcastService.start(podcast)"></app-podcast-info>
-              </ion-col>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="mb">
+            <ion-text color="primary">
+              <span class="titulo">POPULARES </span>
+              <div class="bottom-bar-red"></div>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="10">
+            <ion-row>
+              <app-podcast-info [podcast]=playlist[0] [description]="true" (click)="this.podcastService.start(playlist[0])" ></app-podcast-info>
             </ion-row>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div> 
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col class="mb">
+            <ion-text color="primary">
+              <span class="titulo"> RECIENTES </span>
+              <div class="bottom-bar-blue"></div>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="11">
+            <div class="outter-lines">
+              <ion-row class="ion-justify-content-center">
+                <ion-col button size="11" class="ion-margin-bottom" *ngFor="let podcast of playlist">
+                    <app-podcast-info [podcast]="podcast" [description]="false" (click)="this.podcastService.start(podcast)"></app-podcast-info>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div> 
+  </ion-content>
+  
+  <app-podcast-bar></app-podcast-bar>
+  <app-footer></app-footer>
 
-</ion-content>
 
-<app-podcast-bar></app-podcast-bar>
-<app-footer></app-footer>

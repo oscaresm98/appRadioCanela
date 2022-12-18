@@ -20,7 +20,8 @@ export class PodcastComponent implements OnInit {
   constructor(private backgroundService: ForegroundService, public podcastService: PodcastService) { }
 
   ngOnInit() {
-    this.playlist = this.podcastService.getPodcast();
+    this.playlist=this.podcastService.getPodcast();
+    console.log("Playlist: ",this.playlist);
   }
 
 }
