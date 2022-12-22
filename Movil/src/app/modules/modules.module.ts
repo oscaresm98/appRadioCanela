@@ -29,6 +29,8 @@ import {PodcastInfoComponent} from './podcast/component/podcast-info/podcast-inf
 import {PlayerComponent} from './podcast/component/player/player.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProgramaInfoComponent } from './programa-info/programa-info.component';
+import { LocutorInfoComponent } from './locutor-info/locutor-info.component';
+import { InformacionComponent } from './informacion/informacion.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { ProgramaInfoComponent } from './programa-info/programa-info.component';
     PodcastInfoComponent,
     PlayerComponent,
     FooterComponent,
-    ProgramaInfoComponent
+    ProgramaInfoComponent,
+    LocutorInfoComponent,
+    InformacionComponent
     
   ],
   imports: [

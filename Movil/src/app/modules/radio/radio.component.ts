@@ -133,11 +133,7 @@ export class RadioComponent implements OnInit, AfterContentChecked {
   getOnLiveProgramImage(index:number){
     if(this.programacionesAllRadios==null) return "assets/images/cantera.jpg";
     if(this.programacionesAllRadios.length<1) return "assets/images/cantera.jpg";
-    console.log("LISTA PROGRAMACIONES: ",this.programacionesAllRadios)
-    console.log('INDEX: ',index)
-    console.log()
     const programa=this.getProgramaOnLive(this.programacionesAllRadios[index]);
-    console.log("PROGRAMAAA: ",programa)
     if(programa==null) return "assets/images/cantera.jpg";
     return programa.programa[0].imagen;
   }

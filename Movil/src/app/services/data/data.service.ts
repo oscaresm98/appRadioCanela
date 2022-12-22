@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Locutor } from 'app/shared/locutor.interface';
 import { LoginForm } from 'app/shared/login-form';
-import { ProgramPerDia } from 'app/shared/program';
+import { Program, Programa, ProgramPerDia } from 'app/shared/program';
 import { IPublicidad } from 'app/shared/publicidad.interface';
 import { RegisterForm } from 'app/shared/register-form';
 import { environment } from 'environments/environment';
@@ -30,6 +31,45 @@ export class DataService {
   }
   public getPublicidad(){
     return this.publicidad;
+  }
+
+  public getProgramaById(idPrograma: number) {
+    return new Promise((resolve) => {
+      this.http.get<Programa[]>(
+        environment.REMOTE_BASE_URL + '/api/programas/'+idPrograma).subscribe({
+          next: (res: any) => {
+            if (res != null) {
+              console.log("Respuesta programa: ",res);
+              const data = { resCode: 0,resData:res };
+              resolve(data);
+            }
+          },
+          error: (err) => {
+            console.log(err);
+            const data = { resCode: -1, error: err };
+            resolve(data);
+          },
+        })
+    });
+  }
+  public getLocutoresProgramaById(idPrograma: number) {
+    return new Promise((resolve) => {
+      this.http.get<Locutor[]>(
+        environment.REMOTE_BASE_URL + '/api/programas/'+idPrograma+'/locutores').subscribe({
+          next: (res: any) => {
+            if (res != null) {
+              console.log("Respuesta locutores: ",res);
+              const data = { resCode: 0,resData:res };
+              resolve(data);
+            }
+          },
+          error: (err) => {
+            console.log(err);
+            const data = { resCode: -1, error: err };
+            resolve(data);
+          },
+        })
+    });
   }
 
 
