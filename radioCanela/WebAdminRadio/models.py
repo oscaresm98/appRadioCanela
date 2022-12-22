@@ -75,7 +75,7 @@ class Programa(models.Model):
     
     # Esta función retorna todos los horarios del segmento
     def get_horarios(self):
-        return Horario.objects.filter(id_programa=self.pk).values('dia','hora_inicio', 'hora_fin')
+        return Horario.objects.filter(id_programa=self.pk).values('id','dia','hora_inicio', 'hora_fin')
     
     # Esta función retorna todo 
     def get_emisora(self):
@@ -247,7 +247,7 @@ class Horario(models.Model):
     
     # Esta función retorna todo 
     def get_programa(self):
-        return Programa.objects.filter(id=self.id_programa.id).values('nombre', 'descripcion', 'imagen')
+        return Programa.objects.filter(id=self.id_programa.id).values('id','nombre', 'descripcion', 'imagen')
 
 
 class Mensajechat(models.Model):
