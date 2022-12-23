@@ -14,6 +14,7 @@ import { GaleriaComponent } from './galeria/galeria.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { PodcastComponent } from './podcast/podcast.component';
 import { ProgramaInfoComponent } from './programa-info/programa-info.component';
+import { LocutorInfoComponent } from './locutor-info/locutor-info.component';
 
 const routes: Routes = [
   {
@@ -78,8 +79,12 @@ const routes: Routes = [
         component: PodcastComponent
       },
       {
-        path: 'programa-info',
+        path: 'programa-info/:id',
         component: ProgramaInfoComponent
+      },
+      {
+        path: 'locutor-info/:idPrograma/:idLocutor',
+        component: LocutorInfoComponent
       },
 
     ]

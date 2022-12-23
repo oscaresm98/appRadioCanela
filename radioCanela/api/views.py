@@ -173,6 +173,7 @@ class ListProgramasDia(generics.ListAPIView):
         em = self.kwargs['id_emisora']
         d = self.kwargs['dia']
         programas = Programa.objects.filter(pk__in=SegmentoEmisora.objects.filter(emisora=em).values('segmento'), estado=True)
+        print(programas)
         return Horario.objects.filter(id_programa__in=programas, estado=True, dia=d.capitalize()).order_by('hora_inicio')
     
 
