@@ -72,5 +72,10 @@
 .fila{
     display: flex;
     flex-direction: row;
-
+}
+ion-skeleton-text {
+    --background-rgb: 217, 217, 217;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 40vw;
 }

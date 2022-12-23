@@ -13,6 +13,7 @@ export class LocutorInfoComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,private dataService: DataService) { }
   idPrograma:number=-1;
   locutor:Locutor;
+  loading:boolean=true;
   async ngOnInit() {
     let params = this.activatedRoute.snapshot.params;
     let idPrograma = parseInt(params["idPrograma"]);
@@ -23,6 +24,7 @@ export class LocutorInfoComponent implements OnInit {
         if (data.resCode == 0) {
           const locutores=data.resData;
           this.locutor=locutores.find(element => element.id==idLocutor);
+          this.loading=false;
         } else {
           console.log("ERROR AL OBTEBER Locutores")
         }
