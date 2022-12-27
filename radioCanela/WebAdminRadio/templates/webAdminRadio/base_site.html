@@ -125,11 +125,16 @@
             </li>
             {% endif %}            
 
+            <li>
+                <a class="action" href="{% url 'auditorias' %}"><i class="fa-solid fa-file-signature"></i>Auditorías (Rendición Cuentas)</a>
+            </li>
+
             {% if request.user|verificar_permiso:"WebAdminRadio.view_encuesta"  %}
             <li>
                 <a class="action" href="{% url 'encuestas' %}"><i class="fa-solid fa-square-poll-vertical"></i>Encuestas</a>
             </li>
-            {% endif %}            
+            {% endif %}
+            
             
             {% comment %} <li>
                 <a class="action" href="#"><i class="fas fa-file-alt"></i>Reportes</a>

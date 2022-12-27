@@ -6,12 +6,20 @@ from accounts.models import Usuario,Rol, Permisos
 
 # Create your models here.
 
-class Auditoria(models.Model):
-    accion = models.CharField(max_length=150, blank=True, null=True)
-    tabla = models.CharField(max_length=2080, blank=True, null=True)
-    data_nueva = models.CharField(max_length=2080, blank=True, null=True)
-    data_actual = models.CharField(max_length=2080, blank=True, null=True)
-    fecha_creado = models.DateField(blank=True, null=True)
+# Preguntar para cambiar el nombre a este modelo
+class Auditoria(models.Model): 
+    """
+    Modelo que maneja todo lo referente a los archivos de Auditorias, referido como Rendición de Cuentas
+    """
+    # accion = models.CharField(max_length=150, blank=True, null=True)
+    # tabla = models.CharField(max_length=2080, blank=True, null=True)
+    # data_nueva = models.CharField(max_length=2080, blank=True, null=True)
+    # data_actual = models.CharField(max_length=2080, blank=True, null=True)
+    titulo = models.CharField(max_length=2080, blank=True, null=True)
+    imagen = models.CharField(max_length=2080, blank=True, null=True)
+    link_documento = models.CharField(max_length=2080, blank=True, null=True)
+    link_audio = models.CharField(max_length=2080, blank=True, null=True)
+    fecha_creado = models.DateField(blank=True, null=True, auto_now_add=True)
     estado = models.BooleanField(default=True)
 
 

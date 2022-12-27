@@ -90,4 +90,10 @@ urlpatterns = [
     path('encuestas/<int:id_encuesta>/editar', encuestas_views.editar_encuesta, name='editar_encuesta'), # Pantalla para editar encuestas
     path('encuestas/<int:id_encuesta>/eliminar', encuestas_views.eliminar_encuesta, name='eliminar_encuesta'), # Pantalla para editar encuestas
 
+    path('auditorias', views.auditorias, name='auditorias'), # Pantalla para ver informacion de los archivos de auditorias    
+    path('auditorias/<int:id_auditoria>', views.ver_auditoria, name='ver_auditoria'), # Pantalla para ver la informacion de una auditoria
+    path('auditorias/agregar', views.agregar_auditoria, name='agregar_auditoria'), # Pantalla para ver informacion de los archivos de auditorias
+    path('auditorias/<int:id_auditoria>/editar', views.editar_auditoria, name='editar_auditoria'), # Pantalla para ver la informacion de una auditoria
+    path('auditorias/<int:id_auditoria>/eliminar', views.borrar_auditoria, name='eliminar_auditoria'), # Pantalla para ver la informacion de una auditoria
+
 ]

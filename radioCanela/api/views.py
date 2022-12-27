@@ -367,9 +367,9 @@ class LoginView(APIView):
 
         response = Response()
 
-        # response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True) # Activar esta linea cuando se prueba en el servidor
+        response.set_cookie(key='jwt', value=token, samesite='None', secure=True, httponly=True) # Activar esta linea cuando se prueba en el servidor
         
-        response.set_cookie(key='jwt', value=token) # Activar esta linea cuando se depura en local y se prueba con Postman
+        # response.set_cookie(key='jwt', value=token) # Activar esta linea cuando se depura en local y se prueba con Postman
 
         response.data = { 'jwt': token }
         return response
@@ -1060,6 +1060,10 @@ class EncuestaRespuesta(APIView):
 
         return Response({ 'error': 'No se pasaron valores correctos' })
 
+
+class ListAuditorias(generics.ListAPIView):
+    queryset = Auditoria.objects.all().order_by('-id')
+    serializer_class = serializers.AuditoriaSerializer
 
 # class ListEncuestas(generics.ListAPIView):  # servicio para apps y admin (actualiza estado en vista), retorna encuestas con estado
 #     serializer_class = serializers.EncuestaSerializer

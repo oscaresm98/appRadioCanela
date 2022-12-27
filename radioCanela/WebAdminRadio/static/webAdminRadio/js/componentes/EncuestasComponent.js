@@ -19,6 +19,10 @@ const app = new Vue({
         envio: false,
     },
     methods: {
+        _actualizar_tooltips(){
+            setTimeout(() => $("[data-bs-toggle='tooltip']").tooltip(), 500);
+        },
+
         agregarPregunta() {
             this.preguntas.push(
                 {
@@ -30,6 +34,7 @@ const app = new Vue({
                     ]
                 }
             );
+            this._actualizar_tooltips();
         },
         
         eliminarPregunta(indice) {

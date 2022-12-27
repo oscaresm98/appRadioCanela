@@ -100,6 +100,7 @@
                 <div class="d-flex justify-content-between align-items-center m-2">
                     <legend class="w-auto p-2">Pregunta [[indexPregunta+1]]</legend>
                     <button type="button" class="btn btn-lg mx-2" v-on:click="eliminarPregunta(indexPregunta)"
+                        data-bs-toggle="tooltip" data-bs-placement="top" 
                         title="Eliminar pregunta">
                         <i class="fa-solid fa-xmark text-danger"></i>
                     </button>
@@ -137,10 +138,12 @@
                 <!-- Seccion para las agregar o eliminar opciones -->
                 <div class="d-flex flex-row-reverse m-2 pe-2">
                     <button type="button" class="btn btn-danger me-md-2" v-on:click="eliminarOpcionPregunta(indexPregunta)"
+                        data-bs-toggle="tooltip" data-bs-placement="top" 
                         title="Eliminar opción">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                     <button type="button" class="btn btn-primary me-md-2" v-on:click="agregarOpcionPregunta(indexPregunta)"
+                        data-bs-toggle="tooltip" data-bs-placement="top" 
                         title="Agregar opción">
                         <i class="fa-solid fa-plus"></i>
                     </button>

@@ -1,0 +1,62 @@
+{% extends 'webAdminRadio/base_site.html' %}
+{% load static %}
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/galeria.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/rendicion_cuentas.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="d-flex my-2">
+        <button class="btn btn-light rounded-circle me-2" id='volver' type="button"><i class="fas fa-chevron-left"></i></button>
+        <h2><b>{{ auditoria.titulo }}</b></h2>
+    </div>
+    
+    <div class="img-container my-5">
+        <img id="imagen-rendicion-cuentas" src="{{ auditoria.imagen }}">
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Link a los documentos:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ auditoria.link_documento }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Link a los audios:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ auditoria.link_audio }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">fecha de subida:</label>
+        </div>
+        <div class="col-8">
+            <label class="ms-3">{{ auditoria.fecha_creado }}</label>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <label class="fw-bold ms-5 label">Estado:</label>
+        </div>
+        <div class="col-8">
+            {% if auditoria.estado %}
+                <label class="ms-3">Activo</label>
+            {% else %}
+                <label class="ms-3">No Activo</label>
+            {% endif %}
+            
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/back.js' %}"></script>
+{% endblock %}
