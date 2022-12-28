@@ -9,7 +9,7 @@
             <form name="loginForm" method="post">
                 {% csrf_token %}
                 <div class="img-container">
-                    <img style="width:50%;height:50%;" class="rounded-circle" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+                    <img style="width:50%;height:50%;" class="rounded-circle" src="{% static 'webAdminRadio/images/logo_radio.jpg' %}">
                 </div>
                 {% for message in messages %}
                 <small><i class="fas fa-exclamation-triangle"></i>{{ message }}</small>

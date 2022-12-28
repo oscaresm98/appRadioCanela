@@ -34,7 +34,8 @@
         <!-- Div de imagen -->
         <div class="form-group d-flex flex-column align-items-center mb-2">
             <div class="img-holder">
-                <img class="rounded-4" id="preview" src="{% static 'webAdminRadio/images/redonda.jpg' %}">
+                {% comment %} <img class="rounded-4" id="preview" src="{% static 'webAdminRadio/images/logo_radio.jpg' %}"> {% endcomment %}
+                <img class="rounded-4" id="preview" src="{% static 'webAdminRadio/images/logo_radio.jpg' %}">
             </div>
             <div class="form-file input-group w-50">
                 <input type="file" name="logotipo" class="custom-file-input form-control" id="imgSegmento" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept=".png, .jpg, .jpeg" oninvalid="this.setCustomValidity('Ingrese un logo valido)" oninput="this.setCustomValidity('')" required>
