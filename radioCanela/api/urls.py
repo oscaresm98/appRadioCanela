@@ -38,7 +38,6 @@ urlpatterns = [
     path('permisos/', views.permisosList,name='permisos-list'),
 
     path('torneos/', views.torneosList,name='torneos-list'),
-    
     path('equipos/', views.equipoList ,name='equipos-list'),
     path('equipos/<int:pk>', views.EquipoPorId.as_view()),
     
@@ -85,7 +84,7 @@ urlpatterns = [
     path('encuestas_finalizadas', views.ListEncuestasFinalizadas.as_view(), name='encuestas-finalizadas'),
     path('encuesta_responder', views.EncuestaRespuesta.as_view(), name='encuestas-responder'),
     
-
+    path('auditorias', views.ListAuditorias.as_view(), name='auditorias'),
     
     # path('voto/', views.CreateVoto.as_view()),
     # path('voto/<int:pk>/borrar', views.DeleteVoto.as_view()),

@@ -449,7 +449,13 @@ class OpcionPreguntaEncuestaForm(forms.ModelForm):
         fields = [
             'enunciado',
             'pregunta'
-        ]
+        ] 
+
+class AuditoriaForm(forms.ModelForm):
+    class Meta:
+        model = Auditoria
+        fields = '__all__'
+        exclude = ['imagen']
 
 # class EncuestaForm(forms.ModelForm):
 #     class Meta:

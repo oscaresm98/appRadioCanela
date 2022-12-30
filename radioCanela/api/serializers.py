@@ -383,6 +383,11 @@ class PoliticasPrivacidadSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         model = models.PoliticasPriv
+    
+class AuditoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Auditoria
+        fields = "__all__"
 
 # class EmisoraSerializer(serializers.ModelSerializer):
 #     red_sociales = serializers.ReadOnlyField(source="get_redes_sociales")

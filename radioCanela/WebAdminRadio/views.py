@@ -1244,3 +1244,65 @@ def editar_politicas_privacidad(request):
             context['error'] = politicas_form.errors
 
     return render(request, 'webAdminRadio/editar_politicas_privacidad.html', context)
+
+
+def auditorias(request):
+    context = { 'title': 'Auditorías (Rendición de cuentas)' }
+    return render(request, 'webAdminRadio/auditorias.html', context)
+
+def ver_auditoria(request, id_auditoria):
+    context = { 
+        'title': 'Información de la Auditoría',
+        'auditoria': Auditoria.objects.get(id=id_auditoria)
+    }
+
+    return render(request, 'webAdminRadio/ver_auditoria.html', context)
+
+def agregar_auditoria(request):
+    context = { 'title': 'Agregar Información de Auditoría' }
+
+    if request.POST:
+        auditoria_form = AuditoriaForm(request.POST)
+        
+        if not auditoria_form.is_valid():
+            context['error'] = politicas_form.errors
+            return render(request, 'webAdminRadio/agregar_auditoria.html', context)
+
+        auditoria = auditoria_form.save()
+        auditoria.imagen = agregarImagen(request, str(auditoria.id), 'imagenes/auditorias/')
+        auditoria.save()
+
+        context['success'] = '¡Se ha agregado la información de la rendición de cuentas!'
+
+
+    return render(request, 'webAdminRadio/agregar_auditoria.html', context)
+
+
+def editar_auditoria(request, id_auditoria):
+    auditoria_editar = Auditoria.objects.get(id=id_auditoria)
+    context = { 
+        'title': 'Editar Información de Auditoría',
+        'auditoria': auditoria_editar
+    }
+
+    if request.POST:
+        auditoria_form = AuditoriaForm(request.POST, instance=auditoria_editar)
+        
+        if not auditoria_form.is_valid():
+            context['error'] = politicas_form.errors
+            return render(request, 'webAdminRadio/editar_auditoria.html', context)
+
+        auditoria = auditoria_form.save()
+        if(request.FILES.get('archivo', 'no') != 'no'): # Comprobando si hay un archivo nuevo para subir
+            auditoria.imagen = agregarImagen(request, str(auditoria.id), 'imagenes/auditorias/')
+            auditoria.save()
+        context['success'] = '¡Se ha editado la información de la auditoría con éxito!'
+
+    return render(request, 'webAdminRadio/editar_auditoria.html', context)
+
+def borrar_auditoria(request, id_auditoria):
+    auditoria_borrar = Auditoria.objects.get(id=id_auditoria)
+    auditoria_borrar.estado = False
+    auditoria_borrar.delete()
+    messages.success(request, 'Toda la información relacionada con la auditoría ha sido eliminada con éxito')
+    return redirect('auditorias')

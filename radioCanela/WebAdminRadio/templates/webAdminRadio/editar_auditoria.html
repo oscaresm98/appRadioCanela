@@ -1,0 +1,96 @@
+{% extends 'webAdminRadio/base_site.html' %}
+
+{% load static %}
+
+{% block page_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/componentes/modal_info.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webAdminRadio/css/rendicion_cuentas.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="">
+                <h3 slot="header">Error</h3>
+                <div slot="body">
+                    <p>Existen algunos errores en los siguientes campos:</p>
+                    {% for campo,e in error.items %}
+                        <h5>{{campo}}</h5>
+                        {{e}}
+                    {% endfor %}
+                </div>
+            </modal-info>
+        </div>
+    {% endif %}
+
+    {% if success %}
+        <div id="componente_modal_info">
+            <modal-info v-if="showModal" url_redirect="{% url 'auditorias' %}">
+                <h3 slot="header">Información</h3>
+                <p slot="body">{{success}}</p>
+            </modal-info>
+        </div>
+    {% endif %}
+
+
+    <h4 class="mb-3"><b>Información de la encuesta</b></h4>
+    
+    <div class="w-100 d-flex justify-content-center mb-3">
+        {% if auditoria.imagen %}
+            <img id="imagen-rendicion-cuentas" src="{{ auditoria.imagen }}" class="img-fluid" alt="imagen de la encuesta">
+        {% else %}
+            <img id="imagen-rendicion-cuentas" src="{% static 'webAdminRadio/images/generic_avatar.png' %}" class="img-fluid" alt="imagen de la encuesta">
+        {% endif %}
+    </div>
+
+
+    <form action="{% url 'editar_auditoria' auditoria.id %}" method="post" enctype="multipart/form-data" id="formulario-encuesta">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <label for="imagen" class="col-sm-2 col-form-label">Imagen: </label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" id="imagen" name="archivo">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="nombre_encuesta" class="col-sm-2 col-form-label">Título: </label>
+            <div class="col-sm-10">
+                <input required type="text" class="form-control" placeholder="Título de la rendición de cuentas" name="titulo" value="{{ auditoria.titulo }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="nombre_encuesta" class="col-sm-2 col-form-label">Link del documento: </label>
+            <div class="col-sm-10">
+                <input required type="text" class="form-control" placeholder="Link del documento de rendición de cuentas" name="link_documento" value="{{ auditoria.link_documento }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="nombre_encuesta" class="col-sm-2 col-form-label">Link del audio: </label>
+            <div class="col-sm-10">
+                <input required type="text" class="form-control" placeholder="Link del audio de rendición de cuentas" name="link_audio" value="{{ auditoria.link_audio }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="fecha-hora-fin" class="col-sm-2 col-form-label">Activo: </label>
+            <div class="col-sm-10 fs-3 form-check form-switch">
+                <input name="estado" class="form-check-input" type="checkbox" role="switch" 
+                {% if auditoria.estado %}
+                    checked
+                {% endif %}
+                id="flexSwitchCheckChecked">
+            </div>
+        </div>
+
+        <button type="submit" class="mt-4 btn btn-primary btn-lg submit"><i class="fas fa-plus-circle" aria-hidden="true"></i>Agregar Rendición de Cuentas</button>
+    </form>        
+
+{% endblock %}
+
+{% block page_script %}
+    <script src="{% static 'webAdminRadio/js/imagen_previsualizar.js' %}"></script>
+    <script src="{% static 'webAdminRadio/js/componentes/ModalInfoComponent.js' %}"></script>
+    <script>
+        actualizarImagen('#imagen', '#imagen-rendicion-cuentas');
+    </script>
+{% endblock %}
