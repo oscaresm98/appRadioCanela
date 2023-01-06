@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRange, ModalController } from '@ionic/angular';
 import { PodcastService } from 'app/services/podcast/podcast.service';
+import { PodcastComponent } from '../../podcast.component';
 
 @Component({
   selector: 'app-player',

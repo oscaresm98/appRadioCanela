@@ -30,8 +30,7 @@ export class PodcastService {
   
 
   public getPodcast() {
-    this.getAllPodcast();
-    return this.playlist;
+    
 
     // this.playlist = [
     //   {
@@ -98,29 +97,14 @@ export class PodcastService {
     //return this.playlist;
   }
 
-  public getAllPodcast() {
-    return new Promise((resolve) => {
-      this.http.get<Podcast>(
-        "http://localhost:8000/api/podcasts").subscribe({
-          next: (res:any) => {
-            if (res!=null){
-              console.log("Respuesta podcast: ",res)
-              this.playlist=res;
-              const data = {resCode: 0};
-              resolve(data);
-            }
-          },
-          error: (err) => {
-            console.log(err);
-            let e = 'Error al intentar cargar los datos del podcast';
-            const data={resCode: -1,error: e};
-            resolve(data);
-          }
-        })
-    })
+ 
+  public getAllPodcast(){
+    return this.http.get('http://gruporadios.pythonanywhere.com/api/podcasts');
   }
 
   public start (podcast:Podcast) {
+    console.log("Active podcast", this.activePodcast);
+    console.log("Podcast ",podcast);
     if (this.player){
       this.player.stop();
       /* this.backgroundService.stop(); */

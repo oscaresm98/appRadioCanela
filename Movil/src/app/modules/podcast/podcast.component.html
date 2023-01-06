@@ -16,7 +16,7 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size="10">
             <ion-row>
-              <app-podcast-info [podcast]=playlist[0] [description]="true" (click)="this.podcastService.start(playlist[0])" ></app-podcast-info>
+              <app-podcast-info [podcast]=ourPlaylist[0] [description]="true" (click)="this.start(ourPlaylist[0])" (click)="activePodcast=(ourPlaylist[0])"></app-podcast-info>
             </ion-row>
           </ion-col>
         </ion-row>
@@ -34,8 +34,8 @@
           <ion-col size="11">
             <div class="outter-lines">
               <ion-row class="ion-justify-content-center">
-                <ion-col button size="11" class="ion-margin-bottom" *ngFor="let podcast of playlist">
-                    <app-podcast-info [podcast]="podcast" [description]="false" (click)="this.podcastService.start(podcast)"></app-podcast-info>
+                <ion-col button size="11" class="ion-margin-bottom" *ngFor="let podcast of ourPlaylist; let i = index;">
+                    <app-podcast-info [podcast]="podcast" [description]="false" (click)="this.start(podcast)" (click)="activePodcast=this.podcast"></app-podcast-info>
                 </ion-col>
               </ion-row>
             </div>

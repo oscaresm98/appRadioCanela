@@ -176,4 +176,23 @@ export class DataService {
   public getGallery() {
     return this.http.get('https://picsum.photos/v2/list?page=2&limit=100');
   }
+
+  //SURVEYS
+
+  public getActiveSurveys(){
+    return this.http.get('https://gruporadios.pythonanywhere.com/api/encuestas_disponibles');
+  }
+
+  public getInactiveSurveys(){
+    return this.http.get('https://gruporadios.pythonanywhere.com/api/encuestas_finalizadas');
+  }
+
+  public getSurvey(id: number){
+    return this.http.get('https://gruporadios.pythonanywhere.com/api/encuestas/' + id);
+  }
+
+  public postSurvey(form:any): Observable<Response>{
+    return this.http.post<Response>('https://gruporadios.pythonanywhere.com/api/encuesta_responder', form);
+  }
+
 }

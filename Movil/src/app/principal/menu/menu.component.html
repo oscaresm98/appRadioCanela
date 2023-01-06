@@ -31,7 +31,7 @@
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item class="item">
+        <ion-item class="item" (click)="go()" [routerLink]="['/principal/survey']" routerDirection="root" routerLinkActive="active-item">
           <ion-icon name="reader-outline"></ion-icon>
           <span class="item-text">Encuestas</span>
         </ion-item>
